@@ -1,27 +1,16 @@
-# Scientific Python QuickStart 
+# Statistical Computing with PyMC3 
 
-This is a short sequence of lectures on Python programming for scientific
-work, written by [Thomas J.  Sargent](http://www.tomsargent.com/) and [John
-Stachurski](https://johnstachurski.net/).
+This series of notebooks and material is being put together by Srijith Rajamohan. This covers the following topics
+*  Introduction to Bayesian Statistics 
+*  Introduction to Monte Carlo simulation
+* Introduction to PyMC3
+
 
 ```{note}
-These lectures were built using the new Sphinx-based [Jupyter Book
-2.0](https://beta.jupyterbook.org/intro.html) tool set, as part of the
-[ExecutableBookProject](https://ebp.jupyterbook.org/en/latest/).  They are
-intended mainly as a demonstration of these tools.
-Instructions for how to build them from source can be found in the Jupyter
-Book documentation.
+This draws a lot of inspiration from some brilliant people in this field and I will list those names here as this work is being developed.
 ```
 
 
-These lectures are a mini-version of a [longer
-series](https://executablebooks.github.io/quantecon-example/docs/index.html)
-of lectures, also built using Jupyter Book 2.0.  That series contains more
-features and applications but also requires more libraries and takes longer to
-run.  
-
-Both lecture series are taken from a [more complete set of
-lectures](https://python.quantecon.org) on open source computing hosted by
-[QuantEcon](https://quantecon.org).
+PyMC3 can be found [here](https://docs.pymc.io/notebooks/getting_started).
 
 
