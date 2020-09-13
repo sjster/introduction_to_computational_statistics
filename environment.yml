@@ -9,6 +9,8 @@ dependencies:
   - pandas
   - matplotlib
   - seaborn
+  - pymc3
+  - scipy
   - pip:
     - quantecon
     - jupyter-book>=0.7.0b

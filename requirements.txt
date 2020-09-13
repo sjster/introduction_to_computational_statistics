@@ -4,4 +4,6 @@ matplotlib
 quantecon
 jupyter-book
 seaborn
+pymc3
+scipy
 arviz
