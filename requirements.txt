@@ -3,3 +3,5 @@ pandas
 matplotlib
 quantecon
 jupyter-book
+seaborn
+arviz
