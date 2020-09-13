@@ -27,7 +27,7 @@ notebook_interface            : "notebook"
 repository:
   url                         :
     https://github.com/sjster/statistical_computing_executable
-  path_to_book                : "notes"
+  path_to_book                : "mini_book"
 
 binder:
   binderhub_url               : "https://mybinder.org"
