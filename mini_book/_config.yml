@@ -26,7 +26,7 @@ notebook_interface            : "notebook"
 # Launch button settings
 repository:
   url                         :
-    https://github.com/sjster/statistical_computing_executable
+    https://github.com/sjster/statistical_computing_book
   path_to_book                : "mini_book"
 
 binder:
