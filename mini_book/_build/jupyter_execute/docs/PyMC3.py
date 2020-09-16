@@ -1,10 +1,11 @@
-### Introduction to PyMC3
+## Introduction to PyMC3
 
-#### An example with Linear Regression
+### An example with Linear Regression
 
 import arviz as az
 import numpy as np
 import matplotlib.pyplot as plt
+import graphviz
 
 # Initialize random number generator
 np.random.seed(123)
@@ -41,6 +42,8 @@ with basic_model:
 
     # Likelihood (sampling distribution) of observations
     Y_obs = Normal('Y_obs', mu=mu, sd=sigma, observed=Y)
+
+pm.model_to_graphviz(basic_model)
 
 map_estimate = find_MAP(model=basic_model)
 map_estimate
@@ -123,7 +126,9 @@ with model_g:
     σ = pm.HalfNormal('σ', sd=10)
     y = pm.Normal('y', mu=μ, sd=σ, observed=data)
     trace_g = pm.sample(1000)
+
 az.plot_trace(trace_g)
+pm.model_to_graphviz(model_g)    
 
 az.plot_joint(trace_g, kind='kde', fill_last=False)
 
@@ -269,7 +274,7 @@ for i in range(0, len(N_samples)):
 
 get_hyperprior_model(data, N_samples, group_idx)
 
-#### Linear Regression
+### Linear Regression
 
 np.random.seed(1)
 N = 100
@@ -315,6 +320,8 @@ plt.xlabel('x')
 plt.ylabel('y', rotation=0)
 plt.legend()
 
+#### We sample from the posterior
+
 ppc = pm.sample_posterior_predictive(trace_g,
                                      samples=2000,
                                      model=model_g)
@@ -323,6 +330,32 @@ plt.plot(x, y, 'b.')
 plt.plot(x, alpha_m + beta_m * x, c='k',
          label=f'y = {alpha_m:.2f} + {beta_m:.2f} * x')
 az.plot_hpd(x, ppc['y_pred'], credible_interval=0.5, color='gray')
+
+Looking at the plot of $\alpha$ and $\beta$, one can notice the high degree of correlation berween these two variables. This results in a paramete posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independednt variables.
+
+$\tilde{x} = x - \bar{x}$
+
+The advantage of this is twofold
+
+1. The pivot point is the intercept when the slope changes
+2. The parameter posterior space is more circular
+
+In order to center the data
+
+$y = \alpha - \beta x$
+can be reformulated as 
+
+$y = \alpha - \tilde{\beta}(x - \bar{x})$ = $\alpha + \tilde{\beta} \bar{x} - \tilde{\beta} x$
+
+$y = \tilde{\alpha} - \tilde{\beta} x$
+
+which implies that the original alpha can now be recovered using the formula
+
+$\alpha = \tilde{\alpha} - \tilde{\beta} \bar{x}$
+
+You can also standardize the data by mean centering and dividing by the standard deviation
+
+$\tilde{x} = (x - \bar{x}) / \sigma_x$
 
 import seaborn as sns
 
@@ -396,7 +429,7 @@ plt.ylabel('y', rotation=0)
 plt.legend(loc=2)
 plt.tight_layout()
 
-#### Hierarchical Linear Regression
+### Hierarchical Linear Regression
 
 In this example, we create 8 subgroups with 7 of them having 20 data points and the last one having a single data point. This is to illustrate the importance of imbalanced subgroups with sparse data. 
 
@@ -499,7 +532,7 @@ for i in range(M):
 
 
 
-#### Polynomial Regression for nonlinear data
+### Polynomial Regression for nonlinear data
 
 x_1_centered = x_1 - x_1.mean()
 plt.scatter(x_1_centered, y_1)
@@ -545,7 +578,7 @@ plt.xlabel('x')
 plt.ylabel('y', rotation=0)
 plt.plot(x_p, y_p, c='C1')
 
-#### Multiple Linear Regression
+### Multiple Linear Regression
 
 np.random.seed(314)
 
@@ -586,4 +619,154 @@ with pm.Model() as model_mlr:
     trace = pm.sample(2000)
 
 az.summary(trace)
+
+### Logistic Regression
+
+While everything we have seen so far involved regression, the same ideas can be applied to a classification task as well. We use the logistic regression model to perform this classification here. The name 'regression' is due to the fact that the model outputs class probabilities as numbers which is then converted into classes using a decision boundary. There are many ways to select an appropriate decision boundary, many of which is covered in the section for model selection.
+
+#### Inverse Link function
+
+At this point it is a good idea to bring up the concept of a inverse link function, which takes the form
+
+$\theta = f(\alpha + \beta x)$
+
+Here 'f' is called the inverse link function, the term inverse refers to the fact that the function is applied to the right hand side of the equation. In a linear regression, this inverse link function is the identity function. In the case of a lienar regression model, the value 'y' at any point 'x' is modeled as the mean of a Gaussian distribution centered at the point (x,y). The error as a result of the true 'y' and the estimated 'y' as modeled with the standard deviation of this Gaussian at that point (x,y). Now think about the scenario where this is not appropriately modeled using a Gaussian. A classification problem is a perfect example of such a scenario where the discrete classes are not modeled well as a Gaussian and hence we can't use a Gaussian to model the mean of those classes. As a result, we would like to convert the output of $\alpha = \beta x$ to some other range of values that are more appropriate to the distribution being modeled, which is what the link function intends to do.
+
+#### Logistic function
+
+The logistic function is defined as the function
+
+$logistic(x) = \dfrac{1}{1 + \exp{(-x)}}$
+
+This is also called the sigmoid function and it restricts value to the range [0,1]
+
+x = np.linspace(-5,5)
+plt.plot(x, 1 / (1 + np.exp(-x)))
+plt.xlabel('x')
+plt.ylabel('logistic(x)')
+
+
+
+#### Example using the Iris data
+
+The simplest example using a logistic regression model is one that can be used to identify two classes. If you are given a set of independent variables that are features which correspond to an output dependent variable that is a class, you can build a model to learn the relationship between the features and the output classes. This is done with the help of the logistic function which acts as the inverse link function to relate the features to the output class. 
+
+$\theta = logistic(\alpha + \beta x)$
+
+$y = Bern(\theta)$
+
+Here the binary class probability is drawn from a Bernoulli distribution, but the mean parameter $\theta$ is now given by the regression equation $logistic(\alpha + \beta x)$. In regular linear regression, this parameter was drawn from a Gaussian distribution. Also, in the case of the coin-flip example where we use a Bernoulli distribution, the parameter $\theta$ was drawn from a Beta prior distribution however here we have output classes associated with every observation and hence can be posed as a regression problem.
+
+We load the iris data from scikit learn and plot the distribution of the three classes for two of the features. We also perform a pairplot to visualize the correlation of each feature with every other feature. The diagonal of this plot shows the distribution of the three classes for that feature.
+
+
+import sklearn
+import graphviz
+import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn
+from sklearn import datasets
+df = datasets.load_iris()
+iris_data = pd.DataFrame(df['data'], columns=df['feature_names'])
+iris_data['target'] = df['target']
+seaborn.stripplot(x='target', y='sepal length (cm)', data=iris_data, jitter=False)
+plt.figure()
+seaborn.stripplot(x='target', y='petal length (cm)', data=iris_data, jitter=False)
+plt.figure()
+seaborn.pairplot(iris_data, hue='target', diag_kind='kde')
+plt.figure()
+corr = iris_data.query("target == (0,1)").loc[:, iris_data.columns != 'target'].corr() 
+mask = np.tri(*corr.shape).T 
+seaborn.heatmap(corr.abs(), mask=mask, annot=True, cmap='viridis')
+
+
+
+df['target_names']
+
+# Select the first two classes for a binary classification problem
+df = iris_data.query("target == (0,1)")
+y_0 = df.target
+x_n = 'sepal length (cm)' 
+x_0 = df[x_n].values
+x_c = x_0 - x_0.mean()
+
+
+import pymc3 as pm
+import arviz as az
+
+with pm.Model() as model_0:
+    α = pm.Normal('α', mu=0, sd=10)
+    β = pm.Normal('β', mu=0, sd=10)
+    μ = α + pm.math.dot(x_c, β)    
+    θ = pm.Deterministic('θ', pm.math.sigmoid(μ))
+    bd = pm.Deterministic('bd', -α/β)
+    yl = pm.Bernoulli('yl', p=θ, observed=y_0)
+    trace_0 = pm.sample(1000)
+
+
+az.summary(trace_0, var_names=["α","β","bd"])
+
+theta = trace_0['θ'].mean(axis=0)
+idx = np.argsort(x_c)
+plt.plot(x_c[idx], theta[idx], color='C2', lw=3)
+plt.vlines(trace_0['bd'].mean(), 0, 1, color='k')
+bd_hpd = az.hpd(trace_0['bd'])
+plt.fill_betweenx([0, 1], bd_hpd[0], bd_hpd[1], color='k', alpha=0.5)
+plt.scatter(x_c, np.random.normal(y_0, 0.02),
+            marker='.', color=[f'C{x}' for x in y_0])
+az.plot_hpd(x_c, trace_0['θ'], color='C2')
+plt.xlabel(x_n)
+plt.ylabel('θ', rotation=0)
+# use original scale for xticks
+locs, _ = plt.xticks()
+plt.xticks(locs, np.round(locs + x_0.mean(), 1))
+
+In this case, the decision boundary is defined to be the value of 'x' when 'y' = 0.5. This turns out to be $-\alpha / \beta$. However, this value was chosen under the assumption that the midpoint of the class values are a good candidate, but this does not have to be the case.
+
+#### Multiple Logistic Regression
+
+The above example with a single feature can be expanded to take multiple features or independent variables.
+
+# Select the first two classes for a binary classification problem
+df = iris_data.query("target == (0,1)")
+y_0 = df.target
+x_n = ['sepal length (cm)', 'sepal width (cm)']
+# Center the data by subtracting the mean from both columns
+df_c = df - df.mean() 
+x_c = df_c[x_n].values
+print(x_c)
+
+
+As we saw before, the equation for multiple logistic regression relating the $\theta$ parameter to the features can be written as 
+
+$\theta = logistic(\alpha + \beta_1 x_1 + \beta_2 x_2)$
+
+$y = Bern(\theta)$
+
+This gives us a decision boundary, assuming y = 0.5, of 
+
+$x = -\dfrac{\alpha}{\beta_2} - \dfrac{\beta_1}{\beta_2} x_1$ 
+
+Unlike the previous equation, this one represents a line for the variables x1 and x2 which separates the two-dimensional space occupied by x1 and x2. For higher dimensions, this boundary decision will be a hyperplane of dimension 'n-1' for a feature space of dimension 'n'.
+
+with pm.Model() as model_1: 
+    α = pm.Normal('α', mu=0, sd=10) 
+    β = pm.Normal('β', mu=0, sd=2, shape=len(x_n)) 
+    μ = α + pm.math.dot(x_c, β) 
+    θ = pm.Deterministic('θ', 1 / (1 + pm.math.exp(-μ))) 
+    bd = pm.Deterministic('bd', -α/β[1] - β[0]/β[1] * x_c[:,0])
+    yl = pm.Bernoulli('yl', p=θ, observed=y_0) 
+    trace_0 = pm.sample(2000)
+
+
+# We plot the HPD on the centered data, we have not scaled it back to the oroginal range
+idx = np.argsort(x_c[:,0]) 
+bd = trace_0['bd'].mean(0)[idx] 
+plt.scatter(x_c[:,0], x_c[:,1], c=[f'C{x}' for x in y_0]) 
+plt.plot(x_c[:,0][idx], bd, color='k'); 
+az.plot_hpd(x_c[:,0], trace_0['bd'], color='k')
+plt.xlabel(x_n[0]) 
+plt.ylabel(x_n[1])
+
+pm.model_to_graphviz(model_1)
 

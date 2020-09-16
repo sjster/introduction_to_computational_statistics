@@ -7,3 +7,4 @@ seaborn
 pymc3
 scipy
 arviz
+graphviz
