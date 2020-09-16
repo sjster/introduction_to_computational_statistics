@@ -165,7 +165,9 @@ with pm.Model() as model_t:
     ν = pm.Exponential('ν', 1/30)
     y = pm.StudentT('y', mu=μ, sd=σ, nu=ν, observed=data)
     trace_t = pm.sample(1000)
+
 az.plot_trace(trace_t)
+pm.model_to_graphviz(model_t)    
 
 # Using a student's t distribution we notice that the outliers are captured more 
 # accurately now and the model fits better
@@ -230,8 +232,10 @@ def get_hyperprior_model(data, N_samples, group_idx):
         trace_h = pm.sample(2000)
     az.plot_trace(trace_h)
     print(az.summary(trace_h))
+    return(model_h)    
     
-get_hyperprior_model(data, N_samples, group_idx)
+model = get_hyperprior_model(data, N_samples, group_idx)
+pm.model_to_graphviz(model)
 
 # Shrinkage - information is shared among the subgroups so we move away from extremes, which is great if
 # we have outliers in our data subgroups especially when we do not have a lot of data - ADD DETAIL HERE
@@ -429,6 +433,8 @@ plt.ylabel('y', rotation=0)
 plt.legend(loc=2)
 plt.tight_layout()
 
+pm.model_to_graphviz(model_t)
+
 ### Hierarchical Linear Regression
 
 In this example, we create 8 subgroups with 7 of them having 20 data points and the last one having a single data point. This is to illustrate the importance of imbalanced subgroups with sparse data. 
@@ -488,6 +494,8 @@ plt.figure()
 az.plot_forest(trace_up, var_names=['α', 'β'], combined=True)
 az.summary(trace_up)
 
+pm.model_to_graphviz(unpooled_model)
+
 with pm.Model() as hierarchical_model:
     # Hyperpriors - we add these instead of setting the prior values to a constant
     # Note that there exists only one hyperprior  for all M groups, shared hyperprior
@@ -530,7 +538,7 @@ for i in range(M):
     j += N
     k += N
 
-
+pm.model_to_graphviz(hierarchical_model)
 
 ### Polynomial Regression for nonlinear data
 
@@ -619,6 +627,7 @@ with pm.Model() as model_mlr:
     trace = pm.sample(2000)
 
 az.summary(trace)
+pm.model_to_graphviz(model_mlr)
 
 ### Logistic Regression
 
@@ -679,6 +688,8 @@ corr = iris_data.query("target == (0,1)").loc[:, iris_data.columns != 'target'].
 mask = np.tri(*corr.shape).T 
 seaborn.heatmap(corr.abs(), mask=mask, annot=True, cmap='viridis')
 
+You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)
+
 
 
 df['target_names']
@@ -703,6 +714,7 @@ with pm.Model() as model_0:
     yl = pm.Bernoulli('yl', p=θ, observed=y_0)
     trace_0 = pm.sample(1000)
 
+pm.model_to_graphviz(model_0)
 
 az.summary(trace_0, var_names=["α","β","bd"])
 
@@ -769,4 +781,40 @@ plt.xlabel(x_n[0])
 plt.ylabel(x_n[1])
 
 pm.model_to_graphviz(model_1)
+
+### Multiclass Classification
+
+For a multiclass problem, one uses the softmax function instead of the sigmoid function. The sigmoid function is a special case of the softmax for a two-class classification problem. The softmax can be written as
+
+$ softmax(x_i) = \dfrac{\exp(x_i)}{\sum_k \exp(x_k)} $
+
+We also used a Bernoulli distribution for our $\theta$ parameter, however now we have a categorical distribution.
+
+$\theta = logistic(\alpha + \beta x)$
+
+$y = Categorical(\theta)$
+
+#### Logistic regression example for a multiclass problem 
+
+We reuse the previous example, however we are going to use all the three classes in the data here along with all the features for maximum separability. The data is also standardized instead of just mean-centered here.
+
+
+y_s = iris_data.target
+x_n = iris_data.columns[:-1]
+x_s = iris_data[x_n]
+x_s = (x_s - x_s.mean()) / x_s.std()
+
+
+with pm.Model() as model_s:
+    α = pm.Normal('alpha', mu=0, sd=5, shape=3)
+    β = pm.Normal('beta', mu=0, sd=5, shape=(4,3))
+    μ = pm.Deterministic('μ', α + pm.math.dot(x_s, β))
+    θ = tt.nnet.softmax(μ)
+    yl = pm.Categorical('yl', p=θ, observed=y_s)
+    trace_s = pm.sample(2000)
+
+data_pred = trace_s['μ'].mean(0)
+y_pred = [np.exp(point)/np.sum(np.exp(point), axis=0) for point in data_pred]
+f'{np.sum(y_s == np.argmax(y_pred, axis=1)) / len(y_s):.2f}'
+
 

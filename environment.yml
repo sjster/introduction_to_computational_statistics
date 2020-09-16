@@ -12,6 +12,7 @@ dependencies:
   - pymc3
   - scipy
   - graphviz
+  - python-graphviz
   - pip:
     - quantecon
     - jupyter-book>=0.7.0b

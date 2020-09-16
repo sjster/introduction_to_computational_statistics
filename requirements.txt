@@ -8,3 +8,4 @@ pymc3
 scipy
 arviz
 graphviz
+python-graphviz
