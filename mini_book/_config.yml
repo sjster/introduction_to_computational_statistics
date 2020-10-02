@@ -1,8 +1,8 @@
 #######################################################################################
 # Book settings
-title : Introduction to Statistical Computing for Aspiring Data Scientists
+title : Introduction to Statistical Computing for Aspiring Data Scientists 
 author: Srijith Rajamohan, Ph.D.
-logo: 'logo.png' 
+logo: 'logo_large.png' 
 
 # Information about where the book exists on the web
 description: >-
