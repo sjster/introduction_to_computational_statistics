@@ -2,10 +2,14 @@
 
 ### An example with Linear Regression
 
+%matplotlib inline
 import arviz as az
 import numpy as np
 import matplotlib.pyplot as plt
 import graphviz
+import os
+
+os.environ['OMP_NUM_THREADS'] = '4'
 
 # Initialize random number generator
 np.random.seed(123)
@@ -24,6 +28,8 @@ X2 = np.linspace(0,.2, size)
 # Simulate outcome variable
 Y = alpha + beta[0]*X1 + beta[1]*X2 + np.random.randn(size)*sigma
 
+import pymc3 as pm
+from pymc3.backends import SQLite
 from pymc3 import Model, Normal, HalfNormal
 from pymc3 import find_MAP
 
@@ -52,7 +58,7 @@ from pymc3 import NUTS, sample
 from scipy import optimize
 
 with basic_model:
-
+    
     # obtain starting values via MAP
     start = find_MAP(fmin=optimize.fmin_powell)
 
@@ -119,16 +125,32 @@ az.plot_kde(data, rug=True)
 plt.yticks([0], alpha=0)
 
 import pymc3 as pm
+from pymc3.backends import SQLite, Text
 model_g = Model()
 
 with model_g:
+    
+    # Note on scalablility - of your trace information is too big as a result of too many variables or the model being
+    # too big, you do not want to store this in memory since it can overrun the machine memory. Persisting this 
+    # in a DB will allow you to reload it and inspect it at a later time as well.
+    # For each run - appends to the DN or file if not deleted
+    # backend = SQLite('test.sqlite') - Does not work
+
     μ = pm.Uniform('μ', lower=40, upper=70)
     σ = pm.HalfNormal('σ', sd=10)
     y = pm.Normal('y', mu=μ, sd=σ, observed=data)
-    trace_g = pm.sample(1000)
+    trace_g = pm.sample(draws=1000, trace="sqlite")
 
 az.plot_trace(trace_g)
 pm.model_to_graphviz(model_g)    
+
+from pymc3.backends.sqlite import load
+
+with model_g:
+    #trace = pm.backends.text.load('./mcmc')
+    trace = pm.backends.sqlite.load('./mcmc.sqlite')
+    
+print(len(trace['μ']))
 
 az.plot_joint(trace_g, kind='kde', fill_last=False)
 
@@ -669,7 +691,9 @@ Here the binary class probability is drawn from a Bernoulli distribution, but th
 We load the iris data from scikit learn and plot the distribution of the three classes for two of the features. We also perform a pairplot to visualize the correlation of each feature with every other feature. The diagonal of this plot shows the distribution of the three classes for that feature.
 
 
+import pymc3 as pm
 import sklearn
+import numpy as np
 import graphviz
 import pandas as pd
 from matplotlib import pyplot as plt
@@ -686,7 +710,8 @@ seaborn.pairplot(iris_data, hue='target', diag_kind='kde')
 plt.figure()
 corr = iris_data.query("target == (0,1)").loc[:, iris_data.columns != 'target'].corr() 
 mask = np.tri(*corr.shape).T 
-seaborn.heatmap(corr.abs(), mask=mask, annot=True, cmap='viridis')
+seaborn.heatmap(corr.abs(), mask=mask, annot=True)
+plt.show()
 
 You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)
 
@@ -771,7 +796,7 @@ with pm.Model() as model_1:
     trace_0 = pm.sample(2000)
 
 
-# We plot the HPD on the centered data, we have not scaled it back to the oroginal range
+# We plot the HPD on the centered data, we have not scaled it back to the original range
 idx = np.argsort(x_c[:,0]) 
 bd = trace_0['bd'].mean(0)[idx] 
 plt.scatter(x_c[:,0], x_c[:,1], c=[f'C{x}' for x in y_0]) 
@@ -803,18 +828,303 @@ y_s = iris_data.target
 x_n = iris_data.columns[:-1]
 x_s = iris_data[x_n]
 x_s = (x_s - x_s.mean()) / x_s.std()
+x_s = x_s.values
 
 
-with pm.Model() as model_s:
-    α = pm.Normal('alpha', mu=0, sd=5, shape=3)
-    β = pm.Normal('beta', mu=0, sd=5, shape=(4,3))
-    μ = pm.Deterministic('μ', α + pm.math.dot(x_s, β))
-    θ = tt.nnet.softmax(μ)
+import theano as tt
+#tt.config.gcc.cxxflags = "-Wno-c++11-narrowing"
+
+with pm.Model() as model_mclass:
+    alpha = pm.Normal('alpha', mu=0, sd=5, shape=3)
+    beta = pm.Normal('beta', mu=0, sd=5, shape=(4,3))
+    μ = pm.Deterministic('μ', alpha + pm.math.dot(x_s, beta))
+    θ = tt.tensor.nnet.softmax(μ)
     yl = pm.Categorical('yl', p=θ, observed=y_s)
     trace_s = pm.sample(2000)
 
 data_pred = trace_s['μ'].mean(0)
 y_pred = [np.exp(point)/np.sum(np.exp(point), axis=0) for point in data_pred]
+az.plot_trace(trace_s, var_names=['alpha'])
 f'{np.sum(y_s == np.argmax(y_pred, axis=1)) / len(y_s):.2f}'
 
+
+trace_s.stat_names
+
+import seaborn as sns
+print("Length of trace_s",len(trace_s.energy), max(trace_s.energy))
+print("Depth of the tree used to generate the sample  ",trace_s.depth)
+print("Energy at the point where the sample was generated ",trace_s.energy)
+# This is difference in energy beween the start and the end of the trajectory, should ideally be zero
+print("Energy error between start and end of the trajectory ",trace_s.energy_error)
+# maximum difference in energy along the whole trajectory of sampling, this can help identify divergences
+print("Energy error maximum over the entire trajectory ",trace_s.max_energy_error)
+print("Step size ",trace_s.step_size)
+print("Best step size determined from tuning ",trace_s.step_size_bar)
+
+sns.distplot(trace_s.energy)
+
+# Seaborn uses the interquartile range to draw the box plot whiskers given by Q1 - 1.5IQR, Q3 + 1.5IQR
+sns.boxplot(trace_s.max_energy_error)
+
+sns.lineplot(np.arange(0,len(trace_s.step_size_bar)), trace_s.step_size_bar)
+
+# The energy and the energy transition should be as close as possible
+# if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not
+# sample the space appropriately and that the results obtained are probably biased
+pm.energyplot(trace_s)
+
+# A score of less than 2 indicates good convergence
+# Computes the z score at each interval and returns and array of (interval start location, z score)
+pm.geweke(trace_s['alpha'])
+
+pm.g
+
+# Get the divergences
+print("Number of divergences %d and percent %lf " % (trace_s['diverging'].nonzero()[0].shape[0], trace_s['diverging'].nonzero()[0].shape[0]/ len(trace_s) * 100))
+divergent = trace_s['diverging']
+beta_divergent = trace_s['beta'][divergent]
+print("Shape of beta_divergent - Sum of divergences from all chains x shape of variable ", beta_divergent.shape)
+
+import pprint
+print("Total number of warnings ",len(trace_s.report._warnings))
+pprint.pprint(trace_s.report._warnings[0])
+
+dir(trace_s.report._warnings[0])
+
+print("---------- Message ----------")
+pprint.pprint(trace_s.report._warnings[0].message)
+print("---------- Kind of warning ----------")
+pprint.pprint(trace_s.report._warnings[0].kind)
+print("---------- Level ----------")
+pprint.pprint(trace_s.report._warnings[0].level)
+print("---------- Step ----------")
+pprint.pprint(trace_s.report._warnings[0].step)
+print("---------- Source ---------- ")
+pprint.pprint(trace_s.report._warnings[0].divergence_point_source)
+print("---------- Destination ---------- ")
+pprint.pprint(trace_s.report._warnings[0].divergence_point_dest)
+
+
+
+trace_s.report._warnings[0].divergence_info
+
+for elem in trace_s.report._warnings:
+    print(elem.step)
+
+import theano as tt 
+import arviz as az 
+
+# If we run into the identifiability problem, we can solve for n-1 variables 
+with pm.Model() as model_sf:
+    α = pm.Normal('α', mu=0, sd=2, shape=2)
+    β = pm.Normal('β', mu=0, sd=2, shape=(4,2))
+    α_f = tt.tensor.concatenate([[0] ,α])
+    β_f = tt.tensor.concatenate([np.zeros((4,1)) , β], axis=1)
+    μ = α_f + pm.math.dot(x_s, β_f)
+    θ = tt.tensor.nnet.softmax(μ)
+    yl = pm.Categorical('yl', p=θ, observed=y_s)
+    trace_sf = pm.sample(1000)
+    
+az.plot_trace(trace_sf, var_names=['α'])
+
+### Poisson Distribution
+
+Discrete variables that represents count data can be handled using a Poisson distribution. The key element here is that it is the number of events happening in a given interval of time. The events are supposed to be independent and is parameterized using one value called the rate parameter. This corresponds to the mean and the variance of the distribution. One implication of this is that the higher the mean, the larger the variance of the distribution which can be limitation for some phenomena. A higher value of the rate parameter indicates a higher likelihood of getting higher values from our distribution. It is represented by
+
+$f(x) = e^{-\mu} \mu^x / x!$
+
+The mean rate is represented by $\mu$ and x is positive integer and represents the number of events that can happen. If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of 'n' trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes. 
+
+#### Poisson Distribution Example
+
+In the following example we look at a time-varying rate phenomena, consider the observations as the number of COVID-19 cases per day. We observe cases for 140 days, however due to some interventional measures put in place it is suspected that the number of cases per day have gone down. If we assume that the number of cases can be modeled using a Poisson distribution then this implies that there are two rates $\lambda_1$ and $\lambda_2$ and we can try to find where this rate-switch happens (time $\tau$). 
+
+We don't really know a lot about these rates, so we select a prior for both which can be from an Exponential, Gamma or Uniform distributions. Both Exponential and Gamma distributions work better than the Uniform distribution since the Uniform distribution is the least informative. As usual, with enough observations one can even get away with a Uniform prior. Since we have no information regarding $\tau$, we select a Uniform prior distribution for that.
+
+Try varying the following
+
+1. types of priors - a more informed prior is always better if thi information is available
+2. the size of the data or the observations and the value of the theta parameter - more data results in better inference overall, the larger the difference in theta the easier to determine these rates
+3. the number of drawn samples - better and more accurate inference
+4. the number of chains - should reduce variance
+5. the number of cores - cores should be no more than the total number of chains and should be limited to the total number of cores on your hardware, you should see an increase in speed or decrease in runtime as you increase the number of cores.
+
+
+
+# ------------ Create the data ---------- #
+n_1 = 70
+θ_real_1 = 2.0
+#ψ = 0.1
+ # Simulate some data
+counts_1 = np.random.poisson(θ_real_1,n_1)
+plt.bar(np.arange(len(counts_1)),counts_1)
+
+n_2 = 70
+θ_real_2 = 7.5
+#ψ = 0.1
+ # Simulate some data
+counts_2 = np.random.poisson(θ_real_2,n_2)
+plt.bar(np.arange(len(counts_2)),counts_2)
+
+total_data = np.concatenate((counts_1, counts_2))
+n_counts = len(counts_1) + len(counts_2)
+plt.figure()
+plt.bar(np.arange(len(total_data)),total_data)
+
+# ------------ Generate the model ----------- #
+
+with pm.Model() as model_poisson:
+
+    alpha_1 = 1.0 / counts_1.mean()
+    alpha_2 = 1.0 / counts_2.mean()
+
+    # Different priors have different results                     
+    lambda_1 = pm.Exponential("lambda_1", alpha_1)
+    lambda_2 = pm.Exponential("lambda_2", alpha_2) 
+    #lambda_1 = pm.Gamma("lambda_1", 2, 0.1)
+    #lambda_2 = pm.Gamma("lambda_2", 2, 0.1)
+    #lambda_1 = pm.Uniform("lambda_1",lower=0, upper=5)
+    
+    # Uniform prior for the day since we have no information, if we do we should modify the prior to         # incorporate that information
+    tau = pm.DiscreteUniform("tau", lower=0, upper=n_counts - 1)
+    idx = np.arange(n_counts) # id for the day
+    lambda_c = pm.math.switch(tau > idx, lambda_1, lambda_2) # switch rate depending on the tau drawn
+
+    observation = pm.Poisson("obs", lambda_c, observed=total_data)
+    trace = pm.sample(2000, chains=10, cores=4)
+
+az.plot_trace(trace)
+
+from statsmodels.distributions.empirical_distribution import ECDF
+print('Tau is ',trace['tau'])
+print("Length of tau", len(trace['tau']))
+print('Lambda 1 is ',trace['lambda_1'])
+print("Length of Lambda 1 ",len(trace['lambda_1']))
+ecdf = ECDF(trace['tau'])
+
+For each draw of $\tau$, there is a draw of $\lambda_1$ and $\lambda_2$. We can use the principles of Monte Carlo approximation to compute the expected value of COVID-19 cases on any day. 
+
+Expected value for day = $ \dfrac{1}{N} \sum_{0}^{num\_samples}$ Lambda_draw ;  day > Tau_draw ? lambda_2_draw : lambda_1_draw
+
+for elem in idx:
+    prob_lambda_2 = ecdf([elem])
+    prob_lambda_1 = 1.0 - prob_lambda_2
+    print("Day ",elem,prob_lambda_1,prob_lambda_2)
+
+
+tau_samples = trace['tau']
+lambda_1_samples = trace['lambda_1']
+lambda_2_samples = trace['lambda_2']
+
+N = tau_samples.shape[0]
+expected_values = np.zeros(n_counts)
+for day in range(0, n_counts):
+    # ix is a bool index of all tau samples corresponding to
+    # the switchpoint occurring prior to value of 'day'
+    ix = day < tau_samples
+    # Each posterior sample corresponds to a value for tau.
+    # for each day, that value of tau indicates whether we're "before"
+    # (in the lambda1 "regime") or
+    #  "after" (in the lambda2 "regime") the switchpoint.
+    # by taking the posterior sample of lambda1/2 accordingly, we can average
+    # over all samples to get an expected value for lambda on that day.
+    expected_values[day] = (lambda_1_samples[ix].sum() + lambda_2_samples[~ix].sum()) / N
+
+expected_values
+
+plt.figure(figsize=(12,8))
+plt.bar(np.arange(len(total_data)),total_data)
+plt.plot(np.arange(n_counts), expected_values, color='g', lw='4')
+
+### Diagnosing MCMC using PyMC3
+
+It is a good idea to inspect the quality of the solutions obtained. It is possible once obtains suboptimal samples resulting in biased estimates or the sampling is slow. There are two broad categories of tests, a visual inspection and a quantitative assessment. Several things that can be done if one suspects issues.
+
+1. More samples, it is possible that there aren't samples to come up with an appropriate posterior
+2. Use burn-in, this is removing a certain number of samples from the beginning while PyMC3 is figuring out the step size. This is set to 500 by default. With tuning it is not necessary to explicitly get rid of samples from the beginning.
+3. Increase the number of samples used for tuning.
+4. Increase the target_accept parameter as 
+    `pm.sample(5000, chains=2, target_accept=0.95)`
+    
+    `pm.sample(5000, chains=2, nuts_kwargs=dict(target_accept=0.95))`
+    
+    Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. 
+
+#### Paper discussing Bayesian visualization
+
+https://arxiv.org/pdf/1709.01449.pdf
+
+#### Centered vs. Non-centered parameterization
+
+This is a centered parameterization for $\beta$ since it is centered around $\mu$
+
+$\beta \sim Normal(\mu, \sigma)$
+
+We try to fit the two parameters for $\mu$ and $\sigma$ directly
+
+However, this is a non-centered parameterization since it is scaled from a unit Normal
+
+$\beta_{unit} \sim Normal(0,1)$
+
+$\beta = \mu + \sigma \beta_{unit}$
+
+#### Mixing 
+
+Mixing refers to how well the sampler covers the 'support' of the posterior distribution or rather how well it covers the entire distribution. Poor convergence is often a result of poor mixing. This can happen due the choice of an inappropriate proposal distribution for Metropolis or if we have too many correlated variables.
+
+#### Autocorrelation
+
+az.plot_autocorr(centered_eight_trace, var_names=["mu", "tau"]);
+
+#### Inspecting the samples
+
+
+#### Monte Carlo error
+
+#### Convergence 
+
+#### Divergence
+
+Divergences happen in regions og hifh curvature in the manifold. When PyMC3 detects a divergence, it abandons that chain and a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.
+
+PyMC3 can indicate falsely that some samples are divergences, this is due to the heuristics used to identify divergences. Concentration of samples in a region is an indication that these are not divergences.
+
+#### Autocorrelation and Effective sample sizes
+
+
+
+
+#### Tuning
+
+When a step size is required, PyMC3 uses the first 500 steps varying the step size to get to an acceptance rate of 23.4%. These are the default numbers that PyMC3 uses, which can be modified. It was reported in a study that the acceptance rate of 23.4% results in the highest efficiency for Metropolis Hastings. These are empirical results and therefore should be treated as guidelines. If you have convergence issues as indicated by the visual inspection of the trace, you can try increasing the number of samples used for tuning. It is also worth poiting out that there is more than just step-size adaptation that is happening during this tuning phase.
+
+`pm.sample(num_samples, n_tune=num_tuning)`
+
+NUTS
+For algorithms that rely on gradient information to move around the distribution space
+
+
+
+
+
+
+
+
+
+### Debugging PyMC3
+
+x = np.random.randn(100)
+
+with pm.Model() as model:
+    mu = pm.Normal('mu', mu=0, sigma=1)
+    sd = pm.Normal('sd', mu=0, sigma=1)
+    
+    mu_print = tt.printing.Print('mu')(mu)
+    sd_print = tt.printing.Print('sd')(sd)
+
+    obs = pm.Normal('obs', mu=mu_print, sigma=sd_print, observed=x)
+    step = pm.Metropolis()
+    trace = pm.sample(5, step)
+    
+trace['mu']
 
