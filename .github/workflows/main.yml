@@ -18,4 +18,4 @@ jobs:
   
     - name: Install dependencies
       run: |
-        pip install pandas
+        pip install sphinx pandas matplotlib quantecon jupyter-book seaborn pymc3 scipy arviz graphviz python-graphviz
