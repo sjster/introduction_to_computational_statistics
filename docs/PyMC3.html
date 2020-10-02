@@ -1,23 +1,41 @@
 
-
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction to PyMC3 &#8212; Introduction to Statistical Computing for Aspiring Data Scientists by Srijith Rajamohan, Ph.D.</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
-    <link href="../_static/css/index.css" rel="stylesheet">
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <title>Introduction to PyMC3 &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.bfb7730f9caf2ec0b46a44615585038c.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.30270b6e4c972e43c488.js">
+
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/sphinx-book-theme.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -25,12 +43,10 @@
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/mystnb.js"></script>
-    <script src="../_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -42,8 +58,8 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Bayesian vs Frequentist statistics" href="notebooks.html" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="docsearch:language" content="en">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
 
 
 
@@ -62,7 +78,7 @@
   <img src="../_static/logo_large.png" class="logo" alt="logo">
   
   
-  <h1 class="site-logo" id="site-title">Introduction to Statistical Computing for Aspiring Data Scientists by Srijith Rajamohan, Ph.D.</h1>
+  <h1 class="site-logo" id="site-title">Introduction to Statistical Computing for Aspiring Data Scientists</h1>
   
 </a>
 </div>
@@ -104,6 +120,10 @@
 </nav>
 
  <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
 
 </div>
 
@@ -182,6 +202,7 @@
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
         <div class="tocsection onthispage pt-5 pb-3">
             <i class="fas fa-list"></i> Contents
         </div>
@@ -357,6 +378,7 @@
 </ul>
 
         </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -370,7 +392,7 @@
 <h2>An example with Linear Regression<a class="headerlink" href="#an-example-with-linear-regression" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -401,7 +423,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
 <span class="kn">from</span> <span class="nn">pymc3.backends</span> <span class="kn">import</span> <span class="n">SQLite</span>
 <span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">Normal</span><span class="p">,</span> <span class="n">HalfNormal</span>
 <span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">find_MAP</span>
@@ -411,7 +433,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">basic_model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basic_model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
 
 <span class="k">with</span> <span class="n">basic_model</span><span class="p">:</span>
 
@@ -436,7 +458,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">map_estimate</span> <span class="o">=</span> <span class="n">find_MAP</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">basic_model</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">map_estimate</span> <span class="o">=</span> <span class="n">find_MAP</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">basic_model</span><span class="p">)</span>
 <span class="n">map_estimate</span>
 </pre></div>
 </div>
@@ -444,7 +466,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">NUTS</span><span class="p">,</span> <span class="n">sample</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">NUTS</span><span class="p">,</span> <span class="n">sample</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">optimize</span>
 </pre></div>
 </div>
@@ -452,7 +474,7 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">basic_model</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">basic_model</span><span class="p">:</span>
     
     <span class="c1"># obtain starting values via MAP</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">find_MAP</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="n">optimize</span><span class="o">.</span><span class="n">fmin_powell</span><span class="p">)</span>
@@ -482,35 +504,35 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">traceplot</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">traceplot</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">traceplot</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">traceplot</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">summary</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">summary</span>
 <span class="n">summary</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -522,7 +544,7 @@
 <p>ROPE allows us to make inferences about an event. If we suspect that the dice used at a casino is loaded, we can infer the probability of getting the value 3 from the six outcomes. Ideally, this should be 1/6 = 0.16666, however after computing the posterior our ROPE given by say 0.12 and 0.20 can either overlap with the HPD from the posterior density of the 3 completely, not overlap at all, partially overlap with the HPD. Complete overlap suggests that our computed probability coincides with what we would expect from a fair dice. If it does not overlap, it is not a fair dice and a partial overlap indicates that we cannot be certain that is either fair or unfair.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span> <span class="k">as</span> <span class="n">stats</span> 
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -537,7 +559,7 @@
 <p>Another way to do this is by plotting a reference value on the posterior.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">({</span><span class="s1">&#39;θ&#39;</span><span class="p">:</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20000</span><span class="p">)},</span> \
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">({</span><span class="s1">&#39;θ&#39;</span><span class="p">:</span><span class="n">stats</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20000</span><span class="p">)},</span> \
                   <span class="n">credible_interval</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> \
                   <span class="n">ref_val</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
@@ -560,14 +582,14 @@ density again. These values decide how well we converge to a solution so good
 values are essential for good results.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;chemical_shifts.csv&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;chemical_shifts.csv&#39;</span><span class="p">)</span>
 <span class="n">az</span><span class="o">.</span><span class="n">plot_kde</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.YTick at 0x7fbd464d0580&gt;], [Text(0, 0, &#39;&#39;)])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.YTick at 0x7fbd464d0580&gt;], [Text(0, 0, &#39;&#39;)])
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_17_1.png" src="../_images/PyMC3_17_1.png" />
@@ -575,7 +597,7 @@ values are essential for good results.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
 <span class="kn">from</span> <span class="nn">pymc3.backends</span> <span class="kn">import</span> <span class="n">SQLite</span><span class="p">,</span> <span class="n">Text</span>
 <span class="n">model_g</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
 
@@ -598,12 +620,11 @@ values are essential for good results.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (3 chains in 3 jobs)
 NUTS: [σ, μ]
-</pre>
+</pre></div>
 </div>
 <div class="output text_html">
 <div>
@@ -622,18 +643,17 @@ NUTS: [σ, μ]
   <progress value='6000' class='' max='6000' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [6000/6000 00:01<00:00 Sampling 3 chains, 0 divergences]
 </div>
-</div><div class="stderr docutils container">
-<pre class="stderr literal-block">Sampling 3 chains for 1_000 tune and 12_000 draw iterations (3_000 + 36_000 draws total) took 2 seconds.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 3 chains for 1_000 tune and 12_000 draw iterations (3_000 + 36_000 draws total) took 2 seconds.
 /opt/conda/lib/python3.8/site-packages/arviz-0.9.0-py3.8.egg/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-</pre>
+</pre></div>
 </div>
 <img alt="../_images/PyMC3_18_3.svg" src="../_images/PyMC3_18_3.svg" /><img alt="../_images/PyMC3_18_4.png" src="../_images/PyMC3_18_4.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3.backends.sqlite</span> <span class="kn">import</span> <span class="n">load</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3.backends.sqlite</span> <span class="kn">import</span> <span class="n">load</span>
 
 <span class="k">with</span> <span class="n">model_g</span><span class="p">:</span>
     <span class="c1">#trace = pm.backends.text.load(&#39;./mcmc&#39;)</span>
@@ -644,21 +664,21 @@ NUTS: [σ, μ]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>39000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>39000
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_joint</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span> <span class="n">fill_last</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_joint</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span> <span class="n">fill_last</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_g</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_g</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -669,7 +689,7 @@ NUTS: [σ, μ]
 <p>Another thing to note here is that we modeled this using a Gaussian, however we have some outliers that need to be accoutned for which we cannot do well with a Gaussian distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model_g</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model_g</span><span class="p">)</span>
 <span class="n">y_pred_g</span>
 </pre></div>
 </div>
@@ -677,7 +697,7 @@ NUTS: [σ, μ]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_ppc</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">y_pred_g</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_ppc</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">y_pred_g</span><span class="p">)</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_ppc</span><span class="p">(</span><span class="n">data_ppc</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">mean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
@@ -693,7 +713,7 @@ NUTS: [σ, μ]
 <p>ν is the degrees of freedom and takes between 0 and <span class="math notranslate nohighlight">\(\infty\)</span>. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinty corresponds to a Gaussian.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_t</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_t</span><span class="p">:</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">75</span><span class="p">)</span> <span class="c1"># mean</span>
     <span class="n">σ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;σ&#39;</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">ν</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s1">&#39;ν&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">30</span><span class="p">)</span>
@@ -706,19 +726,18 @@ NUTS: [σ, μ]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [ν, σ, μ]
 Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000 [00:04&lt;00:00, 1235.33draws/s]
-</pre>
+</pre></div>
 </div>
 <img alt="../_images/PyMC3_26_1.svg" src="../_images/PyMC3_26_1.svg" /><img alt="../_images/PyMC3_26_2.svg" src="../_images/PyMC3_26_2.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using a student&#39;s t distribution we notice that the outliers are captured more </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using a student&#39;s t distribution we notice that the outliers are captured more </span>
 <span class="c1"># accurately now and the model fits better</span>
 <span class="n">y_ppc_t</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span>
     <span class="n">trace_t</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model_t</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">123</span><span class="p">)</span>
@@ -738,7 +757,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 <p>The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the parameter priors to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts and as a result sharing information between them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># We measure the water samples for three districts, and we collect 30 samples </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We measure the water samples for three districts, and we collect 30 samples </span>
 <span class="c1"># for each district. We count the number of samples that have contamination</span>
 <span class="c1"># below the acceptable levels</span>
 <span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
@@ -756,33 +775,33 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">group_idx</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group_idx</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>The process of generating our samples looks like the following. First we set the parameters for the prior or the hyperpriors.</p>
 <p>ADD DETAIL HERE</p>
-<p>$ \mu \sim Beta(\alpha_p, \beta_p)  \
-k \sim | Normal(0,\sigma_k) | \
-\alpha =  \mu * k \
-\beta = (1 - \mu) * k \
-$</p>
+<p><span class="math notranslate nohighlight">\( \mu \sim Beta(\alpha_p, \beta_p)  \\
+  k \sim | Normal(0,\sigma_k) | \\
+  \alpha =  \mu * k \\
+  \beta = (1 - \mu) * k \\
+\)</span></p>
 <p>These parameters are then used to define the priors. This is different from using a constant prior value as we saw before.</p>
-<p>$
-\theta_i \sim Beta(\alpha_i, \beta_i) \
-y_i \sim Bern(\theta_i)
-$</p>
+<p><span class="math notranslate nohighlight">\(
+  \theta_i \sim Beta(\alpha_i, \beta_i) \\
+  y_i \sim Bern(\theta_i)
+\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_hyperprior_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N_samples</span><span class="p">,</span> <span class="n">group_idx</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_hyperprior_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N_samples</span><span class="p">,</span> <span class="n">group_idx</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_h</span><span class="p">:</span>
         <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Beta</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span> <span class="c1"># hyperprior</span>
         <span class="n">κ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;κ&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># hyperprior</span>
@@ -799,8 +818,7 @@ $</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [θ, κ, μ]
@@ -818,13 +836,13 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 θ[0]    6977.0    5713.0    1.0  
 θ[1]    7487.0    5956.0    1.0  
 θ[2]    7453.0    6216.0    1.0  
-</pre>
+</pre></div>
 </div>
 <img alt="../_images/PyMC3_33_1.svg" src="../_images/PyMC3_33_1.svg" /><img alt="../_images/PyMC3_33_2.svg" src="../_images/PyMC3_33_2.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shrinkage - information is shared among the subgroups so we move away from extremes, which is great if</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shrinkage - information is shared among the subgroups so we move away from extremes, which is great if</span>
 <span class="c1"># we have outliers in our data subgroups especially when we do not have a lot of data - ADD DETAIL HERE</span>
 
 <span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
@@ -844,7 +862,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
 <span class="n">G_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="c1"># Number of samples with water contamination </span>
                          <span class="c1"># below accepted levels</span>
 <span class="c1"># Create an id for each of the 30 + 30 + 30 samples - 0,1,2 to indicate that they</span>
@@ -862,7 +880,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 <p>Repeat the above with a constant prior instead of hyperpriors</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
 <span class="n">G_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="c1"># Number of samples with water contamination </span>
                          <span class="c1"># below accepted levels</span>
 <span class="c1"># Create an id for each of the 30 + 30 + 30 samples - 0,1,2 to indicate that they</span>
@@ -882,7 +900,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 <h2>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">alpha_real</span> <span class="o">=</span> <span class="mf">2.5</span>
 <span class="n">beta_real</span> <span class="o">=</span> <span class="mf">0.9</span>
@@ -952,7 +970,7 @@ can be reformulated as</p>
 <p><span class="math notranslate nohighlight">\(\tilde{x} = (x - \bar{x}) / \sigma_x\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
 <span class="c1"># Load the example dataset for Anscombe&#39;s quartet</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;anscombe&quot;</span><span class="p">)</span>
@@ -963,7 +981,7 @@ can be reformulated as</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the 4 subgroups in the data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the 4 subgroups in the data</span>
 
 <span class="n">x_0</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;I&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">y_0</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;I&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -998,7 +1016,7 @@ can be reformulated as</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot data group 3 and its Kernel density</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot data group 3 and its Kernel density</span>
 
 <span class="n">x_2</span> <span class="o">=</span> <span class="n">x_2</span> <span class="o">-</span> <span class="n">x_2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
@@ -1019,7 +1037,7 @@ can be reformulated as</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use PyMC3 to model this Linear Regression using a Student&#39;s t distribution</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use PyMC3 to model this Linear Regression using a Student&#39;s t distribution</span>
 <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_t</span><span class="p">:</span>
     <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">y_2</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1052,7 +1070,7 @@ can be reformulated as</p>
 <p>The data for the 8 groups are generated from a normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from normal and beta dsitributions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">20</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">M</span> <span class="o">=</span> <span class="mi">8</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">N</span><span class="p">)</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
@@ -1083,7 +1101,7 @@ can be reformulated as</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Alpha parameters  [2.58304272 2.89098224 2.92614255 2.14646452 2.0341714  2.94333044
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alpha parameters  [2.58304272 2.89098224 2.92614255 2.14646452 2.0341714  2.94333044
  2.38910517 2.69086179]
 </pre></div>
 </div>
@@ -1094,7 +1112,7 @@ can be reformulated as</p>
 <p>Note how the obtained <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> values vary for each group, particularly the last one which is really off.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Center the data</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Center the data</span>
 <span class="n">x_centered</span> <span class="o">=</span> <span class="n">x_m</span> <span class="o">-</span> <span class="n">x_m</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">unpooled_model</span><span class="p">:</span>
@@ -1120,22 +1138,21 @@ can be reformulated as</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [ν, ϵ, β, α_tmp]
 Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:18&lt;00:00, 548.27draws/s]
-</pre>
+</pre></div>
 </div>
-<img alt="../_images/PyMC3_51_1.svg" src="../_images/PyMC3_51_1.svg" /><img alt="../_images/PyMC3_51_2.svg" src="../_images/PyMC3_51_2.svg" /><div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<img alt="../_images/PyMC3_51_1.svg" src="../_images/PyMC3_51_1.svg" /><img alt="../_images/PyMC3_51_2.svg" src="../_images/PyMC3_51_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_51_4.svg" src="../_images/PyMC3_51_4.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">hierarchical_model</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">hierarchical_model</span><span class="p">:</span>
     <span class="c1"># Hyperpriors - we add these instead of setting the prior values to a constant</span>
     <span class="c1"># Note that there exists only one hyperprior  for all M groups, shared hyperprior</span>
     <span class="n">α_μ_tmp</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α_μ_tmp&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># try changing these hyperparameters</span>
@@ -1182,8 +1199,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [ν, ϵ, β, α_tmp, β_σ, β_μ, α_σ_tmp, α_μ_tmp]
@@ -1196,7 +1212,7 @@ There were 12 divergences after tuning. Increase `target_accept` or reparameteri
 There were 9 divergences after tuning. Increase `target_accept` or reparameterize.
 The acceptance probability does not match the target. It is 0.884780567793289, but should be close to 0.8. Try to increase the number of tuning steps.
 The number of effective samples is smaller than 25% for some parameters.
-</pre>
+</pre></div>
 </div>
 <img alt="../_images/PyMC3_52_1.svg" src="../_images/PyMC3_52_1.svg" /><img alt="../_images/PyMC3_52_2.svg" src="../_images/PyMC3_52_2.svg" /><img alt="../_images/PyMC3_52_3.svg" src="../_images/PyMC3_52_3.svg" /></div>
 </div>
@@ -1206,7 +1222,7 @@ The number of effective samples is smaller than 25% for some parameters.
 <h2>Polynomial Regression for nonlinear data<a class="headerlink" href="#polynomial-regression-for-nonlinear-data" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_1_centered</span> <span class="o">=</span> <span class="n">x_1</span> <span class="o">-</span> <span class="n">x_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_1_centered</span> <span class="o">=</span> <span class="n">x_1</span> <span class="o">-</span> <span class="n">x_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_1_centered</span><span class="p">,</span> <span class="n">y_1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1222,7 +1238,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_poly</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_poly</span><span class="p">:</span>
     <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">y_1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">β1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β1&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">β2</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β2&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1236,7 +1252,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="n">y_p</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;β1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">x_p</span> <span class="o">+</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;β2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">x_p</span><span class="o">**</span><span class="mi">2</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_1_centered</span><span class="p">,</span> <span class="n">y_1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
@@ -1248,7 +1264,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_poly</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_poly</span><span class="p">:</span>
     <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">y_0</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">β1</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β1&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">β2</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β2&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -1262,7 +1278,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="n">y_p</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;β1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">x_p</span> <span class="o">+</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;β2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">x_p</span><span class="o">**</span><span class="mi">2</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_0_centered</span><span class="p">,</span> <span class="n">y_0</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
@@ -1277,7 +1293,7 @@ The number of effective samples is smaller than 25% for some parameters.
 <h2>Multiple Linear Regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">314</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">314</span><span class="p">)</span>
 
 <span class="c1"># N is the total number of observations </span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
@@ -1297,7 +1313,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scatter_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scatter_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
@@ -1316,7 +1332,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_mlr</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_mlr</span><span class="p">:</span>
     <span class="n">α_tmp</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α_tmp&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -1348,7 +1364,7 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>This is also called the sigmoid function and it restricts value to the range [0,1]</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;logistic(x)&#39;</span><span class="p">)</span>
@@ -1366,7 +1382,7 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>We load the iris data from scikit learn and plot the distribution of the three classes for two of the features. We also perform a pairplot to visualize the correlation of each feature with every other feature. The diagonal of this plot shows the distribution of the three classes for that feature.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
 <span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">graphviz</span>
@@ -1393,7 +1409,7 @@ The number of effective samples is smaller than 25% for some parameters.
 <div class="cell_output docutils container">
 <img alt="../_images/PyMC3_67_0.png" src="../_images/PyMC3_67_0.png" />
 <img alt="../_images/PyMC3_67_1.png" src="../_images/PyMC3_67_1.png" />
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_67_3.png" src="../_images/PyMC3_67_3.png" />
@@ -1403,19 +1419,19 @@ The number of effective samples is smaller than 25% for some parameters.
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target_names&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;], dtype=&#39;&lt;U10&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;setosa&#39;, &#39;versicolor&#39;, &#39;virginica&#39;], dtype=&#39;&lt;U10&#39;)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first two classes for a binary classification problem</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first two classes for a binary classification problem</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;target == (0,1)&quot;</span><span class="p">)</span>
 <span class="n">y_0</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">target</span>
 <span class="n">x_n</span> <span class="o">=</span> <span class="s1">&#39;sepal length (cm)&#39;</span> 
@@ -1427,7 +1443,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
 <span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
 
 <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_0</span><span class="p">:</span>
@@ -1444,15 +1460,14 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [β, α]
 Could not pickle model, sampling singlethreaded.
 Sequential sampling (4 chains in 1 job)
 NUTS: [β, α]
-</pre>
+</pre></div>
 </div>
 <div class="output text_html">
 <div>
@@ -1522,23 +1537,21 @@ NUTS: [β, α]
   <progress value='2000' class='' max='2000' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [2000/2000 00:00<00:00 Sampling chain 3, 0 divergences]
 </div>
-</div><div class="stderr docutils container">
-<pre class="stderr literal-block">Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
-</pre>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
+</pre></div>
 </div>
 <img alt="../_images/PyMC3_71_6.svg" src="../_images/PyMC3_71_6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_0</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;α&quot;</span><span class="p">,</span><span class="s2">&quot;β&quot;</span><span class="p">,</span><span class="s2">&quot;bd&quot;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_0</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;α&quot;</span><span class="p">,</span><span class="s2">&quot;β&quot;</span><span class="p">,</span><span class="s2">&quot;bd&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-</pre>
+</pre></div>
 </div>
 <div class="output text_html"><div>
 <style scoped>
@@ -1620,7 +1633,7 @@ NUTS: [β, α]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="n">trace_0</span><span class="p">[</span><span class="s1">&#39;θ&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">theta</span> <span class="o">=</span> <span class="n">trace_0</span><span class="p">[</span><span class="s1">&#39;θ&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x_c</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_c</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">theta</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C2&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">trace_0</span><span class="p">[</span><span class="s1">&#39;bd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
@@ -1638,14 +1651,13 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/stats/stats.py:338: UserWarning: hpd will be deprecated Please replace hdi
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/stats/stats.py:338: UserWarning: hpd will be deprecated Please replace hdi
   warnings.warn((&quot;hpd will be deprecated &quot; &quot;Please replace hdi&quot;),)
 /Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/stats/stats.py:483: FutureWarning: hdi currently interprets 2d data as (draw, shape) but this will change in a future release to (chain, draw) for coherence with other functions
   warnings.warn(
-</pre>
+</pre></div>
 </div>
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.XTick at 0x7ff4d740b220&gt;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.XTick at 0x7ff4d740b220&gt;,
   &lt;matplotlib.axis.XTick at 0x7ff4d740bd30&gt;,
   &lt;matplotlib.axis.XTick at 0x7ff4d72e0e50&gt;,
   &lt;matplotlib.axis.XTick at 0x7ff4d82a5850&gt;,
@@ -1674,7 +1686,7 @@ NUTS: [β, α]
 <p>The above example with a single feature can be expanded to take multiple features or independent variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first two classes for a binary classification problem</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the first two classes for a binary classification problem</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;target == (0,1)&quot;</span><span class="p">)</span>
 <span class="n">y_0</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">target</span>
 <span class="n">x_n</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sepal length (cm)&#39;</span><span class="p">,</span> <span class="s1">&#39;sepal width (cm)&#39;</span><span class="p">]</span>
@@ -1686,7 +1698,7 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[[-3.710e-01  4.010e-01]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-3.710e-01  4.010e-01]
  [-5.710e-01 -9.900e-02]
  [-7.710e-01  1.010e-01]
  [-8.710e-01  1.000e-03]
@@ -1798,7 +1810,7 @@ NUTS: [β, α]
 <p>Unlike the previous equation, this one represents a line for the variables x1 and x2 which separates the two-dimensional space occupied by x1 and x2. For higher dimensions, this boundary decision will be a hyperplane of dimension ‘n-1’ for a feature space of dimension ‘n’.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_1</span><span class="p">:</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_1</span><span class="p">:</span> 
     <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> 
     <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x_n</span><span class="p">))</span> 
     <span class="n">μ</span> <span class="o">=</span> <span class="n">α</span> <span class="o">+</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_c</span><span class="p">,</span> <span class="n">β</span><span class="p">)</span> 
@@ -1810,15 +1822,14 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [β, α]
 Could not pickle model, sampling singlethreaded.
 Sequential sampling (4 chains in 1 job)
 NUTS: [β, α]
-</pre>
+</pre></div>
 </div>
 <div class="output text_html">
 <div>
@@ -1888,15 +1899,14 @@ NUTS: [β, α]
   <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [3000/3000 00:01<00:00 Sampling chain 3, 0 divergences]
 </div>
-</div><div class="stderr docutils container">
-<pre class="stderr literal-block">Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 7 seconds.
-</pre>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 7 seconds.
+</pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># We plot the HPD on the centered data, we have not scaled it back to the original range</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We plot the HPD on the centered data, we have not scaled it back to the original range</span>
 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x_c</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> 
 <span class="n">bd</span> <span class="o">=</span> <span class="n">trace_0</span><span class="p">[</span><span class="s1">&#39;bd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="n">idx</span><span class="p">]</span> 
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_c</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_c</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;C</span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y_0</span><span class="p">])</span> 
@@ -1908,12 +1918,11 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/stats/stats.py:483: FutureWarning: hdi currently interprets 2d data as (draw, shape) but this will change in a future release to (chain, draw) for coherence with other functions
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/stats/stats.py:483: FutureWarning: hdi currently interprets 2d data as (draw, shape) but this will change in a future release to (chain, draw) for coherence with other functions
   warnings.warn(
-</pre>
+</pre></div>
 </div>
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_78_2.png" src="../_images/PyMC3_78_2.png" />
@@ -1922,7 +1931,7 @@ NUTS: [β, α]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">model_to_graphviz</span><span class="p">(</span><span class="n">model_1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">model_to_graphviz</span><span class="p">(</span><span class="n">model_1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1934,7 +1943,7 @@ NUTS: [β, α]
 <div class="section" id="multiclass-classification">
 <h2>Multiclass Classification<a class="headerlink" href="#multiclass-classification" title="Permalink to this headline">¶</a></h2>
 <p>For a multiclass problem, one uses the softmax function instead of the sigmoid function. The sigmoid function is a special case of the softmax for a two-class classification problem. The softmax can be written as</p>
-<p>$ softmax(x_i) = \dfrac{\exp(x_i)}{\sum_k \exp(x_k)} $</p>
+<p><span class="math notranslate nohighlight">\( softmax(x_i) = \dfrac{\exp(x_i)}{\sum_k \exp(x_k)} \)</span></p>
 <p>We also used a Bernoulli distribution for our <span class="math notranslate nohighlight">\(\theta\)</span> parameter, however now we have a categorical distribution.</p>
 <p><span class="math notranslate nohighlight">\(\theta = logistic(\alpha + \beta x)\)</span></p>
 <p><span class="math notranslate nohighlight">\(y = Categorical(\theta)\)</span></p>
@@ -1943,7 +1952,7 @@ NUTS: [β, α]
 <p>We reuse the previous example, however we are going to use all the three classes in the data here along with all the features for maximum separability. The data is also standardized instead of just mean-centered here.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y_s</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">target</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_s</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">target</span>
 <span class="n">x_n</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">x_s</span> <span class="o">=</span> <span class="n">iris_data</span><span class="p">[</span><span class="n">x_n</span><span class="p">]</span>
 <span class="n">x_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_s</span> <span class="o">-</span> <span class="n">x_s</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">x_s</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
@@ -1954,7 +1963,7 @@ NUTS: [β, α]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">theano</span> <span class="k">as</span> <span class="nn">tt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">theano</span> <span class="k">as</span> <span class="nn">tt</span>
 <span class="c1">#tt.config.gcc.cxxflags = &quot;-Wno-c++11-narrowing&quot;</span>
 
 <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_mclass</span><span class="p">:</span>
@@ -1973,15 +1982,14 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [beta, alpha]
 Could not pickle model, sampling singlethreaded.
 Sequential sampling (4 chains in 1 job)
 NUTS: [beta, alpha]
-</pre>
+</pre></div>
 </div>
 <div class="output text_html">
 <div>
@@ -2051,17 +2059,16 @@ NUTS: [beta, alpha]
   <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [3000/3000 00:18<00:00 Sampling chain 3, 2 divergences]
 </div>
-</div><div class="stderr docutils container">
-<pre class="stderr literal-block">Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 74 seconds.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 74 seconds.
 There were 5 divergences after tuning. Increase `target_accept` or reparameterize.
 There were 9 divergences after tuning. Increase `target_accept` or reparameterize.
 There were 34 divergences after tuning. Increase `target_accept` or reparameterize.
 There were 36 divergences after tuning. Increase `target_accept` or reparameterize.
 /Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-</pre>
+</pre></div>
 </div>
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_82_7.png" src="../_images/PyMC3_82_7.png" />
@@ -2069,12 +2076,12 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">stat_names</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">stat_names</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;depth&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;depth&#39;,
  &#39;diverging&#39;,
  &#39;energy&#39;,
  &#39;energy_error&#39;,
@@ -2094,7 +2101,7 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Length of trace_s&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Depth of the tree used to generate the sample  &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">depth</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy at the point where the sample was generated &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
@@ -2108,7 +2115,7 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Length of trace_s 8000 84.08494677302417
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Length of trace_s 8000 84.08494677302417
 Depth of the tree used to generate the sample   [5 6 5 ... 6 6 5]
 Energy at the point where the sample was generated  [65.72660855 61.74813467 61.54848582 ... 68.76994503 68.56852543
  64.39794338]
@@ -2124,12 +2131,12 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_85_1.png" src="../_images/PyMC3_85_1.png" />
@@ -2137,13 +2144,13 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seaborn uses the interquartile range to draw the box plot whiskers given by Q1 - 1.5IQR, Q3 + 1.5IQR</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seaborn uses the interquartile range to draw the box plot whiskers given by Q1 - 1.5IQR, Q3 + 1.5IQR</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">max_energy_error</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_86_1.png" src="../_images/PyMC3_86_1.png" />
@@ -2151,12 +2158,12 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)),</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)),</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_87_1.png" src="../_images/PyMC3_87_1.png" />
@@ -2164,7 +2171,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># The energy and the energy transition should be as close as possible</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The energy and the energy transition should be as close as possible</span>
 <span class="c1"># if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not</span>
 <span class="c1"># sample the space appropriately and that the results obtained are probably biased</span>
 <span class="n">pm</span><span class="o">.</span><span class="n">energyplot</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
@@ -2172,12 +2179,11 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-</pre>
+</pre></div>
 </div>
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_88_2.png" src="../_images/PyMC3_88_2.png" />
@@ -2185,14 +2191,14 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># A score of less than 2 indicates good convergence</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A score of less than 2 indicates good convergence</span>
 <span class="c1"># Computes the z score at each interval and returns and array of (interval start location, z score)</span>
 <span class="n">pm</span><span class="o">.</span><span class="n">geweke</span><span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([[ 0.00000000e+00,  6.81670105e-03],
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.00000000e+00,  6.81670105e-03],
        [ 2.10000000e+02,  6.58733966e-03],
        [ 4.21000000e+02,  1.17887921e-03],
        [ 6.31000000e+02,  6.05033956e-03],
@@ -2218,14 +2224,14 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">g</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">g</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
 <span class="n">beta_divergent</span> <span class="o">=</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">][</span><span class="n">divergent</span><span class="p">]</span>
@@ -2234,7 +2240,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Number of divergences 36 and percent 1.800000 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of divergences 36 and percent 1.800000 
 Shape of beta_divergent - Sum of divergences from all chains x shape of variable  (36, 4, 3)
 </pre></div>
 </div>
@@ -2242,14 +2248,14 @@ Shape of beta_divergent - Sum of divergences from all chains x shape of variable
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of warnings &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">))</span>
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Total number of warnings  88
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of warnings  88
 SamplerWarning(kind=&lt;WarningType.DIVERGENCE: 1&gt;, message=&#39;Energy change in leapfrog step is too large: 1329.570320082532.&#39;, level=&#39;debug&#39;, step=465, exec_info=None, extra=None, divergence_point_source={&#39;beta&#39;: array([[ 2.28825823,  4.32772034,  5.84657447],
        [ 4.70170642,  1.51361027,  1.57206155],
        [-3.07346691, -1.28567975,  9.78260754],
@@ -2283,12 +2289,12 @@ SamplerWarning(kind=&lt;WarningType.DIVERGENCE: 1&gt;, message=&#39;Energy chang
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;__annotations__&#39;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;__annotations__&#39;,
  &#39;__class__&#39;,
  &#39;__dataclass_fields__&#39;,
  &#39;__dataclass_params__&#39;,
@@ -2332,7 +2338,7 @@ SamplerWarning(kind=&lt;WarningType.DIVERGENCE: 1&gt;, message=&#39;Energy chang
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Message ----------&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Message ----------&quot;</span><span class="p">)</span>
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Kind of warning ----------&quot;</span><span class="p">)</span>
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">kind</span><span class="p">)</span>
@@ -2344,12 +2350,11 @@ SamplerWarning(kind=&lt;WarningType.DIVERGENCE: 1&gt;, message=&#39;Energy chang
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_point_source</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Destination ---------- &quot;</span><span class="p">)</span>
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_point_dest</span><span class="p">)</span>
-
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>---------- Message ----------
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>---------- Message ----------
 &#39;Energy change in leapfrog step is too large: 1329.570320082532.&#39;
 ---------- Kind of warning ----------
 &lt;WarningType.DIVERGENCE: 1&gt;
@@ -2375,12 +2380,12 @@ SamplerWarning(kind=&lt;WarningType.DIVERGENCE: 1&gt;, message=&#39;Energy chang
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_info</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_info</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>DivergenceInfo(message=&#39;Energy change in leapfrog step is too large: 1329.570320082532.&#39;, exec_info=None, state=State(q=array([ 2.28825823,  4.32772034,  5.84657447,  4.70170642,  1.51361027,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DivergenceInfo(message=&#39;Energy change in leapfrog step is too large: 1329.570320082532.&#39;, exec_info=None, state=State(q=array([ 2.28825823,  4.32772034,  5.84657447,  4.70170642,  1.51361027,
         1.57206155, -3.07346691, -1.28567975,  9.78260754, -7.4681819 ,
        -4.59599476,  7.77990167, -6.96127616,  5.78018654, -1.0151377 ]), p=array([ 1.7659921 , -1.2899258 , -0.51915985, -1.58866712,  1.11531903,
         0.13136253,  3.1567307 , -1.36084698, -1.28966842,  3.08483423,
@@ -2407,13 +2412,13 @@ SamplerWarning(kind=&lt;WarningType.DIVERGENCE: 1&gt;, message=&#39;Energy chang
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>465
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>465
 1215
 1797
 1826
@@ -2507,7 +2512,7 @@ None
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">theano</span> <span class="k">as</span> <span class="nn">tt</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">theano</span> <span class="k">as</span> <span class="nn">tt</span> 
 <span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span> 
 
 <span class="c1"># If we run into the identifiability problem, we can solve for n-1 variables </span>
@@ -2526,12 +2531,11 @@ None
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [β, α]
-</pre>
+</pre></div>
 </div>
 <div class="output text_html">
 <div>
@@ -2550,13 +2554,12 @@ NUTS: [β, α]
   <progress value='8000' class='' max='8000' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [8000/8000 00:24<00:00 Sampling 4 chains, 0 divergences]
 </div>
-</div><div class="stderr docutils container">
-<pre class="stderr literal-block">Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 33 seconds.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 33 seconds.
 /Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-</pre>
+</pre></div>
 </div>
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n0&#39;}&gt;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n0&#39;}&gt;,
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n0&#39;}&gt;],
        [&lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;,
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
@@ -2586,9 +2589,7 @@ NUTS: [β, α]
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="c1"># ------------ Create the data ---------- #</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ------------ Create the data ---------- #</span>
 <span class="n">n_1</span> <span class="o">=</span> <span class="mi">70</span>
 <span class="n">θ_real_1</span> <span class="o">=</span> <span class="mf">2.0</span>
 <span class="c1">#ψ = 0.1</span>
@@ -2635,12 +2636,11 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Multiprocess sampling (10 chains in 4 jobs)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (10 chains in 4 jobs)
 CompoundStep
 &gt;NUTS: [lambda_2, lambda_1]
 &gt;Metropolis: [tau]
-</pre>
+</pre></div>
 </div>
 <div class="output text_html">
 <div>
@@ -2659,14 +2659,13 @@ CompoundStep
   <progress value='30000' class='' max='30000' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [30000/30000 00:06<00:00 Sampling 10 chains, 0 divergences]
 </div>
-</div><div class="stderr docutils container">
-<pre class="stderr literal-block">Sampling 10 chains for 1_000 tune and 2_000 draw iterations (10_000 + 20_000 draws total) took 25 seconds.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 10 chains for 1_000 tune and 2_000 draw iterations (10_000 + 20_000 draws total) took 25 seconds.
 The number of effective samples is smaller than 25% for some parameters.
 /Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-</pre>
+</pre></div>
 </div>
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;tau&#39;}&gt;,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;tau&#39;}&gt;,
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;tau&#39;}&gt;],
        [&lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_1&#39;}&gt;,
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_1&#39;}&gt;],
@@ -2681,7 +2680,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Tau is &#39;</span><span class="p">,</span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Length of tau&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Lambda 1 is &#39;</span><span class="p">,</span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">])</span>
@@ -2691,7 +2690,7 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Tau is  [70 70 70 ... 71 71 71]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tau is  [70 70 70 ... 71 71 71]
 Length of tau 20000
 Lambda 1 is  [1.52271483 2.01420405 2.02746349 ... 1.99592266 1.69478059 1.69478059]
 Length of Lambda 1  20000
@@ -2700,10 +2699,10 @@ Length of Lambda 1  20000
 </div>
 </div>
 <p>For each draw of <span class="math notranslate nohighlight">\(\tau\)</span>, there is a draw of <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span>. We can use the principles of Monte Carlo approximation to compute the expected value of COVID-19 cases on any day.</p>
-<p>Expected value for day = $ \dfrac{1}{N} \sum_{0}^{num_samples}$ Lambda_draw ;  day &gt; Tau_draw ? lambda_2_draw : lambda_1_draw</p>
+<p>Expected value for day = <span class="math notranslate nohighlight">\( \dfrac{1}{N} \sum_{0}^{num\_samples}\)</span> Lambda_draw ;  day &gt; Tau_draw ? lambda_2_draw : lambda_1_draw</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
     <span class="n">prob_lambda_2</span> <span class="o">=</span> <span class="n">ecdf</span><span class="p">([</span><span class="n">elem</span><span class="p">])</span>
     <span class="n">prob_lambda_1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">prob_lambda_2</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Day &quot;</span><span class="p">,</span><span class="n">elem</span><span class="p">,</span><span class="n">prob_lambda_1</span><span class="p">,</span><span class="n">prob_lambda_2</span><span class="p">)</span>
@@ -2711,7 +2710,7 @@ Length of Lambda 1  20000
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Day  0 [1.] [0.]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Day  0 [1.] [0.]
 Day  1 [1.] [0.]
 Day  2 [1.] [0.]
 Day  3 [1.] [0.]
@@ -2857,8 +2856,7 @@ Day  139 [0.] [1.]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="n">tau_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]</span>
 <span class="n">lambda_1_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">]</span>
 <span class="n">lambda_2_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;lambda_2&#39;</span><span class="p">]</span>
 
@@ -2881,7 +2879,7 @@ Day  139 [0.] [1.]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
        1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
        1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
        1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
@@ -2915,14 +2913,14 @@ Day  139 [0.] [1.]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">total_data</span><span class="p">)),</span><span class="n">total_data</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_counts</span><span class="p">),</span> <span class="n">expected_values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_104_1.png" src="../_images/PyMC3_104_1.png" />
@@ -2993,7 +2991,7 @@ For algorithms that rely on gradient information to move around the distribution
 <h2>Debugging PyMC3<a class="headerlink" href="#debugging-pymc3" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -3011,17 +3009,16 @@ For algorithms that rely on gradient information to move around the distribution
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>mu __str__ = 0.0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mu __str__ = 0.0
 sd __str__ = 0.0
 </pre></div>
 </div>
-<div class="stderr docutils container">
-<pre class="stderr literal-block">Only 5 samples in chain.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Only 5 samples in chain.
 Multiprocess sampling (4 chains in 4 jobs)
 CompoundStep
 &gt;Metropolis: [sd]
 &gt;Metropolis: [mu]
-</pre>
+</pre></div>
 </div>
 <div class="output text_html">
 <div>
@@ -3040,11 +3037,10 @@ CompoundStep
   <progress value='4020' class='' max='4020' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [4020/4020 00:00<00:00 Sampling 4 chains, 0 divergences]
 </div>
-</div><div class="stderr docutils container">
-<pre class="stderr literal-block">Sampling 4 chains for 1_000 tune and 5 draw iterations (4_000 + 20 draws total) took 8 seconds.
-</pre>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 5 draw iterations (4_000 + 20 draws total) took 8 seconds.
+</pre></div>
 </div>
-<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>sd __str__ = 0.0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sd __str__ = 0.0
 mu __str__ = 0.0
 sd __str__ = 0.0
 mu __str__ = 0.0
@@ -3086,7 +3082,7 @@ sd __str__ = 0.0
 mu __str__ = 0.0
 </pre></div>
 </div>
-<div class="output text_plain highlight-none notranslate"><div class="highlight"><pre><span></span>array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
        0., 0., 0.])
 </pre></div>
 </div>
@@ -3142,7 +3138,10 @@ mu __str__ = 0.0
       </div>
     </div>
 
-    <script src="../_static/js/index.js"></script>
+    
+  <script src="../_static/js/index.30270b6e4c972e43c488.js"></script>
+
+
     
   </body>
 </html>
