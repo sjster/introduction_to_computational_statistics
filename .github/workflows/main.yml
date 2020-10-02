@@ -8,7 +8,9 @@ jobs:
   deploy-book:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2.3.1
+      with:
+          persist-credentials: false
 
     # Install dependencies
     - name: Set up Python 3.7
@@ -20,10 +22,17 @@ jobs:
     - name: Install dependencies
       run: |
            conda env update -n base --file environment.yml
+           conda list
 
     # Build the book
     - name: Build the book
       run: |
         jupyter-book build mini_book/
 
-   
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.6.2
+      with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: mini_book/build/html # The folder the action should deploy.
+          CLEAN: true # Automatically remove deleted files from the deploy branch   
