@@ -12,10 +12,10 @@ jobs:
 
     # Install dependencies
     - name: Set up Python 3.7
-      uses: actions/setup-python@v1
+      uses: conda-incubator/setup-miniconda@v1 
       with:
         python-version: 3.7
   
     - name: Install dependencies
       run: |
-        pip install sphinx pandas matplotlib quantecon jupyter-book seaborn pymc3 scipy arviz graphviz
+           conda install pandas
