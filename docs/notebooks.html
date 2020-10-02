@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayesian vs Frequentist statistics &#8212; Introduction to Statistical Computing for Aspiring Data Scientists by Srijith Rajamohan, Ph.D.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/jupyter-sphinx.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/mystnb.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to PyMC3" href="PyMC3.html" />
+    <link rel="prev" title="Learn More" href="learn_more.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo_large.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Introduction to Statistical Computing for Aspiring Data Scientists by Srijith Rajamohan, Ph.D.</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Setting up Your Python Environment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="python_by_example.html">
+   An Introductory Example
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="learn_more.html">
+   Learn More
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Bayesian vs Frequentist statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="PyMC3.html">
+   Introduction to PyMC3
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/docs/notebooks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/notebooks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/notebooks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpretation-of-data-and-models">
+   Interpretation of Data and Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#coin-flipping-example">
+   Coin Flipping example
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="bayesian-vs-frequentist-statistics">
+<h1>Bayesian vs Frequentist statistics<a class="headerlink" href="#bayesian-vs-frequentist-statistics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="interpretation-of-data-and-models">
+<h2>Interpretation of Data and Models<a class="headerlink" href="#interpretation-of-data-and-models" title="Permalink to this headline">¶</a></h2>
+<p>Likelihood is a type of probability except that this describes the probability of the data has already been observed. Probability, in general, refers to the possibility of occurence of future events. This is the basis on frequentist statistics, our probabilities are only based on what we have observed. In Bayesian statistics, we also use our prior understanding of the environment or the system that generated the observations to infer the possibility of future events. An Ben Lambert says in his book ‘A Students Guide to Bayesian Statistics’, ‘for Bayesians it is unncessary for events to be repeatable in order to define a probability. They are merely abstractions to help express our uncertainty’.</p>
+<p>Bayesians - Data is fixed and in light of new data we update our beliefs. The data is fixed and the beliefs are updated. The belief represented by some parameter is a random variable that we update. They are comfortable with the idea that our knowledge of these parameters evolve over time. In the case where there is a true parameter value that can be estimated, Bayes theorem allows one to specify an uncertainty over this parameter.</p>
+<p>Frequentist - The data is result of sampling from a random process. They see the data as varying and the parameter of this random process that generates the data as being fixed. They view this parameter as being the average of a infinite number of experiments. This approach is particlary problematic for events that cannot be repeated.</p>
+<p>His example of the US elections helps to illustrate this subtle difference.</p>
+<p>Bayesian - The probability of the Democrats winning the election is 0.75</p>
+<p>Frequentist - Since there is only sample that can be obtained for a particular election, this is not a repeatable exercise and we cannot sample from a population of outcomes for this election.</p>
+</div>
+<div class="section" id="coin-flipping-example">
+<h2>Coin Flipping example<a class="headerlink" href="#coin-flipping-example" title="Permalink to this headline">¶</a></h2>
+<p>For e.g. in a coin flip that is repeated 5 times where 4 heads show up, the probability of heads for a frequentist would be 4/5. If O represents the outcome and H represents the outcome of heads then the likelihood can be written as</p>
+<p><span class="math notranslate nohighlight">\(Likelihood = P(O=H/\theta)\)</span> = 0.8 ( (Frequentists use this as the probability for their hypothesis )</p>
+<p>where <span class="math notranslate nohighlight">\(\theta\)</span> represents the parameter of our coins probability density (Binomial distribution)
+However a Bayesian approach would consider the belief that the coin is unbiased and there has a prior probability (<span class="math notranslate nohighlight">\(P(\theta)\)</span>) of 0.5 of a heads showing up and have the following probability</p>
+<p><span class="math notranslate nohighlight">\(Posterior = Likelihood \times Prior = P(\theta | O = H) \propto P( O = H | \theta) \times P(\theta)\)</span> (Bayesians use this )</p>
+<p><span class="math notranslate nohighlight">\(Posterior \propto 0.8 * 0.5\)</span></p>
+<p>Suppose that you are measuring the heights of citizens in your state and there is a hypothesis that ther heights are normally distributed with mean  5’10” and a standard deviation of 4”. What is the probability of a person having a height of 6’8”? Frequentists would have to compute the probability of this observation happening as <span class="math notranslate nohighlight">\(P(h &gt;= 6.8 | N(\mu, \sigma) )\)</span> and use a threshold to determine if our original hypothesis was valid. In Bayesian statistics, the posterior is a probability distribution of the parameters of our hypothesis given our observation of seeing a sample with height 6’8” <span class="math notranslate nohighlight">\(P(N(\mu, \sigma) | h = 6'8&quot;)\)</span>. However, in this case we use a subjective prior to compute this posterior. We trade an arbitrary threshold (usually 1% or 5% depending on the problem being solved) in frequentist statistics for a subjective prior in bayesian statistics. One could argue that both of these are different ways to incorporate domain-knowledge and subjective expertise into the decision making process. Bayesians however do not need to accept or reject a hypothesis since they have the full distribution available as a result of the posterior and can therefore quantify the uncertainty with the hypothesis.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="learn_more.html" title="previous page">Learn More</a>
+    <a class='right-next' id="next-link" href="PyMC3.html" title="next page">Introduction to PyMC3</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Srijith Rajamohan, Ph.D.<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>
