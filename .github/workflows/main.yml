@@ -23,13 +23,14 @@ jobs:
           auto-activate-base: false
   
     - shell: bash -l {0}
-        run: |
+      run: |
           conda env update -n condaenv --file environment.yml
           conda info
           conda list
 
     # Build the book
     - name: Build the book
+      shell: bash -l {0}
       run: |
           jupyter-book build mini_book/
 
