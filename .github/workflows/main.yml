@@ -16,19 +16,22 @@ jobs:
     - name: Set up Python 3.7
       uses: conda-incubator/setup-miniconda@v1 
       with:
+          activate-environment: condaenv
+          environment-file: environment.yml
           auto-update-conda: true
           python-version: 3.7
-          auto-activate-base: true
+          auto-activate-base: false
   
-    - name: Install dependencies
-      run: |
-           conda env update -n base --file environment.yml
-           conda list
+    - shell: bash -l {0}
+        run: |
+          conda env update -n condaenv --file environment.yml
+          conda info
+          conda list
 
     # Build the book
     - name: Build the book
       run: |
-         conda activate base && jupyter-book build mini_book/
+          jupyter-book build mini_book/
 
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@3.6.2
