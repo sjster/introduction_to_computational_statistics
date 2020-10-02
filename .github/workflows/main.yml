@@ -18,6 +18,7 @@ jobs:
       with:
           auto-update-conda: true
           python-version: 3.7
+          auto-activate-base: true
   
     - name: Install dependencies
       run: |
@@ -27,7 +28,7 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        jupyter-book build mini_book/
+         conda activate base && jupyter-book build mini_book/
 
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@3.6.2
