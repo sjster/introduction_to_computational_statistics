@@ -20,6 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
            conda env update -n base --file environment.yml
+           conda list
 
 # Build the book
     - name: Build the book
