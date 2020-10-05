@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Statistical Computing with PyMC3 &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
+    <title>References &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
     
   <link rel="stylesheet" href="../_static/css/index.d431a4ee1c1efae0e38bdfebc22debff.css">
 
@@ -56,7 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Setting up Your Python Environment" href="getting_started.html" />
+    <link rel="next" title="Introduction to PyMC3" href="PyMC3.html" />
+    <link rel="prev" title="Bayesian vs Frequentist statistics" href="notebooks.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -128,19 +129,19 @@
   Introduction to Monte Carlo Methods
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="MonteCarlo.html">
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    References
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="MonteCarlo.html#building-blocks">
+  <a class="reference internal" href="#building-blocks">
    Building blocks
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="MonteCarlo.html#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
+  <a class="reference internal" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
    Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)
   </a>
  </li>
@@ -208,9 +209,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/docs/index.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/docs/MonteCarlo.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -227,10 +228,63 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/MonteCarlo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/MonteCarlo.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   References
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-blocks">
+   Building blocks
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#proposal-distribution">
+     Proposal distribution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
+   Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)
+  </a>
+ </li>
+</ul>
+
+        </nav>
         
     </div>
 </div>
@@ -239,27 +293,22 @@
         
               <div>
                 
-  <div class="section" id="statistical-computing-with-pymc3">
-<h1>Statistical Computing with PyMC3<a class="headerlink" href="#statistical-computing-with-pymc3" title="Permalink to this headline">¶</a></h1>
-<p>This series of notebooks and material is being put together by Srijith Rajamohan. This covers the following topics</p>
-<ul class="simple">
-<li><p>Introduction to Bayesian Statistics</p></li>
-<li><p>Introduction to Monte Carlo simulation</p></li>
-<li><p>Introduction to PyMC3</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This draws a lot of inspiration from some brilliant people in this field and I will list those names here as this work is being developed.</p>
+  <div class="section" id="references">
+<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+<p>https://colindcarroll.com/2019/04/11/hamiltonian-monte-carlo-from-scratch/</p>
+<p>https://www.youtube.com/watch?v=VnNdhsm0rJQ</p>
 </div>
-<p>PyMC3 can be found <a class="reference external" href="https://docs.pymc.io/notebooks/getting_started">here</a>.</p>
-<div class="toctree-wrapper compound">
+<div class="section" id="building-blocks">
+<h1>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="proposal-distribution">
+<h2>Proposal distribution<a class="headerlink" href="#proposal-distribution" title="Permalink to this headline">¶</a></h2>
+<p>An easy to sample distribution such as a Gaussian distribution <span class="math notranslate nohighlight">\(q(x)\)</span> such that</p>
+<p><span class="math notranslate nohighlight">\(q(x_{i+1} | x_{i}) \approx N(\mu, \sigma)\)</span></p>
 </div>
-<div class="toctree-wrapper compound">
 </div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
+<div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
+<h1>Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)<a class="headerlink" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo" title="Permalink to this headline">¶</a></h1>
+<p>Based on the solution of differential equations known as Hamilton’s equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational process.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -290,7 +339,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="getting_started.html" title="next page">Setting up Your Python Environment</a>
+    <a class='left-prev' id="prev-link" href="notebooks.html" title="previous page">Bayesian vs Frequentist statistics</a>
+    <a class='right-next' id="next-link" href="PyMC3.html" title="next page">Introduction to PyMC3</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
