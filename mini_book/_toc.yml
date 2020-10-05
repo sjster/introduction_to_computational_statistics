@@ -1,9 +1,18 @@
 # - file: README
 - file: docs/index
-  sections:
+- part:  Getting started
+  chapters:
     - file: docs/getting_started
     - file: docs/python_by_example
     - file: docs/learn_more
+- part: Introduction to Computational Statistics
+  chapters:
     - file: docs/notebooks.ipynb
+- part: Introduction to Monte Carlo Methods
+  chapters:
+    - file: docs/MonteCarlo.ipynb
+- part: PyMC3 for Bayesian Modeling and Inference
+  chapters:
     - file: docs/PyMC3.ipynb
+    - file: docs/Covid_forecast.ipynb
 
