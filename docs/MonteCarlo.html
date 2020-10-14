@@ -291,8 +291,10 @@
                 
   <div class="section" id="references">
 <h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
-<p>https://colindcarroll.com/2019/04/11/hamiltonian-monte-carlo-from-scratch/</p>
-<p>https://www.youtube.com/watch?v=VnNdhsm0rJQ</p>
+<p><a class="reference external" href="https://colindcarroll.com/2019/04/11/hamiltonian-monte-carlo-from-scratch/">Hamiltonian Monte Carlo in Python</a></p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ">Betancourt HMC - Best introduction to HMC</a></p>
+<p><a class="reference external" href="http://arxiv.org/abs/1111.4246">NUTS paper</a></p>
+<p><a class="reference external" href="https://colcarroll.github.io/hmc_tuning_talk/">HMC Tuning by Colin Caroll</a></p>
 </div>
 <div class="section" id="building-blocks">
 <h1>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h1>
@@ -305,6 +307,7 @@
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
 <h1>Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)<a class="headerlink" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo" title="Permalink to this headline">¶</a></h1>
 <p>Based on the solution of differential equations known as Hamilton’s equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational process.</p>
+<p>HMC is based on the notion of conservation of energy. When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy and when it is closer to the center of the probability mass will have high kinetic energy but low potential energy.</p>
 </div>
 
     <script type="text/x-thebe-config">

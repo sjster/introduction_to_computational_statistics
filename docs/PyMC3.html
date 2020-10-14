@@ -375,6 +375,18 @@
     <a class="reference internal nav-link" href="#tuning">
      Tuning
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#metropolis-algorithm">
+       Metropolis algorithm
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#hamiltonian-monte-carlo-hmc-algorithm">
+       Hamiltonian Monte Carlo (HMC) algorithm
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#mixing">
@@ -402,8 +414,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#monte-carlo-error-done">
-     Monte Carlo error (DONE)
+    <a class="reference internal nav-link" href="#monte-carlo-error">
+     Monte Carlo error
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -412,8 +424,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-note-on-why-we-compute-the-log-of-the-posterior-done">
-     A note on why we compute the log of the posterior (DONE)
+    <a class="reference internal nav-link" href="#a-note-on-why-we-compute-the-log-of-the-posterior">
+     A note on why we compute the log of the posterior
     </a>
    </li>
   </ul>
@@ -427,6 +439,18 @@
   <a class="reference internal nav-link" href="#arviz-data-representation">
    Arviz data representation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-the-school-data">
+     Load the school data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#load-the-s-p500-returns-data">
+     Load the S&amp;P500 returns data
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -2909,13 +2933,6 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">g</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
@@ -3250,7 +3267,7 @@ NUTS: [β, α]
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_99_4.png" src="../_images/PyMC3_99_4.png" />
+<img alt="../_images/PyMC3_98_4.png" src="../_images/PyMC3_98_4.png" />
 </div>
 </div>
 </div>
@@ -3266,7 +3283,7 @@ NUTS: [β, α]
 <p>We don’t really know a lot about these rates, so we select a prior for both which can be from an Exponential, Gamma or Uniform distributions. Both Exponential and Gamma distributions work better than the Uniform distribution since the Uniform distribution is the least informative. As usual, with enough observations one can even get away with a Uniform prior. Since we have no information regarding <span class="math notranslate nohighlight">\(\tau\)</span>, we select a Uniform prior distribution for that.</p>
 <p>Try varying the following</p>
 <ol class="simple">
-<li><p>types of priors - a more informed prior is always better if thi information is available</p></li>
+<li><p>types of priors - a more informed prior is always better if this information is available</p></li>
 <li><p>the size of the data or the observations and the value of the theta parameter - more data results in better inference overall, the larger the difference in theta the easier to determine these rates</p></li>
 <li><p>the number of drawn samples - better and more accurate inference</p></li>
 <li><p>the number of chains - should reduce variance</p></li>
@@ -3358,9 +3375,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_101_4.png" src="../_images/PyMC3_101_4.png" />
-<img alt="../_images/PyMC3_101_5.png" src="../_images/PyMC3_101_5.png" />
-<img alt="../_images/PyMC3_101_6.png" src="../_images/PyMC3_101_6.png" />
+<img alt="../_images/PyMC3_100_4.png" src="../_images/PyMC3_100_4.png" />
+<img alt="../_images/PyMC3_100_5.png" src="../_images/PyMC3_100_5.png" />
+<img alt="../_images/PyMC3_100_6.png" src="../_images/PyMC3_100_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3608,7 +3625,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_106_1.png" src="../_images/PyMC3_106_1.png" />
+<img alt="../_images/PyMC3_105_1.png" src="../_images/PyMC3_105_1.png" />
 </div>
 </div>
 </div>
@@ -3623,7 +3640,7 @@ Day  139 [0.] [1.]
 <li><p>Increase the target_accept parameter as
 <code class="docutils literal notranslate"><span class="pre">pm.sample(5000,</span> <span class="pre">chains=2,</span> <span class="pre">target_accept=0.95)</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">pm.sample(5000,</span> <span class="pre">chains=2,</span> <span class="pre">nuts_kwargs=dict(target_accept=0.95))</span></code></p>
-<p>Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. (See below section on tuning)</p>
+<p>Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process so that we get the desired acceptance probability as indicated by the value to target_accept. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. (See below section on tuning)</p>
 </li>
 <li><p>Reparameterize the model so that the model while remaining the same, is expressed differently so that is easier to explore the space and find solutions.</p></li>
 <li><p>Modify the data representation - mean centering and standardizing the data are two standard techniques that can be applied here. Note that (5) refers to model transformation while this is specifically modifying the data.</p></li>
@@ -3634,10 +3651,22 @@ Day  139 [0.] [1.]
 </div>
 <div class="section" id="tuning">
 <h3>Tuning<a class="headerlink" href="#tuning" title="Permalink to this headline">¶</a></h3>
-<p>When a step size is required, PyMC3 uses the first 500 steps varying the step size to get to an acceptance rate of 23.4%. These are the default numbers that PyMC3 uses, which can be modified. It was reported in a study that the acceptance rate of 23.4% results in the highest efficiency for Metropolis Hastings. These are empirical results and therefore should be treated as guidelines. According to the SAS Institute, a high acceptance rate (90% or so) usually is a sign that the new samples are being drawn from points close to the existing point and therefore the sampler is not exploring the space much. On the other hand, a low acceptance rate is probably due to inappropriate proposal distribution causing new samples to be rejected.</p>
+<p><a class="reference external" href="https://colcarroll.github.io/hmc_tuning_talk/">Colin Caroll’s talk</a></p>
+<p>When a step size is required, PyMC3 uses the first 500 steps varying the step size to get to an acceptance rate of 23.4%. These are the default numbers that PyMC3 uses, which can be modified. It was reported in a study that the acceptance rate of 23.4% results in the highest efficiency for Metropolis Hastings. These are empirical results and therefore should be treated as guidelines. According to the SAS Institute, a high acceptance rate (90% or so) usually is a sign that the new samples are being drawn from points close to the existing point and therefore the sampler is not exploring the space much. On the other hand, a low acceptance rate is probably due to inappropriate proposal distribution causing new samples to be rejected. PyMC3 aims to get an acceptance rate between 20% and 50% for Metropolis Hastings, 65% for Hamiltonian Monte Carlo (HMC) and 85% for No U-Turn Sampler (NUTS)</p>
 <p>If you have convergence issues as indicated by the visual inspection of the trace, you can try increasing the number of samples used for tuning. It is also worth pointing out that there is more than just step-size adaptation that is happening during this tuning phase.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pm.sample(num_samples,</span> <span class="pre">n_tune=num_tuning)</span></code></p>
-<p>Relatedly, in the Metropolis algorithm the tuning parameter is the standard deviation of the proposal distribution. The larger this value, the larger the space from where new samples can be drawn. If the acceptance rate is too high, increase this standard deviation. Keep in mind that you run the risk of getting invalid draws if it is too large.</p>
+<div class="section" id="metropolis-algorithm">
+<h4>Metropolis algorithm<a class="headerlink" href="#metropolis-algorithm" title="Permalink to this headline">¶</a></h4>
+<p>In the Metropolis algorithm the standard deviation of the proposal distribution is a tuning parameter that can be set while initializing the algorithm.</p>
+<p><span class="math notranslate nohighlight">\(x_{t+1} \sim Normal(x_t, stepsize \cdot I)\)</span></p>
+<p>The larger this value, the larger the space from where new samples can be drawn. If the acceptance rate is too high, increase this standard deviation. Keep in mind that you run the risk of getting invalid draws if it is too large.</p>
+</div>
+<div class="section" id="hamiltonian-monte-carlo-hmc-algorithm">
+<h4>Hamiltonian Monte Carlo (HMC) algorithm<a class="headerlink" href="#hamiltonian-monte-carlo-hmc-algorithm" title="Permalink to this headline">¶</a></h4>
+<p>The HMC algorithm is based on the solution of differential equations known as Hamilton’s equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational process.</p>
+<p>To get a sense of the intuition behind HMC, it is based on the notion of conservation of energy. When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy and when it is closer to the center of the probability mass will have high kinetic energy but low potential energy.</p>
+<p>The step size, in HMC, corresponds to the covariance of the momentum distribution that is sampled. Smaller step sizes move slowly in the manifold however larger step sizes can result in integration errors. There is a Metropolis step at the end of the HMC algorithm and and as a result the corresponding target acceptance rates of 65% in PyMC3.</p>
+</div>
 </div>
 <div class="section" id="mixing">
 <h3>Mixing<a class="headerlink" href="#mixing" title="Permalink to this headline">¶</a></h3>
@@ -3955,7 +3984,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_109_3.png" src="../_images/PyMC3_109_3.png" />
+</div></div><img alt="../_images/PyMC3_108_3.png" src="../_images/PyMC3_108_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4166,7 +4195,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_110_3.png" src="../_images/PyMC3_110_3.png" />
+</div></div><img alt="../_images/PyMC3_109_3.png" src="../_images/PyMC3_109_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4207,27 +4236,158 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_112_2.png" src="../_images/PyMC3_112_2.png" />
+<img alt="../_images/PyMC3_111_2.png" src="../_images/PyMC3_111_2.png" />
 </div>
 </div>
 </div>
 <div class="section" id="autocorrelation-and-effective-sample-sizes">
 <h3>Autocorrelation and effective sample sizes<a class="headerlink" href="#autocorrelation-and-effective-sample-sizes" title="Permalink to this headline">¶</a></h3>
-<p>Thinning or pruning refers to the process of dropping every nth sample from a chain. This is to minimize the number of correlated samples that might be drawn, especially if the proposal distribution is narrow. Correlated samples violate our condition of independence and can give us biased posterior estimates of our posterior distribution.</p>
-<p>az.plot_autocorr(centered_eight_trace, var_names=[“mu”, “tau”]);</p>
+<p>Ideally, we would like to have zero correlation in the samples that are drawn. Correlated samples violate our condition of independence and can give us biased posterior estimates of our posterior distribution.
+Thinning or pruning refers to the process of dropping every nth sample from a chain. This is to minimize the number of correlated samples that might be drawn, especially if the proposal distribution is narrow. The autocorrelation plot computes the correlation of a sequence with itself but shifted by n, for each n on the x axis the corresponding value of autocorrelation is plotted on the y axis.</p>
+<p><code class="docutils literal notranslate"><span class="pre">az.plot_autocorr(trace,</span> <span class="pre">var_names=[&quot;a&quot;,</span> <span class="pre">&quot;b&quot;])</span></code></p>
+<p>Techniques like Metropolis-Hastings are susceptible to having auto-correlated samples. We plot the autcorrelation here for the cm and the ncm models. The cm models have samples that have a high degree of autocorrelation while the ncm models does not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
 </div>
-<div class="section" id="monte-carlo-error-done">
-<h3>Monte Carlo error (DONE)<a class="headerlink" href="#monte-carlo-error-done" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n0&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n1&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n2&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_113_2.png" src="../_images/PyMC3_113_2.png" />
+</div>
+</div>
+<p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
+<p><code class="docutils literal notranslate"><span class="pre">az.efective_n(trace_s)</span></code></p>
+<p>PyMC3 will throw a warning if the number of effective samples is less than 200 (200 is heuristically determined to provide a good approximation for the mean of a distribution). Unless you want to sample from the tails of a distribution (rare events), 1000 to 2000 samples should provide a good approximation for a distribution.</p>
+</div>
+<div class="section" id="monte-carlo-error">
+<h3>Monte Carlo error<a class="headerlink" href="#monte-carlo-error" title="Permalink to this headline">¶</a></h3>
 <p>The Monte Carlo error is a measure of the error of our sampler which stems from the fact that not all samples that we have drawn are independent. This error is defined by dividing a trace into n blocks. We then compute the mean of these blocks and calculate the error as the standard deviation of these means over the square root of the number of blocks.</p>
 <p><span class="math notranslate nohighlight">\(mc_{error} = \sigma(\mu(block_i)) / \sqrt(n)\)</span></p>
 </div>
 <div class="section" id="divergence">
 <h3>Divergence<a class="headerlink" href="#divergence" title="Permalink to this headline">¶</a></h3>
 <p>Divergences happen in regions of high curvature in the manifold. When PyMC3 detects a divergence it abandons that chain and as a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.</p>
-<p>PyMC3 can indicate falsely that some samples are divergences, this is due to the heuristics used to identify divergences. Concentration of samples in a region is an indication that these are not divergences.</p>
+<p>In some cases, PyMC3 can indicate falsely that some samples are divergences, this is due to the heuristics used to identify divergences. Concentration of samples in a region is an indication that these are not divergences.</p>
+<p>We visualize this for the cm and ncm models with pairplots of the variables. You can see how the cm models have difficulty sampling at the edge of the funnel shaped two-dimensional manifold formed by the pairplot. This is a result of the sharp discontinuity where the sampler is having difficulty sampling.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
+</pre></div>
 </div>
-<div class="section" id="a-note-on-why-we-compute-the-log-of-the-posterior-done">
-<h3>A note on why we compute the log of the posterior (DONE)<a class="headerlink" href="#a-note-on-why-we-compute-the-log-of-the-posterior-done" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of divergences 483 and percent 24.150000 
+Number of divergences 126 and percent 6.300000 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:ylabel=&#39;b\n0&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;,
+        &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;],
+       [&lt;AxesSubplot:ylabel=&#39;b\n1&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;,
+        &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;],
+       [&lt;AxesSubplot:ylabel=&#39;b\n2&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;,
+        &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;],
+       [&lt;AxesSubplot:ylabel=&#39;b\n3&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;,
+        &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;],
+       [&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n4&#39;&gt;,
+        &lt;AxesSubplot:xlabel=&#39;b\n0&#39;&gt;, &lt;AxesSubplot:xlabel=&#39;b\n1&#39;&gt;,
+        &lt;AxesSubplot:xlabel=&#39;b\n2&#39;&gt;, &lt;AxesSubplot:xlabel=&#39;b\n3&#39;&gt;]],
+      dtype=object)
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_117_2.png" src="../_images/PyMC3_117_2.png" />
+<img alt="../_images/PyMC3_117_3.png" src="../_images/PyMC3_117_3.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;b_dim_0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]},</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;b_dim_0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]},</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_118_2.png" src="../_images/PyMC3_118_2.png" />
+<img alt="../_images/PyMC3_118_3.png" src="../_images/PyMC3_118_3.png" />
+</div>
+</div>
+<p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
+<ol class="simple">
+<li><p>Increase the tuning samples</p></li>
+<li><p>Increase ‘target_accept’</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;CM model&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;NCM model&#39;</span><span class="p">)</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_parallel</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">shadend</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">colord</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">textsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_parallel</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">shadend</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">colord</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">textsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_120_2.png" src="../_images/PyMC3_120_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="a-note-on-why-we-compute-the-log-of-the-posterior">
+<h3>A note on why we compute the log of the posterior<a class="headerlink" href="#a-note-on-why-we-compute-the-log-of-the-posterior" title="Permalink to this headline">¶</a></h3>
 <p>In short, this is done to avoid numerical overflow or underflow issues. When dealing with really large or small numbers, it is likely the limited precision of storage types (float, double etc.) can be an issue. In order to avoid this, the log of the probabilities are used instead in the calculations.</p>
 </div>
 </div>
@@ -4339,6 +4499,8 @@ mu __str__ = 0.0
 <p><a class="reference external" href="http://xarray.pydata.org/en/stable/why-xarray.html">Xarray documentation</a></p>
 <p><a class="reference external" href="http://unidata.github.io/netcdf4-python/netCDF4/index.html">NetCDF documentation</a></p>
 <p><img alt="Structure" src="https://arviz-devs.github.io/arviz/_images/InferenceDataStructure.png" /></p>
+<div class="section" id="load-the-school-data">
+<h3>Load the school data<a class="headerlink" href="#load-the-school-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">load_arviz_data</span><span class="p">(</span><span class="s2">&quot;centered_eight&quot;</span><span class="p">)</span>
@@ -9442,6 +9604,106 @@ dl.xr-attrs {
   fill: currentColor;
 }
 .xr-wrap{width:700px!important;} </style></div></div>
+</div>
+</div>
+<div class="section" id="load-the-s-p500-returns-data">
+<h3>Load the S&amp;P500 returns data<a class="headerlink" href="#load-the-s-p500-returns-data" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sp500</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="s1">&#39;SP500.csv&#39;</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">sp500</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Close</th>
+      <th>change</th>
+    </tr>
+    <tr>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2008-05-02</th>
+      <td>1413.900024</td>
+      <td>0.003230</td>
+    </tr>
+    <tr>
+      <th>2008-05-05</th>
+      <td>1407.489990</td>
+      <td>-0.004544</td>
+    </tr>
+    <tr>
+      <th>2008-05-06</th>
+      <td>1418.260010</td>
+      <td>0.007623</td>
+    </tr>
+    <tr>
+      <th>2008-05-07</th>
+      <td>1392.569946</td>
+      <td>-0.018280</td>
+    </tr>
+    <tr>
+      <th>2008-05-08</th>
+      <td>1397.680054</td>
+      <td>0.003663</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2019-11-08</th>
+      <td>3093.080078</td>
+      <td>0.002557</td>
+    </tr>
+    <tr>
+      <th>2019-11-11</th>
+      <td>3087.010010</td>
+      <td>-0.001964</td>
+    </tr>
+    <tr>
+      <th>2019-11-12</th>
+      <td>3091.840088</td>
+      <td>0.001563</td>
+    </tr>
+    <tr>
+      <th>2019-11-13</th>
+      <td>3094.040039</td>
+      <td>0.000711</td>
+    </tr>
+    <tr>
+      <th>2019-11-14</th>
+      <td>3096.629883</td>
+      <td>0.000837</td>
+    </tr>
+  </tbody>
+</table>
+<p>2906 rows × 2 columns</p>
+</div></div></div>
+</div>
 </div>
 </div>
 </div>
