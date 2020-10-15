@@ -265,6 +265,13 @@
     <a class="reference internal nav-link" href="#hdi-hpd-and-rope">
      HDI, HPD and ROPE
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#credible-intervals-vs-confidence-intervals">
+       Credible intervals vs. Confidence Intervals
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -272,6 +279,25 @@
   <a class="reference internal nav-link" href="#modeling-with-a-gaussian-distribution">
    Modeling with a Gaussian distribution
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-with-pymc3">
+     Example with PyMC3
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#note-on-scalablility">
+       Note on scalablility
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior-predictive-check">
+     Posterior predictive check
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#robust-models-with-a-student-s-t-distribution">
@@ -284,8 +310,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#linear-regression">
-   Linear Regression
+  <a class="reference internal nav-link" href="#linear-regression-again">
+   Linear Regression again!
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -618,9 +644,9 @@ NUTS: [sigma, beta, alpha]
         }
     </style>
   <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [12000/12000 00:09<00:00 Sampling 4 chains, 0 divergences]
+  100.00% [12000/12000 00:08<00:00 Sampling 4 chains, 0 divergences]
 </div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 21 seconds.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 17 seconds.
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
@@ -880,6 +906,14 @@ The number of effective samples is smaller than 25% for some parameters.
 <h3>HDI, HPD and ROPE<a class="headerlink" href="#hdi-hpd-and-rope" title="Permalink to this headline">¶</a></h3>
 <p>We will plot the posterior of the beta distribution with the set parameters and a credible interval for the Highest-Posterior Density (HPD) which is the interval that has the given probability indicated by the HPD. What is the probability of getting a value given by x? We can’t really calculate this exactly but we can compute this probability within a range given by x + <span class="math notranslate nohighlight">\(\Delta\)</span>x, x - <span class="math notranslate nohighlight">\(\Delta\)</span>x. A related term is the Highest Density Interval (HDI) which is a more general term that can apply for any distribution such as a prior. In other words a posterior’s HDI is called the HPD.</p>
 <p>Sometimes, instead of looking at the probability that x = 0.5, we look at the probability that it falls within the range 0.45 and 0.55 called the Region of Practical Equivalence or ROPE. ROPE allows us to make inferences about an event. If we suspect that the dice used at a casino is loaded, we can infer the probability of getting the value 3 from the six outcomes. Ideally, this should be 1/6 = 0.16666, however after computing the posterior our ROPE given by say 0.12 and 0.20 can either overlap with the HPD from the posterior density of the 3 completely, not overlap at all, partially overlap with the HPD. Complete overlap suggests that our computed probability coincides with what we would expect from a fair dice. If it does not overlap, it is not a fair dice and a partial overlap indicates that we cannot be certain that is either fair or unfair.</p>
+<div class="section" id="credible-intervals-vs-confidence-intervals">
+<h4>Credible intervals vs. Confidence Intervals<a class="headerlink" href="#credible-intervals-vs-confidence-intervals" title="Permalink to this headline">¶</a></h4>
+<p>This deserves special mention particularly due to the subtle differences stemming from the Bayesian (credible intervals) vs. Frequentist (confidence intervals) approaches involved. Bayesian’s consider the parameters to be a distribution and that there is no true parameter however Frequentists assume that there exists a true parameter.</p>
+<ul class="simple">
+<li><p>Confidence intervals quantify our confidence that the true parameter exists in this interval. It is a statement about the interval.</p></li>
+<li><p>Credible intervals quantify our uncertainty about the parameters since there are no true parameters in a Bayesian setting. It is a statement about the probability of the parameter.</p></li>
+</ul>
+<p>For e.g. if we are trying to estimate the R0 for COVID-19, one could say that we have a 95% confidence interval of the true R0 being between 2.0 and 3.2. In a Bayesian setting, the 95% credible interval of (2,3.2) implies that we are 95% certain that</p>
 <p>We will see how we can visualize these metrics using ArViz.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -919,178 +953,22 @@ The number of effective samples is smaller than 25% for some parameters.
 <img alt="../_images/PyMC3_16_1.png" src="../_images/PyMC3_16_1.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">az</span><span class="o">.</span><span class="n">plot_posterior</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on function plot_posterior in module arviz.plots.posteriorplot:
-
-plot_posterior(data, var_names=None, filter_vars=None, transform=None, coords=None, figsize=None, textsize=None, hdi_prob=None, multimodal=False, round_to: Union[int, NoneType] = None, point_estimate=&#39;auto&#39;, group=&#39;posterior&#39;, rope=None, ref_val=None, kind=&#39;kde&#39;, bw=4.5, bins=None, ax=None, backend=None, backend_kwargs=None, show=None, credible_interval=None, **kwargs)
-    Plot Posterior densities in the style of John K. Kruschke&#39;s book.
-    
-    Parameters
-    ----------
-    data: obj
-        Any object that can be converted to an az.InferenceData object
-        Refer to documentation of az.convert_to_dataset for details
-    var_names: list of variable names
-        Variables to be plotted, two variables are required. Prefix the variables by `~`
-        when you want to exclude them from the plot.
-    filter_vars: {None, &quot;like&quot;, &quot;regex&quot;}, optional, default=None
-        If `None` (default), interpret var_names as the real variables names. If &quot;like&quot;,
-        interpret var_names as substrings of the real variables names. If &quot;regex&quot;,
-        interpret var_names as regular expressions on the real variables names. A la
-        `pandas.filter`.
-    transform: callable
-        Function to transform data (defaults to None i.e.the identity function)
-    coords: mapping, optional
-        Coordinates of var_names to be plotted. Passed to `Dataset.sel`
-    figsize: tuple
-        Figure size. If None it will be defined automatically.
-    textsize: float
-        Text size scaling factor for labels, titles and lines. If None it will be autoscaled based
-        on figsize.
-    hdi_prob: float, optional
-        Plots highest density interval for chosen percentage of density.
-        Use &#39;hide&#39; to hide the highest density interval. Defaults to 0.94.
-    multimodal: bool
-        If true (default) it may compute more than one credible interval if the distribution is
-        multimodal and the modes are well separated.
-    round_to: int, optional
-        Controls formatting of floats. Defaults to 2 or the integer part, whichever is bigger.
-    point_estimate: Optional[str]
-        Plot point estimate per variable. Values should be &#39;mean&#39;, &#39;median&#39;, &#39;mode&#39; or None.
-        Defaults to &#39;auto&#39; i.e. it falls back to default set in rcParams.
-    group: str, optional
-        Specifies which InferenceData group should be plotted. Defaults to ‘posterior’.
-    rope: tuple or dictionary of tuples
-        Lower and upper values of the Region Of Practical Equivalence. If a list is provided, its
-        length should match the number of variables.
-    ref_val: float or dictionary of floats
-        display the percentage below and above the values in ref_val. Must be None (default),
-        a constant, a list or a dictionary like see an example below. If a list is provided, its
-        length should match the number of variables.
-    kind: str
-        Type of plot to display (kde or hist) For discrete variables this argument is ignored and
-        a histogram is always used.
-    bw: float
-        Bandwidth scaling factor for the KDE. Should be larger than 0. The higher this number the
-        smoother the KDE will be. Defaults to 4.5 which is essentially the same as the Scott&#39;s rule
-        of thumb (the default rule used by SciPy). Only works if `kind == kde`.
-    bins: integer or sequence or &#39;auto&#39;, optional
-        Controls the number of bins, accepts the same keywords `matplotlib.hist()` does. Only works
-        if `kind == hist`. If None (default) it will use `auto` for continuous variables and
-        `range(xmin, xmax + 1)` for discrete variables.
-    ax: numpy array-like of matplotlib axes or bokeh figures, optional
-        A 2D array of locations into which to plot the densities. If not supplied, Arviz will create
-        its own array of plot areas (and return it).
-    backend: str, optional
-        Select plotting backend {&quot;matplotlib&quot;,&quot;bokeh&quot;}. Default &quot;matplotlib&quot;.
-    backend_kwargs: bool, optional
-        These are kwargs specific to the backend being used. For additional documentation
-        check the plotting method of the backend.
-    show: bool, optional
-        Call backend show function.
-    credible_interval: float or str, optional
-        deprecated: Please see hdi_prob
-    **kwargs
-        Passed as-is to plt.hist() or plt.plot() function depending on the value of `kind`.
-    
-    Returns
-    -------
-    axes: matplotlib axes or bokeh figures
-    
-    Examples
-    --------
-    Show a default kernel density plot following style of John Kruschke
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; import arviz as az
-        &gt;&gt;&gt; data = az.load_arviz_data(&#39;centered_eight&#39;)
-        &gt;&gt;&gt; az.plot_posterior(data)
-    
-    Plot subset variables by specifying variable name exactly
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; az.plot_posterior(data, var_names=[&#39;mu&#39;])
-    
-    Plot Region of Practical Equivalence (rope) and select variables with regular expressions
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; az.plot_posterior(data, var_names=[&#39;mu&#39;, &#39;^the&#39;], filter_vars=&quot;regex&quot;, rope=(-1, 1))
-    
-    Plot Region of Practical Equivalence for selected distributions
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; rope = {&#39;mu&#39;: [{&#39;rope&#39;: (-2, 2)}], &#39;theta&#39;: [{&#39;school&#39;: &#39;Choate&#39;, &#39;rope&#39;: (2, 4)}]}
-        &gt;&gt;&gt; az.plot_posterior(data, var_names=[&#39;mu&#39;, &#39;theta&#39;], rope=rope)
-    
-    
-    Add reference lines
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; az.plot_posterior(data, var_names=[&#39;mu&#39;, &#39;theta&#39;], ref_val=0)
-    
-    Show point estimate of distribution
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; az.plot_posterior(data, var_names=[&#39;mu&#39;, &#39;theta&#39;], point_estimate=&#39;mode&#39;)
-    
-    Show reference values using variable names and coordinates
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; az.plot_posterior(data, ref_val= {&quot;theta&quot;: [{&quot;school&quot;: &quot;Deerfield&quot;, &quot;ref_val&quot;: 4},
-        ...                                             {&quot;school&quot;: &quot;Choate&quot;, &quot;ref_val&quot;: 3}]})
-    
-    Show reference values using a list
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; az.plot_posterior(data, ref_val=[1] + [5] * 8 + [1])
-    
-    
-    Plot posterior as a histogram
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; az.plot_posterior(data, var_names=[&#39;mu&#39;], kind=&#39;hist&#39;)
-    
-    Change size of highest density interval
-    
-    .. plot::
-        :context: close-figs
-    
-        &gt;&gt;&gt; az.plot_posterior(data, var_names=[&#39;mu&#39;], hdi_prob=.75)
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 </div>
 <div class="section" id="modeling-with-a-gaussian-distribution">
 <h2>Modeling with a Gaussian distribution<a class="headerlink" href="#modeling-with-a-gaussian-distribution" title="Permalink to this headline">¶</a></h2>
-<p>ADD DETAIL HERE</p>
-<p>Gaussians are normally used to approximate a lot of practical data distributions.</p>
-<p>We read the chemical shifts data, and plot the density to getan idea of
+<p>Gaussians (Normal distributions) are normally used to approximate a lot of practical data distributions. One reason for this is the Central Limit Theorem, which states:</p>
+<p><strong>The distribution of the sample means will be a normal distribution</strong></p>
+<p><a class="reference external" href="https://statisticsbyjim.com/basics/central-limit-theorem/">Intuitive explanation of the Cenrtal Limit Theorem</a></p>
+<p>which implies that if we take the mean of the sample means, we should get the true population mean. There is also a more subtle reason for adopting the Gaussian distribution to represent a lot of phenomena; a lot of them are a result of averages of varying factors.</p>
+<p>The other reason is the mathematical tractability of the distribution, it is easy to compute in closed form. While not every distribution can be approximated with a single Gaussian distributions, we can use a mixture of Gaussians to represent other multi-modal distributions.</p>
+<p>The probability density for a Normal distribution in a single dimension is given by:</p>
+<p><span class="math notranslate nohighlight">\(P(x) = \dfrac{1}{\sigma \sqrt{2 \pi}} e^{-(x - \mu)^2 / 2 \sigma^2}\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation. In higher dimensions, we have a vector of means and covariance matrix.</p>
+<div class="section" id="example-with-pymc3">
+<h3>Example with PyMC3<a class="headerlink" href="#example-with-pymc3" title="Permalink to this headline">¶</a></h3>
+<p>We read the chemical shifts data, and plot the density to get an idea of
 the data distribution. It looks somewhat like a Gaussian so maybe we can start
 there. We have two parameters that is the mean and the standard deviation.
 We can estimate a prior for the mean by looking at the density and putting
@@ -1099,6 +977,9 @@ have a mean-centered half-normal prior - half-normal since the standard deviatio
 cannot be negative. We can provide a hyperparameter for this by insoecting the
 density again. These values decide how well we converge to a solution so good
 values are essential for good results.</p>
+<div class="section" id="note-on-scalablility">
+<h4>Note on scalablility<a class="headerlink" href="#note-on-scalablility" title="Permalink to this headline">¶</a></h4>
+<p>If your trace information is too big as a result of too many variables or the model being large, you do not want to store this in memory since it can overrun the machine memory. Persisting this in a DB will allow you to reload it and inspect it at a later time as well. For each run, it appends the samples the DB (or file if not deleted).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;chemical_shifts.csv&#39;</span><span class="p">)</span>
@@ -1108,10 +989,27 @@ values are essential for good results.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.YTick at 0x7fbd464d0580&gt;], [Text(0, 0, &#39;&#39;)])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.YTick at 0x7ff3f22ed3d0&gt;], [Text(0, 0, &#39;&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_19_1.png" src="../_images/PyMC3_19_1.png" />
+<img alt="../_images/PyMC3_18_1.png" src="../_images/PyMC3_18_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([55.12, 53.73, 50.24, 52.05, 56.4 , 48.45, 52.34, 55.65, 51.49,
+       51.86, 63.43, 53.  , 56.09, 51.93, 52.31, 52.33, 57.48, 57.44,
+       55.14, 53.93, 54.62, 56.09, 68.58, 51.36, 55.47, 50.73, 51.94,
+       54.95, 50.39, 52.91, 51.5 , 52.68, 47.72, 49.73, 51.82, 54.99,
+       52.84, 53.19, 54.52, 51.46, 53.73, 51.61, 49.81, 52.42, 54.3 ,
+       53.84, 53.16])
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1122,16 +1020,12 @@ values are essential for good results.</p>
 
 <span class="k">with</span> <span class="n">model_g</span><span class="p">:</span>
     
-    <span class="c1"># Note on scalablility - of your trace information is too big as a result of too many variables or the model being</span>
-    <span class="c1"># too big, you do not want to store this in memory since it can overrun the machine memory. Persisting this </span>
-    <span class="c1"># in a DB will allow you to reload it and inspect it at a later time as well.</span>
-    <span class="c1"># For each run - appends to the DN or file if not deleted</span>
-    <span class="c1"># backend = SQLite(&#39;test.sqlite&#39;) - Does not work</span>
-
+    <span class="c1">#backend = SQLite(&#39;test.sqlite&#39;)</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">70</span><span class="p">)</span>
     <span class="n">σ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;σ&#39;</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">σ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-    <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="s2">&quot;sqlite&quot;</span><span class="p">)</span>
+    <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span> <span class="c1"># backend = SQLite(&#39;test.sqlite&#39;) - Does not work</span>
 
 <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_g</span><span class="p">)</span>
 <span class="n">pm</span><span class="o">.</span><span class="n">model_to_graphviz</span><span class="p">(</span><span class="n">model_g</span><span class="p">)</span>    
@@ -1141,7 +1035,7 @@ values are essential for good results.</p>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
-Multiprocess sampling (3 chains in 3 jobs)
+Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [σ, μ]
 </pre></div>
 </div>
@@ -1159,15 +1053,160 @@ NUTS: [σ, μ]
             background: #F44336;
         }
     </style>
-  <progress value='6000' class='' max='6000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [6000/6000 00:01<00:00 Sampling 3 chains, 0 divergences]
+  <progress value='8000' class='' max='8000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [8000/8000 00:01<00:00 Sampling 4 chains, 0 divergences]
 </div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 3 chains for 1_000 tune and 12_000 draw iterations (3_000 + 36_000 draws total) took 2 seconds.
-/opt/conda/lib/python3.8/site-packages/arviz-0.9.0-py3.8.egg/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 9 seconds.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_20_3.svg" src="../_images/PyMC3_20_3.svg" /><img alt="../_images/PyMC3_20_4.png" src="../_images/PyMC3_20_4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">backends</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on package pymc3.backends in pymc3:
+
+NAME
+    pymc3.backends - Backends for traces
+
+DESCRIPTION
+    Available backends
+    ------------------
+    
+    1. NumPy array (pymc3.backends.NDArray)
+    2. Text files (pymc3.backends.Text)
+    3. SQLite (pymc3.backends.SQLite)
+    
+    The NDArray backend holds the entire trace in memory, whereas the Text
+    and SQLite backends store the values while sampling.
+    
+    Selecting a backend
+    -------------------
+    
+    By default, a NumPy array is used as the backend. To specify a different
+    backend, pass a backend instance to `sample`.
+    
+    For example, the following would save the sampling values to CSV files
+    in the directory &#39;test&#39;.
+    
+        &gt;&gt;&gt; import pymc3 as pm
+        &gt;&gt;&gt; with pm.Model():
+        &gt;&gt;&gt;      db = pm.backends.Text(&#39;test&#39;)
+        &gt;&gt;&gt;      trace = pm.sample(..., trace=db)
+    
+    Note that as in the example above, one must have an active model context,
+    or pass a `model` parameter in order to create a backend.
+    
+    Selecting values from a backend
+    -------------------------------
+    
+    After a backend is finished sampling, it returns a MultiTrace object.
+    Values can be accessed in a few ways. The easiest way is to index the
+    backend object with a variable or variable name.
+    
+        &gt;&gt;&gt; trace[&#39;x&#39;]  # or trace.x or trace[x]
+    
+    The call will return the sampling values of `x`, with the values for
+    all chains concatenated. (For a single call to `sample`, the number of
+    chains will correspond to the `cores` argument.)
+    
+    To discard the first N values of each chain, slicing syntax can be
+    used.
+    
+        &gt;&gt;&gt; trace[&#39;x&#39;, 1000:]
+    
+    The `get_values` method offers more control over which values are
+    returned. The call below will discard the first 1000 iterations
+    from each chain and keep the values for each chain as separate arrays.
+    
+        &gt;&gt;&gt; trace.get_values(&#39;x&#39;, burn=1000, combine=False)
+    
+    The `chains` parameter of `get_values` can be used to limit the chains
+    that are retrieved.
+    
+        &gt;&gt;&gt; trace.get_values(&#39;x&#39;, burn=1000, chains=[0, 2])
+    
+    MultiTrace objects also support slicing. For example, the following
+    call would return a new trace object without the first 1000 sampling
+    iterations for all traces and variables.
+    
+        &gt;&gt;&gt; sliced_trace = trace[1000:]
+    
+    The backend for the new trace is always NDArray, regardless of the
+    type of original trace.  Only the NDArray backend supports a stop
+    value in the slice.
+    
+    Loading a saved backend
+    -----------------------
+    
+    Saved backends can be loaded using `load` function in the module for the
+    specific backend.
+    
+        &gt;&gt;&gt; trace = pm.backends.text.load(&#39;test&#39;)
+    
+    Writing custom backends
+    -----------------------
+    
+    Backends consist of a class that handles sampling storage and value
+    selection. Three sampling methods of backend will be called:
+    
+    - setup: Before sampling is started, the `setup` method will be called
+      with two arguments: the number of draws and the chain number. This is
+      useful setting up any structure for storing the sampling values that
+      require the above information.
+    
+    - record: Record the sampling results for the current draw. This method
+      will be called with a dictionary of values mapped to the variable
+      names. This is the only sampling function that *must* do something to
+      have a meaningful backend.
+    
+    - close: This method is called following sampling and should perform any
+      actions necessary for finalizing and cleaning up the backend.
+    
+    The base storage class `backends.base.BaseTrace` provides common model
+    setup that is used by all the PyMC backends.
+    
+    Several selection methods must also be defined:
+    
+    - get_values: This is the core method for selecting values from the
+      backend. It can be called directly and is used by __getitem__ when the
+      backend is indexed with a variable name or object.
+    
+    - _slice: Defines how the backend returns a slice of itself. This
+      is called if the backend is indexed with a slice range.
+    
+    - point: Returns values for each variable at a single iteration. This is
+      called if the backend is indexed with a single integer.
+    
+    - __len__: This should return the number of draws.
+    
+    When `pymc3.sample` finishes, it wraps all trace objects in a MultiTrace
+    object that provides a consistent selection interface for all backends.
+    If the traces are stored on disk, then a `load` function should also be
+    defined that returns a MultiTrace object.
+    
+    For specific examples, see pymc3.backends.{ndarray,text,sqlite}.py.
+
+PACKAGE CONTENTS
+    base
+    hdf5
+    ndarray
+    report
+    sqlite
+    text
+    tracetab
+
+FILE
+    /Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/pymc3/backends/__init__.py
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1183,16 +1222,27 @@ NUTS: [σ, μ]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>39000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>710
 </pre></div>
 </div>
 </div>
 </div>
+<p>Use a pairplot of the parameters to ensure that there are no correlations that would adversely affect the sampling process.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_joint</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span> <span class="n">fill_last</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;kde&#39;</span><span class="p">,</span> <span class="n">fill_last</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;μ&#39;, ylabel=&#39;σ&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_24_2.png" src="../_images/PyMC3_24_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1201,15 +1251,125 @@ NUTS: [σ, μ]
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+      <th>sd</th>
+      <th>hdi_3%</th>
+      <th>hdi_97%</th>
+      <th>mcse_mean</th>
+      <th>mcse_sd</th>
+      <th>ess_mean</th>
+      <th>ess_sd</th>
+      <th>ess_bulk</th>
+      <th>ess_tail</th>
+      <th>r_hat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>μ</th>
+      <td>53.563</td>
+      <td>0.534</td>
+      <td>52.591</td>
+      <td>54.565</td>
+      <td>0.009</td>
+      <td>0.007</td>
+      <td>3243.0</td>
+      <td>3243.0</td>
+      <td>3256.0</td>
+      <td>2227.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>σ</th>
+      <td>3.568</td>
+      <td>0.383</td>
+      <td>2.913</td>
+      <td>4.308</td>
+      <td>0.007</td>
+      <td>0.005</td>
+      <td>3056.0</td>
+      <td>3024.0</td>
+      <td>3054.0</td>
+      <td>2451.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-<p>We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples from this posterior. You are returned a dictionary for each of the observed variables in the model.</p>
-<p>You can plot the dsitribution of these samples by passing this variable ‘y_pred_g’ as shown below. Setting mean=True in the call to plot_ppc computes the mean of the drawn samples and plots it as well.</p>
-<p>Two things can be noted here, the mean of the predicted samples is close to the observed adta but the mean of this mean sample is slightly shifted to the right. Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.</p>
-<p>Another thing to note here is that we modeled this using a Gaussian, however we have some outliers that need to be accoutned for which we cannot do well with a Gaussian distribution.</p>
+</div>
+</div>
+<div class="section" id="posterior-predictive-check">
+<h3>Posterior predictive check<a class="headerlink" href="#posterior-predictive-check" title="Permalink to this headline">¶</a></h3>
+<p>We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that the data from this posterior. You are returned a dictionary for each of the observed variables in the model. You can also plot the distribution of these samples by passing this variable ‘y_pred_g’ as shown below. Setting mean=True in the call to plot_ppc computes the mean distribution of the 100 sampled distributions and plots it as well.</p>
+<p>Two things can be noted here, the mean distribution of the samples from the posterior predictive distribution is close to the distribution of the observed data but the mean of this mean distribution is slightly shifted to the right. Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.</p>
+<p>Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how we can use a Student’s t dis</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model_g</span><span class="p">)</span>
-<span class="n">y_pred_g</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of the sampled variable y and data &quot;</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">y_pred_g</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='100' class='' max='100' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [100/100 00:00<00:00]
+</div>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of the sampled variable y and data  (100, 47) 47
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_g</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([54.89081574, 51.22194466, 56.11432563, 55.46165617, 54.32144226,
+       48.96194259, 52.92067811, 47.34516304, 56.07251752, 58.75310751,
+       54.48894594, 49.36799772, 53.28191241, 56.49077707, 52.88174639,
+       51.74632302, 55.0208239 , 56.16776376, 51.20222469, 50.68273258,
+       52.83109457, 55.91677434, 52.29954768, 49.84854089, 54.57114384,
+       56.41602873, 52.96434454, 47.09080199, 48.38257226, 47.36051665,
+       51.26919707, 51.87549412, 60.56445352, 52.38265861, 59.37778488,
+       56.68705548, 47.12182829, 57.29953073, 51.60334495, 57.05021493,
+       51.99733048, 55.25925157, 54.78427234, 54.13861868, 49.31464265,
+       48.98858109, 51.25127967])
 </pre></div>
 </div>
 </div>
@@ -1220,6 +1380,18 @@ NUTS: [σ, μ]
 <span class="n">ax</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">plot_ppc</span><span class="p">(</span><span class="n">data_ppc</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">mean</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+arviz.data.io_pymc3 - WARNING - posterior predictive variable y&#39;s shape not compatible with number of chains and draws. This can mean that some draws or even whole chains are not represented.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff3e08168e0&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_29_2.png" src="../_images/PyMC3_29_2.png" />
 </div>
 </div>
 </div>
@@ -1252,7 +1424,7 @@ NUTS: [ν, σ, μ]
 Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000 [00:04&lt;00:00, 1235.33draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_28_1.svg" src="../_images/PyMC3_28_1.svg" /><img alt="../_images/PyMC3_28_2.svg" src="../_images/PyMC3_28_2.svg" /></div>
+<img alt="../_images/PyMC3_31_1.svg" src="../_images/PyMC3_31_1.svg" /><img alt="../_images/PyMC3_31_2.svg" src="../_images/PyMC3_31_2.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1357,7 +1529,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 θ[2]    7453.0    6216.0    1.0  
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_35_1.svg" src="../_images/PyMC3_35_1.svg" /><img alt="../_images/PyMC3_35_2.svg" src="../_images/PyMC3_35_2.svg" /></div>
+<img alt="../_images/PyMC3_38_1.svg" src="../_images/PyMC3_38_1.svg" /><img alt="../_images/PyMC3_38_2.svg" src="../_images/PyMC3_38_2.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1415,8 +1587,8 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 </div>
 </div>
-<div class="section" id="linear-regression">
-<h2>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="linear-regression-again">
+<h2>Linear Regression again!<a class="headerlink" href="#linear-regression-again" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -1449,7 +1621,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-    <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="s1">&#39;sqlite&#39;</span><span class="p">)</span>
     
 <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="s1">&#39;ϵ&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -1471,15 +1643,22 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">302</span><span class="o">-</span><span class="mi">221198</span><span class="n">c13699</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">338</span><span class="o">-</span><span class="n">c55c5630f60b</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
 <span class="ne">----&gt; </span><span class="mi">8</span>     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="s1">&#39;sqlite&#39;</span><span class="p">)</span>
 <span class="g g-Whitespace">     </span><span class="mi">10</span> 
 
-<span class="ne">NameError</span>: name &#39;y&#39; is not defined
+<span class="nn">~/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/pymc3/distributions/distribution.py</span> in <span class="ni">__new__</span><span class="nt">(cls, name, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">66</span>         <span class="bp">cls</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ObservedRV</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">FreeRV</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">68</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;observed needs to be data but got: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span>         <span class="n">total_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;total_size&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span> 
+
+<span class="ne">TypeError</span>: observed needs to be data but got: &lt;class &#39;pymc3.model.ObservedRV&#39;&gt;
 </pre></div>
 </div>
 </div>
@@ -1653,7 +1832,7 @@ can be reformulated as</p>
  2.38910517 2.69086179]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_51_1.svg" src="../_images/PyMC3_51_1.svg" /></div>
+<img alt="../_images/PyMC3_54_1.svg" src="../_images/PyMC3_54_1.svg" /></div>
 </div>
 <div class="section" id="we-build-a-non-hierarchical-model-first">
 <h3>We build a non-hierarchical model first<a class="headerlink" href="#we-build-a-non-hierarchical-model-first" title="Permalink to this headline">¶</a></h3>
@@ -1693,10 +1872,10 @@ NUTS: [ν, ϵ, β, α_tmp]
 Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:18&lt;00:00, 548.27draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_53_1.svg" src="../_images/PyMC3_53_1.svg" /><img alt="../_images/PyMC3_53_2.svg" src="../_images/PyMC3_53_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<img alt="../_images/PyMC3_56_1.svg" src="../_images/PyMC3_56_1.svg" /><img alt="../_images/PyMC3_56_2.svg" src="../_images/PyMC3_56_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_53_4.svg" src="../_images/PyMC3_53_4.svg" /></div>
+<img alt="../_images/PyMC3_56_4.svg" src="../_images/PyMC3_56_4.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1762,7 +1941,7 @@ The acceptance probability does not match the target. It is 0.884780567793289, b
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_54_1.svg" src="../_images/PyMC3_54_1.svg" /><img alt="../_images/PyMC3_54_2.svg" src="../_images/PyMC3_54_2.svg" /><img alt="../_images/PyMC3_54_3.svg" src="../_images/PyMC3_54_3.svg" /></div>
+<img alt="../_images/PyMC3_57_1.svg" src="../_images/PyMC3_57_1.svg" /><img alt="../_images/PyMC3_57_2.svg" src="../_images/PyMC3_57_2.svg" /><img alt="../_images/PyMC3_57_3.svg" src="../_images/PyMC3_57_3.svg" /></div>
 </div>
 </div>
 </div>
@@ -1955,13 +2134,13 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_69_0.png" src="../_images/PyMC3_69_0.png" />
-<img alt="../_images/PyMC3_69_1.png" src="../_images/PyMC3_69_1.png" />
+<img alt="../_images/PyMC3_72_0.png" src="../_images/PyMC3_72_0.png" />
+<img alt="../_images/PyMC3_72_1.png" src="../_images/PyMC3_72_1.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_69_3.png" src="../_images/PyMC3_69_3.png" />
-<img alt="../_images/PyMC3_69_4.png" src="../_images/PyMC3_69_4.png" />
+<img alt="../_images/PyMC3_72_3.png" src="../_images/PyMC3_72_3.png" />
+<img alt="../_images/PyMC3_72_4.png" src="../_images/PyMC3_72_4.png" />
 </div>
 </div>
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
@@ -2088,7 +2267,7 @@ NUTS: [β, α]
 </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_73_6.svg" src="../_images/PyMC3_73_6.svg" /></div>
+<img alt="../_images/PyMC3_76_6.svg" src="../_images/PyMC3_76_6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2223,8 +2402,8 @@ NUTS: [β, α]
   Text(2.0, 0, &#39;7.5&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_75_2.png" src="../_images/PyMC3_75_2.png" />
-<img alt="../_images/PyMC3_75_3.png" src="../_images/PyMC3_75_3.png" />
+<img alt="../_images/PyMC3_78_2.png" src="../_images/PyMC3_78_2.png" />
+<img alt="../_images/PyMC3_78_3.png" src="../_images/PyMC3_78_3.png" />
 </div>
 </div>
 <p>In this case, the decision boundary is defined to be the value of ‘x’ when ‘y’ = 0.5. This turns out to be <span class="math notranslate nohighlight">\(-\alpha / \beta\)</span>. However, this value was chosen under the assumption that the midpoint of the class values are a good candidate, but this does not have to be the case.</p>
@@ -2473,8 +2652,8 @@ NUTS: [β, α]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_80_2.png" src="../_images/PyMC3_80_2.png" />
-<img alt="../_images/PyMC3_80_3.png" src="../_images/PyMC3_80_3.png" />
+<img alt="../_images/PyMC3_83_2.png" src="../_images/PyMC3_83_2.png" />
+<img alt="../_images/PyMC3_83_3.png" src="../_images/PyMC3_83_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2484,7 +2663,7 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_81_0.svg" src="../_images/PyMC3_81_0.svg" /></div>
+<img alt="../_images/PyMC3_84_0.svg" src="../_images/PyMC3_84_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -2619,7 +2798,7 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_84_7.png" src="../_images/PyMC3_84_7.png" />
+<img alt="../_images/PyMC3_87_7.png" src="../_images/PyMC3_87_7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3319,7 +3498,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_89_1.png" src="../_images/PyMC3_89_1.png" />
+<img alt="../_images/PyMC3_92_1.png" src="../_images/PyMC3_92_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3333,7 +3512,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_90_1.png" src="../_images/PyMC3_90_1.png" />
+<img alt="../_images/PyMC3_93_1.png" src="../_images/PyMC3_93_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3346,15 +3525,13 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_91_1.png" src="../_images/PyMC3_91_1.png" />
+<img alt="../_images/PyMC3_94_1.png" src="../_images/PyMC3_94_1.png" />
 </div>
 </div>
+<p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The energy and the energy transition should be as close as possible</span>
-<span class="c1"># if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not</span>
-<span class="c1"># sample the space appropriately and that the results obtained are probably biased</span>
-<span class="n">pm</span><span class="o">.</span><span class="n">energyplot</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">energyplot</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -3366,14 +3543,13 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_92_2.png" src="../_images/PyMC3_92_2.png" />
+<img alt="../_images/PyMC3_96_2.png" src="../_images/PyMC3_96_2.png" />
 </div>
 </div>
+<p>A score of less than 2 indicates good convergence. Computes the z score at each interval and returns and array of (interval start location, z score)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># A score of less than 2 indicates good convergence</span>
-<span class="c1"># Computes the z score at each interval and returns and array of (interval start location, z score)</span>
-<span class="n">pm</span><span class="o">.</span><span class="n">geweke</span><span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">geweke</span><span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -3738,7 +3914,7 @@ NUTS: [β, α]
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_100_4.png" src="../_images/PyMC3_100_4.png" />
+<img alt="../_images/PyMC3_105_4.png" src="../_images/PyMC3_105_4.png" />
 </div>
 </div>
 </div>
@@ -3846,9 +4022,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_102_4.png" src="../_images/PyMC3_102_4.png" />
-<img alt="../_images/PyMC3_102_5.png" src="../_images/PyMC3_102_5.png" />
-<img alt="../_images/PyMC3_102_6.png" src="../_images/PyMC3_102_6.png" />
+<img alt="../_images/PyMC3_107_4.png" src="../_images/PyMC3_107_4.png" />
+<img alt="../_images/PyMC3_107_5.png" src="../_images/PyMC3_107_5.png" />
+<img alt="../_images/PyMC3_107_6.png" src="../_images/PyMC3_107_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4096,7 +4272,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_107_1.png" src="../_images/PyMC3_107_1.png" />
+<img alt="../_images/PyMC3_112_1.png" src="../_images/PyMC3_112_1.png" />
 </div>
 </div>
 </div>
@@ -4455,7 +4631,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_110_3.png" src="../_images/PyMC3_110_3.png" />
+</div></div><img alt="../_images/PyMC3_115_3.png" src="../_images/PyMC3_115_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4666,7 +4842,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_111_3.png" src="../_images/PyMC3_111_3.png" />
+</div></div><img alt="../_images/PyMC3_116_3.png" src="../_images/PyMC3_116_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4707,7 +4883,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_113_2.png" src="../_images/PyMC3_113_2.png" />
+<img alt="../_images/PyMC3_118_2.png" src="../_images/PyMC3_118_2.png" />
 </div>
 </div>
 </div>
@@ -4739,7 +4915,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_115_2.png" src="../_images/PyMC3_115_2.png" />
+<img alt="../_images/PyMC3_120_2.png" src="../_images/PyMC3_120_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -4802,8 +4978,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_119_2.png" src="../_images/PyMC3_119_2.png" />
-<img alt="../_images/PyMC3_119_3.png" src="../_images/PyMC3_119_3.png" />
+<img alt="../_images/PyMC3_124_2.png" src="../_images/PyMC3_124_2.png" />
+<img alt="../_images/PyMC3_124_3.png" src="../_images/PyMC3_124_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4823,8 +4999,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_120_2.png" src="../_images/PyMC3_120_2.png" />
-<img alt="../_images/PyMC3_120_3.png" src="../_images/PyMC3_120_3.png" />
+<img alt="../_images/PyMC3_125_2.png" src="../_images/PyMC3_125_2.png" />
+<img alt="../_images/PyMC3_125_3.png" src="../_images/PyMC3_125_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -4853,7 +5029,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_122_2.png" src="../_images/PyMC3_122_2.png" />
+<img alt="../_images/PyMC3_127_2.png" src="../_images/PyMC3_127_2.png" />
 </div>
 </div>
 </div>
