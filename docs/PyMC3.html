@@ -1320,9 +1320,9 @@ FILE
 </div>
 <div class="section" id="posterior-predictive-check">
 <h3>Posterior predictive check<a class="headerlink" href="#posterior-predictive-check" title="Permalink to this headline">¶</a></h3>
-<p>We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that the data from this posterior. You are returned a dictionary for each of the observed variables in the model. You can also plot the distribution of these samples by passing this variable ‘y_pred_g’ as shown below. Setting mean=True in the call to plot_ppc computes the mean distribution of the 100 sampled distributions and plots it as well.</p>
+<p>We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that of the data from this posterior. You are returned a dictionary for each of the observed variables in the model. You can also plot the distribution of these samples by passing this variable ‘y_pred_g’ as shown below. Setting mean=True in the call to plot_ppc computes the mean distribution of the 100 sampled distributions and plots it as well.</p>
 <p>Two things can be noted here, the mean distribution of the samples from the posterior predictive distribution is close to the distribution of the observed data but the mean of this mean distribution is slightly shifted to the right. Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.</p>
-<p>Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how we can use a Student’s t dis</p>
+<p>Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how we can use a Student’s t-distribution for that.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model_g</span><span class="p">)</span>
@@ -1398,10 +1398,13 @@ arviz.data.io_pymc3 - WARNING - posterior predictive variable y&#39;s shape not 
 </div>
 <div class="section" id="robust-models-with-a-student-s-t-distribution">
 <h2>Robust models with a Student’s t distribution<a class="headerlink" href="#robust-models-with-a-student-s-t-distribution" title="Permalink to this headline">¶</a></h2>
-<p>ADD DETAIL HERE</p>
+<p>As mentioned in the previous section, one of the issues with assuming a Gaussian distribution is the assumption of finite variance. When you have observed data that lies outside this ‘boundary’, a Gaussian distribution is not a good fit and PyMC3 and other MCMC-based tools will be unable to reconcile these differences appropriately.</p>
+<p>The probability density function is given by:</p>
+<p><span class="math notranslate nohighlight">\(P(t) = \dfrac{\gamma ((v+1) / 2)}{\sqrt{v \pi} \gamma (v/2)} (1 + \dfrac{t^2}{v})^{-(v+1)/2}\)</span></p>
 <p>μ corresponds to the mean of the distribution</p>
 <p>σ is the scale and corresponds to the standard deviation</p>
-<p>ν is the degrees of freedom and takes between 0 and <span class="math notranslate nohighlight">\(\infty\)</span>. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinty corresponds to a Gaussian.</p>
+<p>ν is the degrees of freedom and takes between 0 and <span class="math notranslate nohighlight">\(\infty\)</span>. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the t-dsitribution used to model this would have degrees of freedom set to 9. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinty corresponds to a Normal distribution.</p>
+<p>The mean of the distribution is 0 and the variance is given by ν/(ν - 2).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_t</span><span class="p">:</span>
