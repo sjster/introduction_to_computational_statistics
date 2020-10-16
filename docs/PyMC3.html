@@ -305,9 +305,21 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hierarchical-models">
-   Hierarchical models
+  <a class="reference internal nav-link" href="#hierarchical-models-or-multilevel-models">
+   Hierarchical models or Multilevel models
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#artifically-generate-the-data">
+     Artifically generate the data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-sampling-model">
+     The sampling model
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#linear-regression-again">
@@ -1429,6 +1441,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 </div>
 <img alt="../_images/PyMC3_31_1.svg" src="../_images/PyMC3_31_1.svg" /><img alt="../_images/PyMC3_31_2.svg" src="../_images/PyMC3_31_2.svg" /></div>
 </div>
+<p>Using a student’s t distribution we notice that the outliers are captured more accurately now and the model fits better</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using a student&#39;s t distribution we notice that the outliers are captured more </span>
@@ -1444,17 +1457,22 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 </div>
 </div>
 </div>
-<div class="section" id="hierarchical-models">
-<h2>Hierarchical models<a class="headerlink" href="#hierarchical-models" title="Permalink to this headline">¶</a></h2>
-<p>Suppose we want to perform an analysis of water quality in a state and we divide this state into districts, there are two options to do this, study each district separately - we lose information especially if there is insufficient data for some districts. But we get a more detailed model per district.</p>
-<p>The second option is to combine all the data and estimate the water quality of the state as a whole - More data but we lose granular information about each district.</p>
-<p>The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the parameter priors to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts and as a result sharing information between them.</p>
+<div class="section" id="hierarchical-models-or-multilevel-models">
+<h2>Hierarchical models or Multilevel models<a class="headerlink" href="#hierarchical-models-or-multilevel-models" title="Permalink to this headline">¶</a></h2>
+<p>Suppose we want to perform an analysis of water quality in a state and we divide this state into districts, there are two options to do this. We can study each district separately, however we lose information especially if there is insufficient data for some districts. But we get a more detailed model per district.</p>
+<p>The second option is to combine all the data and estimate the water quality of the state as a whole. We have more data but we lose granular information about each district.</p>
+<p>The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the parameter priors to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts and as a result sharing information between all the groups in the data.</p>
+<p>We measure the water samples for three districts, and we collect 30 samples for each district. We count the number of samples that have contamination below the acceptable levels. We generate two arrays:</p>
+<ul class="simple">
+<li><p>N_samples - The total number of samples collected for each district or group</p></li>
+<li><p>G_samples - The number of good samples or samples with contamination levels below a certain threshold</p></li>
+<li><p>group_idx - The id for each district or group</p></li>
+</ul>
+<div class="section" id="artifically-generate-the-data">
+<h3>Artifically generate the data<a class="headerlink" href="#artifically-generate-the-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We measure the water samples for three districts, and we collect 30 samples </span>
-<span class="c1"># for each district. We count the number of samples that have contamination</span>
-<span class="c1"># below the acceptable levels</span>
-<span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
 <span class="n">G_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">18</span><span class="p">]</span> <span class="c1"># Number of samples with water contamination </span>
                          <span class="c1"># below accepted levels</span>
 <span class="c1"># Create an id for each of the 30 + 30 + 30 samples - 0,1,2 to indicate that they</span>
@@ -1473,6 +1491,15 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
+       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+       2, 2])
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1480,16 +1507,110 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 1,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0,
+ 0]
+</pre></div>
 </div>
-<p>The process of generating our samples looks like the following. First we set the parameters for the prior or the hyperpriors.</p>
-<p>ADD DETAIL HERE</p>
+</div>
+</div>
+</div>
+<div class="section" id="the-sampling-model">
+<h3>The sampling model<a class="headerlink" href="#the-sampling-model" title="Permalink to this headline">¶</a></h3>
+<p>This is essentially a binary classification problem that can be modeled using a Bernoulli distribution. The parameter of the Bernoulli distribution is a vector corresponding to each group and indicates the probability of getting a good sample (in each group). Since this is a hierarchical model, each group shares information and a result the parameter of Group 1 can be influenced by the samples in Group 2 and 3. This is what makes hierarchical modeling so powerful.</p>
+<p>The process of generating our samples looks like the following. If we start from the last equation and work our way up, we can see that <span class="math notranslate nohighlight">\(\theta_i\)</span> and <span class="math notranslate nohighlight">\(y_i\)</span> are similar to a pooled model except that the <em>Beta</em> prior takes parameters <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\beta_i\)</span> instead of constant values. These parameters now have hyperpriors applied to them using the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <em>k</em> which are assumed to be distributed using a <em>Beta</em> distribution and a half Normal distribution respectively. Note that <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are indirectly computed from the terms <span class="math notranslate nohighlight">\(\mu\)</span> and <em>k</em> here.</p>
 <p><span class="math notranslate nohighlight">\( \mu \sim Beta(\alpha_p, \beta_p)  \\
   k \sim | Normal(0,\sigma_k) | \\
   \alpha =  \mu * k \\
   \beta = (1 - \mu) * k \\
-\)</span></p>
-<p>These parameters are then used to define the priors. This is different from using a constant prior value as we saw before.</p>
-<p><span class="math notranslate nohighlight">\(
   \theta_i \sim Beta(\alpha_i, \beta_i) \\
   y_i \sim Bern(\theta_i)
 \)</span></p>
@@ -1516,30 +1637,54 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [θ, κ, μ]
-Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:15&lt;00:00, 633.33draws/s]
-        mean     sd  hpd_3%  hpd_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  \
-μ      0.585  0.096   0.403    0.764      0.001    0.001    6050.0  5900.0   
-κ     12.223  6.186   1.923   23.344      0.079    0.056    6111.0  6111.0   
-θ[0]   0.596  0.079   0.445    0.742      0.001    0.001    7004.0  6951.0   
-θ[1]   0.596  0.079   0.445    0.743      0.001    0.001    7480.0  7480.0   
-θ[2]   0.596  0.079   0.449    0.741      0.001    0.001    7455.0  7455.0   
-
-      ess_bulk  ess_tail  r_hat  
-μ       6051.0    5340.0    1.0  
-κ       5478.0    4680.0    1.0  
-θ[0]    6977.0    5713.0    1.0  
-θ[1]    7487.0    5956.0    1.0  
-θ[2]    7453.0    6216.0    1.0  
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_38_1.svg" src="../_images/PyMC3_38_1.svg" /><img alt="../_images/PyMC3_38_2.svg" src="../_images/PyMC3_38_2.svg" /></div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:04<00:00 Sampling 4 chains, 0 divergences]
 </div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 13 seconds.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  \
+μ      0.582  0.097   0.396    0.759      0.001    0.001    4568.0  4568.0   
+κ     12.295  6.342   1.903   23.962      0.099    0.070    4064.0  4064.0   
+θ[0]   0.597  0.078   0.452    0.742      0.001    0.001    6742.0  6709.0   
+θ[1]   0.595  0.079   0.447    0.742      0.001    0.001    5964.0  5923.0   
+θ[2]   0.597  0.078   0.445    0.737      0.001    0.001    7274.0  7245.0   
+
+      ess_bulk  ess_tail  r_hat  
+μ       4612.0    4523.0    1.0  
+κ       3606.0    3537.0    1.0  
+θ[0]    6726.0    5848.0    1.0  
+θ[1]    5963.0    5712.0    1.0  
+θ[2]    7266.0    6069.0    1.0  
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_39_4.svg" src="../_images/PyMC3_39_4.svg" /><img alt="../_images/PyMC3_39_5.png" src="../_images/PyMC3_39_5.png" />
+</div>
+</div>
+<p>Shrinkage - information is shared among the subgroups so we move away from extremes, which is great if we have outliers in our data subgroups especially when we do not have a lot of data - ADD DETAIL HERE</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Shrinkage - information is shared among the subgroups so we move away from extremes, which is great if</span>
-<span class="c1"># we have outliers in our data subgroups especially when we do not have a lot of data - ADD DETAIL HERE</span>
-
-<span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
 <span class="n">G_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="c1"># Number of samples with water contamination </span>
                          <span class="c1"># below accepted levels</span>
 <span class="c1"># Create an id for each of the 30 + 30 + 30 samples - 0,1,2 to indicate that they</span>
@@ -1552,6 +1697,60 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 <span class="n">get_hyperprior_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N_samples</span><span class="p">,</span> <span class="n">group_idx</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [θ, κ, μ]
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:04<00:00 Sampling 4 chains, 0 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 12 seconds.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  \
+μ      0.219  0.084   0.082    0.379      0.001    0.001    4238.0  3854.0   
+κ     11.806  6.166   1.293   22.848      0.086    0.061    5162.0  5162.0   
+θ[0]   0.178  0.062   0.069    0.295      0.001    0.001    6392.0  6392.0   
+θ[1]   0.178  0.062   0.069    0.294      0.001    0.001    6571.0  6532.0   
+θ[2]   0.179  0.062   0.068    0.291      0.001    0.001    5553.0  5553.0   
+
+      ess_bulk  ess_tail  r_hat  
+μ       4486.0    4374.0    1.0  
+κ       4539.0    3514.0    1.0  
+θ[0]    6126.0    5581.0    1.0  
+θ[1]    6352.0    4901.0    1.0  
+θ[2]    5268.0    4602.0    1.0  
+</pre></div>
+</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}
+                \begin{array}{rcl}
+                \text{μ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{κ_log__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{θ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{μ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=1.0,~\mathit{beta}=1.0)\\\text{κ} &amp;\sim &amp; \text{HalfNormal}(\mathit{sigma}=10.0)\\\text{θ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=f(\text{μ},~\text{κ}),~\mathit{beta}=f(f(\text{μ}),~\text{κ}))\\\text{y} &amp;\sim &amp; \text{Bernoulli}(\mathit{p}=f(\text{θ},~array))
+                \end{array}
+                \end{split}\]</div>
+<img alt="../_images/PyMC3_41_5.png" src="../_images/PyMC3_41_5.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1570,6 +1769,60 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [θ, κ, μ]
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:04<00:00 Sampling 4 chains, 0 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 12 seconds.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  \
+μ     0.340  0.110   0.130    0.534      0.002    0.001    5276.0  4919.0   
+κ     7.385  4.552   0.755   15.699      0.069    0.049    4299.0  4299.0   
+θ[0]  0.550  0.088   0.389    0.714      0.001    0.001    5232.0  5213.0   
+θ[1]  0.196  0.068   0.072    0.320      0.001    0.001    5489.0  5489.0   
+θ[2]  0.196  0.067   0.076    0.321      0.001    0.001    4750.0  4750.0   
+
+      ess_bulk  ess_tail  r_hat  
+μ       5436.0    5137.0    1.0  
+κ       4053.0    4706.0    1.0  
+θ[0]    5227.0    5154.0    1.0  
+θ[1]    5250.0    4633.0    1.0  
+θ[2]    4585.0    4605.0    1.0  
+</pre></div>
+</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}
+                \begin{array}{rcl}
+                \text{μ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{κ_log__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{θ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{μ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=1.0,~\mathit{beta}=1.0)\\\text{κ} &amp;\sim &amp; \text{HalfNormal}(\mathit{sigma}=10.0)\\\text{θ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=f(\text{μ},~\text{κ}),~\mathit{beta}=f(f(\text{μ}),~\text{κ}))\\\text{y} &amp;\sim &amp; \text{Bernoulli}(\mathit{p}=f(\text{θ},~array))
+                \end{array}
+                \end{split}\]</div>
+<img alt="../_images/PyMC3_42_5.png" src="../_images/PyMC3_42_5.png" />
+</div>
 </div>
 <p>Repeat the above with a constant prior instead of hyperpriors</p>
 <div class="cell docutils container">
@@ -1586,6 +1839,62 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 
 <span class="n">get_hyperprior_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N_samples</span><span class="p">,</span> <span class="n">group_idx</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [θ, κ, μ]
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:04<00:00 Sampling 4 chains, 1 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 12 seconds.
+There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_mean  ess_sd  \
+μ     0.398  0.129   0.156    0.638      0.002    0.001    5504.0  5218.0   
+κ     4.058  2.846   0.280    9.217      0.044    0.034    4167.0  3573.0   
+θ[0]  0.577  0.087   0.419    0.740      0.001    0.001    6018.0  6005.0   
+θ[1]  0.576  0.087   0.416    0.738      0.001    0.001    5558.0  5450.0   
+θ[2]  0.075  0.051   0.001    0.165      0.001    0.001    5150.0  4729.0   
+
+      ess_bulk  ess_tail  r_hat  
+μ       5575.0    5216.0    1.0  
+κ       4547.0    3757.0    1.0  
+θ[0]    6013.0    5153.0    1.0  
+θ[1]    5535.0    4996.0    1.0  
+θ[2]    5056.0    4368.0    1.0  
+</pre></div>
+</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}
+                \begin{array}{rcl}
+                \text{μ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{κ_log__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{θ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{μ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=1.0,~\mathit{beta}=1.0)\\\text{κ} &amp;\sim &amp; \text{HalfNormal}(\mathit{sigma}=10.0)\\\text{θ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=f(\text{μ},~\text{κ}),~\mathit{beta}=f(f(\text{μ}),~\text{κ}))\\\text{y} &amp;\sim &amp; \text{Bernoulli}(\mathit{p}=f(\text{θ},~array))
+                \end{array}
+                \end{split}\]</div>
+<img alt="../_images/PyMC3_44_5.png" src="../_images/PyMC3_44_5.png" />
 </div>
 </div>
 </div>
@@ -1613,6 +1922,9 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/PyMC3_46_0.png" src="../_images/PyMC3_46_0.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1624,7 +1936,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-    <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="s1">&#39;sqlite&#39;</span><span class="p">)</span>
+    <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
     
 <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="s1">&#39;ϵ&#39;</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -1645,25 +1957,102 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">338</span><span class="o">-</span><span class="n">c55c5630f60b</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">8</span>     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="s1">&#39;sqlite&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> 
-
-<span class="nn">~/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/pymc3/distributions/distribution.py</span> in <span class="ni">__new__</span><span class="nt">(cls, name, *args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">66</span>         <span class="bp">cls</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
-<span class="g g-Whitespace">     </span><span class="mi">67</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ObservedRV</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">FreeRV</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">68</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;observed needs to be data but got: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span>
-<span class="g g-Whitespace">     </span><span class="mi">69</span>         <span class="n">total_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;total_size&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">70</span> 
-
-<span class="ne">TypeError</span>: observed needs to be data but got: &lt;class &#39;pymc3.model.ObservedRV&#39;&gt;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [ϵ, β, α]
+Could not pickle model, sampling singlethreaded.
+Sequential sampling (4 chains in 1 job)
+NUTS: [ϵ, β, α]
 </pre></div>
 </div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [3000/3000 00:07<00:00 Sampling chain 0, 0 divergences]
+</div>
+</div><div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [3000/3000 00:07<00:00 Sampling chain 1, 0 divergences]
+</div>
+</div><div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [3000/3000 00:07<00:00 Sampling chain 2, 0 divergences]
+</div>
+</div><div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [3000/3000 00:08<00:00 Sampling chain 3, 0 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 31 seconds.
+The acceptance probability does not match the target. It is 0.8919464665402735, but should be close to 0.8. Try to increase the number of tuning steps.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/plots/pairplot.py:186: UserWarning: plot_kwargs will be deprecated. Please use scatter_kwargs, kde_kwargs and/or hexbin_kwargs
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff3d0a70490&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_47_7.png" src="../_images/PyMC3_47_7.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_47_9.png" src="../_images/PyMC3_47_9.png" />
+<img alt="../_images/PyMC3_47_10.png" src="../_images/PyMC3_47_10.png" />
 </div>
 </div>
 <div class="section" id="we-sample-from-the-posterior">
@@ -1682,7 +2071,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 </div>
 </div>
-<p>Looking at the plot of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, one can notice the high degree of correlation berween these two variables. This results in a paramete posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independednt variables.</p>
+<p>Looking at the plot of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, one can notice the high degree of correlation between these two variables. This results in a parameter posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independednt variables.</p>
 <p><span class="math notranslate nohighlight">\(\tilde{x} = x - \bar{x}\)</span></p>
 <p>The advantage of this is twofold</p>
 <ol class="simple">
@@ -1797,7 +2186,7 @@ can be reformulated as</p>
 <div class="section" id="hierarchical-linear-regression">
 <h2>Hierarchical Linear Regression<a class="headerlink" href="#hierarchical-linear-regression" title="Permalink to this headline">¶</a></h2>
 <p>In this example, we create 8 subgroups with 7 of them having 20 data points and the last one having a single data point. This is to illustrate the importance of imbalanced subgroups with sparse data.</p>
-<p>The data for the 8 groups are generated from a normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from normal and beta dsitributions.</p>
+<p>The data for the 8 groups are generated from a normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from normal and beta distributions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">20</span>
@@ -1835,7 +2224,7 @@ can be reformulated as</p>
  2.38910517 2.69086179]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_54_1.svg" src="../_images/PyMC3_54_1.svg" /></div>
+<img alt="../_images/PyMC3_56_1.svg" src="../_images/PyMC3_56_1.svg" /></div>
 </div>
 <div class="section" id="we-build-a-non-hierarchical-model-first">
 <h3>We build a non-hierarchical model first<a class="headerlink" href="#we-build-a-non-hierarchical-model-first" title="Permalink to this headline">¶</a></h3>
@@ -1875,10 +2264,10 @@ NUTS: [ν, ϵ, β, α_tmp]
 Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:18&lt;00:00, 548.27draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_56_1.svg" src="../_images/PyMC3_56_1.svg" /><img alt="../_images/PyMC3_56_2.svg" src="../_images/PyMC3_56_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<img alt="../_images/PyMC3_58_1.svg" src="../_images/PyMC3_58_1.svg" /><img alt="../_images/PyMC3_58_2.svg" src="../_images/PyMC3_58_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_56_4.svg" src="../_images/PyMC3_56_4.svg" /></div>
+<img alt="../_images/PyMC3_58_4.svg" src="../_images/PyMC3_58_4.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1944,7 +2333,7 @@ The acceptance probability does not match the target. It is 0.884780567793289, b
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_57_1.svg" src="../_images/PyMC3_57_1.svg" /><img alt="../_images/PyMC3_57_2.svg" src="../_images/PyMC3_57_2.svg" /><img alt="../_images/PyMC3_57_3.svg" src="../_images/PyMC3_57_3.svg" /></div>
+<img alt="../_images/PyMC3_59_1.svg" src="../_images/PyMC3_59_1.svg" /><img alt="../_images/PyMC3_59_2.svg" src="../_images/PyMC3_59_2.svg" /><img alt="../_images/PyMC3_59_3.svg" src="../_images/PyMC3_59_3.svg" /></div>
 </div>
 </div>
 </div>
@@ -2137,13 +2526,13 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_72_0.png" src="../_images/PyMC3_72_0.png" />
-<img alt="../_images/PyMC3_72_1.png" src="../_images/PyMC3_72_1.png" />
+<img alt="../_images/PyMC3_74_0.png" src="../_images/PyMC3_74_0.png" />
+<img alt="../_images/PyMC3_74_1.png" src="../_images/PyMC3_74_1.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_72_3.png" src="../_images/PyMC3_72_3.png" />
-<img alt="../_images/PyMC3_72_4.png" src="../_images/PyMC3_72_4.png" />
+<img alt="../_images/PyMC3_74_3.png" src="../_images/PyMC3_74_3.png" />
+<img alt="../_images/PyMC3_74_4.png" src="../_images/PyMC3_74_4.png" />
 </div>
 </div>
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
@@ -2270,7 +2659,7 @@ NUTS: [β, α]
 </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_76_6.svg" src="../_images/PyMC3_76_6.svg" /></div>
+<img alt="../_images/PyMC3_78_6.svg" src="../_images/PyMC3_78_6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2405,8 +2794,8 @@ NUTS: [β, α]
   Text(2.0, 0, &#39;7.5&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_78_2.png" src="../_images/PyMC3_78_2.png" />
-<img alt="../_images/PyMC3_78_3.png" src="../_images/PyMC3_78_3.png" />
+<img alt="../_images/PyMC3_80_2.png" src="../_images/PyMC3_80_2.png" />
+<img alt="../_images/PyMC3_80_3.png" src="../_images/PyMC3_80_3.png" />
 </div>
 </div>
 <p>In this case, the decision boundary is defined to be the value of ‘x’ when ‘y’ = 0.5. This turns out to be <span class="math notranslate nohighlight">\(-\alpha / \beta\)</span>. However, this value was chosen under the assumption that the midpoint of the class values are a good candidate, but this does not have to be the case.</p>
@@ -2655,8 +3044,8 @@ NUTS: [β, α]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_83_2.png" src="../_images/PyMC3_83_2.png" />
-<img alt="../_images/PyMC3_83_3.png" src="../_images/PyMC3_83_3.png" />
+<img alt="../_images/PyMC3_85_2.png" src="../_images/PyMC3_85_2.png" />
+<img alt="../_images/PyMC3_85_3.png" src="../_images/PyMC3_85_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2666,7 +3055,7 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_84_0.svg" src="../_images/PyMC3_84_0.svg" /></div>
+<img alt="../_images/PyMC3_86_0.svg" src="../_images/PyMC3_86_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -2801,7 +3190,7 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_87_7.png" src="../_images/PyMC3_87_7.png" />
+<img alt="../_images/PyMC3_89_7.png" src="../_images/PyMC3_89_7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3501,7 +3890,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_92_1.png" src="../_images/PyMC3_92_1.png" />
+<img alt="../_images/PyMC3_94_1.png" src="../_images/PyMC3_94_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3515,7 +3904,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_93_1.png" src="../_images/PyMC3_93_1.png" />
+<img alt="../_images/PyMC3_95_1.png" src="../_images/PyMC3_95_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3528,7 +3917,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_94_1.png" src="../_images/PyMC3_94_1.png" />
+<img alt="../_images/PyMC3_96_1.png" src="../_images/PyMC3_96_1.png" />
 </div>
 </div>
 <p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
@@ -3546,7 +3935,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_96_2.png" src="../_images/PyMC3_96_2.png" />
+<img alt="../_images/PyMC3_98_2.png" src="../_images/PyMC3_98_2.png" />
 </div>
 </div>
 <p>A score of less than 2 indicates good convergence. Computes the z score at each interval and returns and array of (interval start location, z score)</p>
@@ -3917,7 +4306,7 @@ NUTS: [β, α]
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_105_4.png" src="../_images/PyMC3_105_4.png" />
+<img alt="../_images/PyMC3_107_4.png" src="../_images/PyMC3_107_4.png" />
 </div>
 </div>
 </div>
@@ -4025,9 +4414,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_107_4.png" src="../_images/PyMC3_107_4.png" />
-<img alt="../_images/PyMC3_107_5.png" src="../_images/PyMC3_107_5.png" />
-<img alt="../_images/PyMC3_107_6.png" src="../_images/PyMC3_107_6.png" />
+<img alt="../_images/PyMC3_109_4.png" src="../_images/PyMC3_109_4.png" />
+<img alt="../_images/PyMC3_109_5.png" src="../_images/PyMC3_109_5.png" />
+<img alt="../_images/PyMC3_109_6.png" src="../_images/PyMC3_109_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4275,7 +4664,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_112_1.png" src="../_images/PyMC3_112_1.png" />
+<img alt="../_images/PyMC3_114_1.png" src="../_images/PyMC3_114_1.png" />
 </div>
 </div>
 </div>
@@ -4634,7 +5023,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_115_3.png" src="../_images/PyMC3_115_3.png" />
+</div></div><img alt="../_images/PyMC3_117_3.png" src="../_images/PyMC3_117_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4845,7 +5234,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_116_3.png" src="../_images/PyMC3_116_3.png" />
+</div></div><img alt="../_images/PyMC3_118_3.png" src="../_images/PyMC3_118_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4886,7 +5275,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_118_2.png" src="../_images/PyMC3_118_2.png" />
+<img alt="../_images/PyMC3_120_2.png" src="../_images/PyMC3_120_2.png" />
 </div>
 </div>
 </div>
@@ -4918,7 +5307,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_120_2.png" src="../_images/PyMC3_120_2.png" />
+<img alt="../_images/PyMC3_122_2.png" src="../_images/PyMC3_122_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -4981,8 +5370,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_124_2.png" src="../_images/PyMC3_124_2.png" />
-<img alt="../_images/PyMC3_124_3.png" src="../_images/PyMC3_124_3.png" />
+<img alt="../_images/PyMC3_126_2.png" src="../_images/PyMC3_126_2.png" />
+<img alt="../_images/PyMC3_126_3.png" src="../_images/PyMC3_126_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5002,8 +5391,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_125_2.png" src="../_images/PyMC3_125_2.png" />
-<img alt="../_images/PyMC3_125_3.png" src="../_images/PyMC3_125_3.png" />
+<img alt="../_images/PyMC3_127_2.png" src="../_images/PyMC3_127_2.png" />
+<img alt="../_images/PyMC3_127_3.png" src="../_images/PyMC3_127_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -5032,7 +5421,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_127_2.png" src="../_images/PyMC3_127_2.png" />
+<img alt="../_images/PyMC3_129_2.png" src="../_images/PyMC3_129_2.png" />
 </div>
 </div>
 </div>
