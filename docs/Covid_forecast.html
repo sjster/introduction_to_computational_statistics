@@ -305,19 +305,21 @@
 </div>
 <div class="section" id="goal">
 <h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
+<ol>
 <li><p>Obtain the data that has the number of COVID-19 cases starting from January for each country.</p></li>
-<li><p>Select a country of choice to infer the COVID-19 parameters and extract the number of confirmed cases. (You will need the total population of the country that you select)</p></li>
-<li><p>Use the SIR model as a disease model. (<a class="reference external" href="https://github.com/sjster/Epidemic/blob/master/Epidemic.ipynb">Notebook</a>)</p></li>
-<li><p>Setup a PyMC3 model to infer the SIR parameters from the number of confirmed cases. (S,I, mu, lambda)
-a. Select appropriate priors for each variable.
-b. Use a Lognormal distribution for I_begin.
-c. λ is the fraction of people that are newly infected each day. Use a Lognormal distribution for this.
-d. μ is the fraction of people that recover each day. Use a Lognormal distribution.
-e. The prior of the error of observed cases can use a Half Cauchy distribution.</p></li>
-<li><p>Predict cases into the future.
-a. Compare the predictions with the real observations and compute the error.
-b. Note how the error varies as you increase the number of days chosen for the forecast.</p></li>
+<li><p>Select a country of choice to infer the COVID-19 parameters and extract the number of confirmed cases (You will need the total population of the country that you select).</p></li>
+<li><p>Use the SIR model as a disease model (<a class="reference external" href="https://github.com/sjster/Epidemic/blob/master/Epidemic.ipynb">Notebook</a>).</p></li>
+<li><p>Setup a PyMC3 model to infer the SIR parameters from the number of confirmed cases (S,I, mu, lambda).</p>
+<p>a. Select appropriate priors for each variable.</p>
+<p>b. Use a Lognormal distribution for I_begin.</p>
+<p>c. λ is the fraction of people that are newly infected each day. Use a Lognormal distribution for this.</p>
+<p>d. μ is the fraction of people that recover each day. Use a Lognormal distribution.</p>
+<p>e. The prior of the error of observed cases can use a Half Cauchy distribution.</p>
+</li>
+<li><p>Predict cases into the future.</p>
+<p>a. Compare the predictions with the real observations and compute the error.</p>
+<p>b. Note how the error varies as you increase the number of days chosen for the forecast.</p>
+</li>
 </ol>
 </div>
 <div class="section" id="obtaining-and-filtering-the-data">
