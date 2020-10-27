@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>References &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
+    <title>Introduction to Monte Carlo Methods &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -132,22 +132,7 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   References
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#building-blocks">
-   Building blocks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#metropolis-hastings">
-   Metropolis-Hastings
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
-   Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)
+   Introduction to Monte Carlo Methods
   </a>
  </li>
 </ul>
@@ -261,56 +246,56 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
    References
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#building-blocks">
    Building blocks
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#proposal-distribution">
      Proposal distribution
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#foundation-of-bayesian-inference">
      Foundation of Bayesian Inference
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#metropolis-hastings">
    Metropolis-Hastings
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#outline-of-the-metropolis-algorithm">
      Outline of the Metropolis algorithm
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#traceplot">
      Traceplot
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#building-the-posterior-distribution">
      Building the Posterior distribution
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#notes-about-the-metropolis-algorithm">
      Notes about the Metropolis algorithm
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
    Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)
   </a>
@@ -326,8 +311,10 @@
         
               <div>
                 
-  <div class="section" id="references">
-<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="introduction-to-monte-carlo-methods">
+<h1>Introduction to Monte Carlo Methods<a class="headerlink" href="#introduction-to-monte-carlo-methods" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p>[Beginning Bayesian Statistics]</p>
 <p><a class="reference external" href="https://colindcarroll.com/2019/04/11/hamiltonian-monte-carlo-from-scratch/">Hamiltonian Monte Carlo in Python</a></p>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ">Betancourt HMC - Best introduction to HMC</a></p>
@@ -335,14 +322,14 @@
 <p><a class="reference external" href="https://colcarroll.github.io/hmc_tuning_talk/">HMC Tuning by Colin Caroll</a></p>
 </div>
 <div class="section" id="building-blocks">
-<h1>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h1>
+<h2>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="proposal-distribution">
-<h2>Proposal distribution<a class="headerlink" href="#proposal-distribution" title="Permalink to this headline">¶</a></h2>
+<h3>Proposal distribution<a class="headerlink" href="#proposal-distribution" title="Permalink to this headline">¶</a></h3>
 <p>An easy to sample distribution such as a Gaussian distribution <span class="math notranslate nohighlight">\(q(x)\)</span> such that</p>
 <p><span class="math notranslate nohighlight">\(q(x_{i+1} | x_{i}) \approx N(\mu, \sigma)\)</span></p>
 </div>
 <div class="section" id="foundation-of-bayesian-inference">
-<h2>Foundation of Bayesian Inference<a class="headerlink" href="#foundation-of-bayesian-inference" title="Permalink to this headline">¶</a></h2>
+<h3>Foundation of Bayesian Inference<a class="headerlink" href="#foundation-of-bayesian-inference" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>Obtain the data and inspect it for a high-level understanding of the distribution of the data and the outliers</p></li>
 <li><p>Define a reasonable prior for the data based on (1) and your understanding of the problem</p></li>
@@ -352,13 +339,13 @@
 </div>
 </div>
 <div class="section" id="metropolis-hastings">
-<h1>Metropolis-Hastings<a class="headerlink" href="#metropolis-hastings" title="Permalink to this headline">¶</a></h1>
+<h2>Metropolis-Hastings<a class="headerlink" href="#metropolis-hastings" title="Permalink to this headline">¶</a></h2>
 <p>We start off by modeling a discrete number of events using a Poisson distribution shown below.</p>
 <p><span class="math notranslate nohighlight">\(f(x) = e^{-\mu} \mu^x / x!\)</span></p>
 <p>The mean rate is represented by μ and x is positive integer that represents the number of events that can happen. If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of ‘n’ trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes.</p>
 <p>If our observed data has a Poisson likelihood distribution, using a Gamma prior for <span class="math notranslate nohighlight">\(\mu\)</span> results in a Gamma posterior distribution.</p>
 <div class="section" id="outline-of-the-metropolis-algorithm">
-<h2>Outline of the Metropolis algorithm<a class="headerlink" href="#outline-of-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h2>
+<h3>Outline of the Metropolis algorithm<a class="headerlink" href="#outline-of-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>What do we want to compute?</p></li>
 </ul>
@@ -382,15 +369,15 @@
 </ol>
 </div>
 <div class="section" id="traceplot">
-<h2>Traceplot<a class="headerlink" href="#traceplot" title="Permalink to this headline">¶</a></h2>
+<h3>Traceplot<a class="headerlink" href="#traceplot" title="Permalink to this headline">¶</a></h3>
 <p>The sequence of accepted values from the proposed values that is plotted over each draw. If a proposed value was not accepted, you see the same value repeated again. If you notice a straight line, this is an indication that several proposed values are being rejected. This is a sign that something is askew with the distribution or sampling process.</p>
 </div>
 <div class="section" id="building-the-posterior-distribution">
-<h2>Building the Posterior distribution<a class="headerlink" href="#building-the-posterior-distribution" title="Permalink to this headline">¶</a></h2>
+<h3>Building the Posterior distribution<a class="headerlink" href="#building-the-posterior-distribution" title="Permalink to this headline">¶</a></h3>
 <p>Use the current values that we obtain at each step and build a frequency distribution (histogram) from it.</p>
 </div>
 <div class="section" id="notes-about-the-metropolis-algorithm">
-<h2>Notes about the Metropolis algorithm<a class="headerlink" href="#notes-about-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h2>
+<h3>Notes about the Metropolis algorithm<a class="headerlink" href="#notes-about-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>The proposal distribution has to be symmetric. A normal distribution is commonly used.</p></li>
 <li><p>Tuning - A hyperparameter, i.e. the standard deviation is essential to tune this proposal distribution. This needs to be tuned such that the acceptance probability is a certain value. This is referred to as the tuning parameter.</p></li>
@@ -398,9 +385,10 @@
 </div>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
-<h1>Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)<a class="headerlink" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo" title="Permalink to this headline">¶</a></h1>
+<h2>Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)<a class="headerlink" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo" title="Permalink to this headline">¶</a></h2>
 <p>Based on the solution of differential equations known as Hamilton’s equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational process.</p>
 <p>HMC is based on the notion of conservation of energy. When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy and when it is closer to the center of the probability mass will have high kinetic energy but low potential energy.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
