@@ -289,8 +289,8 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#outline">
-     Outline
+    <a class="reference internal nav-link" href="#outline-of-the-metropolis-algorithm">
+     Outline of the Metropolis algorithm
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">
@@ -357,8 +357,29 @@
 <p><span class="math notranslate nohighlight">\(f(x) = e^{-\mu} \mu^x / x!\)</span></p>
 <p>The mean rate is represented by μ and x is positive integer that represents the number of events that can happen. If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of ‘n’ trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes.</p>
 <p>If our observed data has a Poisson likelihood distribution, using a Gamma prior for <span class="math notranslate nohighlight">\(\mu\)</span> results in a Gamma posterior distribution.</p>
-<div class="section" id="outline">
-<h2>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="outline-of-the-metropolis-algorithm">
+<h2>Outline of the Metropolis algorithm<a class="headerlink" href="#outline-of-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>What do we want to compute?</p></li>
+</ul>
+<p>To estimate a distribution of a parameter x</p>
+<ul class="simple">
+<li><p>What do we have available?</p></li>
+</ul>
+<p>Observed data</p>
+<ul class="simple">
+<li><p>How do we do it?</p></li>
+</ul>
+<ol class="simple">
+<li><p>Start with a parameter sample (a) that is drawn from a distribution</p></li>
+<li><p>Draw a second parameter sample (b) from a proposal distribution</p></li>
+<li><p>Compute the likelihood of the data for both the parameters</p></li>
+<li><p>Compute the prior probability density of both the parameters</p></li>
+<li><p>Compute the posterior probability density of both parameters by multiplying the prior and the likelihood from (3) and (4)</p></li>
+<li><p>Select one from the posterior probability density computed above using a rule and save the selected one as (a)</p></li>
+<li><p>Repeat steps (2) to (7) till a large number of parameters have been drawn (usually around 5000, but this really depends on the problem)</p></li>
+<li><p>Compute the distribution of the parameter x by plotting a histogram of the saved sampled parameter (a) in step (6)</p></li>
+</ol>
 </div>
 <div class="section" id="traceplot">
 <h2>Traceplot<a class="headerlink" href="#traceplot" title="Permalink to this headline">¶</a></h2>
