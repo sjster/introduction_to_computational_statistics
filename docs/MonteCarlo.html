@@ -269,13 +269,18 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#metropolis-hastings">
-   Metropolis-Hastings
+  <a class="reference internal nav-link" href="#the-metropolis-algorithm">
+   The Metropolis Algorithm
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#outline-of-the-metropolis-algorithm">
      Outline of the Metropolis algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-details">
+     The details
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -343,25 +348,19 @@
 </ol>
 </div>
 </div>
-<div class="section" id="metropolis-hastings">
-<h2>Metropolis-Hastings<a class="headerlink" href="#metropolis-hastings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-metropolis-algorithm">
+<h2>The Metropolis Algorithm<a class="headerlink" href="#the-metropolis-algorithm" title="Permalink to this headline">¶</a></h2>
 <p>We start off by modeling a discrete number of events using a Poisson distribution shown below.</p>
 <p><span class="math notranslate nohighlight">\(f(x) = e^{-\mu} \mu^x / x!\)</span></p>
 <p>The mean rate is represented by μ and x is positive integer that represents the number of events that can happen. If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of ‘n’ trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes.</p>
 <p>If our observed data has a Poisson likelihood distribution, using a Gamma prior for <span class="math notranslate nohighlight">\(\mu\)</span> results in a Gamma posterior distribution.</p>
 <div class="section" id="outline-of-the-metropolis-algorithm">
 <h3>Outline of the Metropolis algorithm<a class="headerlink" href="#outline-of-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>What do we want to compute?</p></li>
-</ul>
-<p>To estimate a distribution of a parameter x</p>
-<ul class="simple">
-<li><p>What do we have available?</p></li>
-</ul>
+<p><em>What do we want to compute?</em></p>
+<p>To estimate a distribution of a parameter <span class="math notranslate nohighlight">\(\theta\)</span></p>
+<p><em>What do we have available?</em></p>
 <p>Observed data</p>
-<ul class="simple">
-<li><p>How do we do it?</p></li>
-</ul>
+<p><em>How do we do it?</em></p>
 <ol class="simple">
 <li><p>Start with a parameter sample (a) that is drawn from a distribution</p></li>
 <li><p>Draw a second parameter sample (b) from a proposal distribution</p></li>
@@ -370,7 +369,26 @@
 <li><p>Compute the posterior probability density of both parameters by multiplying the prior and the likelihood from (3) and (4)</p></li>
 <li><p>Select one from the posterior probability density computed above using a rule and save the selected one as (a)</p></li>
 <li><p>Repeat steps (2) to (7) till a large number of parameters have been drawn (usually around 5000, but this really depends on the problem)</p></li>
-<li><p>Compute the distribution of the parameter x by plotting a histogram of the saved sampled parameter (a) in step (6)</p></li>
+<li><p>Compute the distribution of the parameter <span class="math notranslate nohighlight">\(\theta\)</span> by plotting a histogram of the saved sampled parameter (a) in step (6)</p></li>
+</ol>
+</div>
+<div class="section" id="the-details">
+<h3>The details<a class="headerlink" href="#the-details" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Propose a single plausible value for our parameter <span class="math notranslate nohighlight">\(\theta\)</span>. This is (a) from the previous section. This is also called the current value. Let us assume that this is 7.5 for now.</p></li>
+<li><p>Compute the prior probability density of getting 7.5. We stated earlier in our example that we have a Gamma prior distribution.</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(Gamma(x=7.5, \alpha, \beta) = \beta^{\alpha} x^{\alpha - 1} e^{-\beta x} / \gamma(\alpha) = \beta^{\alpha} 7.5^{\alpha - 1} e^{-\beta 7.5} / \gamma(\alpha)\)</span></p>
+<ol class="simple">
+<li><p>Compute the likelihood of the data given the parameter value of 7.5. The likelihood distribution was a Poisson distribution in our example</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(Poisson(x, mu=7.5) = e^{-\mu} \mu^x / x! = e^{-7.5} 7.5^x / x!\)</span></p>
+<ol class="simple">
+<li><p>Compute the posterior density from (2) and (3), we skip the denominator here since we are only going to make comparisons and the denominator is a constant.</p></li>
+</ol>
+<p>Posterior density <span class="math notranslate nohighlight">\(\propto\)</span> Prior * likelihood</p>
+<ol class="simple">
+<li><p>Propose a second value for <span class="math notranslate nohighlight">\(\mu\)</span> which is drawn from a distribution called a proposal distribution. For the Metropolis algorithm, it has to be a symmetrical distribution. We will use a normal distribution for this example and set the mean of this proposal distribution to be the current value of <span class="math notranslate nohighlight">\(\mu\)</span>. The standard deviation is a hyperparameter called the tuning parameter. Let us assume that we draw a value of 8.5.</p></li>
 </ol>
 </div>
 <div class="section" id="traceplot">
@@ -394,7 +412,8 @@
 <div class="section" id="notes-about-the-metropolis-algorithm">
 <h3>Notes about the Metropolis algorithm<a class="headerlink" href="#notes-about-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>The proposal distribution has to be symmetric. A normal distribution is commonly used.</p></li>
+<li><p>The proposal distribution has to be symmetric, this condition is relaxed in the Metropolis-Hastings algorithm. A normal distribution is commonly used.</p></li>
+<li><p>The choice of a prior distribution influences the performance of this algorithm.</p></li>
 <li><p>Tuning - A hyperparameter, i.e. the standard deviation is essential to tune this proposal distribution. This needs to be tuned such that the acceptance probability is a certain value. This is referred to as the tuning parameter.</p></li>
 </ul>
 </div>
