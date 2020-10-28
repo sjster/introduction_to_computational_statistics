@@ -284,8 +284,13 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#building-the-posterior-distribution">
-     Building the Posterior distribution
+    <a class="reference internal nav-link" href="#building-the-inferred-distribution">
+     Building the Inferred Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#representing-the-inferred-distribution">
+     Representing the Inferred Distribution
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -315,7 +320,7 @@
 <h1>Introduction to Monte Carlo Methods<a class="headerlink" href="#introduction-to-monte-carlo-methods" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<p>[Beginning Bayesian Statistics]</p>
+<p><a class="reference external" href="https://pubs.er.usgs.gov/publication/70204463">Beginning Bayesian Statistics</a></p>
 <p><a class="reference external" href="https://colindcarroll.com/2019/04/11/hamiltonian-monte-carlo-from-scratch/">Hamiltonian Monte Carlo in Python</a></p>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ">Betancourt HMC - Best introduction to HMC</a></p>
 <p><a class="reference external" href="http://arxiv.org/abs/1111.4246">NUTS paper</a></p>
@@ -372,9 +377,19 @@
 <h3>Traceplot<a class="headerlink" href="#traceplot" title="Permalink to this headline">¶</a></h3>
 <p>The sequence of accepted values from the proposed values that is plotted over each draw. If a proposed value was not accepted, you see the same value repeated again. If you notice a straight line, this is an indication that several proposed values are being rejected. This is a sign that something is askew with the distribution or sampling process.</p>
 </div>
-<div class="section" id="building-the-posterior-distribution">
-<h3>Building the Posterior distribution<a class="headerlink" href="#building-the-posterior-distribution" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="building-the-inferred-distribution">
+<h3>Building the Inferred Distribution<a class="headerlink" href="#building-the-inferred-distribution" title="Permalink to this headline">¶</a></h3>
 <p>Use the current values that we obtain at each step and build a frequency distribution (histogram) from it.</p>
+</div>
+<div class="section" id="representing-the-inferred-distribution">
+<h3>Representing the Inferred Distribution<a class="headerlink" href="#representing-the-inferred-distribution" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Compute the mean values of the saved parameters</p></li>
+<li><p>Compute the standard deviation and variance of the saved parameters</p></li>
+<li><p>Compute the minimum and maximum values of the saved parameters</p></li>
+<li><p>Compute the quantiles of the saved parameters</p></li>
+<li><p>If required, express it as the parameters of a canonical distribution if it is known that the inferred distribution will be of a certain form.</p></li>
+</ul>
 </div>
 <div class="section" id="notes-about-the-metropolis-algorithm">
 <h3>Notes about the Metropolis algorithm<a class="headerlink" href="#notes-about-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
