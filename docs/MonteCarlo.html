@@ -257,6 +257,16 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-walks">
+     Random Walks
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-does-this-work">
+     Why does this work?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#proposal-distribution">
      Proposal distribution
     </a>
@@ -333,6 +343,12 @@
 </div>
 <div class="section" id="building-blocks">
 <h2>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="random-walks">
+<h3>Random Walks<a class="headerlink" href="#random-walks" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="why-does-this-work">
+<h3>Why does this work?<a class="headerlink" href="#why-does-this-work" title="Permalink to this headline">¶</a></h3>
+</div>
 <div class="section" id="proposal-distribution">
 <h3>Proposal distribution<a class="headerlink" href="#proposal-distribution" title="Permalink to this headline">¶</a></h3>
 <p>An easy to sample distribution such as a Gaussian distribution <span class="math notranslate nohighlight">\(q(x)\)</span> such that</p>
@@ -374,20 +390,17 @@
 </div>
 <div class="section" id="the-details">
 <h3>The details<a class="headerlink" href="#the-details" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
-<li><p>Propose a single plausible value for our parameter <span class="math notranslate nohighlight">\(\mu\)</span>. This is <span class="math notranslate nohighlight">\(\mu_{current}\)</span> from the previous section. This is also called the current value. Let us assume that this is 7.5 for now.</p></li>
-<li><p>Compute the prior probability density of getting 7.5. We stated earlier in our example that we have a Gamma prior distribution.</p></li>
-</ol>
-<p><span class="math notranslate nohighlight">\(Gamma(x=7.5, \alpha, \beta) = \beta^{\alpha} x^{\alpha - 1} e^{-\beta x} / \gamma(\alpha) = \beta^{\alpha} 7.5^{\alpha - 1} e^{-\beta 7.5} / \gamma(\alpha)\)</span></p>
-<ol class="simple">
-<li><p>Compute the likelihood of the data given the parameter value of 7.5. The likelihood distribution was a Poisson distribution in our example</p></li>
-</ol>
-<p><span class="math notranslate nohighlight">\(Poisson(x, mu=7.5) = e^{-\mu} \mu^x / x! = e^{-7.5} 7.5^x / x!\)</span></p>
-<ol class="simple">
-<li><p>Compute the posterior density from (2) and (3), we skip the denominator here since we are only going to make comparisons and the denominator is a constant.</p></li>
-</ol>
-<p>Posterior density <span class="math notranslate nohighlight">\(\propto\)</span> Prior * likelihood</p>
 <ol>
+<li><p>Propose a single plausible value for our parameter <span class="math notranslate nohighlight">\(\mu\)</span>. This is <span class="math notranslate nohighlight">\(\mu_{current}\)</span> from the previous section. This is also called the current value. Let us assume that this is 7.5 for now.</p></li>
+<li><p>Compute the prior probability density of getting 7.5. We stated earlier in our example that we have a Gamma prior distribution.</p>
+<p><span class="math notranslate nohighlight">\(Gamma(x=7.5, \alpha, \beta) = \beta^{\alpha} x^{\alpha - 1} e^{-\beta x} / \gamma(\alpha) = \beta^{\alpha} 7.5^{\alpha - 1} e^{-\beta 7.5} / \gamma(\alpha)\)</span></p>
+</li>
+<li><p>Compute the likelihood of the data given the parameter value of 7.5. The likelihood distribution was a Poisson distribution in our example</p>
+<p><span class="math notranslate nohighlight">\(Poisson(x, mu=7.5) = e^{-\mu} \mu^x / x! = e^{-7.5} 7.5^x / x!\)</span></p>
+</li>
+<li><p>Compute the posterior density from (2) and (3), we skip the denominator here since we are only going to make comparisons and the denominator is a constant.</p>
+<p>Posterior density <span class="math notranslate nohighlight">\(\propto\)</span> Prior <span class="math notranslate nohighlight">\(\cdot\)</span> likelihood</p>
+</li>
 <li><p>Propose a second value for <span class="math notranslate nohighlight">\(\mu\)</span>, called <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>, which is drawn from a distribution called a proposal distribution. This value is called the proposed value. For the Metropolis algorithm, it has to be a symmetrical distribution. We will use a normal distribution for this example and set the mean of this proposal distribution to be the current value of <span class="math notranslate nohighlight">\(\mu\)</span>. The standard deviation is a hyperparameter called the tuning parameter. Let us assume that we draw a value of 8.5.</p></li>
 <li><p>Compute the prior, likelihood and the posterior for this proposed value of <span class="math notranslate nohighlight">\(\mu\)</span> as we did in step (2), (3) and (4).</p></li>
 <li><p>Select one value from the current and the proposed value with the following two steps (this step is where the Metropolis algorithm differs from the Metropolis-Hastings algorithm)</p>
@@ -396,7 +409,8 @@
 <p>Here <span class="math notranslate nohighlight">\(p_{move}\)</span> is the minimum of the values given by the ratio of the probabilities and the number 1. This caps the probability <span class="math notranslate nohighlight">\(p_{move}\)</span> at 1 if the ratio happens to be greater than 1.</p>
 <p>b. Draw a sample from a uniform distribution U(0,1). If <span class="math notranslate nohighlight">\(p_{move}\)</span> from (a) above is greater than this number drawn from the uniform distribution, we accept the proposed value <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>. What this means is that if the posterior density of the proposed parameter value is greater than the posterior density of the current parameter value, then we move to the proposed value otherwise we probabilistically accept the proposed value based on the value of <span class="math notranslate nohighlight">\(p_{move}\)</span> and the randomly drawn value from the uniform distribution.</p>
 </li>
-<li><p>If we moved to the proposed value, save the current value to an array and then update the current value with the proposed value. In the next iteration, the current value <span class="math notranslate nohighlight">\(\mu^{i+1}_{current}\)</span> will be this accepted proposed value <span class="math notranslate nohighlight">\(\mu^{i}_{proposed}\)</span> .</p></li>
+<li><p>If we moved to the proposed value, save the current value to an array and then update the current value with the proposed value. In the next iteration, the current value <span class="math notranslate nohighlight">\(\mu^{i+1}_{current}\)</span> will be this accepted proposed value <span class="math notranslate nohighlight">\(\mu^{i}_{proposed}\)</span>.</p></li>
+<li><p>Repeat steps (2) to (8) thousands of times and plot the histogram of the accepted values, i.e. the array of current values <span class="math notranslate nohighlight">\(\mu_{current}\)</span>.</p></li>
 </ol>
 </div>
 <div class="section" id="traceplot">
@@ -420,7 +434,7 @@
 <div class="section" id="notes-about-the-metropolis-algorithm">
 <h3>Notes about the Metropolis algorithm<a class="headerlink" href="#notes-about-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>The proposal distribution has to be symmetric, this condition is relaxed in the Metropolis-Hastings algorithm. A normal distribution is commonly used.</p></li>
+<li><p>The proposal distribution has to be symmetric, this condition is relaxed in the Metropolis-Hastings algorithm. A normal distribution is commonly used as a proposal distribution in the Metropolis algorithm.</p></li>
 <li><p>The choice of a prior distribution influences the performance of this algorithm.</p></li>
 <li><p>Tuning - A hyperparameter, i.e. the standard deviation is essential to tune this proposal distribution. This needs to be tuned such that the acceptance probability is a certain value. This is referred to as the tuning parameter.</p></li>
 </ul>
