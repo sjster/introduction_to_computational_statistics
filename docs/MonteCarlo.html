@@ -329,6 +329,23 @@
   <a class="reference internal nav-link" href="#the-metropolis-hastings-algorithm">
    The Metropolis-Hastings Algorithm
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-do-we-need-a-correction-term">
+     Why do we need a correction term?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution">
+     What is the advantage of using a non-symmetric proposal distribution?
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
@@ -464,11 +481,21 @@
 </div>
 <div class="section" id="the-metropolis-hastings-algorithm">
 <h2>The Metropolis-Hastings Algorithm<a class="headerlink" href="#the-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
 <p>One of the limitations of the Metropolis algorithm was the requirement of a symmetric proposal distribution. The Metropolis-Hastings relaxes this requirement by providing a correction term if a non-symmetric proposal distribution is used. This correction is applied to <span class="math notranslate nohighlight">\(p_{move}\)</span> and is of the form</p>
 <p><span class="math notranslate nohighlight">\(p_{move} = min( \dfrac{P(\mu_{proposed} | data) \cdot g(\mu_{current} | \mu_{proposed})}{P(\mu_{current} | data) \cdot g(\mu_{proposed} | \mu_{current})}, 1)\)</span></p>
 <p>where the correction term is</p>
 <p><span class="math notranslate nohighlight">\(\dfrac{g(\mu_{current} | \mu_{proposed})}{g(\mu_{proposed} | \mu_{current})}\)</span></p>
 <p>The term <span class="math notranslate nohighlight">\(g(\mu_{current} | \mu_{proposed})\)</span> is the probability density of drawing <span class="math notranslate nohighlight">\(\mu_{current}\)</span> from a normal distribution centered around <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>. The standard deviation for this normal distribution is the tuning parameter. For a symmetric proposal distribution such as a normal distribution the correction term would be 1 since the probability density of drawing <span class="math notranslate nohighlight">\(\mu_{current}\)</span> from a Gaussian centered at <span class="math notranslate nohighlight">\(\mu_{proposal}\)</span> only depends on the distance between <span class="math notranslate nohighlight">\(\mu_{current}\)</span> and <span class="math notranslate nohighlight">\(\mu_{proposal}\)</span> (standard deviation is a hyperparameter that is fixed). Similarly, the probability density of drawing <span class="math notranslate nohighlight">\(\mu_{proposal}\)</span> from a Gaussian centered around <span class="math notranslate nohighlight">\(\mu_{current}\)</span> depends only on the distance between these two values, which is the same as before. Hence the numerator and the denominator are the same which results in the correction factor being 1.</p>
+</div>
+<div class="section" id="why-do-we-need-a-correction-term">
+<h3>Why do we need a correction term?<a class="headerlink" href="#why-do-we-need-a-correction-term" title="Permalink to this headline">¶</a></h3>
+<p>The correction term exists to account for the lack of symmetry in a non-symmetric proposal distribution. The Metropolis algorithm is therefore a specific case of the Metropolis-Hastings algorithm. When distributions other than a Gaussian is used as a proposed distribution, one can center <span class="math notranslate nohighlight">\(\mu_{current}\)</span> and  <span class="math notranslate nohighlight">\(\mu_{proposal}\)</span> on the mean, median or mode of the distribution. It is also possible to draw samples from a fixed distribution, this technique is called the Independent Metropolis-Hastings sampling algorithm.</p>
+</div>
+<div class="section" id="what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution">
+<h3>What is the advantage of using a non-symmetric proposal distribution?<a class="headerlink" href="#what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
 <h2>Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)<a class="headerlink" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo" title="Permalink to this headline">¶</a></h2>
