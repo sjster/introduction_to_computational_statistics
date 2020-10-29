@@ -357,25 +357,25 @@
 <div class="section" id="outline-of-the-metropolis-algorithm">
 <h3>Outline of the Metropolis algorithm<a class="headerlink" href="#outline-of-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
 <p><em>What do we want to compute?</em></p>
-<p>To estimate a distribution of a parameter <span class="math notranslate nohighlight">\(\theta\)</span></p>
+<p>To estimate a distribution of a parameter <span class="math notranslate nohighlight">\(\mu\)</span></p>
 <p><em>What do we have available?</em></p>
 <p>Observed data</p>
 <p><em>How do we do it?</em></p>
 <ol class="simple">
-<li><p>Start with a parameter sample (a) that is drawn from a distribution</p></li>
-<li><p>Draw a second parameter sample (b) from a proposal distribution</p></li>
+<li><p>Start with a parameter sample <span class="math notranslate nohighlight">\(\mu_{current}\)</span> that is drawn from a distribution</p></li>
+<li><p>Draw a second parameter sample <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span> from a proposal distribution</p></li>
 <li><p>Compute the likelihood of the data for both the parameters</p></li>
 <li><p>Compute the prior probability density of both the parameters</p></li>
 <li><p>Compute the posterior probability density of both parameters by multiplying the prior and the likelihood from (3) and (4)</p></li>
-<li><p>Select one from the posterior probability density computed above using a rule and save the selected one as (a)</p></li>
+<li><p>Select one from the posterior probability density computed above using a rule and save the selected one as <span class="math notranslate nohighlight">\(\mu_{current}\)</span></p></li>
 <li><p>Repeat steps (2) to (7) till a large number of parameters have been drawn (usually around 5000, but this really depends on the problem)</p></li>
-<li><p>Compute the distribution of the parameter <span class="math notranslate nohighlight">\(\theta\)</span> by plotting a histogram of the saved sampled parameter (a) in step (6)</p></li>
+<li><p>Compute the distribution of the parameter <span class="math notranslate nohighlight">\(\mu\)</span> by plotting a histogram of the saved sampled parameter <span class="math notranslate nohighlight">\(\mu_{current}\)</span> in step (6)</p></li>
 </ol>
 </div>
 <div class="section" id="the-details">
 <h3>The details<a class="headerlink" href="#the-details" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
-<li><p>Propose a single plausible value for our parameter <span class="math notranslate nohighlight">\(\theta\)</span>. This is (a) from the previous section. This is also called the current value. Let us assume that this is 7.5 for now.</p></li>
+<li><p>Propose a single plausible value for our parameter <span class="math notranslate nohighlight">\(\mu\)</span>. This is <span class="math notranslate nohighlight">\(\mu_{current}\)</span> from the previous section. This is also called the current value. Let us assume that this is 7.5 for now.</p></li>
 <li><p>Compute the prior probability density of getting 7.5. We stated earlier in our example that we have a Gamma prior distribution.</p></li>
 </ol>
 <p><span class="math notranslate nohighlight">\(Gamma(x=7.5, \alpha, \beta) = \beta^{\alpha} x^{\alpha - 1} e^{-\beta x} / \gamma(\alpha) = \beta^{\alpha} 7.5^{\alpha - 1} e^{-\beta 7.5} / \gamma(\alpha)\)</span></p>
@@ -387,8 +387,16 @@
 <li><p>Compute the posterior density from (2) and (3), we skip the denominator here since we are only going to make comparisons and the denominator is a constant.</p></li>
 </ol>
 <p>Posterior density <span class="math notranslate nohighlight">\(\propto\)</span> Prior * likelihood</p>
-<ol class="simple">
-<li><p>Propose a second value for <span class="math notranslate nohighlight">\(\mu\)</span> which is drawn from a distribution called a proposal distribution. For the Metropolis algorithm, it has to be a symmetrical distribution. We will use a normal distribution for this example and set the mean of this proposal distribution to be the current value of <span class="math notranslate nohighlight">\(\mu\)</span>. The standard deviation is a hyperparameter called the tuning parameter. Let us assume that we draw a value of 8.5.</p></li>
+<ol>
+<li><p>Propose a second value for <span class="math notranslate nohighlight">\(\mu\)</span>, called <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>, which is drawn from a distribution called a proposal distribution. This value is called the proposed value. For the Metropolis algorithm, it has to be a symmetrical distribution. We will use a normal distribution for this example and set the mean of this proposal distribution to be the current value of <span class="math notranslate nohighlight">\(\mu\)</span>. The standard deviation is a hyperparameter called the tuning parameter. Let us assume that we draw a value of 8.5.</p></li>
+<li><p>Compute the prior, likelihood and the posterior for this proposed value of <span class="math notranslate nohighlight">\(\mu\)</span> as we did in step (2), (3) and (4).</p></li>
+<li><p>Select one value from the current and the proposed value with the following two steps (this step is where the Metropolis algorithm differs from the Metropolis-Hastings algorithm)</p>
+<p>a. Compute the probability of moving to the proposed value as
+<span class="math notranslate nohighlight">\(p_{move} = min( \dfrac{P(\lambda_{proposed} | data)}{P(\lambda_{current} | data)}, 1)\)</span></p>
+<p>Here <span class="math notranslate nohighlight">\(p_{move}\)</span> is the minimum of the values given by the ratio of the probabilities and the number 1. This caps the probability <span class="math notranslate nohighlight">\(p_{move}\)</span> at 1 if the ratio happens to be greater than 1.</p>
+<p>b. Draw a sample from a uniform distribution U(0,1). If <span class="math notranslate nohighlight">\(p_{move}\)</span> from (a) above is greater than this number drawn from the uniform distribution, we accept the proposed value <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>. What this means is that if the posterior density of the proposed parameter value is greater than the posterior density of the current parameter value, then we move to the proposed value otherwise we probabilistically accept the proposed value based on the value of <span class="math notranslate nohighlight">\(p_{move}\)</span> and the randomly drawn value from the uniform distribution.</p>
+</li>
+<li><p>If we moved to the proposed value, save the current value to an array and then update the current value with the proposed value. In the next iteration, the current value <span class="math notranslate nohighlight">\(\mu^{i+1}_{current}\)</span> will be this accepted proposed value <span class="math notranslate nohighlight">\(\mu^{i}_{proposed}\)</span> .</p></li>
 </ol>
 </div>
 <div class="section" id="traceplot">
