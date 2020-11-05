@@ -313,11 +313,13 @@
      Notes about the Metropolis algorithm
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#python-code-for-walkthrough-of-algorithm">
-     Python Code for walkthrough of algorithm
-    </a>
-   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-code-for-walkthrough-of-algorithm">
+   Python Code for walkthrough of algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
      Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
@@ -343,6 +345,23 @@
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution">
      What is the advantage of using a non-symmetric proposal distribution?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation">
+   EVALUATION
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm">
+     1. Write Python code to modify the Metropolis algorithm from above to make it a Metropolis-Hastings algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-the-example-above-and-the-shark-attack-problem">
+     2. Using the example above and the shark attack problem,
     </a>
    </li>
   </ul>
@@ -471,10 +490,20 @@
 <li><p>Tuning - A hyperparameter, i.e. the standard deviation is essential to tune this proposal distribution. This needs to be tuned such that the acceptance probability is a certain value. This is referred to as the tuning parameter.</p></li>
 </ul>
 </div>
-<div class="section" id="python-code-for-walkthrough-of-algorithm">
-<h3>Python Code for walkthrough of algorithm<a class="headerlink" href="#python-code-for-walkthrough-of-algorithm" title="Permalink to this headline">¶</a></h3>
-<p>Using the example above and the shark attack problem, run a simulation for 1000 iterations</p>
 </div>
+<div class="section" id="python-code-for-walkthrough-of-algorithm">
+<h2>Python Code for walkthrough of algorithm<a class="headerlink" href="#python-code-for-walkthrough-of-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Using the example above and the shark attack problem,</p>
+<ol class="simple">
+<li><p>Run a simulation for 1000 iterations.</p></li>
+<li><p>Run the simulation for 10 iterations annd print out the following as a table
+a. the current parameter value and its hyperparameters
+b. proposed parameter value and its hyperparameters
+c. the the posterior probabilities of both
+d. the probability of move
+e. the drawn random value
+f. the decision as a binary value</p></li>
+</ol>
 <div class="section" id="summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
 <h3>Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles" title="Permalink to this headline">¶</a></h3>
 </div>
@@ -496,6 +525,26 @@
 <div class="section" id="what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution">
 <h3>What is the advantage of using a non-symmetric proposal distribution?<a class="headerlink" href="#what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution" title="Permalink to this headline">¶</a></h3>
 <p>If the parameter we are seeking is bounded in value, using a symmetric dsitribution can result in invalid draws. Also, since we are working in a Bayesian setting we want to take advantage of our prior knowledge of this parameter. If it known that the parameter has a certain distribution, we should be able to incorporate this information into our sampling process.</p>
+</div>
+</div>
+<div class="section" id="evaluation">
+<h2>EVALUATION<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm">
+<h3>1. Write Python code to modify the Metropolis algorithm from above to make it a Metropolis-Hastings algorithm<a class="headerlink" href="#write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="using-the-example-above-and-the-shark-attack-problem">
+<h3>2. Using the example above and the shark attack problem,<a class="headerlink" href="#using-the-example-above-and-the-shark-attack-problem" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Run a simulation for 1000 iterations.</p></li>
+<li><p>Run the simulation for 10 iterations annd print out the following as a table
+a. the current parameter value and its hyperparameters
+b. proposed parameter value and its hyperparameters
+c. the the posterior probabilities of both
+d. the correction factor
+e. the probability of move
+f. the drawn random value
+g. the decision as a binary value</p></li>
+</ol>
 </div>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
