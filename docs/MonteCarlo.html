@@ -24,7 +24,7 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -44,7 +44,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -82,15 +82,12 @@
   <h1 class="site-logo" id="site-title">Introduction to Statistical Computing for Aspiring Data Scientists</h1>
   
 </a>
-</div>
-
-<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form>
-
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <p class="caption">
+    <p class="caption collapsible-parent">
  <span class="caption-text">
   Getting started
  </span>
@@ -112,7 +109,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption collapsible-parent">
  <span class="caption-text">
   Introduction to Computational Statistics
  </span>
@@ -124,7 +121,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption collapsible-parent">
  <span class="caption-text">
   Introduction to Monte Carlo Methods
  </span>
@@ -136,7 +133,7 @@
   </a>
  </li>
 </ul>
-<p class="caption">
+<p class="caption collapsible-parent">
  <span class="caption-text">
   PyMC3 for Bayesian Modeling and Inference
  </span>
@@ -154,9 +151,7 @@
  </li>
 </ul>
 
-</nav>
-
- <!-- To handle the deprecated key -->
+</nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
   Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
@@ -185,11 +180,11 @@
             <i class="fas fa-arrow-up"></i>
         </button>
         
-        <div class="dropdown-buttons-trigger">
+        
+<div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
 
-    
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         
@@ -201,8 +196,8 @@
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
-    
 </div>
+
         <!-- Source interaction buttons -->
 
 
@@ -367,6 +362,18 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gibbs-sampling">
+   Gibbs Sampling
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outline">
+     Outline
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
    Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)
   </a>
@@ -434,7 +441,7 @@
 <li><p>Compute the likelihood of the data for both the parameters</p></li>
 <li><p>Compute the prior probability density of both the parameters</p></li>
 <li><p>Compute the posterior probability density of both parameters by multiplying the prior and the likelihood from (3) and (4)</p></li>
-<li><p>Select one from the posterior probability density computed above using a rule and save the selected one as <span class="math notranslate nohighlight">\(\mu_{current}\)</span></p></li>
+<li><p>Select one parameter from the posterior probability density computed above using a rule and save the selected one as <span class="math notranslate nohighlight">\(\mu_{current}\)</span></p></li>
 <li><p>Repeat steps (2) to (7) till a large number of parameters have been drawn (usually around 5000, but this really depends on the problem)</p></li>
 <li><p>Compute the distribution of the parameter <span class="math notranslate nohighlight">\(\mu\)</span> by plotting a histogram of the saved sampled parameter <span class="math notranslate nohighlight">\(\mu_{current}\)</span> in step (6)</p></li>
 </ol>
@@ -544,6 +551,18 @@ d. the correction factor
 e. the probability of move
 f. the drawn random value
 g. the decision as a binary value</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="gibbs-sampling">
+<h2>Gibbs Sampling<a class="headerlink" href="#gibbs-sampling" title="Permalink to this headline">¶</a></h2>
+<p>In a Gibbs sampler, the proposal distribution matches the posterior conditional distribution and the proposals are always accepted. This can be seen as a specific case of a Metropolis algorithm. One of the features of the Gibbs sampler is that it allows us to perform inference on more than one parameter at a time. This is done by drawing one parameter at a time conditional on the values on the other parameters. It iteratively works through the parameters using this process and continues till sufficient samples have been drawn for all parameters.</p>
+<p>In the following example, we are going to to try the infer the parameters of a Normal distribution, i.e. the mean given by <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>. We use a Normal distribution here since we can use that to illustrate how Gibbs sampling can be used to estimate multiple parameters at the same time.</p>
+<div class="section" id="outline">
+<h3>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Specify reasonable priors for the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>.</p></li>
+<li><p>Choose a parameter from the two to start with and assign an initial value. Let us assume that we start with <span class="math notranslate nohighlight">\(\tau\)</span> here.</p></li>
 </ol>
 </div>
 </div>
