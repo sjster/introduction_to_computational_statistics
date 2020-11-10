@@ -576,17 +576,35 @@ g. the decision as a binary value</p></li>
 </div>
 <div class="section" id="id1">
 <h3>The details<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Since we are using a Normal distribution, parameterized as <span class="math notranslate nohighlight">\(N(\mu, \tau)\)</span> we will need the conjugate solution for computing our posterior from the priors.</p>
+<p>Since we are using a Normal distribution, parameterized as <span class="math notranslate nohighlight">\(N(\mu, \tau)\)</span> we will need the conjugate solution for computing our posterior from the priors. A word on notation as we proceed, using <span class="math notranslate nohighlight">\(\tau\)</span> as an example - the draws are denoted by numbered subscripts such as <span class="math notranslate nohighlight">\(\tau_0\)</span>, <span class="math notranslate nohighlight">\(\tau_1\)</span> while the hyperparameters for the prior and posterior distributions are denoted as <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> and <span class="math notranslate nohighlight">\(\tau_{posterior}\)</span> respectively.</p>
 <p><span class="math notranslate nohighlight">\(\mu \sim N(\mu_{prior}, \tau_{prior})\)</span> , select <span class="math notranslate nohighlight">\(\mu_{prior}\)</span> to be 12 and <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> to be 0.0625 which corresponds to a a <span class="math notranslate nohighlight">\(\sigma\)</span> of 4</p>
 <p><span class="math notranslate nohighlight">\(\tau \sim Gamma(\alpha_{prior}, \beta_{prior})\)</span> , select the shape parameter <span class="math notranslate nohighlight">\(\alpha_{prior}\)</span> to be 25 and the rate parameter <span class="math notranslate nohighlight">\(\beta_{prior}\)</span> to be 0.5</p>
 <p>where <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\tau\)</span> is the precision. Please don’t confuse <span class="math notranslate nohighlight">\(\tau\)</span> which is the parameter our Normal distribution with <span class="math notranslate nohighlight">\(\tau_0\)</span> which is the hyperparameter of our mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
 <p>We have one data point that we are going to use to illustsrate how Gibbs sampling works.  Obviously, in a real example we will have multiple data points in which case we will have to compute the likelihood and posterior given all those data values. We will walk through the first two trials of Gibbs Sampling.</p>
 <ol class="simple">
 <li><p>With the priors set up, draw a value for <span class="math notranslate nohighlight">\(\tau_0\)</span> from the Gamma prior distribution. Let us assume that this is 40.123.</p></li>
-<li><p>Calculate the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> (Normal distribution) using the formula shown below. Here ‘n’ is the number of samples which happens to be 1 for our example.</p></li>
+<li><p>Start trial 1. Calculate the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> (Normal distribution) using the conjugate solution shown below. Here ‘n’ is the number of samples which happens to be 1 for our example.</p></li>
 </ol>
-<p><span class="math notranslate nohighlight">\(\mu_{posterior} =(\tau_{prior} \mu_{prior} + \tau_0 \sum_i x_i) / (\tau_0 + n \tau_0)\)</span> = (0.0625 * 12 + 40.123 * 10.2) / (0.0625 + 1 * 40.123) = 10.2028</p>
-<p><span class="math notranslate nohighlight">\(\tau_{posterior} = \tau_{prior} + n * \tau_0 \)</span></p>
+<p><span class="math notranslate nohighlight">\(\mu_{posterior} =(\tau_{prior} \mu_{prior} + \tau_0 \sum_i x_i) / (\tau_{prior} + n \tau_0)\)</span> = (0.0625 * 12 + 40.123 * 10.2) / (0.0625 + 1 * 40.123) = 10.2028</p>
+<p><span class="math notranslate nohighlight">\(\tau_{posterior} = \tau_{prior} + n * \tau_0 \)</span> = 0.0625 + 1 * 40.123 = 40.1855
+3. Draw a value for <span class="math notranslate nohighlight">\(\mu_1\)</span> from this computed posterior distribution for <span class="math notranslate nohighlight">\(\mu\)</span> from step (2). Let us assume that this value of <span class="math notranslate nohighlight">\(\mu_1\)</span> is 10.5678.
+4. With the given value of <span class="math notranslate nohighlight">\(\mu_1\)</span>, we now compute the posterior distribution of <span class="math notranslate nohighlight">\(\tau\)</span> using a conjugate solution for the Gamma distribution.</p>
+<p><span class="math notranslate nohighlight">\(\alpha_{posterior} = \alpha_{prior} + n/2\)</span> = 25 + 1/2 = 25.5</p>
+<p><span class="math notranslate nohighlight">\(\beta_{posterior} = \beta_{prior} + \sum_i (x_i - \mu)^2 / 2\)</span> = 0.5 + (10.2 - 10.5678)^2 / 2 = 0.5676</p>
+<ol class="simple">
+<li><p>Draw a value for <span class="math notranslate nohighlight">\(\tau_1\)</span> from this posterior distribution computed in step (4). Let us assume that this value is 45.678. Trial 1 is now complete.</p></li>
+<li><p>Trial 2 will be similar to trial 1 except that we substitute the values for <span class="math notranslate nohighlight">\(\tau_0\)</span> and <span class="math notranslate nohighlight">\(\mu_0\)</span> with the updates <span class="math notranslate nohighlight">\(\tau_1\)</span> and <span class="math notranslate nohighlight">\(\mu_1\)</span> we obtained at the end of steps (3) and (5).</p></li>
+<li><p>Update the posterior for <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(\mu_{posterior} =(\tau_{prior} \mu_{prior} + \tau_1 \sum_i x_i) / (\tau_{prior} + n \tau_1)\)</span> = (0.0625 * 12 + 45.678 * 10.2) / (0.0625 + 1 * 45.678) = 10.2025</p>
+<p><span class="math notranslate nohighlight">\(\tau_{posterior} = \tau_{prior} + n * \tau_0 \)</span> = 0.0625 + 1 * 45.678 = 45.7405
+8. Draw a sample from this updated posterior as <span class="math notranslate nohighlight">\(\mu_2\)</span>. Let us assume that this is 10.0266
+9. Update the posterior for <span class="math notranslate nohighlight">\(\tau\)</span></p>
+<p><span class="math notranslate nohighlight">\(\alpha_{posterior} = \alpha_{prior} + n/2\)</span> = 25 + 1/2 = 25.5 (This value does not change)</p>
+<p><span class="math notranslate nohighlight">\(\beta_{posterior} = \beta_{prior} + \sum_i (x_i - \mu)^2 / 2\)</span> = 0.5 + (10.2 - 10.0266)^2 / 2 = 0.5150
+10. Draw a sample from this posterior distribution as <span class="math notranslate nohighlight">\(\tau_2\)</span>. Trial 2 is now complete.
+11. By now you must have a sense of this process. If not,we simply repeat steps (6)
+to (10) till we have a sufficient number of samples.</p>
 </div>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
