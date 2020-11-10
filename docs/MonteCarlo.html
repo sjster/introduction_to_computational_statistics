@@ -371,6 +371,11 @@
      Outline
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     The details
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -410,7 +415,7 @@
 <div class="section" id="proposal-distribution">
 <h3>Proposal distribution<a class="headerlink" href="#proposal-distribution" title="Permalink to this headline">¶</a></h3>
 <p>An easy to sample distribution such as a Gaussian distribution <span class="math notranslate nohighlight">\(q(x)\)</span> such that</p>
-<p><span class="math notranslate nohighlight">\(q(x_{i+1} | x_{i}) \approx N(\mu, \sigma)\)</span></p>
+<p><span class="math notranslate nohighlight">\(q(x_{i+1} | x_{i}) \sim N(\mu, \sigma)\)</span></p>
 </div>
 <div class="section" id="foundation-of-bayesian-inference">
 <h3>Foundation of Bayesian Inference<a class="headerlink" href="#foundation-of-bayesian-inference" title="Permalink to this headline">¶</a></h3>
@@ -451,10 +456,10 @@
 <ol>
 <li><p>Propose a single plausible value for our parameter <span class="math notranslate nohighlight">\(\mu\)</span>. This is <span class="math notranslate nohighlight">\(\mu_{current}\)</span> from the previous section. This is also called the current value. Let us assume that this is 7.5 for now.</p></li>
 <li><p>Compute the prior probability density of getting 7.5. We stated earlier in our example that we have a Gamma prior distribution for our parameter <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
-<p><span class="math notranslate nohighlight">\(Gamma(x=7.5, \alpha, \beta) = \beta^{\alpha} x^{\alpha - 1} e^{-\beta x} / \gamma(\alpha) = \beta^{\alpha} 7.5^{\alpha - 1} e^{-\beta 7.5} / \gamma(\alpha)\)</span></p>
+<p><span class="math notranslate nohighlight">\(Gamma(x=7.5 |\alpha, \beta) = \beta^{\alpha} x^{\alpha - 1} e^{-\beta x} / \gamma(\alpha) = \beta^{\alpha} 7.5^{\alpha - 1} e^{-\beta 7.5} / \gamma(\alpha)\)</span></p>
 </li>
 <li><p>Compute the likelihood of the data given the parameter value of 7.5. The likelihood distribution was a Poisson distribution in our example</p>
-<p><span class="math notranslate nohighlight">\(Poisson(x, mu=7.5) = e^{-\mu} \mu^x / x! = e^{-7.5} 7.5^x / x!\)</span></p>
+<p><span class="math notranslate nohighlight">\(Poisson(x | mu=7.5) = e^{-\mu} \mu^x / x! = e^{-7.5} 7.5^x / x!\)</span></p>
 </li>
 <li><p>Compute the posterior density from (2) and (3), we skip the denominator here since we are only going to make comparisons and the denominator is a constant.</p>
 <p>Posterior density <span class="math notranslate nohighlight">\(\propto\)</span> Prior <span class="math notranslate nohighlight">\(\cdot\)</span> likelihood</p>
@@ -562,8 +567,26 @@ g. the decision as a binary value</p></li>
 <h3>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>Specify reasonable priors for the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>.</p></li>
-<li><p>Choose a parameter from the two to start with and assign an initial value. Let us assume that we start with <span class="math notranslate nohighlight">\(\tau\)</span> here.</p></li>
+<li><p>Choose a parameter from the two to start with and assign an initial value. Let us assume that we start with <span class="math notranslate nohighlight">\(\tau\)</span> here and select a value of <span class="math notranslate nohighlight">\(\tau_0\)</span>.</p></li>
+<li><p>Start our first trial. We want to obtain a sample for <span class="math notranslate nohighlight">\(\mu\)</span> from the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> given the value of <span class="math notranslate nohighlight">\(\tau_0\)</span>. This is where we use our knowledge of the distribution and use a conjugate solution to obtain the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span>. Now we draw a sample <span class="math notranslate nohighlight">\(\mu_1\)</span> from this posterior distribution.</p></li>
+<li><p>We continue with trial 1 since we need to obtain a value for <span class="math notranslate nohighlight">\(\tau_1\)</span> conditional on the value of <span class="math notranslate nohighlight">\(\tau_1\)</span>. Similar to step (3), we use the conjugate solution to obtain a posterior distribution of <span class="math notranslate nohighlight">\(\tau\)</span> given a value of <span class="math notranslate nohighlight">\(mu_1\)</span>. Draw a value of <span class="math notranslate nohighlight">\(\tau_1\)</span> from this distribution.</p></li>
+<li><p>We accept both values we have drawn in steps (3) and (4) and trial 1 is now complete. Note that unlike the Metropolis algorithm, we do not stochastically accept or reject the proposals, we accept all drawn values.</p></li>
+<li><p>Repeat steps (3) to (5) till we have a sufficient number of samples. This process of iteratively updating the parameters is loosely akin to coordinate ascent for optimization.</p></li>
 </ol>
+</div>
+<div class="section" id="id1">
+<h3>The details<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Since we are using a Normal distribution, parameterized as <span class="math notranslate nohighlight">\(N(\mu, \tau)\)</span> we will need the conjugate solution for computing our posterior from the priors.</p>
+<p><span class="math notranslate nohighlight">\(\mu \sim N(\mu_{prior}, \tau_{prior})\)</span> , select <span class="math notranslate nohighlight">\(\mu_{prior}\)</span> to be 12 and <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> to be 0.0625 which corresponds to a a <span class="math notranslate nohighlight">\(\sigma\)</span> of 4</p>
+<p><span class="math notranslate nohighlight">\(\tau \sim Gamma(\alpha_{prior}, \beta_{prior})\)</span> , select the shape parameter <span class="math notranslate nohighlight">\(\alpha_{prior}\)</span> to be 25 and the rate parameter <span class="math notranslate nohighlight">\(\beta_{prior}\)</span> to be 0.5</p>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\tau\)</span> is the precision. Please don’t confuse <span class="math notranslate nohighlight">\(\tau\)</span> which is the parameter our Normal distribution with <span class="math notranslate nohighlight">\(\tau_0\)</span> which is the hyperparameter of our mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+<p>We have one data point that we are going to use to illustsrate how Gibbs sampling works.  Obviously, in a real example we will have multiple data points in which case we will have to compute the likelihood and posterior given all those data values. We will walk through the first two trials of Gibbs Sampling.</p>
+<ol class="simple">
+<li><p>With the priors set up, draw a value for <span class="math notranslate nohighlight">\(\tau_0\)</span> from the Gamma prior distribution. Let us assume that this is 40.123.</p></li>
+<li><p>Calculate the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> (Normal distribution) using the formula shown below. Here ‘n’ is the number of samples which happens to be 1 for our example.</p></li>
+</ol>
+<p><span class="math notranslate nohighlight">\(\mu_{posterior} =(\tau_{prior} \mu_{prior} + \tau_0 \sum_i x_i) / (\tau_0 + n \tau_0)\)</span> = (0.0625 * 12 + 40.123 * 10.2) / (0.0625 + 1 * 40.123) = 10.2028</p>
+<p><span class="math notranslate nohighlight">\(\tau_{posterior} = \tau_{prior} + n * \tau_0 \)</span></p>
 </div>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
