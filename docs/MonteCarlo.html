@@ -376,6 +376,11 @@
      The details
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Building the Inferred Distribution
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -463,7 +468,12 @@
 </li>
 <li><p>Compute the posterior density from (2) and (3), we skip the denominator here since we are only going to make comparisons and the denominator is a constant.</p>
 <p>Posterior density <span class="math notranslate nohighlight">\(\propto\)</span> Prior <span class="math notranslate nohighlight">\(\cdot\)</span> likelihood</p>
+<p>The Gamma distribution is parameterized by the shape parameter <span class="math notranslate nohighlight">\(\alpha\)</span> and the rate parameter <span class="math notranslate nohighlight">\(\beta\)</span>. If the prior distribution for the mean parameter <span class="math notranslate nohighlight">\(\mu\)</span> is given by a Gamma distribution parameterized by <span class="math notranslate nohighlight">\(\alpha_{prior}\)</span> and <span class="math notranslate nohighlight">\(\beta_{prior}\)</span></p>
 </li>
+</ol>
+<p><span class="math notranslate nohighlight">\(\alpha_{posterior} = \alpha_{prior} + \sum_i x_i\)</span></p>
+<p><span class="math notranslate nohighlight">\(\beta_{posterior} = \beta_{prior} + n\)</span></p>
+<ol>
 <li><p>Propose a second value for <span class="math notranslate nohighlight">\(\mu\)</span>, called <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>, which is drawn from a distribution called a proposal distribution centered on <span class="math notranslate nohighlight">\(mu_{current}\)</span>. This value is called the proposed value. For the Metropolis algorithm, it has to be a symmetrical distribution. We will use a normal distribution for this example and set the mean of this proposal distribution to be the current value of <span class="math notranslate nohighlight">\(\mu\)</span>. The standard deviation is a hyperparameter called the tuning parameter. Let us assume that we draw a value of 8.5.</p></li>
 <li><p>Compute the prior, likelihood and the posterior for this proposed value of <span class="math notranslate nohighlight">\(\mu\)</span> as we did in step (2), (3) and (4).</p></li>
 <li><p>Select one value from the current and the proposed value with the following two steps (this step is where the Metropolis algorithm differs from the Metropolis-Hastings algorithm)</p>
@@ -508,16 +518,167 @@
 <p>Using the example above and the shark attack problem,</p>
 <ol class="simple">
 <li><p>Run a simulation for 1000 iterations.</p></li>
-<li><p>Run the simulation for 10 iterations annd print out the following as a table
-a. the current parameter value and its hyperparameters
-b. proposed parameter value and its hyperparameters
-c. the the posterior probabilities of both
-d. the probability of move
-e. the drawn random value
-f. the decision as a binary value</p></li>
+<li><p>Run the simulation for 10 iterations annd print out the following as a table</p></li>
 </ol>
+<p>a. the current parameter value and its hyperparameters</p>
+<p>b. proposed parameter value and its hyperparameters</p>
+<p>c. the the posterior probabilities of both</p>
+<p>d. the probability of move</p>
+<p>e. the drawn random value</p>
+<p>f. the decision as a binary value</p>
 <div class="section" id="summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
 <h3>Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">factorial</span>
+<span class="c1"># Prior alpha = 7, beta = 1</span>
+<span class="c1"># Start with a value of lambda given by 8.0 and compute the prior probability density of observing this value</span>
+
+<span class="k">def</span> <span class="nf">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+     <span class="k">return</span><span class="p">(</span><span class="n">beta</span><span class="o">**</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">lam</span><span class="o">**</span><span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="o">*</span><span class="n">lam</span><span class="p">)</span> <span class="o">/</span> <span class="n">gamma</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">likelihood_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">lam</span><span class="o">**</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lam</span><span class="p">)</span><span class="o">/</span> <span class="n">factorial</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+<span class="n">lambda_current</span> <span class="o">=</span> <span class="mf">8.0</span>
+<span class="n">data_val</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">lambda_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="n">lambda_current</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood_density</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_val</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">lambda_current</span><span class="p">)</span>
+    <span class="n">posterior_current</span> <span class="o">=</span> <span class="n">likelihood</span> <span class="o">*</span> <span class="n">prior</span> 
+    <span class="n">lambda_proposed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">lambda_current</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="n">lambda_proposed</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood_density</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_val</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">lambda_proposed</span><span class="p">)</span>
+    <span class="n">posterior_proposed</span> <span class="o">=</span> <span class="n">likelihood</span> <span class="o">*</span> <span class="n">prior</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">posterior_proposed</span> <span class="o">/</span> <span class="n">posterior_current</span>
+    <span class="n">p_move</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">random_draw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">random_draw</span> <span class="o">&lt;</span> <span class="n">p_move</span><span class="p">):</span>
+        <span class="n">lambda_current</span> <span class="o">=</span> <span class="n">lambda_proposed</span>
+    <span class="n">lambda_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_current</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.015154533257107236 0.01532316597040889
+0.01532316597040889 0.01529498015463291
+0.01529498015463291 0.01530688451548828
+0.01530688451548828 0.015627304709328323
+0.015627304709328323 0.014663328560947595
+0.014663328560947595 0.015465601089336983
+0.015465601089336983 0.015531416464302275
+0.015531416464302275 0.01501463638791442
+0.01501463638791442 0.015612040166912273
+0.015612040166912273 0.014832510920115961
+0.014832510920115961 0.014119076767784308
+0.014119076767784308 0.014219202570061247
+0.014219202570061247 0.015642054967352364
+0.015642054967352364 0.015621625191454118
+0.015621625191454118 0.015638407701477244
+0.015638407701477244 0.01560887396827172
+0.01560887396827172 0.014910496228396694
+0.014910496228396694 0.014904823201859992
+0.014904823201859992 0.015601377931113452
+0.015601377931113452 0.015623057208078465
+0.015623057208078465 0.015236709704249006
+0.015236709704249006 0.014545066373808282
+0.014545066373808282 0.015508718190931005
+0.015508718190931005 0.01564610215328317
+0.01564610215328317 0.015454457020697934
+0.015454457020697934 0.015392674649087959
+0.015392674649087959 0.015390385897648233
+0.015390385897648233 0.015091887131447466
+0.015091887131447466 0.01501017216700916
+0.01501017216700916 0.014550382439129535
+0.014550382439129535 0.015586222917004492
+0.015586222917004492 0.015316655522069053
+0.015316655522069053 0.014022854804788381
+0.014022854804788381 0.014991209426523978
+0.014991209426523978 0.015229110168282161
+0.015229110168282161 0.015495165810969776
+0.015495165810969776 0.014570773361100119
+0.014570773361100119 0.015103601417877007
+0.015103601417877007 0.01481323160541976
+0.01481323160541976 0.015006768191485232
+0.015006768191485232 0.015505119869766536
+0.015505119869766536 0.015085096017310454
+0.015085096017310454 0.015445896015715506
+0.015445896015715506 0.015345992050613036
+0.015345992050613036 0.015621544906527734
+0.015621544906527734 0.015598806602963172
+0.015598806602963172 0.01549355837962133
+0.01549355837962133 0.014516344394359603
+0.014516344394359603 0.007199065155078847
+0.007199065155078847 0.0074142983030384794
+0.0074142983030384794 0.00851823971924504
+0.00851823971924504 0.009851924187695668
+0.009851924187695668 0.009343791111887252
+0.009343791111887252 0.011008385681187755
+0.011008385681187755 0.014682300721849773
+0.014682300721849773 0.013222764978676688
+0.013222764978676688 0.015195241061307133
+0.015195241061307133 0.015624653057361701
+0.015624653057361701 0.015097115639356855
+0.015097115639356855 0.015334541872860239
+0.015334541872860239 0.015598917693308924
+0.015598917693308924 0.01488784663429393
+0.01488784663429393 0.015615854540400856
+0.015615854540400856 0.015554405823647949
+0.015554405823647949 0.015465127592480159
+0.015465127592480159 0.015472843324218777
+0.015472843324218777 0.014930151661644311
+0.014930151661644311 0.015523516918706202
+0.015523516918706202 0.015598184047279194
+0.015598184047279194 0.015443806217966517
+0.015443806217966517 0.01332696291546831
+0.01332696291546831 0.014279850413988155
+0.014279850413988155 0.014987648149675651
+0.014987648149675651 0.014921137046027945
+0.014921137046027945 0.013805716144375887
+0.013805716144375887 0.013453348368682122
+0.013453348368682122 0.011422207272839107
+0.013453348368682122 0.012742039987097964
+0.012742039987097964 0.010889023276943851
+0.010889023276943851 0.008314097392206976
+0.008314097392206976 0.008847873697108606
+0.008847873697108606 0.009196343063883878
+0.009196343063883878 0.0064323506357096055
+0.0064323506357096055 0.006621489125706304
+0.006621489125706304 0.007783301682267687
+0.007783301682267687 0.00635239091618382
+0.00635239091618382 0.004698798574371442
+0.00635239091618382 0.0066214404474607465
+0.0066214404474607465 0.004707402832064674
+0.004707402832064674 0.00534259319718957
+0.00534259319718957 0.005421200198237863
+0.005421200198237863 0.0064790254552051455
+0.0064790254552051455 0.007511360554468603
+0.007511360554468603 0.007491134303371913
+0.007491134303371913 0.004686740269402429
+0.004686740269402429 0.004163907010808836
+0.004686740269402429 0.0028418166228709194
+0.004686740269402429 0.004636338432951172
+0.004636338432951172 0.004248648559756221
+0.004248648559756221 0.002790611633568947
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5387917181958914
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="the-metropolis-hastings-algorithm">
@@ -562,6 +723,7 @@ g. the decision as a binary value</p></li>
 <div class="section" id="gibbs-sampling">
 <h2>Gibbs Sampling<a class="headerlink" href="#gibbs-sampling" title="Permalink to this headline">¶</a></h2>
 <p>In a Gibbs sampler, the proposal distribution matches the posterior conditional distribution and the proposals are always accepted. This can be seen as a specific case of a Metropolis algorithm. One of the features of the Gibbs sampler is that it allows us to perform inference on more than one parameter at a time. This is done by drawing one parameter at a time conditional on the values on the other parameters. It iteratively works through the parameters using this process and continues till sufficient samples have been drawn for all parameters.</p>
+<p>Additionally, Gibbs Sampling can draw proposals from an asymmetric distribution. In the example below, we will be drawing from a Gamma distribution which is not symmetric. Not having a pre-determined proposal distribution is seen sometimes as an advantage. The disadvantage of this method, however, is that you are required to decompose the joint distribution into the conditional distributions in order to sample from them.  If the conjugate solutions are known, the Gibbs sampler can be faster than the Metropolis-Hastings algorithm.</p>
 <p>In the following example, we are going to to try the infer the parameters of a Normal distribution, i.e. the mean given by <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>. We use a Normal distribution here since we can use that to illustrate how Gibbs sampling can be used to estimate multiple parameters at the same time.</p>
 <div class="section" id="outline">
 <h3>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h3>
@@ -586,9 +748,11 @@ g. the decision as a binary value</p></li>
 <li><p>Start trial 1. Calculate the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> (Normal distribution) using the conjugate solution shown below. Here ‘n’ is the number of samples which happens to be 1 for our example.</p></li>
 </ol>
 <p><span class="math notranslate nohighlight">\(\mu_{posterior} =(\tau_{prior} \mu_{prior} + \tau_0 \sum_i x_i) / (\tau_{prior} + n \tau_0)\)</span> = (0.0625 * 12 + 40.123 * 10.2) / (0.0625 + 1 * 40.123) = 10.2028</p>
-<p><span class="math notranslate nohighlight">\(\tau_{posterior} = \tau_{prior} + n * \tau_0 \)</span> = 0.0625 + 1 * 40.123 = 40.1855
-3. Draw a value for <span class="math notranslate nohighlight">\(\mu_1\)</span> from this computed posterior distribution for <span class="math notranslate nohighlight">\(\mu\)</span> from step (2). Let us assume that this value of <span class="math notranslate nohighlight">\(\mu_1\)</span> is 10.5678.
-4. With the given value of <span class="math notranslate nohighlight">\(\mu_1\)</span>, we now compute the posterior distribution of <span class="math notranslate nohighlight">\(\tau\)</span> using a conjugate solution for the Gamma distribution.</p>
+<p><span class="math notranslate nohighlight">\(\tau_{posterior} = \tau_{prior} + n * \tau_0 \)</span> = 0.0625 + 1 * 40.123 = 40.1855</p>
+<ol class="simple">
+<li><p>Draw a value for <span class="math notranslate nohighlight">\(\mu_1\)</span> from this computed posterior distribution for <span class="math notranslate nohighlight">\(\mu\)</span> from step (2). Let us assume that this value of <span class="math notranslate nohighlight">\(\mu_1\)</span> is 10.5678.</p></li>
+<li><p>With the given value of <span class="math notranslate nohighlight">\(\mu_1\)</span>, we now compute the posterior distribution of <span class="math notranslate nohighlight">\(\tau\)</span> using a conjugate solution for the Gamma distribution.</p></li>
+</ol>
 <p><span class="math notranslate nohighlight">\(\alpha_{posterior} = \alpha_{prior} + n/2\)</span> = 25 + 1/2 = 25.5</p>
 <p><span class="math notranslate nohighlight">\(\beta_{posterior} = \beta_{prior} + \sum_i (x_i - \mu)^2 / 2\)</span> = 0.5 + (10.2 - 10.5678)^2 / 2 = 0.5676</p>
 <ol class="simple">
@@ -597,14 +761,22 @@ g. the decision as a binary value</p></li>
 <li><p>Update the posterior for <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
 </ol>
 <p><span class="math notranslate nohighlight">\(\mu_{posterior} =(\tau_{prior} \mu_{prior} + \tau_1 \sum_i x_i) / (\tau_{prior} + n \tau_1)\)</span> = (0.0625 * 12 + 45.678 * 10.2) / (0.0625 + 1 * 45.678) = 10.2025</p>
-<p><span class="math notranslate nohighlight">\(\tau_{posterior} = \tau_{prior} + n * \tau_0 \)</span> = 0.0625 + 1 * 45.678 = 45.7405
-8. Draw a sample from this updated posterior as <span class="math notranslate nohighlight">\(\mu_2\)</span>. Let us assume that this is 10.0266
-9. Update the posterior for <span class="math notranslate nohighlight">\(\tau\)</span></p>
+<p><span class="math notranslate nohighlight">\(\tau_{posterior} = \tau_{prior} + n * \tau_0 \)</span> = 0.0625 + 1 * 45.678 = 45.7405</p>
+<ol class="simple">
+<li><p>Draw a sample from this updated posterior as <span class="math notranslate nohighlight">\(\mu_2\)</span>. Let us assume that this is 10.0266</p></li>
+<li><p>Update the posterior for <span class="math notranslate nohighlight">\(\tau\)</span></p></li>
+</ol>
 <p><span class="math notranslate nohighlight">\(\alpha_{posterior} = \alpha_{prior} + n/2\)</span> = 25 + 1/2 = 25.5 (This value does not change)</p>
-<p><span class="math notranslate nohighlight">\(\beta_{posterior} = \beta_{prior} + \sum_i (x_i - \mu)^2 / 2\)</span> = 0.5 + (10.2 - 10.0266)^2 / 2 = 0.5150
-10. Draw a sample from this posterior distribution as <span class="math notranslate nohighlight">\(\tau_2\)</span>. Trial 2 is now complete.
-11. By now you must have a sense of this process. If not,we simply repeat steps (6)
-to (10) till we have a sufficient number of samples.</p>
+<p><span class="math notranslate nohighlight">\(\beta_{posterior} = \beta_{prior} + \sum_i (x_i - \mu)^2 / 2\)</span> = 0.5 + (10.2 - 10.0266)^2 / 2 = 0.5150</p>
+<ol class="simple">
+<li><p>Draw a sample from this posterior distribution as <span class="math notranslate nohighlight">\(\tau_2\)</span>. Trial 2 is now complete.</p></li>
+<li><p>By now you must have a sense of this process. If not,we simply repeat steps (6)
+to (10) till we have a sufficient number of samples.</p></li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h3>Building the Inferred Distribution<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Use the current values that we obtain at each step for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>, and build a frequency distribution (histogram) from it. We can also create a joint distribution as well using a two-dimensional histogram.</p>
 </div>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
