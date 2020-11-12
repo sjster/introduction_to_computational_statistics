@@ -326,6 +326,18 @@
   <a class="reference internal nav-link" href="#evaluation">
    EVALUATION
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#run-the-simulation-for-10-iterations-annd-print-out-the-following-as-a-table-with-each-trial-being-a-row">
+     1. Run the simulation for 10 iterations annd print out the following as a table, with each trial being a row
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
+     2. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-metropolis-hastings-algorithm">
@@ -360,8 +372,13 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#using-the-example-above-and-the-shark-attack-problem">
-     2. Using the example above and the shark attack problem,
+    <a class="reference internal nav-link" href="#using-the-example-of-power-outages-above">
+     2. Using the example of power outages above
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
     </a>
    </li>
   </ul>
@@ -377,13 +394,35 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
+    <a class="reference internal nav-link" href="#id3">
      The details
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id4">
      Building the Inferred Distribution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   EVALUATION
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling">
+     1. Use the Metropolis Python code as boilerplate code to perform Gibbs Sampling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     2. Using the example of power outages above
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id7">
+     3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
     </a>
    </li>
   </ul>
@@ -579,18 +618,18 @@
 </div>
 <div class="section" id="evaluation">
 <h2>EVALUATION<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p>Run the simulation for 10 iterations annd print out the following as a table</p></li>
-</ol>
+<div class="section" id="run-the-simulation-for-10-iterations-annd-print-out-the-following-as-a-table-with-each-trial-being-a-row">
+<h3>1. Run the simulation for 10 iterations annd print out the following as a table, with each trial being a row<a class="headerlink" href="#run-the-simulation-for-10-iterations-annd-print-out-the-following-as-a-table-with-each-trial-being-a-row" title="Permalink to this headline">¶</a></h3>
 <p>a. the current parameter value and its hyperparameters</p>
 <p>b. proposed parameter value and its hyperparameters</p>
 <p>c. the the posterior probabilities of both</p>
 <p>d. the probability of move</p>
 <p>e. the drawn random value</p>
 <p>f. the decision as a binary value</p>
-<ol class="simple">
-<li><p>Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles</p></li>
-</ol>
+</div>
+<div class="section" id="summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
+<h3>2. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="the-metropolis-hastings-algorithm">
 <h2>The Metropolis-Hastings Algorithm<a class="headerlink" href="#the-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h2>
@@ -616,19 +655,23 @@
 <div class="section" id="write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm">
 <h3>1. Write Python code to modify the Metropolis algorithm from above to make it a Metropolis-Hastings algorithm<a class="headerlink" href="#write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="using-the-example-above-and-the-shark-attack-problem">
-<h3>2. Using the example above and the shark attack problem,<a class="headerlink" href="#using-the-example-above-and-the-shark-attack-problem" title="Permalink to this headline">¶</a></h3>
-<ol class="simple">
+<div class="section" id="using-the-example-of-power-outages-above">
+<h3>2. Using the example of power outages above<a class="headerlink" href="#using-the-example-of-power-outages-above" title="Permalink to this headline">¶</a></h3>
+<ol>
 <li><p>Run a simulation for 1000 iterations.</p></li>
-<li><p>Run the simulation for 10 iterations annd print out the following as a table
-a. the current parameter value and its hyperparameters
-b. proposed parameter value and its hyperparameters
-c. the the posterior probabilities of both
-d. the correction factor
-e. the probability of move
-f. the drawn random value
-g. the decision as a binary value</p></li>
+<li><p>Run the simulation for 10 iterations annd print out the following as a table, with each trial being a row</p>
+<p>a. the current parameter value and its hyperparameters</p>
+<p>b. proposed parameter value and its hyperparameters</p>
+<p>c. the the posterior probabilities of both</p>
+<p>d. the correction factor</p>
+<p>e. the probability of move</p>
+<p>f. the drawn random value</p>
+<p>g. the decision as a binary value</p>
+</li>
 </ol>
+</div>
+<div class="section" id="id2">
+<h3>3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="gibbs-sampling">
@@ -647,8 +690,8 @@ g. the decision as a binary value</p></li>
 <li><p>Repeat steps (3) to (5) till we have a sufficient number of samples. This process of iteratively updating the parameters is loosely akin to coordinate ascent for optimization.</p></li>
 </ol>
 </div>
-<div class="section" id="id2">
-<h3>The details<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>The details<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Since we are using a Normal distribution, parameterized as <span class="math notranslate nohighlight">\(N(\mu, \tau)\)</span> we will need the conjugate solution for computing our posterior from the priors. A word on notation as we proceed, using <span class="math notranslate nohighlight">\(\tau\)</span> as an example - the draws are denoted by numbered subscripts such as <span class="math notranslate nohighlight">\(\tau_0\)</span>, <span class="math notranslate nohighlight">\(\tau_1\)</span> while the hyperparameters for the prior and posterior distributions are denoted as <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> and <span class="math notranslate nohighlight">\(\tau_{posterior}\)</span> respectively.</p>
 <p><span class="math notranslate nohighlight">\(\mu \sim N(\mu_{prior}, \tau_{prior})\)</span> , select <span class="math notranslate nohighlight">\(\mu_{prior}\)</span> to be 12 and <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> to be 0.0625 which corresponds to a a <span class="math notranslate nohighlight">\(\sigma\)</span> of 4</p>
 <p><span class="math notranslate nohighlight">\(\tau \sim Gamma(\alpha_{prior}, \beta_{prior})\)</span> , select the shape parameter <span class="math notranslate nohighlight">\(\alpha_{prior}\)</span> to be 25 and the rate parameter <span class="math notranslate nohighlight">\(\beta_{prior}\)</span> to be 0.5</p>
@@ -685,9 +728,28 @@ g. the decision as a binary value</p></li>
 to (10) till we have a sufficient number of samples.</p></li>
 </ol>
 </div>
-<div class="section" id="id3">
-<h3>Building the Inferred Distribution<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Building the Inferred Distribution<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Use the current values that we obtain at each step for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>, and build a frequency distribution (histogram) from it. We can also create a joint distribution as well using a two-dimensional histogram.</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>EVALUATION<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling">
+<h3>1. Use the Metropolis Python code as boilerplate code to perform Gibbs Sampling<a class="headerlink" href="#use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id6">
+<h3>2. Using the example of power outages above<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p>Run a simulation for 1000 iterations.</p></li>
+<li><p>Run the simulation for 10 iterations annd print out the following as a table, each row representing a trial</p>
+<p>a. the posterior parameter values for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span> at each trial</p>
+<p>b. sampled parameter values <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span> at each trial</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id7">
+<h3>3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
