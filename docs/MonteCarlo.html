@@ -316,11 +316,16 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
-     Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
+    <a class="reference internal nav-link" href="#problem-statement">
+     Problem Statement
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation">
+   EVALUATION
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-metropolis-hastings-algorithm">
@@ -345,7 +350,7 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation">
+  <a class="reference internal nav-link" href="#id1">
    EVALUATION
   </a>
   <ul class="nav section-nav flex-column">
@@ -372,12 +377,12 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id1">
+    <a class="reference internal nav-link" href="#id2">
      The details
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
+    <a class="reference internal nav-link" href="#id3">
      Building the Inferred Distribution
     </a>
    </li>
@@ -515,23 +520,16 @@
 </div>
 <div class="section" id="python-code-for-walkthrough-of-algorithm">
 <h2>Python Code for walkthrough of algorithm<a class="headerlink" href="#python-code-for-walkthrough-of-algorithm" title="Permalink to this headline">¶</a></h2>
-<p>Using the example above and the shark attack problem,</p>
-<ol class="simple">
-<li><p>Run a simulation for 1000 iterations.</p></li>
-<li><p>Run the simulation for 10 iterations annd print out the following as a table</p></li>
-</ol>
-<p>a. the current parameter value and its hyperparameters</p>
-<p>b. proposed parameter value and its hyperparameters</p>
-<p>c. the the posterior probabilities of both</p>
-<p>d. the probability of move</p>
-<p>e. the drawn random value</p>
-<p>f. the decision as a binary value</p>
-<div class="section" id="summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
-<h3>Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles" title="Permalink to this headline">¶</a></h3>
+<p>Using the example above, we are going to look at code to run the Metropolis algorithm 1000 iterations. This will simualte the inference process. Around 5000 iterations will get you closer to the true posterior distribution.</p>
+<div class="section" id="problem-statement">
+<h3>Problem Statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
+<p>This is trivial problem and is only designed to help illustrate the workings of the Metropolis algorithm with a single data point. We observe about 9 power outages in a year in Charlottesville, VA and we know that the number of power outages can be modeled by a Poisson distribution with parameter <span class="math notranslate nohighlight">\(\lambda\)</span> that is drawn from a Gamma prior distribution that has parameters <span class="math notranslate nohighlight">\(\alpha\)</span> = 7 and <span class="math notranslate nohighlight">\(\beta\)</span> = 1. In a frequentist world, we would conclude that the rate parameter is 9 based on the information we have, but in a Bayesian landscape we have some knowledge about this rate parameter should be based on what we may have observed in the past. This past knowledge gets incorporated into the prior and tempers our belief so we are not making assumption based only on what we just saw. In a way, you can consider this a way of online learning since the posterior or the rate parameter from the past data can be incorporated as a prior in our current inference process, resulting in continuous refinement of our posterior based on new data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">factorial</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span> 
+
 <span class="c1"># Prior alpha = 7, beta = 1</span>
 <span class="c1"># Start with a value of lambda given by 8.0 and compute the prior probability density of observing this value</span>
 
@@ -542,15 +540,18 @@
     <span class="k">return</span><span class="p">(</span><span class="n">lam</span><span class="o">**</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lam</span><span class="p">)</span><span class="o">/</span> <span class="n">factorial</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 
 <span class="n">lambda_current</span> <span class="o">=</span> <span class="mf">8.0</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">7.0</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mf">1.0</span>
 <span class="n">data_val</span> <span class="o">=</span> <span class="mi">9</span>
+
 <span class="n">lambda_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="n">lambda_current</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="n">lambda_current</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
     <span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood_density</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_val</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">lambda_current</span><span class="p">)</span>
     <span class="n">posterior_current</span> <span class="o">=</span> <span class="n">likelihood</span> <span class="o">*</span> <span class="n">prior</span> 
     <span class="n">lambda_proposed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">lambda_current</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="n">lambda_proposed</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="n">lambda_proposed</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
     <span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood_density</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_val</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">lambda_proposed</span><span class="p">)</span>
     <span class="n">posterior_proposed</span> <span class="o">=</span> <span class="n">likelihood</span> <span class="o">*</span> <span class="n">prior</span>
     <span class="n">ratio</span> <span class="o">=</span> <span class="n">posterior_proposed</span> <span class="o">/</span> <span class="n">posterior_current</span>
@@ -559,127 +560,37 @@
     <span class="k">if</span> <span class="p">(</span><span class="n">random_draw</span> <span class="o">&lt;</span> <span class="n">p_move</span><span class="p">):</span>
         <span class="n">lambda_current</span> <span class="o">=</span> <span class="n">lambda_proposed</span>
     <span class="n">lambda_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_current</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">lambda_array</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.015154533257107236 0.01532316597040889
-0.01532316597040889 0.01529498015463291
-0.01529498015463291 0.01530688451548828
-0.01530688451548828 0.015627304709328323
-0.015627304709328323 0.014663328560947595
-0.014663328560947595 0.015465601089336983
-0.015465601089336983 0.015531416464302275
-0.015531416464302275 0.01501463638791442
-0.01501463638791442 0.015612040166912273
-0.015612040166912273 0.014832510920115961
-0.014832510920115961 0.014119076767784308
-0.014119076767784308 0.014219202570061247
-0.014219202570061247 0.015642054967352364
-0.015642054967352364 0.015621625191454118
-0.015621625191454118 0.015638407701477244
-0.015638407701477244 0.01560887396827172
-0.01560887396827172 0.014910496228396694
-0.014910496228396694 0.014904823201859992
-0.014904823201859992 0.015601377931113452
-0.015601377931113452 0.015623057208078465
-0.015623057208078465 0.015236709704249006
-0.015236709704249006 0.014545066373808282
-0.014545066373808282 0.015508718190931005
-0.015508718190931005 0.01564610215328317
-0.01564610215328317 0.015454457020697934
-0.015454457020697934 0.015392674649087959
-0.015392674649087959 0.015390385897648233
-0.015390385897648233 0.015091887131447466
-0.015091887131447466 0.01501017216700916
-0.01501017216700916 0.014550382439129535
-0.014550382439129535 0.015586222917004492
-0.015586222917004492 0.015316655522069053
-0.015316655522069053 0.014022854804788381
-0.014022854804788381 0.014991209426523978
-0.014991209426523978 0.015229110168282161
-0.015229110168282161 0.015495165810969776
-0.015495165810969776 0.014570773361100119
-0.014570773361100119 0.015103601417877007
-0.015103601417877007 0.01481323160541976
-0.01481323160541976 0.015006768191485232
-0.015006768191485232 0.015505119869766536
-0.015505119869766536 0.015085096017310454
-0.015085096017310454 0.015445896015715506
-0.015445896015715506 0.015345992050613036
-0.015345992050613036 0.015621544906527734
-0.015621544906527734 0.015598806602963172
-0.015598806602963172 0.01549355837962133
-0.01549355837962133 0.014516344394359603
-0.014516344394359603 0.007199065155078847
-0.007199065155078847 0.0074142983030384794
-0.0074142983030384794 0.00851823971924504
-0.00851823971924504 0.009851924187695668
-0.009851924187695668 0.009343791111887252
-0.009343791111887252 0.011008385681187755
-0.011008385681187755 0.014682300721849773
-0.014682300721849773 0.013222764978676688
-0.013222764978676688 0.015195241061307133
-0.015195241061307133 0.015624653057361701
-0.015624653057361701 0.015097115639356855
-0.015097115639356855 0.015334541872860239
-0.015334541872860239 0.015598917693308924
-0.015598917693308924 0.01488784663429393
-0.01488784663429393 0.015615854540400856
-0.015615854540400856 0.015554405823647949
-0.015554405823647949 0.015465127592480159
-0.015465127592480159 0.015472843324218777
-0.015472843324218777 0.014930151661644311
-0.014930151661644311 0.015523516918706202
-0.015523516918706202 0.015598184047279194
-0.015598184047279194 0.015443806217966517
-0.015443806217966517 0.01332696291546831
-0.01332696291546831 0.014279850413988155
-0.014279850413988155 0.014987648149675651
-0.014987648149675651 0.014921137046027945
-0.014921137046027945 0.013805716144375887
-0.013805716144375887 0.013453348368682122
-0.013453348368682122 0.011422207272839107
-0.013453348368682122 0.012742039987097964
-0.012742039987097964 0.010889023276943851
-0.010889023276943851 0.008314097392206976
-0.008314097392206976 0.008847873697108606
-0.008847873697108606 0.009196343063883878
-0.009196343063883878 0.0064323506357096055
-0.0064323506357096055 0.006621489125706304
-0.006621489125706304 0.007783301682267687
-0.007783301682267687 0.00635239091618382
-0.00635239091618382 0.004698798574371442
-0.00635239091618382 0.0066214404474607465
-0.0066214404474607465 0.004707402832064674
-0.004707402832064674 0.00534259319718957
-0.00534259319718957 0.005421200198237863
-0.005421200198237863 0.0064790254552051455
-0.0064790254552051455 0.007511360554468603
-0.007511360554468603 0.007491134303371913
-0.007491134303371913 0.004686740269402429
-0.004686740269402429 0.004163907010808836
-0.004686740269402429 0.0028418166228709194
-0.004686740269402429 0.004636338432951172
-0.004636338432951172 0.004248648559756221
-0.004248648559756221 0.002790611633568947
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([ 11.,  66., 139., 248., 176., 137.,  93.,  75.,  45.,  10.]),
+ array([ 3.21653055,  4.2307926 ,  5.24505464,  6.25931668,  7.27357873,
+         8.28784077,  9.30210282, 10.31636486, 11.33062691, 12.34488895,
+        13.359151  ]),
+ &lt;a list of 10 Patch objects&gt;)
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5387917181958914
-</pre></div>
+<img alt="../_images/MonteCarlo_5_1.svg" src="../_images/MonteCarlo_5_1.svg" /></div>
 </div>
 </div>
 </div>
-</div>
+<div class="section" id="evaluation">
+<h2>EVALUATION<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Run the simulation for 10 iterations annd print out the following as a table</p></li>
+</ol>
+<p>a. the current parameter value and its hyperparameters</p>
+<p>b. proposed parameter value and its hyperparameters</p>
+<p>c. the the posterior probabilities of both</p>
+<p>d. the probability of move</p>
+<p>e. the drawn random value</p>
+<p>f. the decision as a binary value</p>
+<ol class="simple">
+<li><p>Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles</p></li>
+</ol>
 </div>
 <div class="section" id="the-metropolis-hastings-algorithm">
 <h2>The Metropolis-Hastings Algorithm<a class="headerlink" href="#the-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h2>
@@ -700,8 +611,8 @@
 <p>If the parameter we are seeking is bounded in value, using a symmetric dsitribution can result in invalid draws. Also, since we are working in a Bayesian setting we want to take advantage of our prior knowledge of this parameter. If it known that the parameter has a certain distribution, we should be able to incorporate this information into our sampling process.</p>
 </div>
 </div>
-<div class="section" id="evaluation">
-<h2>EVALUATION<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>EVALUATION<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm">
 <h3>1. Write Python code to modify the Metropolis algorithm from above to make it a Metropolis-Hastings algorithm<a class="headerlink" href="#write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h3>
 </div>
@@ -736,8 +647,8 @@ g. the decision as a binary value</p></li>
 <li><p>Repeat steps (3) to (5) till we have a sufficient number of samples. This process of iteratively updating the parameters is loosely akin to coordinate ascent for optimization.</p></li>
 </ol>
 </div>
-<div class="section" id="id1">
-<h3>The details<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>The details<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Since we are using a Normal distribution, parameterized as <span class="math notranslate nohighlight">\(N(\mu, \tau)\)</span> we will need the conjugate solution for computing our posterior from the priors. A word on notation as we proceed, using <span class="math notranslate nohighlight">\(\tau\)</span> as an example - the draws are denoted by numbered subscripts such as <span class="math notranslate nohighlight">\(\tau_0\)</span>, <span class="math notranslate nohighlight">\(\tau_1\)</span> while the hyperparameters for the prior and posterior distributions are denoted as <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> and <span class="math notranslate nohighlight">\(\tau_{posterior}\)</span> respectively.</p>
 <p><span class="math notranslate nohighlight">\(\mu \sim N(\mu_{prior}, \tau_{prior})\)</span> , select <span class="math notranslate nohighlight">\(\mu_{prior}\)</span> to be 12 and <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> to be 0.0625 which corresponds to a a <span class="math notranslate nohighlight">\(\sigma\)</span> of 4</p>
 <p><span class="math notranslate nohighlight">\(\tau \sim Gamma(\alpha_{prior}, \beta_{prior})\)</span> , select the shape parameter <span class="math notranslate nohighlight">\(\alpha_{prior}\)</span> to be 25 and the rate parameter <span class="math notranslate nohighlight">\(\beta_{prior}\)</span> to be 0.5</p>
@@ -774,8 +685,8 @@ g. the decision as a binary value</p></li>
 to (10) till we have a sufficient number of samples.</p></li>
 </ol>
 </div>
-<div class="section" id="id2">
-<h3>Building the Inferred Distribution<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Building the Inferred Distribution<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Use the current values that we obtain at each step for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>, and build a frequency distribution (histogram) from it. We can also create a joint distribution as well using a two-dimensional histogram.</p>
 </div>
 </div>
