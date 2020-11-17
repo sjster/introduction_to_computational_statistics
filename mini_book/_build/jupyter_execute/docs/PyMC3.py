@@ -1,6 +1,48 @@
 ## Introduction to PyMC3
 
+### Attribution
+
+It is important to acknowledge the authors who have put together fantastic resources that have allowed me to make this notebook possible. 
+
+
+1. A lot of the examples here are taken from the book 'Introduction to statistical modeling and probabilistic programming using PyMC3 and ArviZ', Second Edition by Osvaldo Martin
+
+2. [PyMC3 website](docs.pymc.io)
+
+3. Bayesian Methods for Hackers by Davidson-Pilon Cameron
+
+4. Doing Bayesian Data Analysis by John Kruschke
+
+### What is PyMC3?
+
+PyMC3 is a probabilistic programming framework for performing Bayesian modeling and visualization. It uses Theano as a backend. It has algorithms to perform Monte Carlo simulation as well as Variational Inference. 
+
+It can be used to infer values of parameters of model equations that we are unsure about by utilizing the observed data. A good example is given here [https://docs.pymc.io/notebooks/ODE_API_introduction.html](https://docs.pymc.io/notebooks/ODE_API_introduction.html). We are trying to estimate the parameters of air resistance from the Ordinary Differential Equation (ODE) of freefall. We have an understanding of the physics behind freefall as represented by the ODE and we have observed/measured some variables but we don't know what the parameter of air resistance is here. We can use PyMC3 to perform inference and give us a distribution of potential values of air resistance. A key point to note here is that the more information we have regarding other variables, the more certainty we have in our desired variable (air resistance). Suppose we are unsure about the gravitational constant used in the ODE (implemented by specifying a prior distribution as opposed to a constant value of 9.8), we get more uncertainty in the air resistance variable as well.
+
+We will look at an example of Linear Regression to illustrate the fundamental features of PyMC3.
+
+### General Structure of PyMC3
+
+It consists of phenomena represented by equations made up of Random Variables and Deterministic variables. The random variables can be divided into Observed variables and Unobserved variables. The observed variables are those for which we have data and the unobserved variables are those for which we have specify a prior distribution.
+
+#### Observed Variables
+
+```
+with pm.Model():
+    obs = pm.Normal('x', mu=0, sd=1, observed=np.random.randn(100))
+```
+
+#### Unobserved Variables
+
+```
+with pm.Model():
+    x = pm.Normal('x', mu=0, sd=1)
+```
+
+
 ### An example with Linear Regression
+
+
 
 %matplotlib inline
 import arviz as az
@@ -43,8 +85,11 @@ with basic_model:
     sigma = HalfNormal('sigma', sd=1)
 
     # Expected value of outcome
-    mu = alpha + beta[0]*X1 + beta[1]*X2 # Deterministic variable, if we don't have this statement
-                                         # PyMC3 will not store mu as a value in the trace
+    mu = alpha + beta[0]*X1 + beta[1]*X2 
+    
+    # Deterministic variable, to have PyMC3 store mu as a value in the trace use
+    # pm.Deterministic('mu', alpha + beta[0]*X1 + beta[1]*X2)
+    
 
     # Likelihood (sampling distribution) of observations
     Y_obs = Normal('Y_obs', mu=mu, sd=sigma, observed=Y)
@@ -74,41 +119,153 @@ from pymc3 import traceplot
 
 traceplot(trace)
 
+We will look at the summary of the sampling process. The columns will be explained as we progress through this course.
+
 az.summary(trace)
 
 from pymc3 import summary
 summary(trace)
 
-Plot the posterior of the beta distribution with the set parameters and a credible interval for the Highest-Posterior Density which is the interval that has the given probability indicated by the HPD. 
+### Composition of distributions for uncertainty
 
-What is the probability of getting a value given by x, we can't really calculate this exactly but we can compute this probability within a range  x + deltax, x - deltax. 
+You can do the same without observations, to perform computations and get uncertainty quantification.
 
-Here, instead of looking at the probability that x = 0.5, we look at the probability that it falls within the range 0.45 and 0.55 called the Region of Practical Equivalence or ROPE
+basic_model2 = Model()
 
-ROPE allows us to make inferences about an event. If we suspect that the dice used at a casino is loaded, we can infer the probability of getting the value 3 from the six outcomes. Ideally, this should be 1/6 = 0.16666, however after computing the posterior our ROPE given by say 0.12 and 0.20 can either overlap with the HPD from the posterior density of the 3 completely, not overlap at all, partially overlap with the HPD. Complete overlap suggests that our computed probability coincides with what we would expect from a fair dice. If it does not overlap, it is not a fair dice and a partial overlap indicates that we cannot be certain that is either fair or unfair.
+with basic_model2:
+
+    # Priors for unknown model parameters
+    alpha = Normal('alpha', mu=20, sd=5)
+    beta = Normal('beta', mu=10, sd=5, shape=1)
+    sigma = HalfNormal('sigma', sd=1)
+    σ_obs = pm.HalfCauchy("σ_obs", beta=1, testval=0.1)
+
+    # Expected value of outcome
+    mu = pm.Deterministic('mu', alpha + beta) 
+    
+    trace = sample(15000)
+    
+print(trace['mu'])
+traceplot(trace)    
+
+pm.plot_posterior(trace, var_names=['alpha', 'beta', 'mu'], hdi_prob=0.68)
+
+### EVALUATION
+
+1. What type of algorithms does PyMC3 support?
+
+   a. MCMC
+   
+   b. Variational Inference
+   
+   c. Both (C)
+   
+   
+2. We can mix Deterministic and Probabilistic variables in PyMC3
+
+   a. True (C)
+   
+   b. False
+
+#### HDI, HPD and ROPE
+
+HDI, HPD and ROPE are essentially used for making decisions from the posterior distribution.
+We will plot the posterior of the beta distribution with the set parameters and a credible interval for the Highest-Posterior Density (HPD) which is the interval that has the given probability indicated by the HPD. What is the probability of getting a value given by x? We can't really calculate this exactly but we can compute this probability within a range given by x + $\Delta$x, x - $\Delta$x. A related term is the Highest Density Interval (HDI) which is a more general term that can apply for any distribution such as a prior. In other words a posterior's HDI is called the HPD. 
+
+As an example, if we suspect that the dice used at a casino is loaded, we can infer the probability of getting the value 3 from the six possible outcomes. Ideally, this should be 1/6 = 0.16666. If this happens to fall in the HPD, we can assume that the dice is fair however it may be that the distribution may be biased to one side or the other.  
+
+Sometimes, instead of looking at the probability that x = 0.16666, we look at the probability that it falls within the range 0.12 and 0.20 called the Region of Practical Equivalence or ROPE. This implies that, based on our subjective opinion, getting a value between 0.12 and 0.20 is practically equivalent to getting a 0.16666 or that we can assume that the dice is fair given any value within this range. ROPE allows us to make inferences about an event. After computing the posterior our ROPE given by 0.12 and 0.20 can either overlap with the HPD from the posterior density of getting a 3 
+
+* completely
+* not overlap at all 
+* partially overlap with the HPD
+
+Complete overlap suggests that our computed probability coincides with what we would expect from a fair dice. If it does not overlap, it is not a fair dice and a partial overlap indicates that we cannot be certain that is either fair or unfair.
+
+In short, we define a ROPE based on our subject matter expertise and compare it to the HPD to make a decision from the posterior distribution.
+
+##### Credible intervals vs. Confidence Intervals
+
+This deserves special mention particularly due to the subtle differences stemming from the Bayesian (credible intervals) vs. Frequentist (confidence intervals) approaches involved. Bayesian's consider the parameters to be a distribution and that there is no true parameter however Frequentists assume that there exists a true parameter. 
+* Confidence intervals quantify our confidence that the true parameter exists in this interval. It is a statement about the interval. 
+* Credible intervals quantify our uncertainty about the parameters since there are no true parameters in a Bayesian setting. It is a statement about the probability of the parameter.
+
+For e.g. if we are trying to estimate the R0 for COVID-19, one could say that we have a 95% confidence interval of the true R0 being between 2.0 and 3.2. In a Bayesian setting, the 95% credible interval of (2,3.2) implies that we are 95% certain that 
+
+We will see how we can visualize these metrics using ArViz. 
 
 import numpy as np
 from scipy import stats as stats 
 
 np.random.seed(1)
 
-az.plot_posterior({'θ':stats.beta.rvs(5, 5, size=20000)}, \
-                  credible_interval=0.75, \
+az.plot_posterior({'θ':stats.beta.rvs(5, 5, size=20000)},
+                  #credible_interval=0.75,                    # defaults to 94%
+                  hdi_prob = 0.85,                            # credible_interval is deprecated, use hdi_prob
                   rope =[0.45, 0.55])
 
-Another way to do this is by plotting a reference value on the posterior.
+Another way to do this is by plotting a reference value on the posterior. Below, a reference value of 0.48 is used and it can be seen that 45.2% of the posterior is below this value while 54.8% of the posterior is above this value. If we were estimating our parameter to have a value of 0.48, this suggests a good fit but with a slight right bias or in other words that the parameter is likely to have a value greater than 0.48.
 
-az.plot_posterior({'θ':stats.beta.rvs(5, 5, size=20000)}, \
-                  credible_interval=0.75, \
-                  ref_val=0.5)
+az.plot_posterior({'θ':stats.beta.rvs(5, 5, size=20000)},
+                  #credible_interval=0.75,                    # defaults to 94%
+                  hdi_prob = 0.85,                            # credible_interval is deprecated, use hdi_prob
+                  ref_val=0.48)
+
+### Evaluation
+
+1. HDI and HPD are the same
+
+   a. True
+   
+   b. False (C)
+   
+2. HPD is used for making decisions from the posterior distribution
+
+   a. True (C)
+   
+   b. False 
+   
+3. ROPE is a subjective but informed interval to help make decisions from the posterior distribution
+
+   a. True
+   
+   b. False
+   
+4. In order to confirm our hypothesis that we have the right estimate for our parameter, we want our ROPE and the HPD to have
+
+   a. complete overlap (C)
+   
+   b. partial overlap
+   
+   c. no overlap
+   
+5. A reference value can be used to indicate tge direction of bias in our posterior dsitribution
+
+   a. True (C)
+   
+   b. False
 
 ### Modeling with a Gaussian distribution
 
-ADD DETAIL HERE
+Gaussians (Normal distributions) are normally used to approximate a lot of practical data distributions. One reason for this is the Central Limit Theorem, which states: 
 
-Gaussians are normally used to approximate a lot of practical data distributions. 
+**The distribution of the sample means will be a normal distribution**
 
-We read the chemical shifts data, and plot the density to getan idea of 
+[Intuitive explanation of the Central Limit Theorem](https://statisticsbyjim.com/basics/central-limit-theorem/)
+
+which implies that if we take the mean of the sample means, we should get the true population mean. There is also a more subtle reason for adopting the Gaussian distribution to represent a lot of phenomena; a lot of them are a result of averages of varying factors. 
+
+The other reason is the mathematical tractability of the distribution, it is easy to compute in closed form. While not every distribution can be approximated with a single Gaussian distributions, we can use a mixture of Gaussians to represent other multi-modal distributions.
+
+The probability density for a Normal distribution in a single dimension is given by:
+
+$P(x) = \dfrac{1}{\sigma \sqrt{2 \pi}} e^{-(x - \mu)^2 / 2 \sigma^2}$
+
+where $\mu$ is the mean and $\sigma$ is the standard deviation. In higher dimensions, we have a vector of means and covariance matrix. 
+
+#### Example with PyMC3
+
+We read the chemical shifts data, and plot the density to get an idea of 
 the data distribution. It looks somewhat like a Gaussian so maybe we can start
 there. We have two parameters that is the mean and the standard deviation. 
 We can estimate a prior for the mean by looking at the density and putting 
@@ -118,11 +275,14 @@ cannot be negative. We can provide a hyperparameter for this by insoecting the
 density again. These values decide how well we converge to a solution so good 
 values are essential for good results. 
 
-
+##### Note on scalablility 
+If your trace information is too big as a result of too many variables or the model being large, you do not want to store this in memory since it can overrun the machine memory. Persisting this in a DB will allow you to reload it and inspect it at a later time as well. For each run, it appends the samples to the DB (or file if not deleted).
 
 data = np.loadtxt('chemical_shifts.csv')
 az.plot_kde(data, rug=True)
 plt.yticks([0], alpha=0)
+
+data
 
 import pymc3 as pm
 from pymc3.backends import SQLite, Text
@@ -130,19 +290,17 @@ model_g = Model()
 
 with model_g:
     
-    # Note on scalablility - of your trace information is too big as a result of too many variables or the model being
-    # too big, you do not want to store this in memory since it can overrun the machine memory. Persisting this 
-    # in a DB will allow you to reload it and inspect it at a later time as well.
-    # For each run - appends to the DN or file if not deleted
-    # backend = SQLite('test.sqlite') - Does not work
-
+    #backend = SQLite('test.sqlite')
+    db = pm.backends.Text('test')
     μ = pm.Uniform('μ', lower=40, upper=70)
     σ = pm.HalfNormal('σ', sd=10)
     y = pm.Normal('y', mu=μ, sd=σ, observed=data)
-    trace_g = pm.sample(draws=1000, trace="sqlite")
+    trace_g = pm.sample(draws=1000) # backend = SQLite('test.sqlite') - Does not work
 
 az.plot_trace(trace_g)
 pm.model_to_graphviz(model_g)    
+
+help(pm.backends)
 
 from pymc3.backends.sqlite import load
 
@@ -152,20 +310,24 @@ with model_g:
     
 print(len(trace['μ']))
 
-az.plot_joint(trace_g, kind='kde', fill_last=False)
+Use a pairplot of the parameters to ensure that there are no correlations that would adversely affect the sampling process.
+
+az.plot_pair(trace_g, kind='kde', fill_last=False)
 
 az.summary(trace_g)
 
-We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples from this posterior. You are returned a dictionary for each of the observed variables in the model.
+#### Posterior predictive check
 
-You can plot the dsitribution of these samples by passing this variable 'y_pred_g' as shown below. Setting mean=True in the call to plot_ppc computes the mean of the drawn samples and plots it as well.
+We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that of the data from this posterior. You are returned a dictionary for each of the observed variables in the model. You can also plot the distribution of these samples by passing this variable 'y_pred_g' as shown below. Setting mean=True in the call to plot_ppc computes the mean distribution of the 100 sampled distributions and plots it as well.
 
-Two things can be noted here, the mean of the predicted samples is close to the observed adta but the mean of this mean sample is slightly shifted to the right. Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.
+Two things can be noted here, the mean distribution of the samples from the posterior predictive distribution is close to the distribution of the observed data but the mean of this mean distribution is slightly shifted to the right. Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.
 
-Another thing to note here is that we modeled this using a Gaussian, however we have some outliers that need to be accoutned for which we cannot do well with a Gaussian distribution. 
+Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how we can use a Student's t-distribution for that.
 
 y_pred_g = pm.sample_posterior_predictive(trace_g, 100, model_g)
-y_pred_g
+print("Shape of the sampled variable y and data ",np.shape(y_pred_g['y']), len(data))
+
+y_pred_g['y'][0]
 
 data_ppc = az.from_pymc3(trace=trace_g, posterior_predictive=y_pred_g)
 ax = az.plot_ppc(data_ppc, figsize=(12, 6), mean=True)
@@ -173,13 +335,22 @@ ax[0].legend(fontsize=15)
 
 ### Robust models with a Student's t distribution
 
-ADD DETAIL HERE
+As mentioned in the previous section, one of the issues with assuming a Gaussian distribution is the assumption of finite variance. When you have observed data that lies outside this 'boundary', a Gaussian distribution is not a good fit and PyMC3 and other MCMC-based tools will be unable to reconcile these differences appropriately.
+
+The probability density function is given by:
+
+$P(t) = \dfrac{\gamma ((v+1) / 2)}{\sqrt{v \pi} \gamma (v/2)} (1 + \dfrac{t^2}{v})^{-(v+1)/2}$
 
 μ corresponds to the mean of the distribution
-
+    
 σ is the scale and corresponds to the standard deviation
 
-ν is the degrees of freedom and takes between 0 and $\infty$. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinty corresponds to a Gaussian.
+ν is the degrees of freedom and takes between 0 and $\infty$. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the t-dsitribution used to model this would have degrees of freedom set to 9. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinty corresponds to a Normal distribution. 
+
+The mean of the distribution is 0 and the variance is given by ν/(ν - 2).
+
+
+
 
 with pm.Model() as model_t:
     μ = pm.Uniform('μ', 40, 75) # mean
@@ -191,6 +362,8 @@ with pm.Model() as model_t:
 az.plot_trace(trace_t)
 pm.model_to_graphviz(model_t)    
 
+Using a student's t distribution we notice that the outliers are captured more accurately now and the model fits better
+
 # Using a student's t distribution we notice that the outliers are captured more 
 # accurately now and the model fits better
 y_ppc_t = pm.sample_posterior_predictive(
@@ -200,17 +373,26 @@ az.plot_ppc(y_pred_t, figsize=(12, 6), mean=True)
 ax[0].legend(fontsize=15)
 plt.xlim(40, 70)
 
-### Hierarchical models
+### Reading - Bayesian estimation to determine the effectiveness of drugs 
 
-Suppose we want to perform an analysis of water quality in a state and we divide this state into districts, there are two options to do this, study each district separately - we lose information especially if there is insufficient data for some districts. But we get a more detailed model per district.
+https://docs.pymc.io/notebooks/BEST.html
 
-The second option is to combine all the data and estimate the water quality of the state as a whole - More data but we lose granular information about each district.
+### Hierarchical models or Multilevel models
 
-The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the parameter priors to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts and as a result sharing information between them.
+Suppose we want to perform an analysis of water quality in a state and we divide this state into districts, there are two options to do this. We can study each district separately, however we lose information especially if there is insufficient data for some districts. But we get a more detailed model per district.
 
-# We measure the water samples for three districts, and we collect 30 samples 
-# for each district. We count the number of samples that have contamination
-# below the acceptable levels
+The second option is to combine all the data and estimate the water quality of the state as a whole. We have more data but we lose granular information about each district.
+
+The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the parameter priors to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts and as a result sharing information between all the groups in the data.
+
+We measure the water samples for three districts, and we collect 30 samples for each district. We count the number of samples that have contamination below the acceptable levels. We generate two arrays:
+
+* N_samples - The total number of samples collected for each district or group
+* G_samples - The number of good samples or samples with contamination levels below a certain threshold
+* group_idx - The id for each district or group
+
+#### Artifically generate the data
+
 N_samples = [30, 30, 30] # Total number of samples collected
 G_samples = [18, 18, 18] # Number of samples with water contamination 
                          # below accepted levels
@@ -226,19 +408,16 @@ group_idx
 
 data
 
-The process of generating our samples looks like the following. First we set the parameters for the prior or the hyperpriors.
+#### The sampling model
+This is essentially a binary classification problem that can be modeled using a Bernoulli distribution. The parameter of the Bernoulli distribution is a vector corresponding to each group and indicates the probability of getting a good sample (in each group). Since this is a hierarchical model, each group shares information and a result the parameter of Group 1 can be influenced by the samples in Group 2 and 3. This is what makes hierarchical modeling so powerful. 
 
-ADD DETAIL HERE
+The process of generating our samples looks like the following. If we start from the last equation and work our way up, we can see that $\theta_i$ and $y_i$ are similar to a pooled model except that the *Beta* prior takes parameters $\alpha_i$ and $\beta_i$ instead of constant values. These parameters now have hyperpriors applied to them using the parameters $\mu$ and *k* which are assumed to be distributed using a *Beta* distribution and a half Normal distribution respectively. Note that $\alpha$ and $\beta$ are indirectly computed from the terms $\mu$ and *k* here.
+
 
 $ \mu \sim Beta(\alpha_p, \beta_p)  \\
   k \sim | Normal(0,\sigma_k) | \\
   \alpha =  \mu * k \\
   \beta = (1 - \mu) * k \\
-$
-
-These parameters are then used to define the priors. This is different from using a constant prior value as we saw before.
-
-$
   \theta_i \sim Beta(\alpha_i, \beta_i) \\
   y_i \sim Bern(\theta_i)
 $
@@ -259,9 +438,21 @@ def get_hyperprior_model(data, N_samples, group_idx):
 model = get_hyperprior_model(data, N_samples, group_idx)
 pm.model_to_graphviz(model)
 
-# Shrinkage - information is shared among the subgroups so we move away from extremes, which is great if
-# we have outliers in our data subgroups especially when we do not have a lot of data - ADD DETAIL HERE
+#### Shrinkage
 
+Shrinkage refers to the phenomenon of sharing information among the groups through the use of hyperpriors. Hierarchical models can therefore be considered partially pooled models since information is shared among the groups so we move away from extremes, which is great if we have outliers (or poor quality data) in our data groups. This is particularly useful if  we do not have a lot of data. Here, the groups are neither independent nor do we clump all the data together without accounting for the differences in the groups. This can 
+
+We can look at three cases below as examples to illustrate what happens here. We keep the total number of samples and the groups the same as before, however we vary the number of good samples in each group. When there are significant differences in the number of good sample between groups, the behavior is different from what we see with an independent model, averages win and extreme values are avoided.
+
+The values of G_samples are changed to have the following values
+
+1. [5,5,5]
+2. [18,5,5]
+3. [18,18,1]
+
+Note how the values of the three $\theta$s change as we change the values of G_samples.
+
+# Case 1
 N_samples = [30, 30, 30] # Total number of samples collected
 G_samples = [5, 5, 5] # Number of samples with water contamination 
                          # below accepted levels
@@ -272,8 +463,10 @@ data = []
 for i in range(0, len(N_samples)):
     data.extend(np.repeat([1, 0], [G_samples[i], N_samples[i]-G_samples[i]]))
 
-get_hyperprior_model(data, N_samples, group_idx)
+model = get_hyperprior_model(data, N_samples, group_idx)
+model
 
+# Case 2
 N_samples = [30, 30, 30] # Total number of samples collected
 G_samples = [18, 5, 5] # Number of samples with water contamination 
                          # below accepted levels
@@ -286,8 +479,7 @@ for i in range(0, len(N_samples)):
 
 get_hyperprior_model(data, N_samples, group_idx)
 
-Repeat the above with a constant prior instead of hyperpriors
-
+# Case 3
 N_samples = [30, 30, 30] # Total number of samples collected
 G_samples = [18, 18, 1] # Number of samples with water contamination 
                          # below accepted levels
@@ -300,7 +492,7 @@ for i in range(0, len(N_samples)):
 
 get_hyperprior_model(data, N_samples, group_idx)
 
-### Linear Regression
+### Linear Regression again!
 
 np.random.seed(1)
 N = 100
@@ -357,7 +549,7 @@ plt.plot(x, alpha_m + beta_m * x, c='k',
          label=f'y = {alpha_m:.2f} + {beta_m:.2f} * x')
 az.plot_hpd(x, ppc['y_pred'], credible_interval=0.5, color='gray')
 
-Looking at the plot of $\alpha$ and $\beta$, one can notice the high degree of correlation berween these two variables. This results in a paramete posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independednt variables.
+Looking at the plot of $\alpha$ and $\beta$, one can notice the high degree of correlation between these two variables. This results in a parameter posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independednt variables.
 
 $\tilde{x} = x - \bar{x}$
 
@@ -461,7 +653,7 @@ pm.model_to_graphviz(model_t)
 
 In this example, we create 8 subgroups with 7 of them having 20 data points and the last one having a single data point. This is to illustrate the importance of imbalanced subgroups with sparse data. 
 
-The data for the 8 groups are generated from a normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from normal and beta dsitributions.
+The data for the 8 groups are generated from a normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from normal and beta distributions.
 
 N = 20
 M = 8
@@ -848,6 +1040,13 @@ az.plot_trace(trace_s, var_names=['alpha'])
 f'{np.sum(y_s == np.argmax(y_pred, axis=1)) / len(y_s):.2f}'
 
 
+# All diagnostics in PyMC3 is now in Arviz starting with version 3.9 of PyMC3
+# Summary is a good place to start
+az.summary(trace_s)
+
+# You can call rhat or the 
+az.rhat(trace_s)
+
 trace_s.stat_names
 
 import seaborn as sns
@@ -868,16 +1067,13 @@ sns.boxplot(trace_s.max_energy_error)
 
 sns.lineplot(np.arange(0,len(trace_s.step_size_bar)), trace_s.step_size_bar)
 
-# The energy and the energy transition should be as close as possible
-# if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not
-# sample the space appropriately and that the results obtained are probably biased
+The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.
+
 pm.energyplot(trace_s)
 
-# A score of less than 2 indicates good convergence
-# Computes the z score at each interval and returns and array of (interval start location, z score)
-pm.geweke(trace_s['alpha'])
+A score of less than 2 indicates good convergence. Computes the z score at each interval and returns and array of (interval start location, z score)
 
-pm.g
+pm.geweke(trace_s['alpha'])
 
 # Get the divergences
 print("Number of divergences %d and percent %lf " % (trace_s['diverging'].nonzero()[0].shape[0], trace_s['diverging'].nonzero()[0].shape[0]/ len(trace_s) * 100))
@@ -933,7 +1129,7 @@ Discrete variables that represents count data can be handled using a Poisson dis
 
 $f(x) = e^{-\mu} \mu^x / x!$
 
-The mean rate is represented by $\mu$ and x is positive integer and represents the number of events that can happen. If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of 'n' trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes. 
+The mean rate is represented by $\mu$ and x is positive integer that represents the number of events that can happen. If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of 'n' trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes. 
 
 #### Poisson Distribution Example
 
@@ -943,7 +1139,7 @@ We don't really know a lot about these rates, so we select a prior for both whic
 
 Try varying the following
 
-1. types of priors - a more informed prior is always better if thi information is available
+1. types of priors - a more informed prior is always better if this information is available
 2. the size of the data or the observations and the value of the theta parameter - more data results in better inference overall, the larger the difference in theta the easier to determine these rates
 3. the number of drawn samples - better and more accurate inference
 4. the number of chains - should reduce variance
@@ -1048,11 +1244,56 @@ It is a good idea to inspect the quality of the solutions obtained. It is possib
     
     `pm.sample(5000, chains=2, nuts_kwargs=dict(target_accept=0.95))`
     
-    Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. 
+    Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process so that we get the desired acceptance probability as indicated by the value to target_accept. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. (See below section on tuning)
+5. Reparameterize the model so that the model while remaining the same, is expressed differently so that is easier to explore the space and find solutions.
+6. Modify the data representation - mean centering and standardizing the data are two standard techniques that can be applied here. Note that (5) refers to model transformation while this is specifically modifying the data.
 
 #### Paper discussing Bayesian visualization
 
 https://arxiv.org/pdf/1709.01449.pdf
+
+#### Tuning
+
+[Colin Caroll's talk](https://colcarroll.github.io/hmc_tuning_talk/)
+
+When a step size is required, PyMC3 uses the first 500 steps varying the step size to get to an acceptance rate of 23.4%. These are the default numbers that PyMC3 uses, which can be modified. It was reported in a study that the acceptance rate of 23.4% results in the highest efficiency for Metropolis Hastings. These are empirical results and therefore should be treated as guidelines. According to the SAS Institute, a high acceptance rate (90% or so) usually is a sign that the new samples are being drawn from points close to the existing point and therefore the sampler is not exploring the space much. On the other hand, a low acceptance rate is probably due to inappropriate proposal distribution causing new samples to be rejected. PyMC3 aims to get an acceptance rate between 20% and 50% for Metropolis Hastings, 65% for Hamiltonian Monte Carlo (HMC) and 85% for No U-Turn Sampler (NUTS)
+
+If you have convergence issues as indicated by the visual inspection of the trace, you can try increasing the number of samples used for tuning. It is also worth pointing out that there is more than just step-size adaptation that is happening during this tuning phase. 
+
+`pm.sample(num_samples, n_tune=num_tuning)`
+
+##### Metropolis algorithm
+In the Metropolis algorithm the standard deviation of the proposal distribution is a tuning parameter that can be set while initializing the algorithm. 
+
+$x_{t+1} \sim Normal(x_t, stepsize \cdot I)$
+
+The larger this value, the larger the space from where new samples can be drawn. If the acceptance rate is too high, increase this standard deviation. Keep in mind that you run the risk of getting invalid draws if it is too large. 
+
+##### Hamiltonian Monte Carlo (HMC) algorithm
+
+The HMC algorithm is based on the solution of differential equations known as Hamilton's equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational process.
+
+To get a sense of the intuition behind HMC, it is based on the notion of conservation of energy. When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy and when it is closer to the center of the probability mass will have high kinetic energy but low potential energy.
+
+The step size, in HMC, corresponds to the covariance of the momentum distribution that is sampled. Smaller step sizes move slowly in the manifold however larger step sizes can result in integration errors. There is a Metropolis step at the end of the HMC algorithm and and as a result the corresponding target acceptance rates of 65% in PyMC3.
+
+#### Mixing 
+
+Mixing refers to how well the sampler covers the 'support' of the posterior distribution or rather how well it covers the entire distribution. Poor convergence is often a result of poor mixing. This can happen due the choice of 
+1. inappropriate proposal distribution for Metropolis 
+2. if we have too many correlated variables
+
+The underlying cause for this can be
+1. too large a step size to be able to escape a region of high curvature
+2. multimodal distributions 
+
+
+#### Diagnostic statistics
+
+We can compute a metric called Rhat (also called the potential scale reduction factor) that measures the variance between the chains with the variance within the chains. It is calculated as the standard deviation using the samples from all the chains (all samples appended together from each chain) over the  RMS of the within-chain standard deviations of all the chains. Poorly mixed samples will have greater variance in the accumulated samples (numerator) compared to the variance in the individual chains. It was empirically accepted that Rhat values below 1.1 are considered acceptable while those above it are indications of a lack of convergence in the chains. Gelman et al. (2013) introduced a split Rhat that compares the first half with the second half of the samples from each chain to improve upon the regular Rhat. Arviz implements a split Rhat as can be seen from [Arviz Rhat](https://arviz-devs.github.io/arviz/generated/arviz.rhat.html), along an improved rank-based Rhat
+[Improved Rhat](https://arxiv.org/pdf/1903.08008.pdf).
+
+`az.rhat(trace, method='split')`
 
 #### Centered vs. Non-centered parameterization
 
@@ -1068,46 +1309,122 @@ $\beta_{unit} \sim Normal(0,1)$
 
 $\beta = \mu + \sigma \beta_{unit}$
 
-#### Mixing 
+#### Convergence
 
-Mixing refers to how well the sampler covers the 'support' of the posterior distribution or rather how well it covers the entire distribution. Poor convergence is often a result of poor mixing. This can happen due the choice of an inappropriate proposal distribution for Metropolis or if we have too many correlated variables.
+Using the example of the centered (cm) and non-centered models (ncm) we can differentiate between models that exhibit good convergence behavior and those that do not.
 
-#### Autocorrelation
+print("Starting centered model, direct fit")
+with pm.Model() as centered_model:
+    a = pm.HalfNormal('a', 5)
+    b = pm.Normal('b', 0, a, shape=5)
+    trace_cm = pm.sample(2000, random_seed=7)
+    
+print("Starting non-centered model, shifted and scaled model")
+with pm.Model() as non_centered_model:
+    a = pm.HalfNormal('a', 5)
+    b_standard = pm.Normal('b_standard', mu=0, sd=1, shape=5)
+    b = pm.Deterministic('b', 0 + b_standard * a)
+    trace_ncm = pm.sample(2000, random_seed=7)
 
-az.plot_autocorr(centered_eight_trace, var_names=["mu", "tau"]);
+print("------------ Centered model ------------")
 
-#### Inspecting the samples
+# The bars indicate the location of the divergences in the sampling process
+az.plot_trace(trace_cm, divergences='bottom')
+az.summary(trace_cm)
 
+print("------------ Non-centered model ------------")
 
-#### Monte Carlo error
+# The bars indicate the locations of divergences in the sampling process
+az.plot_trace(trace_ncm, divergences='top')
+az.summary(trace_ncm)
 
-#### Convergence 
+1. The KDE has more agreement for the non-centered model(ncm) compared to the centered model (cm) for the different chains.
+2. There are more divergences for cm compared to the ncm as can be seen from the vertical bars in the trace plot. 
+3. In general, ncm mixes better than cm - ncm looks like evenly mixed while cm looks patchy in certain regions. 
+4. It is possible to see flat lines in the trace, a flat indicates that the same sample value is being used because all new proposed samples are being rejected, in other words the sampler is samping slowly and not getting to a different space in the manifold. The only fix here is to sample for longer periods of time, however we are assuming we can get more unbiased samples if we let it run for longer.
+
+# We plot the densities of both the cm and the ncm models, notice the differences in effective sample sizes for
+# the cm (very low)
+fig, axs = plt.subplots(1,3)
+fig.set_size_inches(18.5, 10.5)
+az.plot_forest([trace_cm, trace_ncm], var_names=['a'], 
+               kind = 'ridgeplot',
+               model_names=['Centered','Non-centered'],
+               combined=False, 
+               ess=True, 
+               r_hat=True, 
+               ax=axs[0:3], 
+               figsize=(20,20) )
+#az.plot_forest(trace_ncm, var_names=['a'],
+#               kind='ridgeplot',
+#               combined=False, 
+#               ess=True, 
+#               r_hat=True, 
+#               ax=axs[1,0:3])
+
+#### Autocorrelation and effective sample sizes
+
+Ideally, we would like to have zero correlation in the samples that are drawn. Correlated samples violate our condition of independence and can give us biased posterior estimates of our posterior distribution. 
+Thinning or pruning refers to the process of dropping every nth sample from a chain. This is to minimize the number of correlated samples that might be drawn, especially if the proposal distribution is narrow. The autocorrelation plot computes the correlation of a sequence with itself but shifted by n, for each n on the x axis the corresponding value of autocorrelation is plotted on the y axis.  
+
+`az.plot_autocorr(trace, var_names=["a", "b"])`
+
+Techniques like Metropolis-Hastings are susceptible to having auto-correlated samples. We plot the autcorrelation here for the cm and the ncm models. The cm models have samples that have a high degree of autocorrelation while the ncm models does not.
+
+fig, axs = plt.subplots(4,2)
+fig.set_size_inches(15, 15)
+az.plot_autocorr(trace_cm, var_names=['a'], ax=axs[0:4,0])
+az.plot_autocorr(trace_ncm, var_names=['a'], ax=axs[0:4,1])
+
+Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using
+
+`az.efective_n(trace_s)`
+
+PyMC3 will throw a warning if the number of effective samples is less than 200 (200 is heuristically determined to provide a good approximation for the mean of a distribution). Unless you want to sample from the tails of a distribution (rare events), 1000 to 2000 samples should provide a good approximation for a distribution.
+
+#### Monte Carlo error 
+
+The Monte Carlo error is a measure of the error of our sampler which stems from the fact that not all samples that we have drawn are independent. This error is defined by dividing a trace into n blocks. We then compute the mean of these blocks and calculate the error as the standard deviation of these means over the square root of the number of blocks.
+
+$mc_{error} = \sigma(\mu(block_i)) / \sqrt(n)$
+
 
 #### Divergence
 
-Divergences happen in regions og hifh curvature in the manifold. When PyMC3 detects a divergence, it abandons that chain and a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.
+Divergences happen in regions of high curvature in the manifold. When PyMC3 detects a divergence it abandons that chain and as a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.
 
-PyMC3 can indicate falsely that some samples are divergences, this is due to the heuristics used to identify divergences. Concentration of samples in a region is an indication that these are not divergences.
+In some cases, PyMC3 can indicate falsely that some samples are divergences, this is due to the heuristics used to identify divergences. Concentration of samples in a region is an indication that these are not divergences. 
 
-#### Autocorrelation and Effective sample sizes
+We visualize this for the cm and ncm models with pairplots of the variables. You can see how the cm models have difficulty sampling at the edge of the funnel shaped two-dimensional manifold formed by the pairplot. This is a result of the sharp discontinuity where the sampler is having difficulty sampling. 
 
+# Get the divergences
+print("Number of divergences %d and percent %lf " % (trace_cm['diverging'].nonzero()[0].shape[0], trace_cm['diverging'].nonzero()[0].shape[0]/ len(trace_cm) * 100))
+divergent = trace_cm['diverging']
 
+print("Number of divergences %d and percent %lf " % (trace_ncm['diverging'].nonzero()[0].shape[0], trace_ncm['diverging'].nonzero()[0].shape[0]/ len(trace_ncm) * 100))
+divergent = trace_cm['diverging']
 
+az.plot_pair(trace_cm, var_names = ['a', 'b'], divergences=True)
+az.plot_pair(trace_ncm, var_names = ['a', 'b'], divergences=True)
 
-#### Tuning
+az.plot_pair(trace_cm, var_names = ['a', 'b'], coords={'b_dim_0': [0]}, kind='scatter', divergences=True)
+az.plot_pair(trace_ncm, var_names = ['a', 'b'], coords={'b_dim_0': [0]}, kind='scatter', divergences=True)
 
-When a step size is required, PyMC3 uses the first 500 steps varying the step size to get to an acceptance rate of 23.4%. These are the default numbers that PyMC3 uses, which can be modified. It was reported in a study that the acceptance rate of 23.4% results in the highest efficiency for Metropolis Hastings. These are empirical results and therefore should be treated as guidelines. If you have convergence issues as indicated by the visual inspection of the trace, you can try increasing the number of samples used for tuning. It is also worth poiting out that there is more than just step-size adaptation that is happening during this tuning phase.
+You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem
 
-`pm.sample(num_samples, n_tune=num_tuning)`
+1. Increase the tuning samples
+2. Increase 'target_accept'
 
-NUTS
-For algorithms that rely on gradient information to move around the distribution space
+fig, axs = plt.subplots(2,1)
+fig.set_size_inches(20,20)
+axs[0].set_title('CM model')
+axs[1].set_title('NCM model')
+az.plot_parallel(trace_cm, var_names=['a','b'], figsize=(20,20), shadend=0.01, colord='tab:blue', textsize=15, ax=axs[0])
+az.plot_parallel(trace_ncm, var_names=['a','b'], figsize=(20,20), shadend=0.01, colord='tab:blue', textsize=15,ax=axs[1])
 
+#### A note on why we compute the log of the posterior
 
-
-
-
-
+In short, this is done to avoid numerical overflow or underflow issues. When dealing with really large or small numbers, it is likely the limited precision of storage types (float, double etc.) can be an issue. In order to avoid this, the log of the probabilities are used instead in the calculations.
 
 
 
@@ -1127,4 +1444,32 @@ with pm.Model() as model:
     trace = pm.sample(5, step)
     
 trace['mu']
+
+### Arviz data representation
+
+From the Arviz page, it states that, apart from NumPy arrays and Python dictionaries, there is support for a few data structures such as xarrays, InferenceData and NetCDF. While NumPy and dictionaries are great for in-memory computations, the other file formats are suitable for persisting computed data and models to disk. InferenceData is a high-level data structure that holds the data in a storage format such as NetCDF.
+
+[Xarray documentation](http://xarray.pydata.org/en/stable/why-xarray.html)
+
+[NetCDF documentation](http://unidata.github.io/netcdf4-python/netCDF4/index.html)
+
+![Structure](https://arviz-devs.github.io/arviz/_images/InferenceDataStructure.png)
+
+
+#### Load the school data
+
+data = az.load_arviz_data("centered_eight")
+data
+
+data.posterior.get('mu')
+
+data = az.load_arviz_data("non_centered_eight")
+data
+
+#### Load the S&P500 returns data
+
+sp500 = pd.read_csv(pm.get_data('SP500.csv'), index_col='Date')
+sp500
+
+
 
