@@ -7,8 +7,8 @@ on:
 jobs:
   deploy-book:
     runs-on: ubuntu-latest
-      env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
     steps:
     - uses: actions/checkout@v2.3.1
       with:
