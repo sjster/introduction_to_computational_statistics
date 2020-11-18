@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Underfitting vs. Overfitting &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
+    <title>Topics in Model Performance &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -134,27 +134,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Underfitting vs. Overfitting
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#measures-for-predictive-performance">
-   Measures for Predictive Performance
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#entropy-and-kl-divergence">
-   Entropy and KL Divergence
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#model-averaging">
-   Model Averaging
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#ergodicity">
-   Ergodicity
+   Topics in Model Performance
   </a>
  </li>
 </ul>
@@ -266,36 +246,51 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#underfitting-vs-overfitting">
    Underfitting vs. Overfitting
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#measures-for-predictive-performance">
    Measures for Predictive Performance
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#cross-validation">
      1. Cross-validation
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#information-criteria">
+     2. Information criteria
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#log-likelihood-and-deviance">
+     Log-likelihood and Deviance
+    </a>
+   </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#entropy-and-kl-divergence">
    Entropy and KL Divergence
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#model-averaging">
    Model Averaging
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#ergodicity">
    Ergodicity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation">
+   EVALUATION
   </a>
  </li>
 </ul>
@@ -309,36 +304,75 @@
         
               <div>
                 
-  <div class="section" id="underfitting-vs-overfitting">
-<h1>Underfitting vs. Overfitting<a class="headerlink" href="#underfitting-vs-overfitting" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="topics-in-model-performance">
+<h1>Topics in Model Performance<a class="headerlink" href="#topics-in-model-performance" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="underfitting-vs-overfitting">
+<h2>Underfitting vs. Overfitting<a class="headerlink" href="#underfitting-vs-overfitting" title="Permalink to this headline">¶</a></h2>
 <p>Most folks have by now heard of underfitting and overfitting a model. Simpler models should be preferred but not at the cost of accuracy. An overfit model, on the other hand, may not generalize well on new data. We can measure how well a model fits the data using the <span class="math notranslate nohighlight">\(R^2\)</span> metric which measures the proportion of explained variance.</p>
 <p>If we use the example of linear regression and start with a first order regression to explain the data, we may find that the data may not be adequately captured. We may have to incrementally increase the complexity of the model by increasing the order of the polynomial. Past a certain point, however, the model starts overfitting to the data. What this means is that the model simply used its representational power to memorize the data and will perform poorly on new data that is fed into the model.</p>
 <p>We want a model that has found that balance between being underfit and overfit, this trade-off is often referred to as the bias-variance trade-off. Bias is the error in the data resulting from its inability to accomodate the data. The model does not have the representational power to capture all the variations and patterns in the data. Variance is the error resulting from the sensitivity of the model to the data which usually results a complex model. Regularization is often used for this reason to reduce the complexity in a regression (or neural network) by minimizing the number of coefficients.</p>
 </div>
 <div class="section" id="measures-for-predictive-performance">
-<h1>Measures for Predictive Performance<a class="headerlink" href="#measures-for-predictive-performance" title="Permalink to this headline">¶</a></h1>
+<h2>Measures for Predictive Performance<a class="headerlink" href="#measures-for-predictive-performance" title="Permalink to this headline">¶</a></h2>
 <p>Accuracy of the model can be measured by</p>
 <div class="section" id="cross-validation">
-<h2>1. Cross-validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h2>
+<h3>1. Cross-validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
 <p>Here we divide the data into non-overlapping subsets and perform training and validation on the different subsets. Depending on how we perform this cross-validation, it can be called K-fold cross-validation or leave-one-out cross-validation (LOOCV). In K-fold cross validation we divide the data into ‘K’ folds or subsets, perform training of the model on k-1 folds while the model performance is assessed on the 1 fold that was left. We iteratively select each fold to be the test fold while the others become the training folds.</p>
-<p><img alt="Image from the scikit-learn page for K-fold cross validation" src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" /></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                        K-fold Cross-validation from the scikit-learn page
-</pre></div>
+<p><img alt="Image from the scikit-learn page for K-fold cross validation" src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" />
+*K-fold Cross-validation from the scikit-learn page *</p>
+<p>If the number of folds is equal to the number of data points, we have leave-one-out cross-validation.</p>
 </div>
-<p>If the number of folds is equal to the number of data points, we have leave-one-out cross-validation</p>
+<div class="section" id="information-criteria">
+<h3>2. Information criteria<a class="headerlink" href="#information-criteria" title="Permalink to this headline">¶</a></h3>
+<p><em>Reference</em> <a class="reference external" href="https://www.casact.org/education/rpm/2016/presentations/PM-LM-4-Tevet.pdf">Predictive metrics presentation from Liberty Mutual</a></p>
+<p>A number of ideas that are firmly rooted in Information theory help us to quantify how well a model performs.</p>
 <ol class="simple">
-<li><p>Information criteria</p></li>
+<li><p>Log-likelihood and deviance</p></li>
+<li><p>Akaike Information Criterion (AIC)</p></li>
+<li><p>Widely Applicable Information Criterion (WAIC)</p></li>
+<li><p>Bayesian Information Criterion (BIC)</p></li>
 </ol>
+</div>
+<div class="section" id="log-likelihood-and-deviance">
+<h3>Log-likelihood and Deviance<a class="headerlink" href="#log-likelihood-and-deviance" title="Permalink to this headline">¶</a></h3>
+<p><em>Reference</em> <a class="reference external" href="https://www.erudit.org/en/journals/mee/2015-v37-n3-mee02497/1036328ar/">Cousineau, Denis et Teresa A. Allan. “Likelihood and its use in Parameter Estimation and Model Comparison.” Mesure et évaluation en éducation, volume 37, number 3, 2015, p. 63–98. https://doi.org/10.7202/1036328ar</a></p>
+<p>These terms are used to measure the error in our model with regards to the data that the model is trying to fit. Most folks are familiar with the Mean Squared Error (MSE) given by</p>
+<p>MSE = <span class="math notranslate nohighlight">\(\sum_1^n (y_{true} - y_{predicted})^2 / n\)</span></p>
+<p>While this is a perfectly acceptably way of measuring error, another way to measure the performance of a model is using the log-likelihood function.</p>
+<p>Log-likelihood = <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta)\)</span></p>
+<p>If the likelihood function is a Normal, the log-likelihood is proportional to the MSE. Deviance is simply -2 times the log-likelihood</p>
+<p>Deviance = -2 <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta)\)</span></p>
+<p>Note that the likelihood function <span class="math notranslate nohighlight">\(p(y_i | \theta)\)</span> takes values from 0 for no fit to 1 for a perfectly fit model. This results in the log-likelihood function taking values from <span class="math notranslate nohighlight">\(- \infty\)</span> to 0. Multiplying the log-likelihood function by -2 results in a number that is interpretable similar to the MSE. Poorly fit models have large positive values while a perfectly fit model has a value of 0. This is primary reason for using deviance as opposed to the log-likelihood. Complex models will have lower deviance values on training set (in-sample data), and this needs to be penalized when comparing models. This is related to overfitting and bias that we talked about earlier.</p>
+<p>Maximum Likelihood Estimation (MLE) is based on the notion of estimating the parameters <span class="math notranslate nohighlight">\(\theta\)</span> that maximize the the probability <span class="math notranslate nohighlight">\(\sum_1^n p(y_i | \theta)\)</span>. While there are other methods to do the same, with a large enough sample size MLE is the most efficient estimator for the distribution parameter <span class="math notranslate nohighlight">\(\theta\)</span>. Also, as sample size increases the estimater parameter tends to the true parameter and the error becomes normally distributed.</p>
+<p>A disadvantage of the MLE arises when you have non-regular distributions, i.e. distributions whose parameters are constrained by the observed values. For such distributions, a maximum likelihood may not exist. Similar problems can occur in cases where multiple maximums exist.</p>
 </div>
 </div>
 <div class="section" id="entropy-and-kl-divergence">
-<h1>Entropy and KL Divergence<a class="headerlink" href="#entropy-and-kl-divergence" title="Permalink to this headline">¶</a></h1>
+<h2>Entropy and KL Divergence<a class="headerlink" href="#entropy-and-kl-divergence" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="model-averaging">
-<h1>Model Averaging<a class="headerlink" href="#model-averaging" title="Permalink to this headline">¶</a></h1>
+<h2>Model Averaging<a class="headerlink" href="#model-averaging" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="ergodicity">
-<h1>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h1>
+<h2>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="evaluation">
+<h2>EVALUATION<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Underfitting is bad because</p>
+<p>a. It cannot capture complex behavior and will have inherent error (C)</p>
+<p>b. The predicted value is always less than the true value</p>
+</li>
+<li><p>Overfitting is bad because</p>
+<p>a. The model that is overfit will learn noise (C)</p>
+<p>b. The model is too big</p>
+</li>
+<li><p>Variance of a model is related to</p>
+<p>a. A model’s ability to adapt its parameters to training data</p>
+<p>b. The sensitivity of the model to the inputs</p>
+</li>
+</ol>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
