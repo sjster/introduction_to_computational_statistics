@@ -137,6 +137,11 @@
    Topics in Model Performance
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#add-detail-on-how-r2-explains-a-model-fit">
+   ADD DETAIL ON HOW R2 explains a model fit
+  </a>
+ </li>
 </ul>
 <p class="caption collapsible-parent">
  <span class="caption-text">
@@ -246,52 +251,76 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#underfitting-vs-overfitting">
-   Underfitting vs. Overfitting
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#measures-for-predictive-performance">
-   Measures for Predictive Performance
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Topics in Model Performance
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cross-validation">
-     1. Cross-validation
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#information-criteria">
-     2. Information criteria
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#log-likelihood-and-deviance">
-     Log-likelihood and Deviance
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#underfitting-vs-overfitting">
+     Underfitting vs. Overfitting
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#entropy-and-kl-divergence">
-   Entropy and KL Divergence
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#add-detail-on-how-r2-explains-a-model-fit">
+   ADD DETAIL ON HOW R2 explains a model fit
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#model-averaging">
-   Model Averaging
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ergodicity">
-   Ergodicity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation">
-   EVALUATION
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#measures-for-predictive-performance">
+     Measures for Predictive Performance
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#cross-validation">
+       1. Cross-validation
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#information-criteria">
+       2. Information criteria
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#log-likelihood-and-deviance">
+       Log-likelihood and Deviance
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#akaike-information-criterion-aic">
+       Akaike Information Criterion (AIC)
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#widely-applicable-information-criterion-waic">
+       Widely Applicable Information Criterion (WAIC)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#entropy-and-kl-divergence">
+     Entropy and KL Divergence
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-averaging">
+     Model Averaging
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ergodicity">
+     Ergodicity
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluation">
+     EVALUATION
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -309,9 +338,12 @@
 <div class="section" id="underfitting-vs-overfitting">
 <h2>Underfitting vs. Overfitting<a class="headerlink" href="#underfitting-vs-overfitting" title="Permalink to this headline">¶</a></h2>
 <p>Most folks have by now heard of underfitting and overfitting a model. Simpler models should be preferred but not at the cost of accuracy. An overfit model, on the other hand, may not generalize well on new data. We can measure how well a model fits the data using the <span class="math notranslate nohighlight">\(R^2\)</span> metric which measures the proportion of explained variance.</p>
+</div>
+</div>
+<div class="section" id="add-detail-on-how-r2-explains-a-model-fit">
+<h1>ADD DETAIL ON HOW R2 explains a model fit<a class="headerlink" href="#add-detail-on-how-r2-explains-a-model-fit" title="Permalink to this headline">¶</a></h1>
 <p>If we use the example of linear regression and start with a first order regression to explain the data, we may find that the data may not be adequately captured. We may have to incrementally increase the complexity of the model by increasing the order of the polynomial. Past a certain point, however, the model starts overfitting to the data. What this means is that the model simply used its representational power to memorize the data and will perform poorly on new data that is fed into the model.</p>
 <p>We want a model that has found that balance between being underfit and overfit, this trade-off is often referred to as the bias-variance trade-off. Bias is the error in the data resulting from its inability to accomodate the data. The model does not have the representational power to capture all the variations and patterns in the data. Variance is the error resulting from the sensitivity of the model to the data which usually results a complex model. Regularization is often used for this reason to reduce the complexity in a regression (or neural network) by minimizing the number of coefficients.</p>
-</div>
 <div class="section" id="measures-for-predictive-performance">
 <h2>Measures for Predictive Performance<a class="headerlink" href="#measures-for-predictive-performance" title="Permalink to this headline">¶</a></h2>
 <p>Accuracy of the model can be measured by</p>
@@ -345,6 +377,26 @@
 <p>Note that the likelihood function <span class="math notranslate nohighlight">\(p(y_i | \theta)\)</span> takes values from 0 for no fit to 1 for a perfectly fit model. This results in the log-likelihood function taking values from <span class="math notranslate nohighlight">\(- \infty\)</span> to 0. Multiplying the log-likelihood function by -2 results in a number that is interpretable similar to the MSE. Poorly fit models have large positive values while a perfectly fit model has a value of 0. This is primary reason for using deviance as opposed to the log-likelihood. Complex models will have lower deviance values on training set (in-sample data), and this needs to be penalized when comparing models. This is related to overfitting and bias that we talked about earlier.</p>
 <p>Maximum Likelihood Estimation (MLE) is based on the notion of estimating the parameters <span class="math notranslate nohighlight">\(\theta\)</span> that maximize the the probability <span class="math notranslate nohighlight">\(\sum_1^n p(y_i | \theta)\)</span>. While there are other methods to do the same, with a large enough sample size MLE is the most efficient estimator for the distribution parameter <span class="math notranslate nohighlight">\(\theta\)</span>. Also, as sample size increases the estimater parameter tends to the true parameter and the error becomes normally distributed.</p>
 <p>A disadvantage of the MLE arises when you have non-regular distributions, i.e. distributions whose parameters are constrained by the observed values. For such distributions, a maximum likelihood may not exist. Similar problems can occur in cases where multiple maxima exist.</p>
+</div>
+<div class="section" id="akaike-information-criterion-aic">
+<h3>Akaike Information Criterion (AIC)<a class="headerlink" href="#akaike-information-criterion-aic" title="Permalink to this headline">¶</a></h3>
+<p>The AIC is defined as</p>
+<p>AIC = -2 <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta_{mle}) + 2 n_{parameters}\)</span></p>
+<p>Here <span class="math notranslate nohighlight">\(n_{parameters}\)</span> refers to the number of parameters in the model and <span class="math notranslate nohighlight">\(\theta_{mle}\)</span> is the MLE estimate of <span class="math notranslate nohighlight">\(\theta\)</span>. We want a model with a lower AIC and the second term is intended to penalize complex models by increasing the value of AIC. This can be seen as metric more suited for a non-Bayesian approach since it does not take int o account any information regarding the uncertainty of the parameter.</p>
+</div>
+<div class="section" id="widely-applicable-information-criterion-waic">
+<h3>Widely Applicable Information Criterion (WAIC)<a class="headerlink" href="#widely-applicable-information-criterion-waic" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Reference * <a class="reference external" href="http://www.stat.columbia.edu/~gelman/research/published/waic_understand3.pdf">WAIC by Gelman</a></p></li>
+</ul>
+<p>The Widely Applicable Information Criterion or WAIC is the Bayesian extension to the AIC. Before we explain the WAIC, a related concept is the log pointwise predicted density (lppd)</p>
+<p>The predicted value of a new data point <span class="math notranslate nohighlight">\(y_{new}\)</span> can be defined</p>
+<p><span class="math notranslate nohighlight">\(p_{post}(y_{new}) = \int p(y_{new} | \theta) p_{post}(\theta) d \theta \)</span></p>
+<p>If we take the log of both sides we get</p>
+<p><span class="math notranslate nohighlight">\(log p_{post}(y_{new}) = log \int p(y_{new} | \theta) p_{post}(\theta) d \theta \)</span></p>
+<p>where <span class="math notranslate nohighlight">\(p_{post}(\theta)\)</span> is the posterior distribution of <span class="math notranslate nohighlight">\(\theta\)</span> obtained by training our model. This is the predictive fit of the new point. If we have a number of new points i=1,…n we can write the following for the log pointwise predictive density for a model using the new data</p>
+<p>lppd = log <span class="math notranslate nohighlight">\(\prod_i p_{post} (y_{new_i}) = \sum_i log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta\)</span></p>
+<p>In practice, the inner integral over <span class="math notranslate nohighlight">\(\theta\)</span> is computed using an average over possible values of <span class="math notranslate nohighlight">\(\theta\)</span> (sampled).</p>
 </div>
 </div>
 <div class="section" id="entropy-and-kl-divergence">
