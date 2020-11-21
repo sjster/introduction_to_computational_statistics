@@ -382,7 +382,7 @@
 <h3>Akaike Information Criterion (AIC)<a class="headerlink" href="#akaike-information-criterion-aic" title="Permalink to this headline">¶</a></h3>
 <p>The AIC is defined as</p>
 <p>AIC = -2 <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta_{mle}) + 2 n_{parameters}\)</span></p>
-<p>Here <span class="math notranslate nohighlight">\(n_{parameters}\)</span> refers to the number of parameters in the model and <span class="math notranslate nohighlight">\(\theta_{mle}\)</span> is the MLE estimate of <span class="math notranslate nohighlight">\(\theta\)</span>. We want a model with a lower AIC and the second term is intended to penalize complex models by increasing the value of AIC. This can be seen as metric more suited for a non-Bayesian approach since it does not take int o account any information regarding the uncertainty of the parameter.</p>
+<p>Here <span class="math notranslate nohighlight">\(n_{parameters}\)</span> refers to the number of parameters in the model and <span class="math notranslate nohighlight">\(\theta_{mle}\)</span> is the MLE estimate of <span class="math notranslate nohighlight">\(\theta\)</span>. We want a model with a lower AIC and the second term is intended to penalize complex models by increasing the value of AIC. This can be seen as metric more suited for a non-Bayesian approach since it does not take into account any information regarding the uncertainty of the parameter.</p>
 </div>
 <div class="section" id="widely-applicable-information-criterion-waic">
 <h3>Widely Applicable Information Criterion (WAIC)<a class="headerlink" href="#widely-applicable-information-criterion-waic" title="Permalink to this headline">¶</a></h3>
@@ -395,8 +395,11 @@
 <p>If we take the log of both sides we get</p>
 <p><span class="math notranslate nohighlight">\(log p_{post}(y_{new}) = log \int p(y_{new} | \theta) p_{post}(\theta) d \theta \)</span></p>
 <p>where <span class="math notranslate nohighlight">\(p_{post}(\theta)\)</span> is the posterior distribution of <span class="math notranslate nohighlight">\(\theta\)</span> obtained by training our model. This is the predictive fit of the new point. If we have a number of new points i=1,…n we can write the following for the log pointwise predictive density for a model using the new data</p>
-<p>lppd = log <span class="math notranslate nohighlight">\(\prod_i p_{post} (y_{new_i}) = \sum_i log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta\)</span></p>
+<p>lppd = log <span class="math notranslate nohighlight">\(\prod_i p_{post} (y_{new_i}) = \sum_i \int log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta\)</span></p>
 <p>In practice, the inner integral over <span class="math notranslate nohighlight">\(\theta\)</span> is computed using an average over possible values of <span class="math notranslate nohighlight">\(\theta\)</span> (sampled).</p>
+<p><span class="math notranslate nohighlight">\(\sum_i \int log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta = \sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S}) \)</span></p>
+<p>Now suppose we don’t have a holdout set <span class="math notranslate nohighlight">\(y_{new}\)</span> and we compute the llpd over our training set, that is not a good measure for future performance of the model. So the WAIC adds a term to correct for this overestimated performance.</p>
+<p><span class="math notranslate nohighlight">\(\sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S})\)</span></p>
 </div>
 </div>
 <div class="section" id="entropy-and-kl-divergence">
@@ -422,6 +425,10 @@
 <li><p>Variance of a model is related to</p>
 <p>a. A model’s ability to adapt its parameters to training data</p>
 <p>b. The sensitivity of the model to the inputs</p>
+</li>
+<li><p>AIC is a primarily a non-Bayesian metric</p>
+<p>a. True</p>
+<p>b. False</p>
 </li>
 </ol>
 </div>
