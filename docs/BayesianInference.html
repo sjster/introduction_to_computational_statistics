@@ -399,7 +399,10 @@
 <p>In practice, the inner integral over <span class="math notranslate nohighlight">\(\theta\)</span> is computed using an average over possible values of <span class="math notranslate nohighlight">\(\theta\)</span> (sampled).</p>
 <p><span class="math notranslate nohighlight">\(\sum_i \int log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta = \sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S}) \)</span></p>
 <p>Now suppose we don’t have a holdout set <span class="math notranslate nohighlight">\(y_{new}\)</span> and we compute the llpd over our training set, that is not a good measure for future performance of the model. So the WAIC adds a term to correct for this overestimated performance.</p>
-<p><span class="math notranslate nohighlight">\(\sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S})\)</span></p>
+<p>2 * <span class="math notranslate nohighlight">\(\sum_i Var_{s} ( log p(y_{new_i} | \theta_{S}) )\)</span></p>
+<p>WAIC is now defined as the sum of the tow terms above</p>
+<p>WAIC = <span class="math notranslate nohighlight">\(-2 \sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S}) +  2 \sum_i Var_{s} ( log p(y_{new_i} | \theta_{S}) )\)</span></p>
+<p>The second term can be seen as a type of penalization intended to reduce the number of parameters since more model parameters imply larger spread or variance of the posterior.</p>
 </div>
 </div>
 <div class="section" id="entropy-and-kl-divergence">
@@ -407,6 +410,7 @@
 </div>
 <div class="section" id="model-averaging">
 <h2>Model Averaging<a class="headerlink" href="#model-averaging" title="Permalink to this headline">¶</a></h2>
+<p>When there are several models that one can chose from, it is tempting to pick the one with the best performance (depending on how we defone performance). However, in doing so we are ignoring the uncertainty information provided by the other models. One way to mitigate this uncertainty is by performing model averaging. meta-model obtained by using a weighted average of all the model can be used to make predictions.</p>
 </div>
 <div class="section" id="ergodicity">
 <h2>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h2>
