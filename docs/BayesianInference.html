@@ -137,11 +137,6 @@
    Topics in Model Performance
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#add-detail-on-how-r2-explains-a-model-fit">
-   ADD DETAIL ON HOW R2 explains a model fit
-  </a>
- </li>
 </ul>
 <p class="caption collapsible-parent">
  <span class="caption-text">
@@ -251,112 +246,111 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Topics in Model Performance
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#r-2-and-explained-variance">
+   <span class="math notranslate nohighlight">
+    \(R^2\)
+   </span>
+   and Explained Variance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#underfitting-vs-overfitting">
+   Underfitting vs. Overfitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#measures-for-predictive-performance">
+   Measures for Predictive Performance
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#underfitting-vs-overfitting">
-     Underfitting vs. Overfitting
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-validation">
+     1. Cross-validation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#information-criteria">
+     2. Information criteria
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#log-likelihood-and-deviance">
+     Log-likelihood and Deviance
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#akaike-information-criterion-aic">
+     Akaike Information Criterion (AIC)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#widely-applicable-information-criterion-waic">
+     Widely Applicable Information Criterion (WAIC)
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#add-detail-on-how-r2-explains-a-model-fit">
-   ADD DETAIL ON HOW R2 explains a model fit
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#entropy-and-kl-divergence">
+   Entropy and KL Divergence
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#measures-for-predictive-performance">
-     Measures for Predictive Performance
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#cross-validation">
-       1. Cross-validation
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#information-criteria">
-       2. Information criteria
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#log-likelihood-and-deviance">
-       Log-likelihood and Deviance
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#akaike-information-criterion-aic">
-       Akaike Information Criterion (AIC)
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#widely-applicable-information-criterion-waic">
-       Widely Applicable Information Criterion (WAIC)
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#entropy-and-kl-divergence">
-     Entropy and KL Divergence
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#entropy">
-       Entropy
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#evaluation-30mins">
-     EVALUATION (30mins)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#kl-divergence">
-       KL Divergence
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#evaluation-1-hr">
-     EVALUATION (1 hr)
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#model-averaging">
-     Model Averaging
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#pseudo-bayesian-modeling-averaging">
-       Pseudo Bayesian Modeling Averaging
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#stacking">
-       Stacking
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ergodicity">
-     Ergodicity
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#evaluation-10-mins">
-     EVALUATION (10 mins)
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#entropy">
+     Entropy
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-30mins">
+   EVALUATION (30mins)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kl-divergence">
+     KL Divergence
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-1-hr">
+   EVALUATION (1 hr)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-averaging">
+   Model Averaging
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pseudo-bayesian-modeling-averaging">
+     Pseudo Bayesian Modeling Averaging
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stacking">
+     Stacking
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ergodicity">
+   Ergodicity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stationary-distributions">
+   Stationary distributions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-10-mins">
+   EVALUATION (10 mins)
+  </a>
  </li>
 </ul>
 
@@ -375,15 +369,28 @@
 <ol class="simple">
 <li><p>Bayesian Analysis with Python: Introduction to Statistical Modeling and Probabilistic Programming with PyMC3 and ArViz, 2nd Edition</p></li>
 </ol>
+<div class="section" id="r-2-and-explained-variance">
+<h2><span class="math notranslate nohighlight">\(R^2\)</span> and Explained Variance<a class="headerlink" href="#r-2-and-explained-variance" title="Permalink to this headline">¶</a></h2>
+<p>If we observe data given by <span class="math notranslate nohighlight">\(y_i\)</span> such that the fitted model predicts <span class="math notranslate nohighlight">\(f_i\)</span> for each point i, we can write <span class="math notranslate nohighlight">\(y_{mean}\)</span> as</p>
+<p><span class="math notranslate nohighlight">\(y_{mean} = \dfrac{1}{n} \sum_i y_i\)</span></p>
+<p>Total sum of squares, which is proportional to the variance of the data, is</p>
+<p><span class="math notranslate nohighlight">\(SS_{tot} = \sum_i (y_i - y_{mean})^2\)</span></p>
+<p>The residual sum of squares (also called the error) is defined as</p>
+<p><span class="math notranslate nohighlight">\(SS_{res} = \sum_i (y_i - f_i)^2\)</span></p>
+<p><span class="math notranslate nohighlight">\(R^2\)</span> is defined as</p>
+<p><span class="math notranslate nohighlight">\(R^2 = 1 - \dfrac{SS_{res}}{SS_{tot}}\)</span></p>
+<p><span class="math notranslate nohighlight">\(R^2\)</span> is 1 for a model that perfectly fits the observed data, i.e. <span class="math notranslate nohighlight">\(f_i\)</span> = <span class="math notranslate nohighlight">\(y_i\)</span> for all i. If the model predicts <span class="math notranslate nohighlight">\(y_{mean}\)</span> always then <span class="math notranslate nohighlight">\(SS_{res} = SS_{tot}\)</span> and <span class="math notranslate nohighlight">\(R^2 = 0\)</span></p>
+<p>The term <span class="math notranslate nohighlight">\(\dfrac{SS_{res}}{SS_{tot}}\)</span> is also called Unexplained Variance. Therefore</p>
+<p><span class="math notranslate nohighlight">\(R^2 = 1 - Unexplained Variance\)</span></p>
+<p>or</p>
+<p><span class="math notranslate nohighlight">\(R^2 = Explained Variance\)</span></p>
+</div>
 <div class="section" id="underfitting-vs-overfitting">
 <h2>Underfitting vs. Overfitting<a class="headerlink" href="#underfitting-vs-overfitting" title="Permalink to this headline">¶</a></h2>
 <p>Most folks have by now heard of underfitting and overfitting a model. Simpler models should be preferred but not at the cost of accuracy. An overfit model, on the other hand, may not generalize well on new data. We can measure how well a model fits the data using the <span class="math notranslate nohighlight">\(R^2\)</span> metric which measures the proportion of explained variance.</p>
-</div>
-</div>
-<div class="section" id="add-detail-on-how-r2-explains-a-model-fit">
-<h1>ADD DETAIL ON HOW R2 explains a model fit<a class="headerlink" href="#add-detail-on-how-r2-explains-a-model-fit" title="Permalink to this headline">¶</a></h1>
 <p>If we use the example of linear regression and start with a first order regression to explain the data, we may find that the data may not be adequately captured. We may have to incrementally increase the complexity of the model by increasing the order of the polynomial. Past a certain point, however, the model starts overfitting to the data. What this means is that the model simply used its representational power to memorize the data and will perform poorly on new data that is fed into the model.</p>
 <p>We want a model that has found that balance between being underfit and overfit, this trade-off is often referred to as the bias-variance trade-off. Bias is the error in the data resulting from its inability to accomodate the data. The model does not have the representational power to capture all the variations and patterns in the data. Variance is the error resulting from the sensitivity of the model to the data which usually results a complex model. Regularization is often used for this reason to reduce the complexity in a regression (or neural network) by minimizing the number of coefficients.</p>
+</div>
 <div class="section" id="measures-for-predictive-performance">
 <h2>Measures for Predictive Performance<a class="headerlink" href="#measures-for-predictive-performance" title="Permalink to this headline">¶</a></h2>
 <p>Accuracy of the model can be measured by</p>
@@ -564,6 +571,11 @@ KL Divergence between the true distribution and the q2 distribution  1.276465607
 </div>
 <div class="section" id="ergodicity">
 <h2>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h2>
+<p>Ergodicity is a critical property for a Markov Chain which combine the properties of a state being recurrent and aperiodic. Recurrent implies that, in a transition, a given state will return to itself. An aperiodic state returns to itself in a number of steps 1,2,3…. <span class="math notranslate nohighlight">\(\infty\)</span>. The implications of ergodicity are that if we sample a space long enough we will cover almost every point in that space (theoretically)</p>
+</div>
+<div class="section" id="stationary-distributions">
+<h2>Stationary distributions<a class="headerlink" href="#stationary-distributions" title="Permalink to this headline">¶</a></h2>
+<p>Stationary distributions simply mean that the probability of the distribution at a time t+1 is the same as that at time t.</p>
 </div>
 <div class="section" id="evaluation-10-mins">
 <h2>EVALUATION (10 mins)<a class="headerlink" href="#evaluation-10-mins" title="Permalink to this headline">¶</a></h2>
