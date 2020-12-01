@@ -313,6 +313,23 @@
     </ul>
    </li>
    <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluation-30mins">
+     EVALUATION (30mins)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#kl-divergence">
+       KL Divergence
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluation-1-hr">
+     EVALUATION (1 hr)
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#model-averaging">
      Model Averaging
     </a>
@@ -335,8 +352,8 @@
     </a>
    </li>
    <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#evaluation">
-     EVALUATION
+    <a class="reference internal nav-link" href="#evaluation-10-mins">
+     EVALUATION (10 mins)
     </a>
    </li>
   </ul>
@@ -431,11 +448,20 @@
 <div class="section" id="entropy-and-kl-divergence">
 <h2>Entropy and KL Divergence<a class="headerlink" href="#entropy-and-kl-divergence" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://arxiv.org/pdf/1511.00860.pdf">Information Theory</a></p>
+<p>I am using summation in the examples below assuming discrete distributions. This can be replaced by the integral for continuous distributions.</p>
 <div class="section" id="entropy">
 <h3>Entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h3>
 <p>Entropy is a measure of information uncertainty and it is computed as</p>
 <p><span class="math notranslate nohighlight">\(H(p) = - \sum_i \: p_i log \:  p_i \)</span></p>
-<p>where a larger value of entropy indicates higher uncertainty</p>
+<p>where a larger value of entropy indicates higher uncertainty. Geometrically, we can visualize this as the distribution having a larger spread. While is easy to equate this with variance, there are examples such as a Bimodal Gaussian distribution where increasing the variance does not increase the entropy. Entropy is a measure of the mass of probability density around a point whereas variance measures how far the probability mass extends from the mean. It is possibile to have two narrow modes that are far apart which would indicate a high variance but low entropy due to the relative certainty of the values (around the narrow modes).</p>
+<p>Entropy is a useful way to define priors since a prior with high entropy can be used as an uninformative prior. Given certain constraints the following can be used as priors.</p>
+<ol class="simple">
+<li><p>No constraints - Uniform distribution</p></li>
+<li><p>Positive mean with regions of high density - Exponential distribution</p></li>
+<li><p>Fixed variance  - Normal distribution</p></li>
+<li><p>Two outcomes with a fixed mean - Binomial distribution</p></li>
+</ol>
+<p>The following code shows the entropy of different distributions</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example from [1]</span>
@@ -445,17 +471,19 @@
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">912</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">q</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+<span class="n">q2</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">true_distribution</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">q</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">200</span><span class="p">))</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="mi">200</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
 <span class="n">q_pmf</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">q2_pmf</span> <span class="o">=</span> <span class="n">q2</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">r_pmf</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">q_pmf</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;entropy = </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">q_pmf</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">r_pmf</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;entropy = </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">r_pmf</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">true_distribution</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;entropy = </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">true_distribution</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Binomial distribution&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">q2_pmf</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;entropy = </span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">q2_pmf</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Binomial distribution with parameter 0.75&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Random distribution&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;true_distribution&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Binomial disttribution with parameter 0.5&#39;</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Entropy of different distributions&quot;</span><span class="p">)</span>
 <span class="n">stats</span><span class="o">.</span><span class="n">entropy</span><span class="p">(</span><span class="n">true_distribution</span><span class="p">)</span>
 <span class="c1">#ax[idx].set_xticks(x)</span>
@@ -466,12 +494,56 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7feae51d8040&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7feaca12ceb0&gt;
 </pre></div>
 </div>
 <img alt="../_images/BayesianInference_4_1.svg" src="../_images/BayesianInference_4_1.svg" /></div>
 </div>
 </div>
+</div>
+<div class="section" id="evaluation-30mins">
+<h2>EVALUATION (30mins)<a class="headerlink" href="#evaluation-30mins" title="Permalink to this headline">¶</a></h2>
+<p>Try the above with different distributions and parameters</p>
+<div class="section" id="kl-divergence">
+<h3>KL Divergence<a class="headerlink" href="#kl-divergence" title="Permalink to this headline">¶</a></h3>
+<p>KL Divergence is similar to the concept of entropy except that it is used to compare the similarity and closeness of two distributions. It is defined for two discrete distributions as</p>
+<p><span class="math notranslate nohighlight">\(KL(p||q) = \sum_i p_i \: log \dfrac{p_i}{q_i}\)</span></p>
+<p>The value of the KL Divergence varies from 0 for identical distributions to infinity depending on the dissimilarity between the distributions. It is important to understand that this is not a distance metric since it is not symmetric since</p>
+<p><span class="math notranslate nohighlight">\(KL(q||p) = \sum_i q_i \: log \dfrac{q_i}{p_i}\)</span></p>
+<p>The Jensen Shannon Divergence is the symmetric version of the KL Divergence</p>
+<p>The KL Divergence <span class="math notranslate nohighlight">\(KL(p||q)\)</span> can be seen as the difference of two entropies</p>
+<p><span class="math notranslate nohighlight">\(KL(p||q) = \sum_i p_i \: log p_i - \sum_i p_i \: log q_i\)</span></p>
+<p>where the first term is the entropy of p and the second term is the cross-entropy between p and q.</p>
+<p>The KL Divergence is commonly used in Machine Learning to learn a distribution. If the true distribution was available, the proposed distribution can be optimized to make it as close to the true distribution as possible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">entropy</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KL Divergence between the true distribution and the uniform distribution &quot;</span><span class="p">,</span><span class="n">entropy</span><span class="p">(</span><span class="n">true_distribution</span><span class="p">,</span> <span class="n">r_pmf</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KL Divergence between the true distribution and the q distribution &quot;</span><span class="p">,</span><span class="n">entropy</span><span class="p">(</span><span class="n">true_distribution</span><span class="p">,</span> <span class="n">q_pmf</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;KL Divergence between the true distribution and the q2 distribution &quot;</span><span class="p">,</span><span class="n">entropy</span><span class="p">(</span><span class="n">true_distribution</span><span class="p">,</span> <span class="n">q2_pmf</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KL Divergence between the true distribution and the uniform distribution  0.7394593875511319
+KL Divergence between the true distribution and the q distribution  0.009657896086383405
+KL Divergence between the true distribution and the q2 distribution  1.276465607901914
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="evaluation-1-hr">
+<h2>EVALUATION (1 hr)<a class="headerlink" href="#evaluation-1-hr" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Write Python code to compute the KL divergence between two distributions. Use two normal discrete distributions a and b with different mean and variance. Note how the KL divergence changes as the number of samples in the distribution increases.</p></li>
+<li><p>Compute the KL Divergence between a and b - KL(a||b)</p></li>
+<li><p>Compute the KL Divergence between b and a - KL(b||a)</p></li>
+<li><p>Compute the KL Divergence between a and itself</p></li>
+<li><p>Compute the KL Divergence between a and the shifted version of a. Note how the KL Divergence varies as the shifted version moves away.</p></li>
+</ol>
 </div>
 <div class="section" id="model-averaging">
 <h2>Model Averaging<a class="headerlink" href="#model-averaging" title="Permalink to this headline">¶</a></h2>
@@ -493,8 +565,8 @@
 <div class="section" id="ergodicity">
 <h2>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="evaluation">
-<h2>EVALUATION<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="evaluation-10-mins">
+<h2>EVALUATION (10 mins)<a class="headerlink" href="#evaluation-10-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>Underfitting is bad because</p>
 <p>a. It cannot capture complex behavior and will have inherent error (C)</p>
