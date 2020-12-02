@@ -257,11 +257,6 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#random-walks">
-     Random Walks
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#markov-chains">
      Markov Chains
     </a>
@@ -465,9 +460,6 @@
 </div>
 <div class="section" id="building-blocks">
 <h2>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="random-walks">
-<h3>Random Walks<a class="headerlink" href="#random-walks" title="Permalink to this headline">¶</a></h3>
-</div>
 <div class="section" id="markov-chains">
 <h3>Markov Chains<a class="headerlink" href="#markov-chains" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://brilliant.org/wiki/markov-chains/">Intuitive explanation of Markov Chains</a></p>
@@ -475,6 +467,7 @@
 </div>
 <div class="section" id="why-does-this-work">
 <h3>Why does this work?<a class="headerlink" href="#why-does-this-work" title="Permalink to this headline">¶</a></h3>
+<p>Suppose there is a system with three states given by A,B and C that can transition from A <span class="math notranslate nohighlight">\(\longleftrightarrow\)</span> B <span class="math notranslate nohighlight">\(\longleftrightarrow\)</span> C with transition probabilities given by <span class="math notranslate nohighlight">\(P_{AB}\)</span>, <span class="math notranslate nohighlight">\(P_{BC}\)</span> for transitioning to the right and <span class="math notranslate nohighlight">\(P_{BA}\)</span>, <span class="math notranslate nohighlight">\(P_{CB}\)</span> for transitioning to the left. The gist of the MCMC process is that the ratio of the transition probabilities of the two states equals the relative probabilities of the two states in the distribution.</p>
 </div>
 <div class="section" id="proposal-distribution">
 <h3>Proposal distribution<a class="headerlink" href="#proposal-distribution" title="Permalink to this headline">¶</a></h3>
