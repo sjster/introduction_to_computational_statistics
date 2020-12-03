@@ -9,3 +9,5 @@ scipy
 arviz
 graphviz
 python-graphviz
+ipywidgets
+plotly

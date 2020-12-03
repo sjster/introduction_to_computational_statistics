@@ -34,8 +34,9 @@ binder:
   text                        : "Launch binder"
   
 launch_buttons:
-  colab_url: "https://colab.research.google.com"
+  colab_url                   : "https://colab.research.google.com"
   binderhub_url               : "https://mybinder.org"
+  thebe                       : true 
 
 latex:
   latex_engine                : "xelatex"
