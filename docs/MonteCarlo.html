@@ -376,8 +376,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   EVALUATION
+  <a class="reference internal nav-link" href="#evaluation-2-5-hours">
+   EVALUATION (2.5 hours)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -391,7 +391,7 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
+    <a class="reference internal nav-link" href="#id1">
      3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
     </a>
    </li>
@@ -408,20 +408,20 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id3">
+    <a class="reference internal nav-link" href="#id2">
      The details
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id4">
+    <a class="reference internal nav-link" href="#id3">
      Building the Inferred Distribution
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id5">
-   EVALUATION
+  <a class="reference internal nav-link" href="#evaluation-2-hours">
+   EVALUATION (2 hours)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -430,12 +430,12 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id4">
      2. Using the example of power outages above
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id7">
+    <a class="reference internal nav-link" href="#id5">
      3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
     </a>
    </li>
@@ -444,6 +444,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
    Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-15-mins">
+   EVALUATION (15 mins)
   </a>
  </li>
 </ul>
@@ -472,7 +477,7 @@
 <div class="section" id="markov-chains">
 <h3>Markov Chains<a class="headerlink" href="#markov-chains" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://brilliant.org/wiki/markov-chains/">Intuitive explanation of Markov Chains</a></p>
-<p>A Markov chain is a stochastic system that transitions from one state to another based on a probability. The probability of moving to a new state is independent of how one reached the current state, i.e. the probability of moving to a new state only depends on the current state and the transition probability to the new state. An absorbing state is one where the probability of staying at that state is 1, i.e. there is zero chance of leaving that state. A recurring state is one where is a finite probability of returning to that state.</p>
+<p>A Markov chain is a stochastic system that transitions from one state to another based on a probability. The probability of moving to a new state is independent of how one reached the current state, i.e. the probability of moving to a new state only depends on the current state and the transition probability to the new state. An absorbing state is one where the probability of staying at that state is 1, i.e. there is zero chance of leaving that state. A recurring state is one where there is a finite probability of returning to that state.</p>
 </div>
 <div class="section" id="why-does-this-work">
 <h3>Why does this work?<a class="headerlink" href="#why-does-this-work" title="Permalink to this headline">¶</a></h3>
@@ -677,8 +682,8 @@
 <p>If the parameter we are seeking is bounded in value, using a symmetric dsitribution can result in invalid draws. Also, since we are working in a Bayesian setting we want to take advantage of our prior knowledge of this parameter. If it known that the parameter has a certain distribution, we should be able to incorporate this information into our sampling process.</p>
 </div>
 </div>
-<div class="section" id="id1">
-<h2>EVALUATION<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="evaluation-2-5-hours">
+<h2>EVALUATION (2.5 hours)<a class="headerlink" href="#evaluation-2-5-hours" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm">
 <h3>1. Write Python code to modify the Metropolis algorithm from above to make it a Metropolis-Hastings algorithm<a class="headerlink" href="#write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h3>
 </div>
@@ -697,8 +702,8 @@
 </li>
 </ol>
 </div>
-<div class="section" id="id2">
-<h3>3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="gibbs-sampling">
@@ -717,8 +722,8 @@
 <li><p>Repeat steps (3) to (5) till we have a sufficient number of samples. This process of iteratively updating the parameters is loosely akin to coordinate ascent for optimization.</p></li>
 </ol>
 </div>
-<div class="section" id="id3">
-<h3>The details<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>The details<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Since we are using a Normal distribution, parameterized as <span class="math notranslate nohighlight">\(N(\mu, \tau)\)</span> we will need the conjugate solution for computing our posterior from the priors. A word on notation as we proceed, using <span class="math notranslate nohighlight">\(\tau\)</span> as an example - the draws are denoted by numbered subscripts such as <span class="math notranslate nohighlight">\(\tau_0\)</span>, <span class="math notranslate nohighlight">\(\tau_1\)</span> while the hyperparameters for the prior and posterior distributions are denoted as <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> and <span class="math notranslate nohighlight">\(\tau_{posterior}\)</span> respectively.</p>
 <p><span class="math notranslate nohighlight">\(\mu \sim N(\mu_{prior}, \tau_{prior})\)</span> , select <span class="math notranslate nohighlight">\(\mu_{prior}\)</span> to be 12 and <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> to be 0.0625 which corresponds to a a <span class="math notranslate nohighlight">\(\sigma\)</span> of 4</p>
 <p><span class="math notranslate nohighlight">\(\tau \sim Gamma(\alpha_{prior}, \beta_{prior})\)</span> , select the shape parameter <span class="math notranslate nohighlight">\(\alpha_{prior}\)</span> to be 25 and the rate parameter <span class="math notranslate nohighlight">\(\beta_{prior}\)</span> to be 0.5</p>
@@ -755,18 +760,18 @@
 to (10) till we have a sufficient number of samples.</p></li>
 </ol>
 </div>
-<div class="section" id="id4">
-<h3>Building the Inferred Distribution<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Building the Inferred Distribution<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Use the current values that we obtain at each step for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>, and build a frequency distribution (histogram) from it. We can also create a joint distribution as well using a two-dimensional histogram.</p>
 </div>
 </div>
-<div class="section" id="id5">
-<h2>EVALUATION<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="evaluation-2-hours">
+<h2>EVALUATION (2 hours)<a class="headerlink" href="#evaluation-2-hours" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling">
 <h3>1. Use the Metropolis Python code as boilerplate code to perform Gibbs Sampling<a class="headerlink" href="#use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="id6">
-<h3>2. Using the example of power outages above<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>2. Using the example of power outages above<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ol>
 <li><p>Run a simulation for 1000 iterations.</p></li>
 <li><p>Run the simulation for 10 iterations annd print out the following as a table, each row representing a trial</p>
@@ -775,8 +780,8 @@ to (10) till we have a sufficient number of samples.</p></li>
 </li>
 </ol>
 </div>
-<div class="section" id="id7">
-<h3>3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
@@ -795,6 +800,35 @@ This is based on the solution of differential equations known as Hamilton’s eq
 <p><span class="math notranslate nohighlight">\(p_n(0) \longrightarrow p_n(L \Delta t)\)</span></p>
 <p>The leapfrog integration introduces errors due to the fact that it is a numerical integration method and not an exact integral. This is corrected using a Metropolis-Hastings that probabilistically accepts the new values of <span class="math notranslate nohighlight">\(x_{n+1}\)</span> as <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> or <span class="math notranslate nohighlight">\(x_n(0)\)</span>. The probability used here to determine what is accepted depends on the Hamiltonian calculated using the new values <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> and <span class="math notranslate nohighlight">\(p_n(L \cdot \Delta t)\)</span>. This is repeated for <span class="math notranslate nohighlight">\(n\)</span> for a number of spatial steps.</p>
 <p>A No U-Turn sampler (NUTS) is an extension of the HMC where the number of steps of the integrator <span class="math notranslate nohighlight">\(L\)</span> is automatically tuned.</p>
+</div>
+<div class="section" id="evaluation-15-mins">
+<h2>EVALUATION (15 mins)<a class="headerlink" href="#evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>The ratio of the transition probabilities between states can be seen as the ratio of their probability densities</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Not using a reasonable prior can result in convergence issues when performing MCMC sampling</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Not using an appropriate proposal distribution during MCMC can result in inaccurate inferences about a parameter</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>The Metropolis-Hastings algorithm differs from the Metropolis algorithm in terms of the correction term that is added to the Metropolis step</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>The Metropolis algorithm is a specific case of the Metropolis-Hastings algorithm</p>
+<p>a. True</p>
+<p>b. False (C) - MH is a specific case of the Metropolis algorithm</p>
+</li>
+<li><p>Why does a correction term exist in the Metropolis-Hastings algorithm?</p>
+<p>a. To remove the errors introduced by the Metropolis algorithm</p>
+<p>b. To correct for the lack of symmetry in a non-symmetric proposal distribution (C)</p>
+</li>
+</ol>
 </div>
 </div>
 

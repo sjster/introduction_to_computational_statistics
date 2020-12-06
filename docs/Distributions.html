@@ -265,6 +265,11 @@
    Negative Binomial Distribution
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gamma-distribution">
+   Gamma Distribution
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -435,8 +440,33 @@ if (outputEl) {{
 <div class="section" id="negative-binomial-distribution">
 <h2>Negative Binomial Distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this headline">¶</a></h2>
 <p>A negative binomial distribution can be used to describe the number of successes ‘r - 1’ and ‘x’ failures in ‘x + r -1’ trials till you have a success on the ‘x + r’th trial. The PDF for a negative binomial distribution modeling the number of failures is given by</p>
-<p><span class="math notranslate nohighlight">\(P(x) = (x + r - 1)C(r - 1) \: \theta^r  (1- \theta)^x\)</span></p>
+<p><span class="math notranslate nohighlight">\(P(x) = {x + r - 1 \choose r - 1} \: \theta^r  (1- \theta)^x\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(\theta\)</span> is the probability of success</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">negative_binomial_vector_over_y</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_events</span> <span class="p">,</span> <span class="n">total_events</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">p_theta</span> <span class="o">=</span> <span class="p">[</span><span class="n">comb</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">total_events</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">yelem</span><span class="p">))</span> <span class="o">*</span> <span class="n">theta</span><span class="o">**</span> <span class="n">yelem</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">total_events</span> <span class="o">-</span> <span class="n">yelem</span><span class="p">)</span> <span class="k">for</span> <span class="n">yelem</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">p_theta</span><span class="p">,</span> <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;steelblue&quot;</span><span class="p">],</span> 
+                  <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot; Binomial distribution for theta = </span><span class="si">%d</span><span class="s2">, n = </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">line</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Theta&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;P(theta)&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    
+<span class="k">if</span><span class="p">(</span><span class="n">INTERACT_FLAG</span><span class="p">):</span>    
+    <span class="n">interact</span><span class="p">(</span><span class="n">binomial_vector_over_y</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">binomial_vector_over_y</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="gamma-distribution">
+<h2>Gamma Distribution<a class="headerlink" href="#gamma-distribution" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gamma_individual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">theta_max</span><span class="p">):</span>
