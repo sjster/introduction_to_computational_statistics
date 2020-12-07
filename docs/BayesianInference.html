@@ -357,8 +357,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation-10-mins">
-   EVALUATION (10 mins)
+  <a class="reference internal nav-link" href="#evaluation-30-mins">
+   EVALUATION (30 mins)
   </a>
  </li>
 </ul>
@@ -427,9 +427,9 @@
 <p>These terms are used to measure the error in our model with regards to the data that the model is trying to fit. Most folks are familiar with the Mean Squared Error (MSE) given by</p>
 <p>MSE = <span class="math notranslate nohighlight">\(\sum_1^n (y_{true} - y_{predicted})^2 / n\)</span></p>
 <p>While this is a perfectly acceptably way of measuring error, another way to measure the performance of a model is using the log-likelihood function.</p>
-<p>Log-likelihood = <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta)\)</span></p>
+<p><strong>Log-likelihood</strong> = <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta)\)</span></p>
 <p>If the likelihood function is a Normal, the log-likelihood is proportional to the MSE. Deviance is simply -2 times the log-likelihood</p>
-<p>Deviance = -2 <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta)\)</span></p>
+<p><strong>Deviance</strong> = -2 <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta)\)</span></p>
 <p>Note that the likelihood function <span class="math notranslate nohighlight">\(p(y_i | \theta)\)</span> takes values from 0 for no fit to 1 for a perfectly fit model. This results in the log-likelihood function taking values from <span class="math notranslate nohighlight">\(- \infty\)</span> to 0. Multiplying the log-likelihood function by -2 results in a number that is interpretable similar to the MSE. Poorly fit models have large positive values while a perfectly fit model has a value of 0. This is primary reason for using deviance as opposed to the log-likelihood. Complex models will have lower deviance values on training set (in-sample data), and this needs to be penalized when comparing models. This is related to overfitting and bias that we talked about earlier.</p>
 <p>Maximum Likelihood Estimation (MLE) is based on the notion of estimating the parameters <span class="math notranslate nohighlight">\(\theta\)</span> that maximize the the probability <span class="math notranslate nohighlight">\(\sum_1^n p(y_i | \theta)\)</span>. While there are other methods to do the same, with a large enough sample size MLE is the most efficient estimator for the distribution parameter <span class="math notranslate nohighlight">\(\theta\)</span>. Also, as sample size increases the estimater parameter tends to the true parameter and the error becomes normally distributed.</p>
 <p>A disadvantage of the MLE arises when you have non-regular distributions, i.e. distributions whose parameters are constrained by the observed values. For such distributions, a maximum likelihood may not exist. Similar problems can occur in cases where multiple maxima exist.</p>
@@ -587,8 +587,8 @@ KL Divergence between the true distribution and the q2 distribution  1.276465607
 <p><a class="reference external" href="https://www.youtube.com/watch?v=aIdTGKjQWjA">Youtube</a></p>
 <p>Stationary distributions simply mean that the probability of the distribution at a time t+1 is the same as that at time t.</p>
 </div>
-<div class="section" id="evaluation-10-mins">
-<h2>EVALUATION (10 mins)<a class="headerlink" href="#evaluation-10-mins" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="evaluation-30-mins">
+<h2>EVALUATION (30 mins)<a class="headerlink" href="#evaluation-30-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>Underfitting is bad because</p>
 <p>a. It cannot capture complex behavior and will have inherent error (C)</p>
@@ -600,13 +600,36 @@ KL Divergence between the true distribution and the q2 distribution  1.276465607
 </li>
 <li><p>Variance of a model is related to</p>
 <p>a. A model’s ability to adapt its parameters to training data</p>
-<p>b. The sensitivity of the model to the inputs</p>
+<p>b. The sensitivity of the model to the inputs (C)</p>
 </li>
 <li><p>AIC is a primarily a non-Bayesian metric</p>
-<p>a. True</p>
+<p>a. True (C)</p>
 <p>b. False</p>
 </li>
+<li><p>KL Divergence is a distance metric</p>
+<p>a. True</p>
+<p>b. False (C)</p>
+</li>
+<li><p>The symmetric version of the KL Divergence is</p>
+<p>a. Jenson Button Divergence</p>
+<p>b. Jensen Shannon Divergence (C)</p>
+</li>
+<li><p>Entropy is a measure of</p>
+<p>a. Information symmetry</p>
+<p>b. Information uncertainty (C)</p>
+</li>
+<li><p>The WAIC is the Bayesian extension to the AIC</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>For Deviance of models, a well-fit model has a value</p>
+<p>a. Infinity</p>
+<p>b. Close to 0 (C)</p>
+</li>
+<li><p>The value of <span class="math notranslate nohighlight">\(R^2\)</span> for a model that perfectly fits the data is</p></li>
 </ol>
+<p>a. 1 (C)</p>
+<p>b. 0</p>
 </div>
 </div>
 

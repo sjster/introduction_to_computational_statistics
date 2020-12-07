@@ -447,8 +447,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation-20-mins">
-   EVALUATION (20 mins)
+  <a class="reference internal nav-link" href="#evaluation-30-mins">
+   EVALUATION (30 mins)
   </a>
  </li>
 </ul>
@@ -801,8 +801,8 @@ This is based on the solution of differential equations known as Hamilton’s eq
 <p>The leapfrog integration introduces errors due to the fact that it is a numerical integration method and not an exact integral. This is corrected using a Metropolis-Hastings step that probabilistically accepts the new values of <span class="math notranslate nohighlight">\(x_{n+1}\)</span> as <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> or <span class="math notranslate nohighlight">\(x_n(0)\)</span>. The probability used here to determine what is accepted depends on the Hamiltonian calculated using the new values <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> and <span class="math notranslate nohighlight">\(p_n(L \cdot \Delta t)\)</span>. This is repeated for <span class="math notranslate nohighlight">\(n\)</span> for a number of spatial steps.</p>
 <p>A No U-Turn sampler (NUTS) is an extension of the HMC where the number of steps of the integrator <span class="math notranslate nohighlight">\(L\)</span> is automatically tuned.</p>
 </div>
-<div class="section" id="evaluation-20-mins">
-<h2>EVALUATION (20 mins)<a class="headerlink" href="#evaluation-20-mins" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="evaluation-30-mins">
+<h2>EVALUATION (30 mins)<a class="headerlink" href="#evaluation-30-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>The ratio of the transition probabilities between states can be seen as the ratio of their probability densities</p>
 <p>a. True (C)</p>
