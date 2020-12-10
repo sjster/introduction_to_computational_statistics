@@ -126,23 +126,6 @@
    Introduction to Distributions
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#poisson-distributions-are-discrete-distributions-that-indicate-the-probability-of-a-number-of-events">
-   Poisson distributions are discrete distributions that indicate the probability of a number of events
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#p-y-theta-theta-y-cdot-e-theta-y">
-   P(y|
-   <span class="math notranslate nohighlight">
-    \(\theta\)
-   </span>
-   ) =
-   <span class="math notranslate nohighlight">
-    \(\theta^y \cdot e^{-\theta} / y! \)
-   </span>
-  </a>
- </li>
 </ul>
 <p class="caption collapsible-parent">
  <span class="caption-text">
@@ -272,81 +255,35 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Introduction to Distributions
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#note-some-of-the-sliders-for-interaction-are-currently-only-coded-to-take-integer-parameters">
-     Note: Some of the sliders for interaction are currently only coded to take integer parameters
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#binomial-distribution">
-     Binomial distribution
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#negative-binomial-distribution">
-     Negative Binomial Distribution
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#gamma-distribution">
-     Gamma Distribution
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#beta-distribution">
-     Beta distribution
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#poisson-distributions-are-discrete-distributions-that-indicate-the-probability-of-a-number-of-events">
-   Poisson distributions are discrete distributions that indicate the probability of a number of events
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#note-some-of-the-sliders-for-interaction-are-currently-only-coded-to-take-integer-parameters">
+   Note: Some of the sliders for interaction are currently only coded to take integer parameters
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#p-y-theta-theta-y-cdot-e-theta-y">
-   P(y|
-   <span class="math notranslate nohighlight">
-    \(\theta\)
-   </span>
-   ) =
-   <span class="math notranslate nohighlight">
-    \(\theta^y \cdot e^{-\theta} / y! \)
-   </span>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#binomial-distribution">
+   Binomial distribution
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-mean-and-variance-of-a-poisson-distribution-are-both-given-by-theta-resulting-in-the-distribution-growing-wider-as-the-mean-moves-away-from-zero">
-     The mean and variance of a Poisson distribution are both given by
-     <span class="math notranslate nohighlight">
-      \(\theta\)
-     </span>
-     , resulting in the distribution growing wider as the mean moves away from zero.
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#if-we-notice-n-observations-that-are-drawn-from-a-distribution-with-the-underlying-parameter-theta-the-joint-distribution-for-this-can-be-written-as">
-     If we notice ‘n’ observations that are drawn from a distribution with the underlying parameter
-     <span class="math notranslate nohighlight">
-      \(\theta\)
-     </span>
-     , the joint distribution for this can be written as
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p-y-1-y-1-y-2-y-2-y-n-y-n-theta-sum-y-i-e-n-theta-y-1-y-n">
-     <span class="math notranslate nohighlight">
-      \(P(Y_1 = y_1, Y_2 = y_2, ... Y_n = y_n) =  \theta^{\sum y_i} e^{-n \theta} / (y_1! ... y_n!)\)
-     </span>
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#negative-binomial-distribution">
+   Negative Binomial Distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gamma-distribution">
+   Gamma Distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beta-distribution">
+   Beta distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#poisson-distributions">
+   Poisson distributions
+  </a>
  </li>
 </ul>
 
@@ -669,8 +606,8 @@ if (outputEl) {{
 </div>
 <div class="section" id="beta-distribution">
 <h2>Beta distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this headline">¶</a></h2>
-<p>Beta distribution is the conjugate prior of a binomial distribution. A class of conjugate priors for a sampling model P(y | <span class="math notranslate nohighlight">\(\theta\)</span>) is one that makes the posterior P(<span class="math notranslate nohighlight">\(\theta\)</span> |y) have the same form as the prior</p>
-<p>beta(<span class="math notranslate nohighlight">\(\theta | a, b\)</span>) = <span class="math notranslate nohighlight">\( \dfrac{\gamma(a + b)}{\gamma(a) \gamma(b)} \cdot \theta^{a - 1} \cdot (1 - \theta)^{b -1}\)</span></p>
+<p>Beta distribution is the conjugate prior of a binomial distribution. A class of conjugate priors for a sampling model P(y | <span class="math notranslate nohighlight">\(\theta\)</span>) is one that makes the posterior P(<span class="math notranslate nohighlight">\(\theta\)</span> |y) have the same form as the prior. The PDF for a Beta distributions is shown below.</p>
+<p>P(<span class="math notranslate nohighlight">\(\theta | a, b\)</span>) = <span class="math notranslate nohighlight">\( \dfrac{\gamma(a + b)}{\gamma(a) \gamma(b)} \cdot \theta^{a - 1} \cdot (1 - \theta)^{b -1}\)</span></p>
 <p>This means that the posterior, computed from a likelihood function that has a binomial form,  will have a beta distribution. If we start with a uniform prior for p(<span class="math notranslate nohighlight">\(\theta\)</span>), this posterior can be analytically computed as beta(a, b) where</p>
 <p><span class="math notranslate nohighlight">\(a = num_p + 1\)</span>  where <span class="math notranslate nohighlight">\(num_p\)</span> is the number of positive events</p>
 <p><span class="math notranslate nohighlight">\(b = total - num_p + 1\)</span> where <span class="math notranslate nohighlight">\(total\)</span> is the total number of events</p>
@@ -719,34 +656,82 @@ if (outputEl) {{
     <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;theta&quot;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;P(theta)&quot;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">if</span><span class="p">(</span><span class="n">INTERACT_FLAG</span><span class="p">):</span>
+    <span class="n">interact</span><span class="p">(</span><span class="n">beta_vector_theta</span><span class="p">,</span> <span class="n">num_p</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">beta_vector_theta</span><span class="p">(</span><span class="n">num_p</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>alpha = 5
+beta = 7
+</pre></div>
+</div>
+<div class="output text_html"><div>                            <div id="e0096103-1c88-4c0d-b50e-61f5da73c4b6" class="plotly-graph-div" style="height:600px; width:800px;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("e0096103-1c88-4c0d-b50e-61f5da73c4b6")) {                    Plotly.newPlot(                        "e0096103-1c88-4c0d-b50e-61f5da73c4b6",                        [{"hovertemplate": "x=%{x}<br>y=%{y}<extra></extra>", "legendgroup": "", "line": {"color": "steelblue", "dash": "solid", "width": 4}, "mode": "lines", "name": "", "orientation": "v", "showlegend": false, "type": "scatter", "x": [0.0, 0.041666666666666664, 0.08333333333333333, 0.125, 0.16666666666666666, 0.20833333333333331, 0.25, 0.29166666666666663, 0.3333333333333333, 0.375, 0.41666666666666663, 0.4583333333333333, 0.5, 0.5416666666666666, 0.5833333333333333, 0.625, 0.6666666666666666, 0.7083333333333333, 0.75, 0.7916666666666666, 0.8333333333333333, 0.875, 0.9166666666666666, 0.9583333333333333, 1.0], "xaxis": "x", "y": [0.0, 0.005393449030371784, 0.06609302513581101, 0.25310478173196316, 0.5969246343608698, 1.0712755323070524, 1.605978012084961, 2.111471632616841, 2.503683381598335, 2.7228088583797216, 2.743265090153202, 2.574722434810492, 2.255859375, 1.8434403231483398, 1.3996250459965325, 0.9802111890166998, 0.6259208453995837, 0.3580003806166966, 0.17844200134277344, 0.07418805625395106, 0.023876985374434844, 0.005165403708815575, 0.0005462233482298447, 1.0195555823009148e-05, 0.0], "yaxis": "y"}],                        {"height": 600, "legend": {"tracegroupgap": 0}, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "title": {"text": " Beta distribution for total number of events=10, number of positive events=4"}, "width": 800, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "theta"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "P(theta)"}}},                        {"responsive": true}                    ).then(function(){
+
+var gd = document.getElementById('e0096103-1c88-4c0d-b50e-61f5da73c4b6');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div></div></div>
+</div>
+</div>
+<div class="section" id="poisson-distributions">
+<h2>Poisson distributions<a class="headerlink" href="#poisson-distributions" title="Permalink to this headline">¶</a></h2>
+<p>Poisson distributions are discrete distributions that indicate the probability of a number of events</p>
+<p>P(y|<span class="math notranslate nohighlight">\(\theta\)</span>) = <span class="math notranslate nohighlight">\(\theta^y \cdot e^{-\theta} / y! \)</span></p>
+<p>The mean and variance of a Poisson distribution are both given by <span class="math notranslate nohighlight">\(\theta\)</span>, resulting in the distribution growing wider as the mean moves away from zero.</p>
+<p>If we notice ‘n’ observations that are drawn from a distribution with the underlying parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the joint distribution for this can be written as</p>
+<p><span class="math notranslate nohighlight">\(P(Y_1 = y_1, Y_2 = y_2, ... Y_n = y_n) =  \theta^{\sum y_i} e^{-n \theta} / (y_1! ... y_n!)\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">poisson_vector</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">y_end</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">y_end</span><span class="p">,</span><span class="n">y_end</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     
-<span class="n">interact</span><span class="p">(</span><span class="n">beta_vector_theta</span><span class="p">,</span><span class="n">num_p</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">p_theta</span> <span class="o">=</span> <span class="p">(</span><span class="n">theta</span><span class="o">**</span><span class="n">y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="p">))</span> <span class="o">/</span> <span class="n">factorial</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># y is the number of events</span>
+    <span class="c1"># y_end is how far you want to compute y values</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">p_theta</span><span class="p">,</span> <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;steelblue&quot;</span><span class="p">],</span> 
+                  <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot; Poisson distribution for theta = </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">line</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;y&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;P(y)&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+   
+
+<span class="n">interact</span><span class="p">(</span><span class="n">poisson_vector</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y_end</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "f389a9ca93e74f6f9616122b9f3b7c61", "version_major": 2, "version_minor": 0}
-</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.beta_vector_theta(num_p, total)&gt;
+{"model_id": "ebc9baea967043b8901e850ca88a050e", "version_major": 2, "version_minor": 0}
+</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.poisson_vector(theta, y_end)&gt;
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="poisson-distributions-are-discrete-distributions-that-indicate-the-probability-of-a-number-of-events">
-<h1>Poisson distributions are discrete distributions that indicate the probability of a number of events<a class="headerlink" href="#poisson-distributions-are-discrete-distributions-that-indicate-the-probability-of-a-number-of-events" title="Permalink to this headline">¶</a></h1>
-</div>
-<div class="section" id="p-y-theta-theta-y-cdot-e-theta-y">
-<h1>P(y|<span class="math notranslate nohighlight">\(\theta\)</span>) = <span class="math notranslate nohighlight">\(\theta^y \cdot e^{-\theta} / y! \)</span><a class="headerlink" href="#p-y-theta-theta-y-cdot-e-theta-y" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="the-mean-and-variance-of-a-poisson-distribution-are-both-given-by-theta-resulting-in-the-distribution-growing-wider-as-the-mean-moves-away-from-zero">
-<h2>The mean and variance of a Poisson distribution are both given by <span class="math notranslate nohighlight">\(\theta\)</span>, resulting in the distribution growing wider as the mean moves away from zero.<a class="headerlink" href="#the-mean-and-variance-of-a-poisson-distribution-are-both-given-by-theta-resulting-in-the-distribution-growing-wider-as-the-mean-moves-away-from-zero" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="if-we-notice-n-observations-that-are-drawn-from-a-distribution-with-the-underlying-parameter-theta-the-joint-distribution-for-this-can-be-written-as">
-<h2>If we notice ‘n’ observations that are drawn from a distribution with the underlying parameter <span class="math notranslate nohighlight">\(\theta\)</span>, the joint distribution for this can be written as<a class="headerlink" href="#if-we-notice-n-observations-that-are-drawn-from-a-distribution-with-the-underlying-parameter-theta-the-joint-distribution-for-this-can-be-written-as" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="p-y-1-y-1-y-2-y-2-y-n-y-n-theta-sum-y-i-e-n-theta-y-1-y-n">
-<h2><span class="math notranslate nohighlight">\(P(Y_1 = y_1, Y_2 = y_2, ... Y_n = y_n) =  \theta^{\sum y_i} e^{-n \theta} / (y_1! ... y_n!)\)</span><a class="headerlink" href="#p-y-1-y-1-y-2-y-2-y-n-y-n-theta-sum-y-i-e-n-theta-y-1-y-n" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
