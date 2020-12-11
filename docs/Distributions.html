@@ -281,6 +281,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lognormal-distribution">
+   Lognormal distribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#exponential-distribution">
    Exponential distribution
   </a>
@@ -586,9 +591,9 @@ if (outputEl) {{
 </div>
 <div class="section" id="normal-distribution-gaussian">
 <h2>Normal distribution (Gaussian)<a class="headerlink" href="#normal-distribution-gaussian" title="Permalink to this headline">¶</a></h2>
-<p>This is possibly the most popular distribution of all! The Normal distribution is parameterized by a mean <span class="math notranslate nohighlight">\(\mu\)</span> and a standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and its PDF is given by</p>
+<p>This is possibly the most popular distribution of all! The normal distribution is parameterized by a mean <span class="math notranslate nohighlight">\(\mu\)</span> and a standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span>, and its PDF is given by</p>
 <p>P(x) = <span class="math notranslate nohighlight">\(\dfrac{1}{\sqrt{2 \pi \sigma}} e^{- (x - \mu)^2 / 2 \sigma^2}\)</span></p>
-<p>This is also called a Gaussian distribution. A Normal distribution is found in many physical phenomena and has significance as a result of the <strong>Central Limit Theorem</strong> which states that the mean of different samples converges to a normal distribution. The conditions for the Central Limit Theorem to hold are</p>
+<p>This is also called a Gaussian distribution. A normal distribution is found in many physical phenomena and has significance as a result of the <strong>Central Limit Theorem</strong> which states that the mean of different samples converges to a normal distribution. The conditions for the Central Limit Theorem to hold are</p>
 <ol class="simple">
 <li><p>The samples must come from random variables that have finite mean and variance</p></li>
 <li><p>The sample size must be large enough</p></li>
@@ -646,13 +651,15 @@ if (outputEl) {{
 
                         })                };                });            </script>        </div></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Lognormal distribution</span>
-</pre></div>
 </div>
-</div>
-</div>
+<div class="section" id="lognormal-distribution">
+<h2>Lognormal distribution<a class="headerlink" href="#lognormal-distribution" title="Permalink to this headline">¶</a></h2>
+<p>If Y is a normal distribution parameterized by the mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> then X given by</p>
+<p>X = <span class="math notranslate nohighlight">\(e^Y\)</span></p>
+<p>is a Lognormal distribution. In other words, X can be considered a lognormal distribution if the log of X is normally distributed. Here <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> are the parameters of the lognormal distribution X but <strong>not the actual mean and variance</strong> of X. If a mean <span class="math notranslate nohighlight">\(\mu_X\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma_X\)</span> are desired for the lognormal distribution, we can set the paramters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> to be</p>
+<p><span class="math notranslate nohighlight">\(\mu = ln ( \dfrac{\mu_X^2}{\sqrt{\mu_X^2 + \sigma_X^2}})\)</span></p>
+<p><span class="math notranslate nohighlight">\(\sigma = ln( 1 + \dfrac{\sigma_X^2}{\mu_X^2})\)</span></p>
+<p>This is particularly important when you want to design a lognormal distribution for sampling data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### Student&#39;s t-distribution</span>
