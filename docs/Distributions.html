@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Introduction to Distributions &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
+    <title>Introduction to Distributions &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -80,7 +80,7 @@
   <img src="../_static/logo_large.png" class="logo" alt="logo">
   
   
-  <h1 class="site-logo" id="site-title">Introduction to Statistical Computing for Aspiring Data Scientists</h1>
+  <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
   
 </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -785,10 +785,6 @@ if (outputEl) {{
 
 <span class="n">t</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
-
-
-<span class="c1">#fig.add_trace(go.Scatter(x=t, y=p_t, line=go.scatter.Line(color=&quot;gray&quot;), showlegend=True))</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">add_scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">p_t</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;v=1&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines&quot;</span><span class="p">)</span>
 
 <span class="n">v</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">term1</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">((</span><span class="n">v</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">v</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">gamma</span><span class="p">(</span><span class="n">v</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Sampling strategies &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
+    <title>Sampling strategies &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -80,7 +80,7 @@
   <img src="../_static/logo_large.png" class="logo" alt="logo">
   
   
-  <h1 class="site-logo" id="site-title">Introduction to Statistical Computing for Aspiring Data Scientists</h1>
+  <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
   
 </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
@@ -261,6 +261,11 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sampling-from-discrete-distributions">
+   Sampling from Discrete Distributions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-inverse-transform-method">
    The Inverse Transform Method
   </a>
@@ -289,12 +294,16 @@
   <div class="section" id="sampling-strategies">
 <h1>Sampling strategies<a class="headerlink" href="#sampling-strategies" title="Permalink to this headline">¶</a></h1>
 <p>We want to look at ways to sample from a distribution. This is useful not only to understand how distributions are sampled in practice in a package such as SciPy but it also helps you to write your own custom distribution should that need arise.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">![</span>Interval Transformation<span class="o">](</span>transof<span class="o">)</span>
-</pre></div>
-</div>
-</div>
+<div class="section" id="sampling-from-discrete-distributions">
+<h2>Sampling from Discrete Distributions<a class="headerlink" href="#sampling-from-discrete-distributions" title="Permalink to this headline">¶</a></h2>
+<p>In order to sample data from a particular distribution we can start with a uniform continuous distribution between 0 and 1 denoted as U[0,1]. The probability of picking a value less than ‘a’ that is between 0 and 1 is given by</p>
+<p><span class="math notranslate nohighlight">\(P(x &lt; a) = a\)</span></p>
+<p>but because there are infinite possibilities between 0 and 1, the probability of picking any particular value ‘a’ is close to 0.</p>
+<p>If we have a discrete uniform distribution from 0 to ‘n’ denoted as U{0,1,…n-1}, this set has ‘n’ samples and the probability of choosing any discrete value ‘a’ is</p>
+<p><span class="math notranslate nohighlight">\(P(x = a) = \dfrac{1}{n}\)</span></p>
+<p>since this is a discrete value and there are a finite number of elements in this set.</p>
+<p>To gene</p>
+<p><img alt="Interval Transformation" src="../_images/transformation.png" /></p>
 </div>
 <div class="section" id="the-inverse-transform-method">
 <h2>The Inverse Transform Method<a class="headerlink" href="#the-inverse-transform-method" title="Permalink to this headline">¶</a></h2>
