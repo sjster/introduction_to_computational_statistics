@@ -329,12 +329,14 @@
 </div>
 <div class="section" id="arbitrary-discrete-distributions">
 <h3>Arbitrary Discrete Distributions<a class="headerlink" href="#arbitrary-discrete-distributions" title="Permalink to this headline">¶</a></h3>
-<p>To generate an arbitrary distribution, we can use the continuous uniform distribution and sample from it followed by a transform such that we get our desired distribution. In the figure below, we have divided the uniform coninuous distribution U[0,1] into uneven lengths given by <span class="math notranslate nohighlight">\(p_1, p_2, p_3...p_n\)</span> (here n = 5) such that <span class="math notranslate nohighlight">\(\sum p_i = 1\)</span></p>
+<p>To generate an arbitrary distribution, we can use the continuous uniform distribution and sample from it followed by a transform such that we get our desired distribution. In the figure below, we have divided the uniform continuous distribution U[0,1] into uneven lengths given by <span class="math notranslate nohighlight">\(p_1, p_2, p_3...p_n\)</span> (here n = 5) such that <span class="math notranslate nohighlight">\(\sum p_i = 1\)</span></p>
 <p><img alt="Interval Transformation" src="../_images/transformation.png" /></p>
+<p>If we want to sample from a arbitrary discrete set <span class="math notranslate nohighlight">\(A = \{a_1, a_2...a_n\}\)</span>, with probabilities given by <span class="math notranslate nohighlight">\(p_1, p_2, p_3...p_n\)</span> all we have to do is sample from the uniform continuous distribution U[0,1] since the interval <span class="math notranslate nohighlight">\(i\)</span> will be picked with probability <span class="math notranslate nohighlight">\(p_i\)</span> corresponding to the set element <span class="math notranslate nohighlight">\(a_i\)</span>.</p>
 </div>
 </div>
 <div class="section" id="the-inverse-transform-method">
 <h2>The Inverse Transform Method<a class="headerlink" href="#the-inverse-transform-method" title="Permalink to this headline">¶</a></h2>
+<p>This method uses the Cumulative Distribution Function (CDF) and the inverse of the CDF to generate our desired distribution.</p>
 </div>
 <div class="section" id="rejection-sampling">
 <h2>Rejection Sampling<a class="headerlink" href="#rejection-sampling" title="Permalink to this headline">¶</a></h2>
