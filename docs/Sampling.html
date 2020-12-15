@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Statistical Computing with PyMC3 &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
+    <title>Sampling strategies &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -57,7 +57,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Setting up Your Python Environment" href="getting_started.html" />
+    <link rel="next" title="Introduction to Distributions" href="Distributions.html" />
+    <link rel="prev" title="Bayesian vs Frequentist statistics" href="notebooks.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -114,14 +115,14 @@
   Introduction to Computational Statistics
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="notebooks.html">
    Bayesian vs Frequentist statistics
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Sampling.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Sampling strategies
   </a>
  </li>
@@ -204,9 +205,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/docs/index.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/docs/Sampling.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -224,10 +225,59 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Sampling.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Sampling.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-inverse-transform-method">
+   The Inverse Transform Method
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rejection-sampling">
+   Rejection Sampling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#envelope-rejection-sampling">
+   Envelope Rejection Sampling
+  </a>
+ </li>
+</ul>
+
+        </nav>
         
     </div>
 </div>
@@ -236,26 +286,24 @@
         
               <div>
                 
-  <div class="section" id="statistical-computing-with-pymc3">
-<h1>Statistical Computing with PyMC3<a class="headerlink" href="#statistical-computing-with-pymc3" title="Permalink to this headline">¶</a></h1>
-<p>This series of notebooks and material is being put together by Srijith Rajamohan. This covers the following topics</p>
-<ul class="simple">
-<li><p>Introduction to Bayesian Statistics</p></li>
-<li><p>Introduction to Monte Carlo simulation</p></li>
-<li><p>Introduction to PyMC3</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This draws a lot of inspiration from some brilliant people in this field and I will list those names here as this work is being developed.</p>
+  <div class="section" id="sampling-strategies">
+<h1>Sampling strategies<a class="headerlink" href="#sampling-strategies" title="Permalink to this headline">¶</a></h1>
+<p>We want to look at ways to sample from a distribution. This is useful not only to understand how distributions are sampled in practice in a package such as SciPy but it also helps you to write your own custom distribution should that need arise.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">![</span>Interval Transformation<span class="o">](</span>transof<span class="o">)</span>
+</pre></div>
 </div>
-<p>PyMC3 can be found <a class="reference external" href="https://docs.pymc.io/notebooks/getting_started">here</a>.</p>
-<div class="toctree-wrapper compound">
 </div>
-<div class="toctree-wrapper compound">
 </div>
-<div class="toctree-wrapper compound">
+<div class="section" id="the-inverse-transform-method">
+<h2>The Inverse Transform Method<a class="headerlink" href="#the-inverse-transform-method" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="toctree-wrapper compound">
+<div class="section" id="rejection-sampling">
+<h2>Rejection Sampling<a class="headerlink" href="#rejection-sampling" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="envelope-rejection-sampling">
+<h2>Envelope Rejection Sampling<a class="headerlink" href="#envelope-rejection-sampling" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -287,7 +335,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="getting_started.html" title="next page">Setting up Your Python Environment</a>
+    <a class='left-prev' id="prev-link" href="notebooks.html" title="previous page">Bayesian vs Frequentist statistics</a>
+    <a class='right-next' id="next-link" href="Distributions.html" title="next page">Introduction to Distributions</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
