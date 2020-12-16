@@ -295,6 +295,11 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-30mins">
+   EVALUATION (30mins)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#rejection-sampling">
    Rejection Sampling
   </a>
@@ -391,38 +396,29 @@
 <img alt="../_images/Sampling_4_2.png" src="../_images/Sampling_4_2.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### EVALUATION</span>
-
-<span class="n">Generate</span> <span class="n">a</span> <span class="n">Rayleigh</span> <span class="n">distribution</span> <span class="n">using</span> <span class="n">the</span> <span class="n">Inverse</span> <span class="n">Transform</span> <span class="n">Method</span>
-</pre></div>
 </div>
 </div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hist</span><span class="p">,</span> <span class="n">bin_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">bin_edges</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">bin_edges</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3.82027052e-05 2.00776622e+00 4.01549424e+00 6.02322226e+00
- 8.03095028e+00 1.00386783e+01 1.20464063e+01 1.40541343e+01
- 1.60618624e+01 1.80695904e+01 2.00773184e+01]
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.038678295597116
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+<div class="section" id="evaluation-30mins">
+<h2>EVALUATION (30mins)<a class="headerlink" href="#evaluation-30mins" title="Permalink to this headline">¶</a></h2>
+<p>Generate a Rayleigh distribution using the Inverse Transform Method</p>
 </div>
 <div class="section" id="rejection-sampling">
 <h2>Rejection Sampling<a class="headerlink" href="#rejection-sampling" title="Permalink to this headline">¶</a></h2>
+<p>Rejection sampling is more sophisticated than the techniques listed above. It generates approximately the correct distribution and rejection sampling is used to correct the errors resulting in the correct distribution. Rejection sampling is based on the following principles</p>
+<ol class="simple">
+<li><p>A probability density called the proposal density ‘g’</p></li>
+<li><p>A function ‘p’ with values in the range [0,1] called the acceptance probability</p></li>
+</ol>
+<p>Given the above densities, we use the following steps</p>
+<ol class="simple">
+<li><p>Draw <span class="math notranslate nohighlight">\(X_n\)</span> from the proposal density g</p></li>
+<li><p>Draw <span class="math notranslate nohighlight">\(U_n\)</span> from the acceptance probability U[0,1]</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(U_n &lt;= p(X_n)\)</span> then accept the proposal values <span class="math notranslate nohighlight">\(X_n\)</span></p></li>
+<li><p>Continue with (1) until sufficient samples have been drawn</p></li>
+</ol>
+<p>This process results in a random variable with the probability density given by</p>
+<p><span class="math notranslate nohighlight">\(f(x) = \dfrac{p(x)g(x)}{\int p(x) g(x)}\)</span></p>
+<p>We design the acceptance probabilities such that the distribution <span class="math notranslate nohighlight">\(f(x)\)</span> matches the desired target distribution.</p>
 </div>
 <div class="section" id="envelope-rejection-sampling">
 <h2>Envelope Rejection Sampling<a class="headerlink" href="#envelope-rejection-sampling" title="Permalink to this headline">¶</a></h2>
