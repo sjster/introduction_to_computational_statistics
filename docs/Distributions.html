@@ -315,6 +315,43 @@
    EVALUATION
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generate-data">
+   Generate Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-estimation">
+   Maximum Likelihood Estimation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-mixture-model">
+   Gaussian Mixture Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#density-estimation-using-gaussian-mixture-models">
+   Density Estimation using Gaussian Mixture Models
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-model-parameters">
+     Get Model Parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#get-aic-akaike-information-criterion-and-bic-bayesian-information-criterion">
+     Get AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#kernel-density-estimation">
+   Kernel Density Estimation
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -1043,6 +1080,134 @@ if (outputEl) {{
 </ol>
 <p>a. Normal</p>
 <p>b. Student’s t-distribution</p>
+</div>
+<div class="section" id="generate-data">
+<h2>Generate Data<a class="headerlink" href="#generate-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets.samples_generator</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">x_label</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span> <span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x2</span><span class="p">,</span> <span class="n">x2_label</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span> <span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fb33da310d0&gt;
+</pre></div>
+</div>
+<img alt="../_images/Distributions_26_1.png" src="../_images/Distributions_26_1.png" />
+<img alt="../_images/Distributions_26_2.png" src="../_images/Distributions_26_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="maximum-likelihood-estimation">
+<h2>Maximum Likelihood Estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="gaussian-mixture-model">
+<h2>Gaussian Mixture Model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="density-estimation-using-gaussian-mixture-models">
+<h2>Density Estimation using Gaussian Mixture Models<a class="headerlink" href="#density-estimation-using-gaussian-mixture-models" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged &quot;</span><span class="p">,</span><span class="n">gmm</span><span class="o">.</span><span class="n">converged_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;salmon&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">labels</span> <span class="o">==</span> <span class="mi">2</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Converged  True
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([ 1.,  3., 18., 42., 80., 90., 59., 29., 10.,  2.]),
+ array([0.44905486, 0.54829934, 0.64754382, 0.7467883 , 0.84603278,
+        0.94527726, 1.04452174, 1.14376622, 1.24301071, 1.34225519,
+        1.44149967]),
+ &lt;BarContainer object of 10 artists&gt;)
+</pre></div>
+</div>
+<img alt="../_images/Distributions_30_2.png" src="../_images/Distributions_30_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Converged &quot;</span><span class="p">,</span> <span class="n">gmm</span><span class="o">.</span><span class="n">converged_</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initialization 0
+Initialization converged: True
+Converged  True
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fb31f280730&gt;
+</pre></div>
+</div>
+<img alt="../_images/Distributions_31_2.png" src="../_images/Distributions_31_2.png" />
+</div>
+</div>
+<div class="section" id="get-model-parameters">
+<h3>Get Model Parameters<a class="headerlink" href="#get-model-parameters" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--------- GMM parameters ---------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gmm</span><span class="o">.</span><span class="n">get_params</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--------- Weights -------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gmm</span><span class="o">.</span><span class="n">weights_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--------- Means of the Gaussians -------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gmm</span><span class="o">.</span><span class="n">means_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--------- Covariances of the Gaussians dxd matrices corresponding to the dimensionality of the data -------&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gmm</span><span class="o">.</span><span class="n">covariances_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------- GMM parameters ---------
+{&#39;covariance_type&#39;: &#39;full&#39;, &#39;init_params&#39;: &#39;kmeans&#39;, &#39;max_iter&#39;: 100, &#39;means_init&#39;: None, &#39;n_components&#39;: 3, &#39;n_init&#39;: 1, &#39;precisions_init&#39;: None, &#39;random_state&#39;: None, &#39;reg_covar&#39;: 1e-06, &#39;tol&#39;: 0.001, &#39;verbose&#39;: True, &#39;verbose_interval&#39;: 10, &#39;warm_start&#39;: False, &#39;weights_init&#39;: None}
+
+--------- Weights -------
+[0.333 0.333 0.334]
+
+--------- Means of the Gaussians -------
+[[-1.53261094  2.92286592]
+ [ 2.06613682  0.89319597]
+ [ 0.95858674  4.29656276]]
+
+--------- Covariances of the Gaussians dxd matrices corresponding to the dimensionality of the data -------
+[[[ 0.02101804 -0.00041793]
+  [-0.00041793  0.02208474]]
+
+ [[ 0.02047349 -0.00058917]
+  [-0.00058917  0.02071659]]
+
+ [[ 0.0218127   0.00017552]
+  [ 0.00017552  0.0220458 ]]]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="get-aic-akaike-information-criterion-and-bic-bayesian-information-criterion">
+<h3>Get AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion)<a class="headerlink" href="#get-aic-akaike-information-criterion-and-bic-bayesian-information-criterion" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="kernel-density-estimation">
+<h2>Kernel Density Estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
