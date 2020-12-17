@@ -329,6 +329,13 @@
   <a class="reference internal nav-link" href="#gaussian-mixture-model">
    Gaussian Mixture Model
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reference-python-data-science-handbook-by-jake-vanderplas">
+     Reference - Python Data Science Handbook by Jake VanderPlas
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#density-estimation-using-gaussian-mixture-models">
@@ -343,6 +350,11 @@
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#get-aic-akaike-information-criterion-and-bic-bayesian-information-criterion">
      Get AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-validation-for-number-of-clusters">
+     Cross-validation for Number of Clusters
     </a>
    </li>
   </ul>
@@ -1088,18 +1100,23 @@ if (outputEl) {{
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">from</span> <span class="nn">sklearn.datasets.samples_generator</span> <span class="kn">import</span> <span class="n">make_blobs</span>
 <span class="kn">from</span> <span class="nn">sklearn.mixture</span> <span class="kn">import</span> <span class="n">GaussianMixture</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="n">x</span><span class="p">,</span> <span class="n">x_label</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span> <span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">x2</span><span class="p">,</span> <span class="n">x2_label</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span> <span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;1-d Distribution&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x2</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x3</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x3</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;2-d Distribution, Outlier Distribution in Red &quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fb33da310d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;2-d Distribution, Outlier Distribution in Red &#39;)
 </pre></div>
 </div>
 <img alt="../_images/Distributions_26_1.png" src="../_images/Distributions_26_1.png" />
@@ -1112,6 +1129,9 @@ if (outputEl) {{
 </div>
 <div class="section" id="gaussian-mixture-model">
 <h2>Gaussian Mixture Model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reference-python-data-science-handbook-by-jake-vanderplas">
+<h3>Reference - Python Data Science Handbook by Jake VanderPlas<a class="headerlink" href="#reference-python-data-science-handbook-by-jake-vanderplas" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 <div class="section" id="density-estimation-using-gaussian-mixture-models">
 <h2>Density Estimation using Gaussian Mixture Models<a class="headerlink" href="#density-estimation-using-gaussian-mixture-models" title="Permalink to this headline">¶</a></h2>
@@ -1204,10 +1224,339 @@ Converged  True
 </div>
 <div class="section" id="get-aic-akaike-information-criterion-and-bic-bayesian-information-criterion">
 <h3>Get AIC (Akaike Information Criterion) and BIC (Bayesian Information Criterion)<a class="headerlink" href="#get-aic-akaike-information-criterion-and-bic-bayesian-information-criterion" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># AIC on the correct data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AIC - &quot;</span><span class="p">,</span><span class="n">gmm</span><span class="o">.</span><span class="n">aic</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="n">x2_label</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AIC - &quot;</span><span class="p">,</span><span class="n">gmm</span><span class="o">.</span><span class="n">aic</span><span class="p">(</span><span class="n">x2</span><span class="p">))</span>
+<span class="c1"># AIC on out-of-sample data that does not fit the model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;AIC on out-of-sample data - &quot;</span><span class="p">,</span><span class="n">gmm</span><span class="o">.</span><span class="n">aic</span><span class="p">(</span><span class="n">x3</span><span class="p">))</span>
+
+<span class="c1"># BIC on the correct data</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BIC - &quot;</span><span class="p">,</span><span class="n">gmm</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="n">x2_label</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BIC - &quot;</span><span class="p">,</span><span class="n">gmm</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">x2</span><span class="p">))</span>
+<span class="c1"># BIC on out-of-sample data that does not fit the model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BIC on out-of-sample data - &quot;</span><span class="p">,</span><span class="n">gmm</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">x3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AIC -  100.3561997785441
+AIC -  212.98936251809602
+AIC on out-of-sample data -  7236.070693184011
+BIC -  165.09462210821164
+BIC -  296.42120226079237
+BIC on out-of-sample data -  7268.57508427629
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="cross-validation-for-number-of-clusters">
+<h3>Cross-validation for Number of Clusters<a class="headerlink" href="#cross-validation-for-number-of-clusters" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gmm_models</span> <span class="o">=</span> <span class="p">[</span><span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initialization 0
+Initialization converged: True
+Initialization 0
+Initialization converged: True
+Initialization 0
+Initialization converged: True
+Initialization 0
+Initialization converged: True
+Initialization 0
+Initialization converged: True
+Initialization 0
+Initialization converged: True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aic_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">aic</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">gmm_models</span><span class="p">]</span>
+<span class="n">bic_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">bic</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">gmm_models</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="n">aic_vals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;AIC scores vs. n_components&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Log of AIC scores&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;n_components&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span><span class="n">bic_vals</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;salmon&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;BIC scores vs. n_components&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;n_components&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Log of BIC scores&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Log of BIC scores&#39;)
+</pre></div>
+</div>
+<img alt="../_images/Distributions_38_1.png" src="../_images/Distributions_38_1.png" />
+<img alt="../_images/Distributions_38_2.png" src="../_images/Distributions_38_2.png" />
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="kernel-density-estimation">
 <h2>Kernel Density Estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">density_estimate</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_range</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">density_estimate</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span> <span class="c1"># try linear and log scale</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;KDE in log scale vs. x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Distributions_40_0.png" src="../_images/Distributions_40_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KernelDensity</span>
+<span class="n">kde</span> <span class="o">=</span> <span class="n">KernelDensity</span><span class="p">(</span><span class="n">bandwidth</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;gaussian&#39;</span><span class="p">)</span>
+<span class="n">kde</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">logprob</span> <span class="o">=</span> <span class="n">kde</span><span class="o">.</span><span class="n">score_samples</span><span class="p">(</span><span class="n">x_range</span><span class="p">[:,</span><span class="kc">None</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">logprob</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Log probability of KDE vs. x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Log probability of KDE vs. x&#39;)
+</pre></div>
+</div>
+<img alt="../_images/Distributions_41_1.png" src="../_images/Distributions_41_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">KernelDensity</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class KernelDensity in module sklearn.neighbors._kde:
+
+class KernelDensity(sklearn.base.BaseEstimator)
+ |  KernelDensity(*, bandwidth=1.0, algorithm=&#39;auto&#39;, kernel=&#39;gaussian&#39;, metric=&#39;euclidean&#39;, atol=0, rtol=0, breadth_first=True, leaf_size=40, metric_params=None)
+ |  
+ |  Kernel Density Estimation.
+ |  
+ |  Read more in the :ref:`User Guide &lt;kernel_density&gt;`.
+ |  
+ |  Parameters
+ |  ----------
+ |  bandwidth : float
+ |      The bandwidth of the kernel.
+ |  
+ |  algorithm : str
+ |      The tree algorithm to use.  Valid options are
+ |      [&#39;kd_tree&#39;|&#39;ball_tree&#39;|&#39;auto&#39;].  Default is &#39;auto&#39;.
+ |  
+ |  kernel : str
+ |      The kernel to use.  Valid kernels are
+ |      [&#39;gaussian&#39;|&#39;tophat&#39;|&#39;epanechnikov&#39;|&#39;exponential&#39;|&#39;linear&#39;|&#39;cosine&#39;]
+ |      Default is &#39;gaussian&#39;.
+ |  
+ |  metric : str
+ |      The distance metric to use.  Note that not all metrics are
+ |      valid with all algorithms.  Refer to the documentation of
+ |      :class:`BallTree` and :class:`KDTree` for a description of
+ |      available algorithms.  Note that the normalization of the density
+ |      output is correct only for the Euclidean distance metric. Default
+ |      is &#39;euclidean&#39;.
+ |  
+ |  atol : float
+ |      The desired absolute tolerance of the result.  A larger tolerance will
+ |      generally lead to faster execution. Default is 0.
+ |  
+ |  rtol : float
+ |      The desired relative tolerance of the result.  A larger tolerance will
+ |      generally lead to faster execution.  Default is 1E-8.
+ |  
+ |  breadth_first : bool
+ |      If true (default), use a breadth-first approach to the problem.
+ |      Otherwise use a depth-first approach.
+ |  
+ |  leaf_size : int
+ |      Specify the leaf size of the underlying tree.  See :class:`BallTree`
+ |      or :class:`KDTree` for details.  Default is 40.
+ |  
+ |  metric_params : dict
+ |      Additional parameters to be passed to the tree for use with the
+ |      metric.  For more information, see the documentation of
+ |      :class:`BallTree` or :class:`KDTree`.
+ |  
+ |  See Also
+ |  --------
+ |  sklearn.neighbors.KDTree : K-dimensional tree for fast generalized N-point
+ |      problems.
+ |  sklearn.neighbors.BallTree : Ball tree for fast generalized N-point
+ |      problems.
+ |  
+ |  Examples
+ |  --------
+ |  Compute a gaussian kernel density estimate with a fixed bandwidth.
+ |  &gt;&gt;&gt; import numpy as np
+ |  &gt;&gt;&gt; rng = np.random.RandomState(42)
+ |  &gt;&gt;&gt; X = rng.random_sample((100, 3))
+ |  &gt;&gt;&gt; kde = KernelDensity(kernel=&#39;gaussian&#39;, bandwidth=0.5).fit(X)
+ |  &gt;&gt;&gt; log_density = kde.score_samples(X[:3])
+ |  &gt;&gt;&gt; log_density
+ |  array([-1.52955942, -1.51462041, -1.60244657])
+ |  
+ |  Method resolution order:
+ |      KernelDensity
+ |      sklearn.base.BaseEstimator
+ |      builtins.object
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, *, bandwidth=1.0, algorithm=&#39;auto&#39;, kernel=&#39;gaussian&#39;, metric=&#39;euclidean&#39;, atol=0, rtol=0, breadth_first=True, leaf_size=40, metric_params=None)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  fit(self, X, y=None, sample_weight=None)
+ |      Fit the Kernel Density model on the data.
+ |      
+ |      Parameters
+ |      ----------
+ |      X : array_like, shape (n_samples, n_features)
+ |          List of n_features-dimensional data points.  Each row
+ |          corresponds to a single data point.
+ |      y : None
+ |          Ignored. This parameter exists only for compatibility with
+ |          :class:`sklearn.pipeline.Pipeline`.
+ |      sample_weight : array_like, shape (n_samples,), optional
+ |          List of sample weights attached to the data X.
+ |      
+ |          .. versionadded:: 0.20
+ |      
+ |      Returns
+ |      -------
+ |      self : object
+ |          Returns instance of object.
+ |  
+ |  sample(self, n_samples=1, random_state=None)
+ |      Generate random samples from the model.
+ |      
+ |      Currently, this is implemented only for gaussian and tophat kernels.
+ |      
+ |      Parameters
+ |      ----------
+ |      n_samples : int, optional
+ |          Number of samples to generate. Defaults to 1.
+ |      
+ |      random_state : int, RandomState instance, default=None
+ |          Determines random number generation used to generate
+ |          random samples. Pass an int for reproducible results
+ |          across multiple function calls.
+ |          See :term: `Glossary &lt;random_state&gt;`.
+ |      
+ |      Returns
+ |      -------
+ |      X : array_like, shape (n_samples, n_features)
+ |          List of samples.
+ |  
+ |  score(self, X, y=None)
+ |      Compute the total log probability density under the model.
+ |      
+ |      Parameters
+ |      ----------
+ |      X : array_like, shape (n_samples, n_features)
+ |          List of n_features-dimensional data points.  Each row
+ |          corresponds to a single data point.
+ |      y : None
+ |          Ignored. This parameter exists only for compatibility with
+ |          :class:`sklearn.pipeline.Pipeline`.
+ |      
+ |      Returns
+ |      -------
+ |      logprob : float
+ |          Total log-likelihood of the data in X. This is normalized to be a
+ |          probability density, so the value will be low for high-dimensional
+ |          data.
+ |  
+ |  score_samples(self, X)
+ |      Evaluate the log density model on the data.
+ |      
+ |      Parameters
+ |      ----------
+ |      X : array_like, shape (n_samples, n_features)
+ |          An array of points to query.  Last dimension should match dimension
+ |          of training data (n_features).
+ |      
+ |      Returns
+ |      -------
+ |      density : ndarray, shape (n_samples,)
+ |          The array of log(density) evaluations. These are normalized to be
+ |          probability densities, so values will be low for high-dimensional
+ |          data.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Methods inherited from sklearn.base.BaseEstimator:
+ |  
+ |  __getstate__(self)
+ |  
+ |  __repr__(self, N_CHAR_MAX=700)
+ |      Return repr(self).
+ |  
+ |  __setstate__(self, state)
+ |  
+ |  get_params(self, deep=True)
+ |      Get parameters for this estimator.
+ |      
+ |      Parameters
+ |      ----------
+ |      deep : bool, default=True
+ |          If True, will return the parameters for this estimator and
+ |          contained subobjects that are estimators.
+ |      
+ |      Returns
+ |      -------
+ |      params : mapping of string to any
+ |          Parameter names mapped to their values.
+ |  
+ |  set_params(self, **params)
+ |      Set the parameters of this estimator.
+ |      
+ |      The method works on simple estimators as well as on nested objects
+ |      (such as pipelines). The latter have parameters of the form
+ |      ``&lt;component&gt;__&lt;parameter&gt;`` so that it&#39;s possible to update each
+ |      component of a nested object.
+ |      
+ |      Parameters
+ |      ----------
+ |      **params : dict
+ |          Estimator parameters.
+ |      
+ |      Returns
+ |      -------
+ |      self : object
+ |          Estimator instance.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors inherited from sklearn.base.BaseEstimator:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
