@@ -324,6 +324,13 @@
   <a class="reference internal nav-link" href="#maximum-likelihood-estimation">
    Maximum Likelihood Estimation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parameter-estimation-for-normal-distribution">
+     Parameter Estimation for Normal Distribution
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gaussian-mixture-model">
@@ -331,8 +338,13 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reference-python-data-science-handbook-by-jake-vanderplas">
-     Reference - Python Data Science Handbook by Jake VanderPlas
+    <a class="reference internal nav-link" href="#reference-1-python-data-science-handbook-by-jake-vanderplas">
+     Reference 1 - Python Data Science Handbook by Jake VanderPlas
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reference-2-pattern-recognition-and-machine-learning-by-christopher-m-bishop">
+     Reference 2 - Pattern Recognition and Machine Learning by Christopher M. Bishop
     </a>
    </li>
   </ul>
@@ -362,6 +374,23 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#kernel-density-estimation">
    Kernel Density Estimation
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#python-code-to-estimate-the-density">
+     Python Code to Estimate the Density
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scikit-learn-to-estimate-the-density">
+     Scikit-learn to Estimate the Density
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation-20-mins">
+   EVALUATION (20 mins)
   </a>
  </li>
 </ul>
@@ -1126,11 +1155,40 @@ if (outputEl) {{
 </div>
 <div class="section" id="maximum-likelihood-estimation">
 <h2>Maximum Likelihood Estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this headline">¶</a></h2>
+<p>The Maximum Likelihood Estimate (MLE) can be computed by optimizing or maximizing the likelihood function for the distribution parameters. This is usually done by maximizing the log-likelihood for numerical stability. The Scipy ‘stats’ module has distributions with a ‘fit’ method that performs this MLE calculation. An example with a Normal or Gaussian distribution is shown below.</p>
+<div class="section" id="parameter-estimation-for-normal-distribution">
+<h3>Parameter Estimation for Normal Distribution<a class="headerlink" href="#parameter-estimation-for-normal-distribution" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="n">loc</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">x_label</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean and scale of the Gaussian distribution is &quot;</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean and scale of the Gaussian distribution is  0.9726197926685909 0.14658742203060857
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="gaussian-mixture-model">
 <h2>Gaussian Mixture Model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="reference-python-data-science-handbook-by-jake-vanderplas">
-<h3>Reference - Python Data Science Handbook by Jake VanderPlas<a class="headerlink" href="#reference-python-data-science-handbook-by-jake-vanderplas" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="reference-1-python-data-science-handbook-by-jake-vanderplas">
+<h3>Reference 1 - Python Data Science Handbook by Jake VanderPlas<a class="headerlink" href="#reference-1-python-data-science-handbook-by-jake-vanderplas" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="reference-2-pattern-recognition-and-machine-learning-by-christopher-m-bishop">
+<h3>Reference 2 - Pattern Recognition and Machine Learning by Christopher M. Bishop<a class="headerlink" href="#reference-2-pattern-recognition-and-machine-learning-by-christopher-m-bishop" title="Permalink to this headline">¶</a></h3>
+<p>Usually the data does not come from a single normal distribution (it would be nice if everything did!). In such cases, arbitrary distributions can be modeled as a distribution. A Gaussian Mixture Model can be created by superimposing several weighted Gaussians. If a sufficiently large number of Gaussians are used and their mean and covariances are varied, we can model quite complex distributions.</p>
+<p><span class="math notranslate nohighlight">\(p(x) = \sum_k w_k N(x | \mu_k, \Sigma_k)\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(w_k\)</span> is the weight or the mixing coefficient associated with each Gaussian distribution. The individual Gaussian distributions are called the components of the mixture model. It is possible to create mixture models using other distributions such as a Bernoulli distribution. The mixing coefficients are such that</p>
+<p><span class="math notranslate nohighlight">\(\sum_k w_k = 1\)</span> and therefore <span class="math notranslate nohighlight">\(0 &lt; w_k &lt; 1\)</span>. This term can be interpreted as the prior probability of picking the ‘k’th term. The term <span class="math notranslate nohighlight">\(p(x)\)</span> can be written using Bayes Theorem as</p>
+<p><span class="math notranslate nohighlight">\(p(x) = \sum_k p(k) p(x|k)\)</span></p>
+<p>and as a result <span class="math notranslate nohighlight">\(p(x|k\)</span> is equivalent to <span class="math notranslate nohighlight">\(N(x | \mu_k, \Sigma_k)\)</span>. The reason for this detour is to introduce the term ‘responsibilities’ which is <span class="math notranslate nohighlight">\(p(k|x)\)</span>.</p>
+<p>One way to determine the values of <span class="math notranslate nohighlight">\(\mu, \Sigma, w_k\)</span> is through numerical optimization of the likelihood function since closed form solutions are no longer available. Expectation Maximization algorithms are another way to accomplish this as well.</p>
 </div>
 </div>
 <div class="section" id="density-estimation-using-gaussian-mixture-models">
@@ -1157,7 +1215,7 @@ if (outputEl) {{
  &lt;BarContainer object of 10 artists&gt;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_30_2.png" src="../_images/Distributions_30_2.png" />
+<img alt="../_images/Distributions_31_2.png" src="../_images/Distributions_31_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1178,7 +1236,7 @@ Converged  True
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fb31f280730&gt;
 </pre></div>
 </div>
-<img alt="../_images/Distributions_31_2.png" src="../_images/Distributions_31_2.png" />
+<img alt="../_images/Distributions_32_2.png" src="../_images/Distributions_32_2.png" />
 </div>
 </div>
 <div class="section" id="get-model-parameters">
@@ -1298,14 +1356,16 @@ Initialization converged: True
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Log of BIC scores&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_38_1.png" src="../_images/Distributions_38_1.png" />
-<img alt="../_images/Distributions_38_2.png" src="../_images/Distributions_38_2.png" />
+<img alt="../_images/Distributions_39_1.png" src="../_images/Distributions_39_1.png" />
+<img alt="../_images/Distributions_39_2.png" src="../_images/Distributions_39_2.png" />
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="kernel-density-estimation">
 <h2>Kernel Density Estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="python-code-to-estimate-the-density">
+<h3>Python Code to Estimate the Density<a class="headerlink" href="#python-code-to-estimate-the-density" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
@@ -1318,9 +1378,14 @@ Initialization converged: True
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Distributions_40_0.png" src="../_images/Distributions_40_0.png" />
+<img alt="../_images/Distributions_41_0.png" src="../_images/Distributions_41_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="scikit-learn-to-estimate-the-density">
+<h3>Scikit-learn to Estimate the Density<a class="headerlink" href="#scikit-learn-to-estimate-the-density" title="Permalink to this headline">¶</a></h3>
+<p>You can also use the Scikit-learn implementation of the Kernel Density Estimator
+Valid kernels are [‘gaussian’|’tophat’|’epanechnikov’|’exponential’|’linear’|’cosine’]</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KernelDensity</span>
@@ -1336,227 +1401,17 @@ Initialization converged: True
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Log probability of KDE vs. x&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_41_1.png" src="../_images/Distributions_41_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">KernelDensity</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Help on class KernelDensity in module sklearn.neighbors._kde:
-
-class KernelDensity(sklearn.base.BaseEstimator)
- |  KernelDensity(*, bandwidth=1.0, algorithm=&#39;auto&#39;, kernel=&#39;gaussian&#39;, metric=&#39;euclidean&#39;, atol=0, rtol=0, breadth_first=True, leaf_size=40, metric_params=None)
- |  
- |  Kernel Density Estimation.
- |  
- |  Read more in the :ref:`User Guide &lt;kernel_density&gt;`.
- |  
- |  Parameters
- |  ----------
- |  bandwidth : float
- |      The bandwidth of the kernel.
- |  
- |  algorithm : str
- |      The tree algorithm to use.  Valid options are
- |      [&#39;kd_tree&#39;|&#39;ball_tree&#39;|&#39;auto&#39;].  Default is &#39;auto&#39;.
- |  
- |  kernel : str
- |      The kernel to use.  Valid kernels are
- |      [&#39;gaussian&#39;|&#39;tophat&#39;|&#39;epanechnikov&#39;|&#39;exponential&#39;|&#39;linear&#39;|&#39;cosine&#39;]
- |      Default is &#39;gaussian&#39;.
- |  
- |  metric : str
- |      The distance metric to use.  Note that not all metrics are
- |      valid with all algorithms.  Refer to the documentation of
- |      :class:`BallTree` and :class:`KDTree` for a description of
- |      available algorithms.  Note that the normalization of the density
- |      output is correct only for the Euclidean distance metric. Default
- |      is &#39;euclidean&#39;.
- |  
- |  atol : float
- |      The desired absolute tolerance of the result.  A larger tolerance will
- |      generally lead to faster execution. Default is 0.
- |  
- |  rtol : float
- |      The desired relative tolerance of the result.  A larger tolerance will
- |      generally lead to faster execution.  Default is 1E-8.
- |  
- |  breadth_first : bool
- |      If true (default), use a breadth-first approach to the problem.
- |      Otherwise use a depth-first approach.
- |  
- |  leaf_size : int
- |      Specify the leaf size of the underlying tree.  See :class:`BallTree`
- |      or :class:`KDTree` for details.  Default is 40.
- |  
- |  metric_params : dict
- |      Additional parameters to be passed to the tree for use with the
- |      metric.  For more information, see the documentation of
- |      :class:`BallTree` or :class:`KDTree`.
- |  
- |  See Also
- |  --------
- |  sklearn.neighbors.KDTree : K-dimensional tree for fast generalized N-point
- |      problems.
- |  sklearn.neighbors.BallTree : Ball tree for fast generalized N-point
- |      problems.
- |  
- |  Examples
- |  --------
- |  Compute a gaussian kernel density estimate with a fixed bandwidth.
- |  &gt;&gt;&gt; import numpy as np
- |  &gt;&gt;&gt; rng = np.random.RandomState(42)
- |  &gt;&gt;&gt; X = rng.random_sample((100, 3))
- |  &gt;&gt;&gt; kde = KernelDensity(kernel=&#39;gaussian&#39;, bandwidth=0.5).fit(X)
- |  &gt;&gt;&gt; log_density = kde.score_samples(X[:3])
- |  &gt;&gt;&gt; log_density
- |  array([-1.52955942, -1.51462041, -1.60244657])
- |  
- |  Method resolution order:
- |      KernelDensity
- |      sklearn.base.BaseEstimator
- |      builtins.object
- |  
- |  Methods defined here:
- |  
- |  __init__(self, *, bandwidth=1.0, algorithm=&#39;auto&#39;, kernel=&#39;gaussian&#39;, metric=&#39;euclidean&#39;, atol=0, rtol=0, breadth_first=True, leaf_size=40, metric_params=None)
- |      Initialize self.  See help(type(self)) for accurate signature.
- |  
- |  fit(self, X, y=None, sample_weight=None)
- |      Fit the Kernel Density model on the data.
- |      
- |      Parameters
- |      ----------
- |      X : array_like, shape (n_samples, n_features)
- |          List of n_features-dimensional data points.  Each row
- |          corresponds to a single data point.
- |      y : None
- |          Ignored. This parameter exists only for compatibility with
- |          :class:`sklearn.pipeline.Pipeline`.
- |      sample_weight : array_like, shape (n_samples,), optional
- |          List of sample weights attached to the data X.
- |      
- |          .. versionadded:: 0.20
- |      
- |      Returns
- |      -------
- |      self : object
- |          Returns instance of object.
- |  
- |  sample(self, n_samples=1, random_state=None)
- |      Generate random samples from the model.
- |      
- |      Currently, this is implemented only for gaussian and tophat kernels.
- |      
- |      Parameters
- |      ----------
- |      n_samples : int, optional
- |          Number of samples to generate. Defaults to 1.
- |      
- |      random_state : int, RandomState instance, default=None
- |          Determines random number generation used to generate
- |          random samples. Pass an int for reproducible results
- |          across multiple function calls.
- |          See :term: `Glossary &lt;random_state&gt;`.
- |      
- |      Returns
- |      -------
- |      X : array_like, shape (n_samples, n_features)
- |          List of samples.
- |  
- |  score(self, X, y=None)
- |      Compute the total log probability density under the model.
- |      
- |      Parameters
- |      ----------
- |      X : array_like, shape (n_samples, n_features)
- |          List of n_features-dimensional data points.  Each row
- |          corresponds to a single data point.
- |      y : None
- |          Ignored. This parameter exists only for compatibility with
- |          :class:`sklearn.pipeline.Pipeline`.
- |      
- |      Returns
- |      -------
- |      logprob : float
- |          Total log-likelihood of the data in X. This is normalized to be a
- |          probability density, so the value will be low for high-dimensional
- |          data.
- |  
- |  score_samples(self, X)
- |      Evaluate the log density model on the data.
- |      
- |      Parameters
- |      ----------
- |      X : array_like, shape (n_samples, n_features)
- |          An array of points to query.  Last dimension should match dimension
- |          of training data (n_features).
- |      
- |      Returns
- |      -------
- |      density : ndarray, shape (n_samples,)
- |          The array of log(density) evaluations. These are normalized to be
- |          probability densities, so values will be low for high-dimensional
- |          data.
- |  
- |  ----------------------------------------------------------------------
- |  Methods inherited from sklearn.base.BaseEstimator:
- |  
- |  __getstate__(self)
- |  
- |  __repr__(self, N_CHAR_MAX=700)
- |      Return repr(self).
- |  
- |  __setstate__(self, state)
- |  
- |  get_params(self, deep=True)
- |      Get parameters for this estimator.
- |      
- |      Parameters
- |      ----------
- |      deep : bool, default=True
- |          If True, will return the parameters for this estimator and
- |          contained subobjects that are estimators.
- |      
- |      Returns
- |      -------
- |      params : mapping of string to any
- |          Parameter names mapped to their values.
- |  
- |  set_params(self, **params)
- |      Set the parameters of this estimator.
- |      
- |      The method works on simple estimators as well as on nested objects
- |      (such as pipelines). The latter have parameters of the form
- |      ``&lt;component&gt;__&lt;parameter&gt;`` so that it&#39;s possible to update each
- |      component of a nested object.
- |      
- |      Parameters
- |      ----------
- |      **params : dict
- |          Estimator parameters.
- |      
- |      Returns
- |      -------
- |      self : object
- |          Estimator instance.
- |  
- |  ----------------------------------------------------------------------
- |  Data descriptors inherited from sklearn.base.BaseEstimator:
- |  
- |  __dict__
- |      dictionary for instance variables (if defined)
- |  
- |  __weakref__
- |      list of weak references to the object (if defined)
-</pre></div>
+<img alt="../_images/Distributions_43_1.png" src="../_images/Distributions_43_1.png" />
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="evaluation-20-mins">
+<h2>EVALUATION (20 mins)<a class="headerlink" href="#evaluation-20-mins" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Change the bandwidth for both codes and see how the KDE changes</p></li>
+<li><p>Change the kernel type for the scikit-learn implementation and note how the KDE changes</p></li>
+</ol>
 </div>
 </div>
 
