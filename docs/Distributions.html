@@ -338,6 +338,11 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   EVALUATION
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gaussian-mixture-model">
    Gaussian Mixture Model
   </a>
@@ -1217,6 +1222,14 @@ if (outputEl) {{
 </div>
 </div>
 </div>
+<div class="section" id="id1">
+<h2>EVALUATION<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>If the Maximum Likelihood Estimate of the mean of a Normal distribution is 5, what is the Maximum Aposteriori Estimate for a uniform prior?</p>
+<ol class="simple">
+<li><p>5 (C)</p></li>
+<li><p>10</p></li>
+</ol>
+</div>
 <div class="section" id="gaussian-mixture-model">
 <h2>Gaussian Mixture Model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="reference-1-python-data-science-handbook-by-jake-vanderplas">
@@ -1257,7 +1270,7 @@ if (outputEl) {{
  &lt;BarContainer object of 10 artists&gt;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_31_2.png" src="../_images/Distributions_31_2.png" />
+<img alt="../_images/Distributions_32_2.png" src="../_images/Distributions_32_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1278,7 +1291,7 @@ Converged  True
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fb323f9a3a0&gt;
 </pre></div>
 </div>
-<img alt="../_images/Distributions_32_2.png" src="../_images/Distributions_32_2.png" />
+<img alt="../_images/Distributions_33_2.png" src="../_images/Distributions_33_2.png" />
 </div>
 </div>
 <div class="section" id="get-model-parameters">
@@ -1398,8 +1411,8 @@ Initialization converged: True
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Log of BIC scores&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_39_1.png" src="../_images/Distributions_39_1.png" />
-<img alt="../_images/Distributions_39_2.png" src="../_images/Distributions_39_2.png" />
+<img alt="../_images/Distributions_40_1.png" src="../_images/Distributions_40_1.png" />
+<img alt="../_images/Distributions_40_2.png" src="../_images/Distributions_40_2.png" />
 </div>
 </div>
 </div>
@@ -1414,7 +1427,7 @@ The other problem with binning is bin placement; depending on where the bins are
 </div>
 <div class="section" id="kernel-density-estimation">
 <h2>Kernel Density Estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this headline">¶</a></h2>
-<p>Another alternative to a histogram and using binning is to place a kernel at each data point and sum up the values of the kernel at each point for every data point. This results in a much smoother graph of the distribution and is not dependent on bin size or placement. The width of the kernel, however, does have an impact on the shape of the distribution. One of t</p>
+<p>Another alternative to a histogram and using binning is to place a kernel at each data point and sum up the values of the kernel at each point for every data point. This results in a much smoother graph of the distribution and is not dependent on bin size or placement. The width of the kernel, however, does have an impact on the shape of the distribution. One of the commonly used kernels is the Gaussian kernel and we will see how it can used to get a visual estimation of the data distribution as shown below.</p>
 <div class="section" id="python-code-to-estimate-the-density">
 <h3>Python Code to Estimate the Density<a class="headerlink" href="#python-code-to-estimate-the-density" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
@@ -1432,7 +1445,7 @@ The other problem with binning is bin placement; depending on where the bins are
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;KDE in log scale vs. x&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_42_1.png" src="../_images/Distributions_42_1.png" />
+<img alt="../_images/Distributions_43_1.png" src="../_images/Distributions_43_1.png" />
 </div>
 </div>
 </div>
@@ -1455,7 +1468,7 @@ Valid kernels are [‘gaussian’|’tophat’|’epanechnikov’|’exponential
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Log probability of KDE vs. x&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_44_1.png" src="../_images/Distributions_44_1.png" />
+<img alt="../_images/Distributions_45_1.png" src="../_images/Distributions_45_1.png" />
 </div>
 </div>
 </div>

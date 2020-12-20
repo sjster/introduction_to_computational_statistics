@@ -303,6 +303,13 @@
   <a class="reference internal nav-link" href="#rejection-sampling">
    Rejection Sampling
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#importance-sampling">
+     Importance Sampling
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -399,21 +406,23 @@
 </div>
 <div class="section" id="rejection-sampling">
 <h2>Rejection Sampling<a class="headerlink" href="#rejection-sampling" title="Permalink to this headline">¶</a></h2>
-<p>Rejection sampling is more sophisticated than the techniques listed above. It generates approximately the correct distribution and rejection sampling is used to correct the errors resulting in the correct distribution. Rejection sampling is based on the following principles</p>
+<p>Rejection sampling is more sophisticated than the techniques listed above. It generates approximately the correct distribution and rejection sampling is used to correct the errors resulting in the correct distribution. Rejection sampling is based on the following principles. Suppose that we want to sample from a distribution p(z).</p>
 <ol class="simple">
-<li><p>A probability density called the proposal density ‘g’</p></li>
-<li><p>A function ‘p’ with values in the range [0,1] called the acceptance probability</p></li>
+<li><p>A probability density called the proposal density ‘q(z)’. This density is selected such that it is easier to sample than the original distribution p(z).</p></li>
+<li><p>p(z) is difficult to sample from but we can evaluate it up to a certain proportionality constant.</p></li>
+<li><p>A constant ‘k’ such that <span class="math notranslate nohighlight">\(k q(z) &gt;= p(z)\)</span> for all values of z. This forms an envelope around p(z).</p></li>
 </ol>
 <p>Given the above densities, we use the following steps</p>
 <ol class="simple">
-<li><p>Draw <span class="math notranslate nohighlight">\(X_n\)</span> from the proposal density g</p></li>
-<li><p>Draw <span class="math notranslate nohighlight">\(U_n\)</span> from the acceptance probability U[0,1]</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(U_n &lt;= p(X_n)\)</span> then accept the proposal values <span class="math notranslate nohighlight">\(X_n\)</span></p></li>
+<li><p>Draw <span class="math notranslate nohighlight">\(z_0\)</span> from <span class="math notranslate nohighlight">\(q(z)\)</span> and compute <span class="math notranslate nohighlight">\(k q(z_0)\)</span></p></li>
+<li><p>Draw a uniform number <span class="math notranslate nohighlight">\(u_0\)</span> from <span class="math notranslate nohighlight">\([0, k q(z_0)]\)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\(u_0 &gt; p(z_0)\)</span>, the sample is rejected otherwise save <span class="math notranslate nohighlight">\(u_0\)</span>. By doing so, anything that falls under <span class="math notranslate nohighlight">\(p(z)\)</span> is saved and has a uniform distribution thereby obtaining the distribution of p(z)</p></li>
 <li><p>Continue with (1) until sufficient samples have been drawn</p></li>
 </ol>
-<p>This process results in a random variable with the probability density given by</p>
-<p><span class="math notranslate nohighlight">\(f(x) = \dfrac{p(x)g(x)}{\int p(x) g(x)}\)</span></p>
-<p>We design the acceptance probabilities such that the distribution <span class="math notranslate nohighlight">\(f(x)\)</span> matches the desired target distribution.</p>
+<p>The samples are accepted with probability <span class="math notranslate nohighlight">\(\dfrac{p(z)}{k q(z)}\)</span>.</p>
+<div class="section" id="importance-sampling">
+<h3>Importance Sampling<a class="headerlink" href="#importance-sampling" title="Permalink to this headline">¶</a></h3>
+</div>
 </div>
 </div>
 
