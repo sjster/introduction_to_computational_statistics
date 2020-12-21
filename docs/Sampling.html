@@ -329,7 +329,7 @@
 In most practical scenarios, the distributions are complex enough that it is difficult enough to sample from appropriately but they can often be evaluated at a certain point. The simple strategy of sampling uniformly fails for a couple of reasons.</p>
 <ol class="simple">
 <li><p>This quickly becomes inefficient as the number of dimensions grow.</p></li>
-<li><p>In high-dimensional spaces, there are vast regions of nothingness and most of the probability density is concentrated in a small region. Ideally, we want to sample from regions in space where the function f(x) and the probability of that value f(x) given by p(x) is high so that the contribution of this term \(f(x) p(x)\) <span class="math notranslate nohighlight">\(f(x) p(x)\)</span> is high.</p></li>
+<li><p>In high-dimensional spaces, there are vast regions of nothingness and most of the probability density is concentrated in a small region. Ideally, we want to sample from regions in space where the function f(x) and the probability of that value f(x) given by p(x) is high so that the contribution of this term \(f(x) p(x)\) is high.</p></li>
 </ol>
 <p>We will look at various ways to perform efficient sampling here. This is useful not only to understand how distributions are sampled in practice in a package such as SciPy but it also helps you to write your own custom distribution should that need arise.</p>
 </div>
@@ -338,41 +338,45 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <div class="section" id="uniform-continuous-to-uniform-discrete">
 <h3>Uniform Continuous to Uniform Discrete<a class="headerlink" href="#uniform-continuous-to-uniform-discrete" title="Permalink to this headline">¶</a></h3>
 <p>In order to sample data from a particular distribution we can start with a uniform continuous distribution between 0 and 1 denoted as U[0,1]. The probability of picking a value less than ‘a’ that is between 0 and 1 is given by</p>
-<p><span class="math notranslate nohighlight">\(P(x &lt; a) = a\)</span></p>
+<div class="math notranslate nohighlight">
+\[P(x &lt; a) = a\]</div>
 <p>but because there are infinite possibilities between 0 and 1, the probability of picking any particular value ‘a’ is close to 0.</p>
 <p>If we have a discrete uniform distribution from 0 to ‘n’ denoted as U{0,1,…n-1}, this set has ‘n’ samples and the probability of choosing any discrete value ‘a’ is</p>
-<p><span class="math notranslate nohighlight">\(P(x = a) = \dfrac{1}{n}\)</span></p>
+<div class="math notranslate nohighlight">
+\[P(x = a) = \dfrac{1}{n}\]</div>
 <p>since this is a discrete value and there are a finite number of elements in this set. One way to convert this continuous uniform distribution U[0,1] to the discrete distribution U{0,1,…n-1} is through the transformation X = [[n U]] where I have used the notation [[ ]] for rounding the values within to the nearest integer. Now</p>
 <p><span class="math notranslate nohighlight">\(X \sim U \{0,1,...n-1\}\)</span></p>
 </div>
 <div class="section" id="arbitrary-discrete-distributions">
 <h3>Arbitrary Discrete Distributions<a class="headerlink" href="#arbitrary-discrete-distributions" title="Permalink to this headline">¶</a></h3>
-<p>To generate an arbitrary distribution, we can use the continuous uniform distribution and sample from it followed by a transform such that we get our desired distribution. In the figure below, we have divided the uniform continuous distribution U[0,1] into uneven lengths given by <span class="math notranslate nohighlight">\(p_1, p_2, p_3...p_n\)</span> (here n = 5) such that <span class="math notranslate nohighlight">\(\sum p_i = 1\)</span></p>
+<p>To generate an arbitrary distribution, we can use the continuous uniform distribution and sample from it followed by a transform such that we get our desired distribution. In the figure below, we have divided the uniform continuous distribution U[0,1] into uneven lengths given by \(p_1, p_2, p_3…p_n\) (here n = 5) such that \(\sum p_i = 1\)</p>
 <p><img alt="Interval Transformation" src="../_images/transformation.png" /></p>
-<p>If we want to sample from a arbitrary discrete set <span class="math notranslate nohighlight">\(A = \{a_1, a_2...a_n\}\)</span>, with probabilities given by <span class="math notranslate nohighlight">\(p_1, p_2, p_3...p_n\)</span> all we have to do is sample from the uniform continuous distribution U[0,1] since the interval <span class="math notranslate nohighlight">\(i\)</span> will be picked with probability <span class="math notranslate nohighlight">\(p_i\)</span> corresponding to the set element <span class="math notranslate nohighlight">\(a_i\)</span>.</p>
+<p>If we want to sample from a arbitrary discrete set \(A = {a_1, a_2…a_n}\), with probabilities given by \(p_1, p_2, p_3…p_n\) all we have to do is sample from the uniform continuous distribution U[0,1] since the interval \(i\) will be picked with probability \(p_i\) corresponding to the set element \(a_i\).</p>
 </div>
 </div>
 <div class="section" id="the-inverse-transform-method">
 <h2>The Inverse Transform Method<a class="headerlink" href="#the-inverse-transform-method" title="Permalink to this headline">¶</a></h2>
 <p>This method uses the Cumulative Distribution Function (CDF) and the inverse of the CDF to generate our desired distribution.</p>
 <p>If a variable ‘Y’ is generated by applying a function ‘F’ to ‘X’ we get</p>
-<p>\(Y = F(X)\)</p>
+<div class="math notranslate nohighlight">
+\[Y = F(X)\]</div>
 <p>which implies that we can apply an inverse transformation to ‘Y’, if it exists, to obtain ‘X’. Here the function has to be invertible. The function ‘F’ is said to be bijective and has no jumps in its behavior.</p>
-<p><span class="math notranslate nohighlight">\(F^{-1} (Y) = X\)</span></p>
+<div class="math notranslate nohighlight">
+\[F^{-1} (Y) = X\]</div>
 <p>The steps required to sample from the distribution with CDF given by ‘F’ is shown below</p>
 <ol>
-<li><p>Calculate the inverse of the CDF given by <span class="math notranslate nohighlight">\(F^{-1}\)</span></p></li>
+<li><p>Calculate the inverse of the CDF given by \(F^{-1}\)</p></li>
 <li><p>Sample from U[0,1]</p></li>
 <li><p>Use the sampled values from (2) as input to the inverse of the CDF <span class="math notranslate nohighlight">\(F^{-1}\)</span> such that</p>
-<p><span class="math notranslate nohighlight">\(X \sim F^{-1} (U)\)</span></p>
+<div class="math notranslate nohighlight">
+\[X \sim F^{-1} (U)\]</div>
 </li>
 </ol>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>An exponential distribution is given by the PDF</p>
-<p><span class="math notranslate nohighlight">\(f(x) = \lambda e^{-\lambda x}\)</span> if x &gt;= 0</p>
-<p>The CDF for this function is</p>
-<p><span class="math notranslate nohighlight">\(F(a) = 1 - e^{-\lambda a}\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}f(x) = \lambda e^{-\lambda x}$$ if x &gt;= 0\\The CDF for this function is \\$$F(a) = 1 - e^{-\lambda a}\end{aligned}\end{align} \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -414,24 +418,25 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <ol class="simple">
 <li><p>A probability density called the proposal density ‘q(z)’. This density is selected such that it is easier to sample than the original distribution p(z).</p></li>
 <li><p>p(z) is difficult to sample from but we can evaluate it up to a certain proportionality constant.</p></li>
-<li><p>A constant ‘k’ such that <span class="math notranslate nohighlight">\(k q(z) &gt;= p(z)\)</span> for all values of z. This forms an envelope around p(z).</p></li>
+<li><p>A constant ‘k’ such that \(k q(z) &gt;= p(z)\) for all values of z. This forms an envelope around p(z).</p></li>
 </ol>
 <p>Given the above densities, we use the following steps</p>
 <ol class="simple">
-<li><p>Draw <span class="math notranslate nohighlight">\(z_0\)</span> from <span class="math notranslate nohighlight">\(q(z)\)</span> and compute <span class="math notranslate nohighlight">\(k q(z_0)\)</span></p></li>
-<li><p>Draw a uniform number <span class="math notranslate nohighlight">\(u_0\)</span> from <span class="math notranslate nohighlight">\([0, k q(z_0)]\)</span></p></li>
-<li><p>If <span class="math notranslate nohighlight">\(u_0 &gt; p(z_0)\)</span>, the sample is rejected otherwise save <span class="math notranslate nohighlight">\(u_0\)</span>. By doing so, anything that falls under <span class="math notranslate nohighlight">\(p(z)\)</span> is saved and has a uniform distribution thereby obtaining the distribution of p(z)</p></li>
+<li><p>Draw \(z_0\) from \(q(z)\) and compute \(k q(z_0)\)</p></li>
+<li><p>Draw a uniform number \(u_0\) from \([0, k q(z_0)]\)</p></li>
+<li><p>If \(u_0 &gt; p(z_0)\), the sample is rejected otherwise save \(u_0\). By doing so, anything that falls under \(p(z)\) is saved and has a uniform distribution thereby obtaining the distribution of p(z)</p></li>
 <li><p>Continue with (1) until sufficient samples have been drawn</p></li>
 </ol>
-<p>The samples are accepted with probability <span class="math notranslate nohighlight">\(\dfrac{p(z)}{k q(z)}\)</span>.</p>
+<p>The samples are accepted with probability \(\dfrac{p(z)}{k q(z)}\).</p>
 </div>
 <div class="section" id="importance-sampling">
 <h2>Importance Sampling<a class="headerlink" href="#importance-sampling" title="Permalink to this headline">¶</a></h2>
-<p>Importance sampling is useful for computing terms such as the expectations of a function <span class="math notranslate nohighlight">\(f(x)\)</span> with distribution <span class="math notranslate nohighlight">\(p(x)\)</span>. Ideally, we want to sample in space where the product <span class="math notranslate nohighlight">\(f(x) p(x)\)</span> is high since the expected value is computed as</p>
-<p><span class="math notranslate nohighlight">\(E[f] = \sum_i p(x_i) f(x_i)\)</span></p>
+<p>Importance sampling is useful for computing terms such as the expectations of a function \(f(x)\) with distribution \(p(x)\). Ideally, we want to sample in space where the product \(f(x) p(x)\) is high since the expected value is computed as</p>
+<div class="math notranslate nohighlight">
+\[E[f] = \sum_i p(x_i) f(x_i)\]</div>
 <p>Importance sampling is also based on the idea of using another proposal distribution that is easier to sample from compared to the original distribution p(x).</p>
-<p><span class="math notranslate nohighlight">\(E[f] = \int p(x) f(x) dx = \int \dfrac{p(x)}{q(x)} q(x) f(x) dx = \dfrac{1}{L} \sum_l \dfrac{p(x)}{q(x)} f(x) \)</span> where samples are drawn from (q(x))</p>
-<p>The <span class="math notranslate nohighlight">\(\dfrac{p(x)}{q(x)}\)</span> is known as the importance weights and correct the bias resulting from sampling from the wrong distribution. Unlike rejection sampling, all samples are retained.</p>
+<p>$<span class="math notranslate nohighlight">\(E[f] = \int p(x) f(x) dx = \int \dfrac{p(x)}{q(x)} q(x) f(x) dx = \dfrac{1}{L} \sum_l \dfrac{p(x)}{q(x)} f(x) \)</span>$ where samples are drawn from (q(x))</p>
+<p>The \(\dfrac{p(x)}{q(x)}\) is known as the importance weights and correct the bias resulting from sampling from the wrong distribution. Unlike rejection sampling, all samples are retained.</p>
 </div>
 </div>
 
