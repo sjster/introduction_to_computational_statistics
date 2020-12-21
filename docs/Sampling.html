@@ -430,7 +430,8 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <p>Importance sampling is useful for computing terms such as the expectations of a function <span class="math notranslate nohighlight">\(f(x)\)</span> with distribution <span class="math notranslate nohighlight">\(p(x)\)</span>. Ideally, we want to sample in space where the product <span class="math notranslate nohighlight">\(f(x) p(x)\)</span> is high since the expected value is computed as</p>
 <p><span class="math notranslate nohighlight">\(E[f] = \sum_i p(x_i) f(x_i)\)</span></p>
 <p>Importance sampling is also based on the idea of using another proposal distribution that is easier to sample from compared to the original distribution p(x).</p>
-<p><span class="math notranslate nohighlight">\(E[f] = \int p(x) f(x) dx = \int \dfrac{p(x)}{q(x)} q(x) f(x) dx = \dfrac{1}{L} \sum_l \dfrac{p(x)}{q(x)} f(x) \)</span> over (q(z)</p>
+<p><span class="math notranslate nohighlight">\(E[f] = \int p(x) f(x) dx = \int \dfrac{p(x)}{q(x)} q(x) f(x) dx = \dfrac{1}{L} \sum_l \dfrac{p(x)}{q(x)} f(x) \)</span> where samples are drawn from (q(x))</p>
+<p>The <span class="math notranslate nohighlight">\(\dfrac{p(x)}{q(x)}\)</span> is known as the importance weights and correct the bias resulting from sampling from the wrong distribution. Unlike rejection sampling, all samples are retained.</p>
 </div>
 </div>
 
