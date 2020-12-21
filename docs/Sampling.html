@@ -329,7 +329,7 @@
 In most practical scenarios, the distributions are complex enough that it is difficult enough to sample from appropriately but they can often be evaluated at a certain point. The simple strategy of sampling uniformly fails for a couple of reasons.</p>
 <ol class="simple">
 <li><p>This quickly becomes inefficient as the number of dimensions grow.</p></li>
-<li><p>In high-dimensional spaces, there are vast regions of nothingness and most of the probability density is concentrated in a small region. Ideally, we want to sample from regions in space where the function f(x) and the probability of that value f(x) given by p(x) is high so that the contribution of this term <span class="math notranslate nohighlight">\(f(x) p(x)\)</span> if high.</p></li>
+<li><p>In high-dimensional spaces, there are vast regions of nothingness and most of the probability density is concentrated in a small region. Ideally, we want to sample from regions in space where the function f(x) and the probability of that value f(x) given by p(x) is high so that the contribution of this term \(f(x) p(x)\) <span class="math notranslate nohighlight">\(f(x) p(x)\)</span> is high.</p></li>
 </ol>
 <p>We will look at various ways to perform efficient sampling here. This is useful not only to understand how distributions are sampled in practice in a package such as SciPy but it also helps you to write your own custom distribution should that need arise.</p>
 </div>
