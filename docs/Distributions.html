@@ -299,6 +299,18 @@
   <a class="reference internal nav-link" href="#student-s-t-distribution">
    Student’s t-distribution
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduction">
+     Introduction
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#derivation">
+     Derivation
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#exponential-distribution">
@@ -852,6 +864,8 @@ if (outputEl) {{
 </div>
 <div class="section" id="student-s-t-distribution">
 <h2>Student’s t-distribution<a class="headerlink" href="#student-s-t-distribution" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
 <p>If we draw samples from a population has a normal distribution, but whose standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is not known to us then we can use a Student’s t-distribution to describe the standardized distances of the sample mean (M) to the population mean (<span class="math notranslate nohighlight">\(\mu\)</span>).</p>
 <p>If we sample from a population, there are two ways in which the sample mean (M) could be different from the true mean <span class="math notranslate nohighlight">\(\mu\)</span></p>
 <ul class="simple">
@@ -864,15 +878,31 @@ if (outputEl) {{
 <li><p><span class="math notranslate nohighlight">\(s_m\)</span> has to be smaller than <span class="math notranslate nohighlight">\(\sigma\)</span> unless the sample is extensive and covers the full range of values of the distribution (support)</p></li>
 </ul>
 <p>The Student’s t-distribution can be used to quantify how much smaller this is.</p>
-<p>The probability density function for the t-distribution is given by:</p>
+<p>The simplest form  of the probability density function for a zero-centered t-distribution is given by:</p>
 <p><span class="math notranslate nohighlight">\(P(t) = \dfrac{\Gamma \dfrac{v+1}{2}}{\sqrt{v \pi} \Gamma (v/2)} (1 + \dfrac{t^2}{v})^{-(v+1)/2}\)</span></p>
+<p>The mean of the distribution as shown above is 0 and the variance is given by ν/(ν - 2) where ν is the degrees of freedom of the distribution.</p>
+</div>
+<div class="section" id="derivation">
+<h3>Derivation<a class="headerlink" href="#derivation" title="Permalink to this headline">¶</a></h3>
+<p>A more generic definition of the distribution can be seen if we consider how it is derived. If we start with a univariate Normal distribution \(N(x | \mu, \tau^{-1})\), the conjugate prior for the precision \(\tau\) is given by a Gamma distribution \(G(\tau | a,b)\). (I am explicitly denoting the dependent variables and the parameters in the notation here to be clear). We can compute the marginal distribution for x by using the prior of the precision and integrating out the dependence of the Normal distribution on its precision.</p>
+<div class="math notranslate nohighlight">
+\[ p(x | \mu, a, b) = \int_0^{\infty} N(x | \mu, \tau^{-1}) \; G(\tau | a,b) \; d \tau \]</div>
+<div class="math notranslate nohighlight">
+\[ p(x | \mu, a, b) = \dfrac{b^a}{\Gamma(a)} (\dfrac{1}{2 \pi})^{1/2} [ b + \dfrac{(x - \mu)^2}{2} ]^{-a - 1/2} \; \Gamma(a + 1/2) \]</div>
+<p>The following new parameters are defined for the t-distribution in terms of the Gamma distribution parameters a and b</p>
+<ol class="simple">
+<li><p>ν = 2a</p></li>
+<li><p>\( \lambda = a/b \)</p></li>
+</ol>
+<p>The PDF for the Student’s t-distribution can hence be written as</p>
+<div class="math notranslate nohighlight">
+\[ p(x | \mu, a, b) = \dfrac{\Gamma \dfrac{v+1}{2}}{\Gamma (v/2)} \sqrt{\dfrac{\lambda}{v \pi}} (1 + \dfrac{{\lambda(x - \mu)}^2}{v})^{-(v+1)/2}\]</div>
 <p>Some of the ways to describe this distribution is listed below</p>
 <ul class="simple">
 <li><p>μ corresponds to the mean of the distribution</p></li>
-<li><p>σ is the scale and corresponds to the standard deviation</p></li>
+<li><p>\( \lambda \) corresponds to the precision of the distribution though it is generally not the same as the inverse of the variance of the distribution</p></li>
 <li><p>ν is the degrees of freedom and takes between 0 and <span class="math notranslate nohighlight">\(\infty\)</span>. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the distribution used to model this would have degrees of freedom set to 9. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinty corresponds to a Normal distribution.</p></li>
 </ul>
-<p>The mean of the distribution is 0 and the variance is given by ν/(ν - 2).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">studentst_distribution</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
@@ -890,18 +920,39 @@ if (outputEl) {{
     <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;P(t)&quot;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     
-    
-<span class="n">interact</span><span class="p">(</span><span class="n">studentst_distribution</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">INTERACT_FLAG</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>    
+    <span class="n">interact</span><span class="p">(</span><span class="n">studentst_distribution</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">studentst_distribution</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "fc90b74055de4a0f913ded5430b32f70", "version_major": 2, "version_minor": 0}
-</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.studentst_distribution(v)&gt;
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>                            <div id="551060a3-68fe-44d6-be48-ef7b9cb81a3a" class="plotly-graph-div" style="height:600px; width:800px;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("551060a3-68fe-44d6-be48-ef7b9cb81a3a")) {                    Plotly.newPlot(                        "551060a3-68fe-44d6-be48-ef7b9cb81a3a",                        [{"hovertemplate": "x=%{x}<br>y=%{y}<extra></extra>", "legendgroup": "", "line": {"color": "steelblue", "dash": "solid", "width": 4}, "mode": "lines", "name": "", "orientation": "v", "showlegend": false, "type": "scatter", "x": [-10.0, -9.797979797979798, -9.595959595959595, -9.393939393939394, -9.191919191919192, -8.98989898989899, -8.787878787878787, -8.585858585858587, -8.383838383838384, -8.181818181818182, -7.979797979797979, -7.777777777777778, -7.575757575757576, -7.373737373737374, -7.171717171717171, -6.96969696969697, -6.767676767676768, -6.565656565656566, -6.363636363636363, -6.161616161616162, -5.959595959595959, -5.757575757575758, -5.555555555555555, -5.353535353535354, -5.151515151515151, -4.94949494949495, -4.747474747474747, -4.545454545454546, -4.343434343434343, -4.141414141414142, -3.9393939393939394, -3.737373737373738, -3.5353535353535355, -3.333333333333333, -3.1313131313131315, -2.929292929292929, -2.7272727272727275, -2.525252525252525, -2.3232323232323235, -2.121212121212121, -1.9191919191919187, -1.717171717171718, -1.5151515151515156, -1.3131313131313131, -1.1111111111111107, -0.9090909090909101, -0.7070707070707076, -0.5050505050505052, -0.30303030303030276, -0.10101010101010033, 0.10101010101010033, 0.30303030303030276, 0.5050505050505052, 0.7070707070707076, 0.9090909090909083, 1.1111111111111107, 1.3131313131313131, 1.5151515151515156, 1.7171717171717162, 1.9191919191919187, 2.121212121212121, 2.3232323232323235, 2.525252525252524, 2.7272727272727266, 2.929292929292929, 3.1313131313131315, 3.333333333333334, 3.5353535353535346, 3.737373737373737, 3.9393939393939394, 4.141414141414142, 4.3434343434343425, 4.545454545454545, 4.747474747474747, 4.94949494949495, 5.1515151515151505, 5.353535353535353, 5.555555555555555, 5.757575757575758, 5.9595959595959584, 6.161616161616163, 6.363636363636363, 6.565656565656564, 6.767676767676768, 6.969696969696969, 7.171717171717173, 7.373737373737374, 7.575757575757574, 7.777777777777779, 7.979797979797979, 8.18181818181818, 8.383838383838384, 8.585858585858585, 8.787878787878789, 8.98989898989899, 9.19191919191919, 9.393939393939394, 9.595959595959595, 9.7979797979798, 10.0], "xaxis": "x", "y": [7.284685722912538e-07, 8.930569052811316e-07, 1.0986006295672707e-06, 1.356239521484309e-06, 1.6804034860988248e-06, 2.0898614169305033e-06, 2.6091289579534415e-06, 3.270366292054348e-06, 4.115947961056256e-06, 5.201958459829306e-06, 6.60296891925105e-06, 8.418594610058834e-06, 1.0782539177281047e-05, 1.3875127037262659e-05, 1.794075057054197e-05, 2.331227273243662e-05, 3.044531524276965e-05, 3.996665507949574e-05, 5.274283486313127e-05, 6.997784066849681e-05, 9.335271589656383e-05, 0.00012522584748001528, 0.000168921226679897, 0.000229144459025462, 0.0003125843724566512, 0.000428784070297467, 0.0005914022501030634, 0.0008200373288865238, 0.0011428575091539785, 0.0016003727824449947, 0.0022508000693284894, 0.003177601649642722, 0.004499892493009455, 0.0063864510110341844, 0.009073904962859822, 0.012889078241133594, 0.018274126254012178, 0.025810487531203193, 0.036233361249337195, 0.050422248923161446, 0.06934598722277953, 0.09393568062133101, 0.12486213412878193, 0.1622145079324998, 0.20512119338232274, 0.25141894467185394, 0.29753704737172076, 0.338771391207296, 0.3700297299929417, 0.38693205742708675, 0.38693205742708675, 0.3700297299929417, 0.338771391207296, 0.29753704737172076, 0.25141894467185416, 0.20512119338232274, 0.1622145079324998, 0.12486213412878193, 0.09393568062133127, 0.06934598722277953, 0.050422248923161446, 0.036233361249337195, 0.025810487531203234, 0.018274126254012202, 0.012889078241133594, 0.009073904962859822, 0.00638645101103417, 0.004499892493009465, 0.003177601649642728, 0.0022508000693284894, 0.0016003727824449947, 0.0011428575091539793, 0.0008200373288865259, 0.0005914022501030634, 0.000428784070297467, 0.00031258437245665187, 0.00022914445902546225, 0.000168921226679897, 0.00012522584748001528, 9.335271589656392e-05, 6.997784066849673e-05, 5.274283486313127e-05, 3.996665507949581e-05, 3.044531524276965e-05, 2.331227273243666e-05, 1.7940750570541924e-05, 1.3875127037262659e-05, 1.0782539177281069e-05, 8.418594610058822e-06, 6.60296891925105e-06, 5.201958459829316e-06, 4.115947961056256e-06, 3.270366292054356e-06, 2.6091289579534356e-06, 2.0898614169305033e-06, 1.6804034860988265e-06, 1.356239521484309e-06, 1.0986006295672707e-06, 8.930569052811309e-07, 7.284685722912538e-07], "yaxis": "y"}],                        {"height": 600, "legend": {"tracegroupgap": 0}, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "title": {"text": " Lognormal distribution for v = 10.000000"}, "width": 800, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "t"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "P(t)"}}},                        {"responsive": true}                    ).then(function(){
+
+var gd = document.getElementById('551060a3-68fe-44d6-be48-ef7b9cb81a3a');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -965,6 +1016,7 @@ if (outputEl) {{
 }}
 
                         })                };                });            </script>        </div></div></div>
+</div>
 </div>
 </div>
 <div class="section" id="exponential-distribution">
@@ -1138,17 +1190,39 @@ if (outputEl) {{
     <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
    
 
-<span class="n">interact</span><span class="p">(</span><span class="n">poisson_vector</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y_end</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">INTERACT_FLAG</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="n">interact</span><span class="p">(</span><span class="n">poisson_vector</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y_end</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">poisson_vector</span><span class="p">(</span><span class="n">theta</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">y_end</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "5117506c5ce24f7c8fa1c61a187a3224", "version_major": 2, "version_minor": 0}
-</script><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.poisson_vector(theta, y_end)&gt;
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><div>                            <div id="7ffeda66-42d6-42c7-8ba3-2b9b6a51c76d" class="plotly-graph-div" style="height:600px; width:800px;"></div>            <script type="text/javascript">                require(["plotly"], function(Plotly) {                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("7ffeda66-42d6-42c7-8ba3-2b9b6a51c76d")) {                    Plotly.newPlot(                        "7ffeda66-42d6-42c7-8ba3-2b9b6a51c76d",                        [{"hovertemplate": "x=%{x}<br>y=%{y}<extra></extra>", "legendgroup": "", "line": {"color": "steelblue", "dash": "solid", "width": 4}, "mode": "lines", "name": "", "orientation": "v", "showlegend": false, "type": "scatter", "x": [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0], "xaxis": "x", "y": [0.0009118819655545162, 0.006383173758881614, 0.022341108156085646, 0.052129252364199845, 0.09122619163734973, 0.12771666829228961, 0.1490027796743379, 0.1490027796743379, 0.13037743221504564, 0.10140466950059107, 0.07098326865041375, 0.045171170959354204, 0.02634984972628995, 0.014188380621848434, 0.007094190310924218, 0.0033106221450979684, 0.0014483971884803612, 0.0005963988423154428, 0.0002319328831226722, 8.544895693993186e-05, 2.990713492897615e-05], "yaxis": "y"}],                        {"height": 600, "legend": {"tracegroupgap": 0}, "template": {"data": {"bar": [{"error_x": {"color": "#2a3f5f"}, "error_y": {"color": "#2a3f5f"}, "marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "bar"}], "barpolar": [{"marker": {"line": {"color": "#E5ECF6", "width": 0.5}}, "type": "barpolar"}], "carpet": [{"aaxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "baxis": {"endlinecolor": "#2a3f5f", "gridcolor": "white", "linecolor": "white", "minorgridcolor": "white", "startlinecolor": "#2a3f5f"}, "type": "carpet"}], "choropleth": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "choropleth"}], "contour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "contour"}], "contourcarpet": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "contourcarpet"}], "heatmap": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmap"}], "heatmapgl": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "heatmapgl"}], "histogram": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "histogram"}], "histogram2d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2d"}], "histogram2dcontour": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "histogram2dcontour"}], "mesh3d": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "type": "mesh3d"}], "parcoords": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "parcoords"}], "pie": [{"automargin": true, "type": "pie"}], "scatter": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter"}], "scatter3d": [{"line": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatter3d"}], "scattercarpet": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattercarpet"}], "scattergeo": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergeo"}], "scattergl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattergl"}], "scattermapbox": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scattermapbox"}], "scatterpolar": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolar"}], "scatterpolargl": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterpolargl"}], "scatterternary": [{"marker": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "type": "scatterternary"}], "surface": [{"colorbar": {"outlinewidth": 0, "ticks": ""}, "colorscale": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "type": "surface"}], "table": [{"cells": {"fill": {"color": "#EBF0F8"}, "line": {"color": "white"}}, "header": {"fill": {"color": "#C8D4E3"}, "line": {"color": "white"}}, "type": "table"}]}, "layout": {"annotationdefaults": {"arrowcolor": "#2a3f5f", "arrowhead": 0, "arrowwidth": 1}, "coloraxis": {"colorbar": {"outlinewidth": 0, "ticks": ""}}, "colorscale": {"diverging": [[0, "#8e0152"], [0.1, "#c51b7d"], [0.2, "#de77ae"], [0.3, "#f1b6da"], [0.4, "#fde0ef"], [0.5, "#f7f7f7"], [0.6, "#e6f5d0"], [0.7, "#b8e186"], [0.8, "#7fbc41"], [0.9, "#4d9221"], [1, "#276419"]], "sequential": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]], "sequentialminus": [[0.0, "#0d0887"], [0.1111111111111111, "#46039f"], [0.2222222222222222, "#7201a8"], [0.3333333333333333, "#9c179e"], [0.4444444444444444, "#bd3786"], [0.5555555555555556, "#d8576b"], [0.6666666666666666, "#ed7953"], [0.7777777777777778, "#fb9f3a"], [0.8888888888888888, "#fdca26"], [1.0, "#f0f921"]]}, "colorway": ["#636efa", "#EF553B", "#00cc96", "#ab63fa", "#FFA15A", "#19d3f3", "#FF6692", "#B6E880", "#FF97FF", "#FECB52"], "font": {"color": "#2a3f5f"}, "geo": {"bgcolor": "white", "lakecolor": "white", "landcolor": "#E5ECF6", "showlakes": true, "showland": true, "subunitcolor": "white"}, "hoverlabel": {"align": "left"}, "hovermode": "closest", "mapbox": {"style": "light"}, "paper_bgcolor": "white", "plot_bgcolor": "#E5ECF6", "polar": {"angularaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "radialaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "scene": {"xaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "yaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}, "zaxis": {"backgroundcolor": "#E5ECF6", "gridcolor": "white", "gridwidth": 2, "linecolor": "white", "showbackground": true, "ticks": "", "zerolinecolor": "white"}}, "shapedefaults": {"line": {"color": "#2a3f5f"}}, "ternary": {"aaxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "baxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}, "bgcolor": "#E5ECF6", "caxis": {"gridcolor": "white", "linecolor": "white", "ticks": ""}}, "title": {"x": 0.05}, "xaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}, "yaxis": {"automargin": true, "gridcolor": "white", "linecolor": "white", "ticks": "", "title": {"standoff": 15}, "zerolinecolor": "white", "zerolinewidth": 2}}}, "title": {"text": " Poisson distribution for theta = 7"}, "width": 800, "xaxis": {"anchor": "y", "domain": [0.0, 1.0], "title": {"text": "y"}}, "yaxis": {"anchor": "x", "domain": [0.0, 1.0], "title": {"text": "P(y)"}}},                        {"responsive": true}                    ).then(function(){
+
+var gd = document.getElementById('7ffeda66-42d6-42c7-8ba3-2b9b6a51c76d');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };                });            </script>        </div></div></div>
 </div>
 </div>
 <div class="section" id="evaluation">
