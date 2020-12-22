@@ -866,7 +866,7 @@ if (outputEl) {{
 <h2>Student’s t-distribution<a class="headerlink" href="#student-s-t-distribution" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="introduction">
 <h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h3>
-<p>If we draw samples from a population has a normal distribution, but whose standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is not known to us then we can use a Student’s t-distribution to describe the standardized distances of the sample mean (M) to the population mean (<span class="math notranslate nohighlight">\(\mu\)</span>).</p>
+<p>If we draw samples from a population has a normal distribution, but whose standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> is not known to us then we can use a Student’s t-distribution to describe the standardized distances of the sample mean (M) to the population mean (<span class="math notranslate nohighlight">\(\mu\)</span>). A Student’s t-distribution is used where one would be inclined to use a Normal distribution, but a Normal distribution is susceptible to outliers whereas a t-distribution is moer robust.</p>
 <p>If we sample from a population, there are two ways in which the sample mean (M) could be different from the true mean <span class="math notranslate nohighlight">\(\mu\)</span></p>
 <ul class="simple">
 <li><p>M is too high</p></li>
@@ -889,7 +889,7 @@ if (outputEl) {{
 \[ p(x | \mu, a, b) = \int_0^{\infty} N(x | \mu, \tau^{-1}) \; G(\tau | a,b) \; d \tau \]</div>
 <div class="math notranslate nohighlight">
 \[ p(x | \mu, a, b) = \dfrac{b^a}{\Gamma(a)} (\dfrac{1}{2 \pi})^{1/2} [ b + \dfrac{(x - \mu)^2}{2} ]^{-a - 1/2} \; \Gamma(a + 1/2) \]</div>
-<p>The following new parameters are defined for the t-distribution in terms of the Gamma distribution parameters a and b</p>
+<p>The integral above has the following interpretation: a Student’s t-distribution is made up of an infinite number of Gaussians with the same mean and differing variances, with the variances varying from 0 to infinity. The following new parameters are defined for the t-distribution in terms of the Gamma distribution parameters a and b</p>
 <ol class="simple">
 <li><p>ν = 2a</p></li>
 <li><p>\( \lambda = a/b \)</p></li>
@@ -897,7 +897,7 @@ if (outputEl) {{
 <p>The PDF for the Student’s t-distribution can hence be written as</p>
 <div class="math notranslate nohighlight">
 \[ p(x | \mu, a, b) = \dfrac{\Gamma \dfrac{v+1}{2}}{\Gamma (v/2)} \sqrt{\dfrac{\lambda}{v \pi}} (1 + \dfrac{{\lambda(x - \mu)}^2}{v})^{-(v+1)/2}\]</div>
-<p>Some of the ways to describe this distribution is listed below</p>
+<p>where</p>
 <ul class="simple">
 <li><p>μ corresponds to the mean of the distribution</p></li>
 <li><p>\( \lambda \) corresponds to the precision of the distribution though it is generally not the same as the inverse of the variance of the distribution</p></li>
