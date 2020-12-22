@@ -352,13 +352,13 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ergodicity">
-   Ergodicity
+  <a class="reference internal nav-link" href="#stationary-distributions">
+   Stationary distributions
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#stationary-distributions">
-   Stationary distributions
+  <a class="reference internal nav-link" href="#ergodicity">
+   Ergodicity
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -583,14 +583,18 @@ KL Divergence between the true distribution and the q2 distribution  1.276465607
 <p>where n is the number of data points and <span class="math notranslate nohighlight">\(M_k\)</span> is the k’th model and <span class="math notranslate nohighlight">\(w_k\)</span> is the weight applied to the k’th model. <span class="math notranslate nohighlight">\(y_{-i}\)</span> is every element in y except <span class="math notranslate nohighlight">\(y_i\)</span>. The term <span class="math notranslate nohighlight">\(p(y_i | y_{-i}, M_k)\)</span> corresponds to the predictive probability density using a Leave-One-Out cross validation procedure. The goal is to select the combination of weights that maximizes the probability of seeing <span class="math notranslate nohighlight">\(y_i\)</span>, thereby giving us the ideal metamodel that minimizes the divergence to our best of our knowledge based on the data available. Note here that argmax is computed over ‘w’ as opposed to ‘n’ as it listed in some resources.</p>
 </div>
 </div>
-<div class="section" id="ergodicity">
-<h2>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h2>
-<p>Ergodicity is a critical property for a Markov Chain which combine the properties of a state being recurrent and aperiodic. Recurrent implies that, in a transition, a given state will return to itself. An aperiodic state returns to itself in a number of steps 1,2,3…. <span class="math notranslate nohighlight">\(\infty\)</span>. The implications of ergodicity are that if we sample a space long enough we will cover almost every point in that space (theoretically)</p>
-</div>
 <div class="section" id="stationary-distributions">
 <h2>Stationary distributions<a class="headerlink" href="#stationary-distributions" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://www.youtube.com/watch?v=aIdTGKjQWjA">Youtube</a></p>
-<p>Stationary distributions simply mean that the probability of the distribution at a time t+1 is the same as that at time t.</p>
+<p>Stationary distributions simply mean that the probability of the distribution at a time t+1 is the same as that at time t. Ergodic distributions are therefore stationary.</p>
+</div>
+<div class="section" id="ergodicity">
+<h2>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h2>
+<p>Ergodicity is a critical property for a Markov Chain which combine the properties of a state being recurrent and aperiodic. Recurrent implies that, in a transition, a given state will return to itself. An aperiodic state returns to itself in a number of steps 1,2,3…. <span class="math notranslate nohighlight">\(\infty\)</span>. The implications of ergodicity are</p>
+<ol class="simple">
+<li><p>If we sample a space long enough we will cover almost every point in that space (theoretically).</p></li>
+<li><p>If we obtain a statistic from a sequence such as the mean, this statistic should be the same if we recompute it using a different sequence drawn from the same set of events. The implication here is that there is only one distribution unlike a non-stationary distribution which has an infinite set of PDFs.</p></li>
+</ol>
 </div>
 <div class="section" id="evaluation-30-mins">
 <h2>EVALUATION (30 mins)<a class="headerlink" href="#evaluation-30-mins" title="Permalink to this headline">¶</a></h2>
