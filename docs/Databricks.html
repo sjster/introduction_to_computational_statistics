@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Statistical Computing with PyMC3 &#8212; Introduction to Computational Statistics with PyMC3</title>
+    <title>Introduction to the Databricks Environment &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -57,7 +57,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Setting up Your Python Environment" href="getting_started.html" />
+    <link rel="next" title="Bayesian vs Frequentist statistics" href="notebooks.html" />
+    <link rel="prev" title="Setting up Your Python Environment" href="getting_started.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -92,14 +93,14 @@
   Getting started
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="getting_started.html">
    Setting up Your Python Environment
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Databricks.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Introduction to the Databricks Environment
   </a>
  </li>
@@ -199,9 +200,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/docs/index.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/docs/Databricks.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -219,10 +220,49 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Databricks.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Databricks.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-welcome-page">
+   The Welcome page
+  </a>
+ </li>
+</ul>
+
+        </nav>
         
     </div>
 </div>
@@ -231,26 +271,39 @@
         
               <div>
                 
-  <div class="section" id="statistical-computing-with-pymc3">
-<h1>Statistical Computing with PyMC3<a class="headerlink" href="#statistical-computing-with-pymc3" title="Permalink to this headline">¶</a></h1>
-<p>This series of notebooks and material is being put together by Srijith Rajamohan. This covers the following topics</p>
-<ul class="simple">
-<li><p>Introduction to Bayesian Statistics</p></li>
-<li><p>Introduction to Monte Carlo simulation</p></li>
-<li><p>Introduction to PyMC3</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This draws a lot of inspiration from some brilliant people in this field and I will list those names here as this work is being developed.</p>
-</div>
-<p>PyMC3 can be found <a class="reference external" href="https://docs.pymc.io/notebooks/getting_started">here</a>.</p>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
+  <div class="section" id="introduction-to-the-databricks-environment">
+<h1>Introduction to the Databricks Environment<a class="headerlink" href="#introduction-to-the-databricks-environment" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-welcome-page">
+<h2>The Welcome page<a class="headerlink" href="#the-welcome-page" title="Permalink to this headline">¶</a></h2>
+<p>As you log in, this is the screen that you see.</p>
+<p><img alt="Welcome page" src="../_images/welcome_page.png" /></p>
+<p>You can import a notebook into the workspace using the tab on the left. Use it to import the notebooks for the course.</p>
+<p><img alt="Import notebooks" src="../_images/import.png" /></p>
+<p><img alt="Import notebooks" src="../_images/import2.png" /></p>
+<p>Upload a notebook or provide a path to a notebook. Once it has been successfully uploaded, you should see a page like this.</p>
+<p><img alt="Imported notebooks" src="../_images/import3.png" /></p>
+<p>Launch a cluster to run the notebook by selecting the configuration for the image.</p>
+<p><img alt="Cluster launch page" src="../_images/cluster_launch.png" /></p>
+<p>Once launched, you should see a green circle.</p>
+<p><img alt="Cluster launch page" src="../_images/cluster_active.png" /></p>
+<p>You can click on the Clusters tab on the left and check the status of the available clusters.</p>
+<p><img alt="Cluster launch page" src="../_images/cluster_list.png" /></p>
+<p>If any libraries were installed during the creation of the cluster, they would show up here.</p>
+<p><img alt="Cluster launch page" src="../_images/cluster_library.png" /></p>
+<p>Install a Python library by providing the library name and a version. It is a good idea to specify the version explicitly.</p>
+<p><img alt="Cluster launch page" src="../_images/cluster_library2.png" /></p>
+<p>Attach a running cluster to the notebook</p>
+<p><img alt="Cluster launch page" src="../_images/notebook_cluster.png" /></p>
+<p>The File dropdown menu</p>
+<p><img alt="Cluster launch page" src="../_images/notebook_file.png" /></p>
+<p>The Edit dropdown menu</p>
+<p><img alt="Cluster launch page" src="../_images/notebook_edit.png" /></p>
+<p>Execute the code cell.</p>
+<p><img alt="Cluster launch page" src="../_images/code_run.png" /></p>
+<p>Integrate with a Git repository</p>
+<p><img alt="Cluster launch page" src="../_images/Git.png" /></p>
+<p>Version control the notebook and save to the remote Git repository.</p>
+<p><img alt="Cluster launch page" src="../_images/version.png" /></p>
 </div>
 </div>
 
@@ -282,7 +335,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='right-next' id="next-link" href="getting_started.html" title="next page">Setting up Your Python Environment</a>
+    <a class='left-prev' id="prev-link" href="getting_started.html" title="previous page">Setting up Your Python Environment</a>
+    <a class='right-next' id="next-link" href="notebooks.html" title="next page">Bayesian vs Frequentist statistics</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
