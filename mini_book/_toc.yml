@@ -6,7 +6,7 @@
     - file: docs/Databricks.ipynb
 - part: Introduction to Computational Statistics
   chapters:
-    - file: docs/notebooks.ipynb
+    - file: docs/Intro.ipynb
     - file: docs/Sampling.ipynb
     - file: docs/Distributions.ipynb
 - part: Introduction to Monte Carlo Methods for Bayesian Inference
