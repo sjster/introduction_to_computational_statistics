@@ -371,10 +371,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>An exponential distribution is given by the PDF</p>
 <div class="math notranslate nohighlight">
-\[f(x) = \lambda e^{-\lambda x} \; , x \geq 0\]</div>
-<p>The CDF for this function is</p>
-<div class="math notranslate nohighlight">
-\[F(a) = 1 - e^{-\lambda a}\]</div>
+\[ \begin{align}\begin{aligned}f(x) = \lambda e^{-\lambda x}$$ if x &gt;= 0\\The CDF for this function is \\$$F(a) = 1 - e^{-\lambda a}\end{aligned}\end{align} \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -418,6 +415,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <li><p>p(z) is difficult to sample from but we can evaluate it up to a certain proportionality constant.</p></li>
 <li><p>A constant ‘k’ such that \(k q(z) &gt;= p(z)\) for all values of z. This forms an envelope around p(z).</p></li>
 </ol>
+<p><img alt="Sampling" src="docs/sampling_distribution.png" /></p>
 <p>Given the above densities, we use the following steps</p>
 <ol class="simple">
 <li><p>Draw \(z_0\) from \(q(z)\) and compute \(k q(z_0)\)</p></li>
