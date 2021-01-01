@@ -16,5 +16,5 @@
 - part: PyMC3 for Bayesian Modeling and Inference
   chapters:
     - file: docs/PyMC3.ipynb
-    - file: docs/Covid_forecast.ipynb
+    - file: docs/Covid_modeling.ipynb
 
