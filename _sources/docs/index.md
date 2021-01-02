@@ -1,4 +1,4 @@
-# Statistical Computing with PyMC3 
+# Computational Statistics for Bayesian Inference with PyMC3 
 
 
 This series of notebooks and material is being put together by Dr.Srijith Rajamohan. The purpose of this series is to teach the basics of Bayesian statistics for the purpose of performing Inference. This is not intended to be a comprehensive course that teaches the basics of statistics and probability nor does it cover Frequentist statistical techniques based on the Null Hypothesis Significance Testing (NHST). What it does cover is:
