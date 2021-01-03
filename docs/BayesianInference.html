@@ -399,15 +399,16 @@
 <p>Most folks have by now heard of underfitting and overfitting a model. Simpler models should be preferred but not at the cost of accuracy. An overfit model, on the other hand, may not generalize well on new data. We can measure how well a model fits the data using the <span class="math notranslate nohighlight">\(R^2\)</span> metric which measures the proportion of explained variance.</p>
 <p>If we use the example of linear regression and start with a first order regression to explain the data, we may find that the data may not be adequately captured. We may have to incrementally increase the complexity of the model by increasing the order of the polynomial. Past a certain point, however, the model starts overfitting to the data. What this means is that the model simply used its representational power to memorize the data and will perform poorly on new data that is fed into the model.</p>
 <p>We want a model that has found that balance between being underfit and overfit, this trade-off is often referred to as the bias-variance trade-off. Bias is the error in the data resulting from its inability to accomodate the data. The model does not have the representational power to capture all the variations and patterns in the data. Variance is the error resulting from the sensitivity of the model to the data which usually results a complex model. Regularization is often used for this reason to reduce the complexity in a regression (or neural network) by minimizing the number of coefficients.</p>
-</div>
+<p><img alt="Underfitting vs. Overfitting (from AWS)" src="https://docs.aws.amazon.com/machine-learning/latest/dg/images/mlconcepts_image5.png" /></p>
+<center>Underfitting vs Overfitting (from AWS  docs)</center></div>
 <div class="section" id="measures-for-predictive-performance">
 <h2>Measures for Predictive Performance<a class="headerlink" href="#measures-for-predictive-performance" title="Permalink to this headline">¶</a></h2>
 <p>Accuracy of the model can be measured by the following methods:</p>
 <div class="section" id="cross-validation">
 <h3>1. Cross-validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
 <p>Here we divide the data into non-overlapping subsets and perform training and validation on the different subsets. Depending on how we perform this cross-validation, it can be called K-fold cross-validation or leave-one-out cross-validation (LOOCV). In K-fold cross validation we divide the data into ‘K’ folds or subsets, perform training of the model on k-1 folds while the model performance is assessed on the 1 fold that was left. We iteratively select each fold to be the test fold while the others become the training folds.</p>
-<p><img alt="Image from the scikit-learn page for K-fold cross validation" src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" />
-*K-fold Cross-validation from the scikit-learn page *</p>
+<p><img alt="Image from the scikit-learn page for K-fold cross validation" src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" /></p>
+<center>K-fold Cross-validation from the scikit-learn page</center>
 <p>If the number of folds is equal to the number of data points, we have leave-one-out cross-validation.</p>
 </div>
 <div class="section" id="information-criteria">

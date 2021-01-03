@@ -337,8 +337,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation">
-   EVALUATION
+  <a class="reference internal nav-link" href="#ungraded-evaluation-50-min">
+   UNGRADED EVALUATION (50 min)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -376,8 +376,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation-2-5-hours">
-   EVALUATION (2.5 hours)
+  <a class="reference internal nav-link" href="#ungraded-evaluation-2-5-hours">
+   UNGRADED EVALUATION (2.5 hours)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -396,6 +396,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#graded-evaluation-21-mins">
+   GRADED EVALUATION (21 mins)
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gibbs-sampling">
@@ -420,8 +425,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation-2-hours">
-   EVALUATION (2 hours)
+  <a class="reference internal nav-link" href="#ungraded-evaluation-2-hours">
+   UNGRADED EVALUATION (2 hours)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -447,8 +452,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation-30-mins">
-   EVALUATION (30 mins)
+  <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
+   GRADED EVALUATION (15 mins)
   </a>
  </li>
 </ul>
@@ -648,8 +653,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="evaluation">
-<h2>EVALUATION<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ungraded-evaluation-50-min">
+<h2>UNGRADED EVALUATION (50 min)<a class="headerlink" href="#ungraded-evaluation-50-min" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="run-the-simulation-for-10-iterations-annd-print-out-the-following-as-a-table-with-each-trial-being-a-row">
 <h3>1. Run the simulation for 10 iterations annd print out the following as a table, with each trial being a row<a class="headerlink" href="#run-the-simulation-for-10-iterations-annd-print-out-the-following-as-a-table-with-each-trial-being-a-row" title="Permalink to this headline">¶</a></h3>
 <p>a. the current parameter value and its hyperparameters</p>
@@ -682,8 +687,8 @@
 <p>If the parameter we are seeking is bounded in value, using a symmetric dsitribution can result in invalid draws. Also, since we are working in a Bayesian setting we want to take advantage of our prior knowledge of this parameter. If it known that the parameter has a certain distribution, we should be able to incorporate this information into our sampling process.</p>
 </div>
 </div>
-<div class="section" id="evaluation-2-5-hours">
-<h2>EVALUATION (2.5 hours)<a class="headerlink" href="#evaluation-2-5-hours" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ungraded-evaluation-2-5-hours">
+<h2>UNGRADED EVALUATION (2.5 hours)<a class="headerlink" href="#ungraded-evaluation-2-5-hours" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm">
 <h3>1. Write Python code to modify the Metropolis algorithm from above to make it a Metropolis-Hastings algorithm<a class="headerlink" href="#write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h3>
 </div>
@@ -705,6 +710,39 @@
 <div class="section" id="id1">
 <h3>3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 </div>
+</div>
+<div class="section" id="graded-evaluation-21-mins">
+<h2>GRADED EVALUATION (21 mins)<a class="headerlink" href="#graded-evaluation-21-mins" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>The ratio of the transition probabilities between states can be seen as the ratio of their probability densities</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Not using a reasonable prior can result in convergence issues when performing MCMC sampling</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Not using an appropriate proposal distribution during MCMC can result in inaccurate inferences about a parameter</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>The Metropolis-Hastings algorithm differs from the Metropolis algorithm in terms of the correction term that is added to the Metropolis step</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>The Metropolis algorithm is a specific case of the Metropolis-Hastings algorithm</p>
+<p>a. True</p>
+<p>b. False (C) - MH is a specific case of the Metropolis algorithm</p>
+</li>
+<li><p>Why does a correction term exist in the Metropolis-Hastings algorithm?</p>
+<p>a. To remove the errors introduced by the Metropolis algorithm</p>
+<p>b. To correct for the lack of symmetry in a non-symmetric proposal distribution (C)</p>
+</li>
+<li><p>We use non-symmetric proposal distributions because</p>
+<p>a. They are more fun to use!</p>
+<p>b. To avoid invalid draws (C)</p>
+</li>
+</ol>
 </div>
 <div class="section" id="gibbs-sampling">
 <h2>Gibbs Sampling<a class="headerlink" href="#gibbs-sampling" title="Permalink to this headline">¶</a></h2>
@@ -765,8 +803,8 @@ to (10) till we have a sufficient number of samples.</p></li>
 <p>Use the current values that we obtain at each step for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>, and build a frequency distribution (histogram) from it. We can also create a joint distribution as well using a two-dimensional histogram.</p>
 </div>
 </div>
-<div class="section" id="evaluation-2-hours">
-<h2>EVALUATION (2 hours)<a class="headerlink" href="#evaluation-2-hours" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ungraded-evaluation-2-hours">
+<h2>UNGRADED EVALUATION (2 hours)<a class="headerlink" href="#ungraded-evaluation-2-hours" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling">
 <h3>1. Use the Metropolis Python code as boilerplate code to perform Gibbs Sampling<a class="headerlink" href="#use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling" title="Permalink to this headline">¶</a></h3>
 </div>
@@ -801,37 +839,9 @@ This is based on the solution of differential equations known as Hamilton’s eq
 <p>The leapfrog integration introduces errors due to the fact that it is a numerical integration method and not an exact integral. This is corrected using a Metropolis-Hastings step that probabilistically accepts the new values of <span class="math notranslate nohighlight">\(x_{n+1}\)</span> as <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> or <span class="math notranslate nohighlight">\(x_n(0)\)</span>. The probability used here to determine what is accepted depends on the Hamiltonian calculated using the new values <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> and <span class="math notranslate nohighlight">\(p_n(L \cdot \Delta t)\)</span>. This is repeated for <span class="math notranslate nohighlight">\(n\)</span> for a number of spatial steps.</p>
 <p>A No U-Turn sampler (NUTS) is an extension of the HMC where the number of steps of the integrator <span class="math notranslate nohighlight">\(L\)</span> is automatically tuned.</p>
 </div>
-<div class="section" id="evaluation-30-mins">
-<h2>EVALUATION (30 mins)<a class="headerlink" href="#evaluation-30-mins" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="graded-evaluation-15-mins">
+<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
-<li><p>The ratio of the transition probabilities between states can be seen as the ratio of their probability densities</p>
-<p>a. True (C)</p>
-<p>b. False</p>
-</li>
-<li><p>Not using a reasonable prior can result in convergence issues when performing MCMC sampling</p>
-<p>a. True (C)</p>
-<p>b. False</p>
-</li>
-<li><p>Not using an appropriate proposal distribution during MCMC can result in inaccurate inferences about a parameter</p>
-<p>a. True (C)</p>
-<p>b. False</p>
-</li>
-<li><p>The Metropolis-Hastings algorithm differs from the Metropolis algorithm in terms of the correction term that is added to the Metropolis step</p>
-<p>a. True (C)</p>
-<p>b. False</p>
-</li>
-<li><p>The Metropolis algorithm is a specific case of the Metropolis-Hastings algorithm</p>
-<p>a. True</p>
-<p>b. False (C) - MH is a specific case of the Metropolis algorithm</p>
-</li>
-<li><p>Why does a correction term exist in the Metropolis-Hastings algorithm?</p>
-<p>a. To remove the errors introduced by the Metropolis algorithm</p>
-<p>b. To correct for the lack of symmetry in a non-symmetric proposal distribution (C)</p>
-</li>
-<li><p>We use non-symmetric proposal distributions because</p>
-<p>a. They are more fun to use!</p>
-<p>b. To avoid invalid draws (C)</p>
-</li>
 <li><p>We can use a histogram to look at the distribution of the posterior from Metropolis, Metropolis-Hastings or Gibbs sampling</p>
 <p>a. True (C)</p>
 <p>b. False</p>
@@ -840,20 +850,19 @@ This is based on the solution of differential equations known as Hamilton’s eq
 <p>a. True (C)</p>
 <p>b. False</p>
 </li>
-<li><p>In HMC, a numerical integration step is performed at each step to march forward and obtain the solution</p></li>
-</ol>
+<li><p>In HMC, a numerical integration step is performed at each step to march forward and obtain the solution</p>
 <p>a. True (C)</p>
 <p>b. False</p>
-<ol class="simple">
-<li><p>The reason for a Metropolis-Hastings step when performing HMC is to</p></li>
-</ol>
+</li>
+<li><p>The reason for a Metropolis-Hastings step when performing HMC is to</p>
 <p>a. Make HMC run faster</p>
 <p>b. Correct the errors from the numerical integration scheme (C)</p>
-<ol class="simple">
-<li><p>When using NUTS, the number of steps ‘L’ is automatically tuned</p></li>
-</ol>
+</li>
+<li><p>When using NUTS, the number of steps ‘L’ is automatically tuned</p>
 <p>a. True (C)</p>
 <p>b. False</p>
+</li>
+</ol>
 </div>
 </div>
 
