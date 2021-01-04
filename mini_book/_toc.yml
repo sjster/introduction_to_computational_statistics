@@ -7,8 +7,8 @@
 - part: Introduction to Computational Statistics
   chapters:
     - file: docs/Intro.ipynb
-    - file: docs/Sampling.ipynb
     - file: docs/Distributions.ipynb
+    - file: docs/Sampling.ipynb
 - part: Introduction to Monte Carlo Methods for Bayesian Inference
   chapters:
     - file: docs/MonteCarlo.ipynb
