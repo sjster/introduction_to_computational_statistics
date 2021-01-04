@@ -4003,8 +4003,8 @@ Day  139 [0.] [1.]
 <p><a class="reference external" href="https://colcarroll.github.io/hmc_tuning_talk/">Colin Caroll’s talk</a></p>
 <p>When a step size is required, PyMC3 uses the first 500 steps varying the step size to get to an acceptance rate of 23.4%.</p>
 <ul class="simple">
-<li><p>The acceptance rate is the proportion of  proposed values that are not rejected during the sampling process. Refer to Course 2, Metropolis Algorithms for more information.</p></li>
-<li><p>In Metropolis algorithms, the step size is related to the variance of the proposal distribution.</p></li>
+<li><p>The acceptance rate is the proportion of proposed values that are not rejected during the sampling process. Refer to Course 2, Metropolis Algorithms for more information.</p></li>
+<li><p>In Metropolis algorithms, the step size is related to the variance of the proposal distribution. See the next section for more information.</p></li>
 </ul>
 <p>These are the default numbers that PyMC3 uses, which can be modified. It was reported in a study that the acceptance rate of 23.4% results in the highest efficiency for Metropolis Hastings. These are empirical results and therefore should be treated as guidelines. According to the SAS Institute, a high acceptance rate (90% or so) usually is a sign that the new samples are being drawn from points close to the existing point and therefore the sampler is not exploring the space much. On the other hand, a low acceptance rate is probably due to inappropriate proposal distribution causing new samples to be rejected. PyMC3 aims to get an acceptance rate between 20% and 50% for Metropolis Hastings, 65% for Hamiltonian Monte Carlo (HMC) and 85% for No U-Turn Sampler (NUTS)</p>
 <p>If you have convergence issues as indicated by the visual inspection of the trace, you can try increasing the number of samples used for tuning. It is also worth pointing out that there is more than just step-size adaptation that is happening during this tuning phase.</p>
@@ -10272,11 +10272,39 @@ dl.xr-attrs {
 </li>
 <li><p>When using the NUTS algorithm, PyMC3 aims to get an acceptance rate of</p>
 <p>a. 75%</p>
-<p>b. 85%</p>
+<p>b. 85% (C)</p>
 </li>
 <li><p>If you have convergence issues, it is better to</p>
 <p>a. Try increasing the total number of samples drawn</p>
-<p>b. Try increasing the number of tuning samples</p>
+<p>b. Try increasing the number of tuning samples (C)</p>
+</li>
+<li><p>A step size that is too large can result in</p>
+<p>a. Large sample values</p>
+<p>b. Invalid sample values (C)</p>
+</li>
+<li><p>Large step sizes in Hamiltonian Monte Carlo can result in</p>
+<p>a. Integration errors (C)</p>
+<p>b. Out-of-bounds errors</p>
+</li>
+<li><p>Mixing in MCMC refers to</p>
+<p>a. How well the sampling covers the entire distribution space (C)</p>
+<p>b. The similarity of the sample values</p>
+</li>
+<li><p>Rhat, used to measure mixing measures</p>
+<p>a. the variance between the chains</p>
+<p>b. the ratio of the variance between the chains to the variance within the chains (C)</p>
+</li>
+<li><p>Rhat values below 1.1 indicate convergence while those above do not</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>Thinning or pruning refers to dropping every n’th sample to avoid correlated samples</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>Divergences happen in regions of high curvature or sharp gradients in the sampling manifold</p>
+<p>a. True</p>
+<p>b. False</p>
 </li>
 </ol>
 </div>
