@@ -542,6 +542,11 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#revisiting-the-multiclass-classification-problem">
+   Revisiting the Multiclass Classification Problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#diagnosing-mcmc-using-pymc3">
    Diagnosing MCMC using PyMC3
   </a>
@@ -569,6 +574,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#graded-evaluation-30-min">
+   GRADED EVALUATION (30 min)
+  </a>
  </li>
 </ul>
 
@@ -3562,713 +3572,6 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 <img alt="../_images/PyMC3_95_7.png" src="../_images/PyMC3_95_7.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All diagnostics in PyMC3 is now in Arviz starting with version 3.9 of PyMC3</span>
-<span class="c1"># Summary is a good place to start</span>
-<span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>mean</th>
-      <th>sd</th>
-      <th>hdi_3%</th>
-      <th>hdi_97%</th>
-      <th>mcse_mean</th>
-      <th>mcse_sd</th>
-      <th>ess_mean</th>
-      <th>ess_sd</th>
-      <th>ess_bulk</th>
-      <th>ess_tail</th>
-      <th>r_hat</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>alpha[0]</th>
-      <td>-1.023</td>
-      <td>3.661</td>
-      <td>-7.879</td>
-      <td>5.695</td>
-      <td>0.063</td>
-      <td>0.045</td>
-      <td>3390.0</td>
-      <td>3243.0</td>
-      <td>3406.0</td>
-      <td>3786.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>alpha[1]</th>
-      <td>5.890</td>
-      <td>3.185</td>
-      <td>-0.049</td>
-      <td>11.860</td>
-      <td>0.058</td>
-      <td>0.041</td>
-      <td>3054.0</td>
-      <td>3054.0</td>
-      <td>3052.0</td>
-      <td>3672.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>alpha[2]</th>
-      <td>-4.706</td>
-      <td>3.409</td>
-      <td>-10.959</td>
-      <td>1.815</td>
-      <td>0.061</td>
-      <td>0.043</td>
-      <td>3163.0</td>
-      <td>3163.0</td>
-      <td>3170.0</td>
-      <td>3731.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>beta[0,0]</th>
-      <td>-2.585</td>
-      <td>4.190</td>
-      <td>-10.533</td>
-      <td>5.147</td>
-      <td>0.064</td>
-      <td>0.050</td>
-      <td>4298.0</td>
-      <td>3532.0</td>
-      <td>4306.0</td>
-      <td>4274.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>beta[0,1]</th>
-      <td>1.959</td>
-      <td>3.337</td>
-      <td>-4.291</td>
-      <td>8.046</td>
-      <td>0.058</td>
-      <td>0.041</td>
-      <td>3315.0</td>
-      <td>3258.0</td>
-      <td>3315.0</td>
-      <td>4176.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>μ[148,1]</th>
-      <td>3.212</td>
-      <td>6.923</td>
-      <td>-8.921</td>
-      <td>17.009</td>
-      <td>0.124</td>
-      <td>0.087</td>
-      <td>3139.0</td>
-      <td>3139.0</td>
-      <td>3141.0</td>
-      <td>3415.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>μ[148,2]</th>
-      <td>10.697</td>
-      <td>7.001</td>
-      <td>-2.329</td>
-      <td>23.830</td>
-      <td>0.123</td>
-      <td>0.087</td>
-      <td>3234.0</td>
-      <td>3234.0</td>
-      <td>3236.0</td>
-      <td>3475.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>μ[149,0]</th>
-      <td>-11.004</td>
-      <td>5.560</td>
-      <td>-21.608</td>
-      <td>-1.021</td>
-      <td>0.096</td>
-      <td>0.068</td>
-      <td>3384.0</td>
-      <td>3339.0</td>
-      <td>3392.0</td>
-      <td>4245.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>μ[149,1]</th>
-      <td>4.254</td>
-      <td>4.752</td>
-      <td>-4.925</td>
-      <td>12.993</td>
-      <td>0.086</td>
-      <td>0.061</td>
-      <td>3083.0</td>
-      <td>3083.0</td>
-      <td>3087.0</td>
-      <td>3690.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>μ[149,2]</th>
-      <td>6.855</td>
-      <td>4.759</td>
-      <td>-2.176</td>
-      <td>15.787</td>
-      <td>0.085</td>
-      <td>0.060</td>
-      <td>3108.0</td>
-      <td>3108.0</td>
-      <td>3106.0</td>
-      <td>3807.0</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-<p>465 rows × 11 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can call rhat from ArViz</span>
-<span class="n">az</span><span class="o">.</span><span class="n">rhat</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">631549</span><span class="n">ddd06f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># You can call rhat from ArViz</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">az</span><span class="o">.</span><span class="n">rhat</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;az&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">stat_names</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;depth&#39;,
- &#39;diverging&#39;,
- &#39;energy&#39;,
- &#39;energy_error&#39;,
- &#39;max_energy_error&#39;,
- &#39;mean_tree_accept&#39;,
- &#39;model_logp&#39;,
- &#39;perf_counter_diff&#39;,
- &#39;perf_counter_start&#39;,
- &#39;process_time_diff&#39;,
- &#39;step_size&#39;,
- &#39;step_size_bar&#39;,
- &#39;tree_size&#39;,
- &#39;tune&#39;}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Length of trace_s&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Depth of the tree used to generate the sample  &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">depth</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy at the point where the sample was generated &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
-<span class="c1"># This is difference in energy beween the start and the end of the trajectory, should ideally be zero</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy error between start and end of the trajectory &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy_error</span><span class="p">)</span>
-<span class="c1"># maximum difference in energy along the whole trajectory of sampling, this can help identify divergences</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy error maximum over the entire trajectory &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">max_energy_error</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step size &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best step size determined from tuning &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Length of trace_s 8000 84.08494677302417
-Depth of the tree used to generate the sample   [5 6 5 ... 6 6 5]
-Energy at the point where the sample was generated  [65.72660855 61.74813467 61.54848582 ... 68.76994503 68.56852543
- 64.39794338]
-Energy at the point where the sample was generated  [-0.01551336 -0.02087466  0.41298727 ... -0.15929246  2.39400741
- -2.59595018]
-Energy at the point where the sample was generated  [  9.12192842   1.01714095   1.18666497 ...  -0.47604175 126.23403766
-  -2.59595018]
-Energy at the point where the sample was generated  [0.09682888 0.09682888 0.09682888 ... 0.09597601 0.09597601 0.09597601]
-Energy at the point where the sample was generated  [0.11441112 0.11441112 0.11441112 ... 0.1140062  0.1140062  0.1140062 ]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/PyMC3_100_1.png" src="../_images/PyMC3_100_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seaborn uses the interquartile range to draw the box plot whiskers given by Q1 - 1.5IQR, Q3 + 1.5IQR</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">max_energy_error</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/PyMC3_101_1.png" src="../_images/PyMC3_101_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)),</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/PyMC3_102_1.png" src="../_images/PyMC3_102_1.png" />
-</div>
-</div>
-<p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">energyplot</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/PyMC3_104_2.png" src="../_images/PyMC3_104_2.png" />
-</div>
-</div>
-<p>A score of less than 2 indicates good convergence. Computes the z score at each interval and returns and array of (interval start location, z score)</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">geweke</span><span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.00000000e+00,  6.81670105e-03],
-       [ 2.10000000e+02,  6.58733966e-03],
-       [ 4.21000000e+02,  1.17887921e-03],
-       [ 6.31000000e+02,  6.05033956e-03],
-       [ 8.42000000e+02, -9.75412595e-03],
-       [ 1.05200000e+03, -2.41659887e-02],
-       [ 1.26300000e+03, -2.27070129e-02],
-       [ 1.47300000e+03, -3.54427442e-02],
-       [ 1.68400000e+03,  4.54991213e-03],
-       [ 1.89400000e+03, -5.37476318e-03],
-       [ 2.10500000e+03,  1.34417690e-02],
-       [ 2.31500000e+03, -3.52012201e-03],
-       [ 2.52600000e+03,  1.59661243e-02],
-       [ 2.73600000e+03,  7.57274303e-03],
-       [ 2.94700000e+03, -1.25402129e-02],
-       [ 3.15700000e+03, -2.75040792e-02],
-       [ 3.36800000e+03, -2.50928739e-02],
-       [ 3.57800000e+03, -1.48018012e-02],
-       [ 3.78900000e+03,  1.26866527e-02],
-       [ 3.99900000e+03,  6.74896721e-04]])
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
-<span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
-<span class="n">beta_divergent</span> <span class="o">=</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">][</span><span class="n">divergent</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of beta_divergent - Sum of divergences from all chains x shape of variable &quot;</span><span class="p">,</span> <span class="n">beta_divergent</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of divergences 36 and percent 1.800000 
-Shape of beta_divergent - Sum of divergences from all chains x shape of variable  (36, 4, 3)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of warnings &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">))</span>
-<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of warnings  88
-SamplerWarning(kind=&lt;WarningType.DIVERGENCE: 1&gt;, message=&#39;Energy change in leapfrog step is too large: 1329.570320082532.&#39;, level=&#39;debug&#39;, step=465, exec_info=None, extra=None, divergence_point_source={&#39;beta&#39;: array([[ 2.28825823,  4.32772034,  5.84657447],
-       [ 4.70170642,  1.51361027,  1.57206155],
-       [-3.07346691, -1.28567975,  9.78260754],
-       [-7.4681819 , -4.59599476,  7.77990167]]), &#39;alpha&#39;: array([-6.96127616,  5.78018654, -1.0151377 ])}, divergence_point_dest={&#39;beta&#39;: array([[ -5.79140539,   9.6306125 ,   5.60924712],
-       [  8.33590054,  -1.01858692,   1.76180136],
-       [-14.81401876,   4.83780533,  10.82164128],
-       [-17.18170631,   0.90386548,  10.94267974]]), &#39;alpha&#39;: array([ 1.45869661e-03,  2.64197166e+00, -3.62424392e+00])}, divergence_info=DivergenceInfo(message=&#39;Energy change in leapfrog step is too large: 1329.570320082532.&#39;, exec_info=None, state=State(q=array([ 2.28825823,  4.32772034,  5.84657447,  4.70170642,  1.51361027,
-        1.57206155, -3.07346691, -1.28567975,  9.78260754, -7.4681819 ,
-       -4.59599476,  7.77990167, -6.96127616,  5.78018654, -1.0151377 ]), p=array([ 1.7659921 , -1.2899258 , -0.51915985, -1.58866712,  1.11531903,
-        0.13136253,  3.1567307 , -1.36084698, -1.28966842,  3.08483423,
-       -1.08863427, -2.55705607, -2.05242477,  1.78541141,  0.65071228]), v=array([ 29.84952361, -13.60948199,  -5.37347994, -17.11954701,
-         8.76225801,   1.12497544,  53.51638265, -14.83501735,
-       -18.74804686,  44.64401735, -11.93874498, -34.41813269,
-       -29.00690935,  17.89792084,   7.61576993]), q_grad=array([-42.16520847,  54.24542126, -12.57871491,  23.75667819,
-       -29.74966755,   5.68149423, -50.62924802,  62.03620131,
-       -11.62389173, -48.62533945,  57.59442904,  -8.7977186 ,
-        39.39492358, -16.62081747, -22.68625702]), energy=598.8199105843672, model_logp=array(-269.49431294)), state_div=State(q=array([-5.79140539e+00,  9.63061250e+00,  5.60924712e+00,  8.33590054e+00,
-       -1.01858692e+00,  1.76180136e+00, -1.48140188e+01,  4.83780533e+00,
-        1.08216413e+01, -1.71817063e+01,  9.03865480e-01,  1.09426797e+01,
-        1.45869661e-03,  2.64197166e+00, -3.62424392e+00]), p=array([ 3.9798965 , -4.04467969,  0.07182691, -3.2128225 ,  2.8095219 ,
-        0.09990933,  5.96261316, -4.78411252, -0.65794073,  5.78740441,
-       -4.39219015, -1.97808177, -4.11466193,  2.44675641,  2.04433467]), v=array([ 67.26984471, -42.67376891,   0.74343278, -34.62151709,
-        22.07238925,   0.8556134 , 101.0847989 , -52.15310258,
-        -9.56455437,  83.75587267, -48.16791074, -26.62510285,
-       -58.15249725,  24.52759755,  23.92636953]), q_grad=array([ 3.46434868, -6.09006989,  2.24778305,  4.63488643,  0.13361549,
-       -5.13166653,  1.5801273 , -2.1947195 ,  0.58077508,  1.38220204,
-        0.15443014, -1.32322574, -3.34533111,  5.0599659 , -1.67540225]), energy=1398.4167369050674, model_logp=array(-113.71431609))))
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">dir</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;__annotations__&#39;,
- &#39;__class__&#39;,
- &#39;__dataclass_fields__&#39;,
- &#39;__dataclass_params__&#39;,
- &#39;__delattr__&#39;,
- &#39;__dict__&#39;,
- &#39;__dir__&#39;,
- &#39;__doc__&#39;,
- &#39;__eq__&#39;,
- &#39;__format__&#39;,
- &#39;__ge__&#39;,
- &#39;__getattribute__&#39;,
- &#39;__gt__&#39;,
- &#39;__hash__&#39;,
- &#39;__init__&#39;,
- &#39;__init_subclass__&#39;,
- &#39;__le__&#39;,
- &#39;__lt__&#39;,
- &#39;__module__&#39;,
- &#39;__ne__&#39;,
- &#39;__new__&#39;,
- &#39;__reduce__&#39;,
- &#39;__reduce_ex__&#39;,
- &#39;__repr__&#39;,
- &#39;__setattr__&#39;,
- &#39;__sizeof__&#39;,
- &#39;__str__&#39;,
- &#39;__subclasshook__&#39;,
- &#39;__weakref__&#39;,
- &#39;divergence_info&#39;,
- &#39;divergence_point_dest&#39;,
- &#39;divergence_point_source&#39;,
- &#39;exec_info&#39;,
- &#39;extra&#39;,
- &#39;kind&#39;,
- &#39;level&#39;,
- &#39;message&#39;,
- &#39;step&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Message ----------&quot;</span><span class="p">)</span>
-<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Kind of warning ----------&quot;</span><span class="p">)</span>
-<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">kind</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Level ----------&quot;</span><span class="p">)</span>
-<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">level</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Step ----------&quot;</span><span class="p">)</span>
-<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Source ---------- &quot;</span><span class="p">)</span>
-<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_point_source</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Destination ---------- &quot;</span><span class="p">)</span>
-<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_point_dest</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>---------- Message ----------
-&#39;Energy change in leapfrog step is too large: 1329.570320082532.&#39;
----------- Kind of warning ----------
-&lt;WarningType.DIVERGENCE: 1&gt;
----------- Level ----------
-&#39;debug&#39;
----------- Step ----------
-465
----------- Source ---------- 
-{&#39;alpha&#39;: array([-6.96127616,  5.78018654, -1.0151377 ]),
- &#39;beta&#39;: array([[ 2.28825823,  4.32772034,  5.84657447],
-       [ 4.70170642,  1.51361027,  1.57206155],
-       [-3.07346691, -1.28567975,  9.78260754],
-       [-7.4681819 , -4.59599476,  7.77990167]])}
----------- Destination ---------- 
-{&#39;alpha&#39;: array([ 1.45869661e-03,  2.64197166e+00, -3.62424392e+00]),
- &#39;beta&#39;: array([[ -5.79140539,   9.6306125 ,   5.60924712],
-       [  8.33590054,  -1.01858692,   1.76180136],
-       [-14.81401876,   4.83780533,  10.82164128],
-       [-17.18170631,   0.90386548,  10.94267974]])}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_info</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>DivergenceInfo(message=&#39;Energy change in leapfrog step is too large: 1329.570320082532.&#39;, exec_info=None, state=State(q=array([ 2.28825823,  4.32772034,  5.84657447,  4.70170642,  1.51361027,
-        1.57206155, -3.07346691, -1.28567975,  9.78260754, -7.4681819 ,
-       -4.59599476,  7.77990167, -6.96127616,  5.78018654, -1.0151377 ]), p=array([ 1.7659921 , -1.2899258 , -0.51915985, -1.58866712,  1.11531903,
-        0.13136253,  3.1567307 , -1.36084698, -1.28966842,  3.08483423,
-       -1.08863427, -2.55705607, -2.05242477,  1.78541141,  0.65071228]), v=array([ 29.84952361, -13.60948199,  -5.37347994, -17.11954701,
-         8.76225801,   1.12497544,  53.51638265, -14.83501735,
-       -18.74804686,  44.64401735, -11.93874498, -34.41813269,
-       -29.00690935,  17.89792084,   7.61576993]), q_grad=array([-42.16520847,  54.24542126, -12.57871491,  23.75667819,
-       -29.74966755,   5.68149423, -50.62924802,  62.03620131,
-       -11.62389173, -48.62533945,  57.59442904,  -8.7977186 ,
-        39.39492358, -16.62081747, -22.68625702]), energy=598.8199105843672, model_logp=array(-269.49431294)), state_div=State(q=array([-5.79140539e+00,  9.63061250e+00,  5.60924712e+00,  8.33590054e+00,
-       -1.01858692e+00,  1.76180136e+00, -1.48140188e+01,  4.83780533e+00,
-        1.08216413e+01, -1.71817063e+01,  9.03865480e-01,  1.09426797e+01,
-        1.45869661e-03,  2.64197166e+00, -3.62424392e+00]), p=array([ 3.9798965 , -4.04467969,  0.07182691, -3.2128225 ,  2.8095219 ,
-        0.09990933,  5.96261316, -4.78411252, -0.65794073,  5.78740441,
-       -4.39219015, -1.97808177, -4.11466193,  2.44675641,  2.04433467]), v=array([ 67.26984471, -42.67376891,   0.74343278, -34.62151709,
-        22.07238925,   0.8556134 , 101.0847989 , -52.15310258,
-        -9.56455437,  83.75587267, -48.16791074, -26.62510285,
-       -58.15249725,  24.52759755,  23.92636953]), q_grad=array([ 3.46434868, -6.09006989,  2.24778305,  4.63488643,  0.13361549,
-       -5.13166653,  1.5801273 , -2.1947195 ,  0.58077508,  1.38220204,
-        0.15443014, -1.32322574, -3.34533111,  5.0599659 , -1.67540225]), energy=1398.4167369050674, model_logp=array(-113.71431609)))
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>465
-1215
-1797
-1826
-1833
-None
-465
-1215
-1797
-1826
-1833
-383
-1162
-1383
-1857
-None
-465
-1215
-1797
-1826
-1833
-383
-1162
-1383
-1857
-71
-123
-166
-179
-311
-342
-450
-499
-527
-576
-618
-702
-862
-878
-898
-985
-995
-1117
-1330
-1463
-1493
-1768
-1860
-1941
-1986
-None
-465
-1215
-1797
-1826
-1833
-383
-1162
-1383
-1857
-71
-123
-166
-179
-311
-342
-450
-499
-527
-576
-618
-702
-862
-878
-898
-985
-995
-1117
-1330
-1463
-1493
-1768
-1860
-1941
-1986
-121
-337
-None
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">theano</span> <span class="k">as</span> <span class="nn">tt</span> 
-<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span> 
-
-<span class="c1"># If we run into the identifiability problem, we can solve for n-1 variables </span>
-<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_sf</span><span class="p">:</span>
-    <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">α_f</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span><span class="n">α</span><span class="p">])</span>
-    <span class="n">β_f</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="p">,</span> <span class="n">β</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">μ</span> <span class="o">=</span> <span class="n">α_f</span> <span class="o">+</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">β_f</span><span class="p">)</span>
-    <span class="n">θ</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">nnet</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">μ</span><span class="p">)</span>
-    <span class="n">yl</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="s1">&#39;yl&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">θ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_s</span><span class="p">)</span>
-    <span class="n">trace_sf</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-    
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_sf</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
-Initializing NUTS using jitter+adapt_diag...
-Multiprocess sampling (4 chains in 4 jobs)
-NUTS: [β, α]
-</pre></div>
-</div>
-<div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='8000' class='' max='8000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [8000/8000 00:24<00:00 Sampling 4 chains, 0 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 33 seconds.
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n0&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n0&#39;}&gt;],
-       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
-</pre></div>
-</div>
-<img alt="../_images/PyMC3_113_4.png" src="../_images/PyMC3_113_4.png" />
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="inferring-rate-change-with-a-poisson-distribution">
@@ -4374,9 +3677,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_115_4.png" src="../_images/PyMC3_115_4.png" />
-<img alt="../_images/PyMC3_115_5.png" src="../_images/PyMC3_115_5.png" />
-<img alt="../_images/PyMC3_115_6.png" src="../_images/PyMC3_115_6.png" />
+<img alt="../_images/PyMC3_97_4.png" src="../_images/PyMC3_97_4.png" />
+<img alt="../_images/PyMC3_97_5.png" src="../_images/PyMC3_97_5.png" />
+<img alt="../_images/PyMC3_97_6.png" src="../_images/PyMC3_97_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4624,7 +3927,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_120_1.png" src="../_images/PyMC3_120_1.png" />
+<img alt="../_images/PyMC3_102_1.png" src="../_images/PyMC3_102_1.png" />
 </div>
 </div>
 </div>
@@ -4698,7 +4001,12 @@ Day  139 [0.] [1.]
 <div class="section" id="tuning">
 <h3>Tuning<a class="headerlink" href="#tuning" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://colcarroll.github.io/hmc_tuning_talk/">Colin Caroll’s talk</a></p>
-<p>When a step size is required, PyMC3 uses the first 500 steps varying the step size to get to an acceptance rate of 23.4%. These are the default numbers that PyMC3 uses, which can be modified. It was reported in a study that the acceptance rate of 23.4% results in the highest efficiency for Metropolis Hastings. These are empirical results and therefore should be treated as guidelines. According to the SAS Institute, a high acceptance rate (90% or so) usually is a sign that the new samples are being drawn from points close to the existing point and therefore the sampler is not exploring the space much. On the other hand, a low acceptance rate is probably due to inappropriate proposal distribution causing new samples to be rejected. PyMC3 aims to get an acceptance rate between 20% and 50% for Metropolis Hastings, 65% for Hamiltonian Monte Carlo (HMC) and 85% for No U-Turn Sampler (NUTS)</p>
+<p>When a step size is required, PyMC3 uses the first 500 steps varying the step size to get to an acceptance rate of 23.4%.</p>
+<ul class="simple">
+<li><p>The acceptance rate is the proportion of  proposed values that are not rejected during the sampling process. Refer to Course 2, Metropolis Algorithms for more information.</p></li>
+<li><p>In Metropolis algorithms, the step size is related to the variance of the proposal distribution.</p></li>
+</ul>
+<p>These are the default numbers that PyMC3 uses, which can be modified. It was reported in a study that the acceptance rate of 23.4% results in the highest efficiency for Metropolis Hastings. These are empirical results and therefore should be treated as guidelines. According to the SAS Institute, a high acceptance rate (90% or so) usually is a sign that the new samples are being drawn from points close to the existing point and therefore the sampler is not exploring the space much. On the other hand, a low acceptance rate is probably due to inappropriate proposal distribution causing new samples to be rejected. PyMC3 aims to get an acceptance rate between 20% and 50% for Metropolis Hastings, 65% for Hamiltonian Monte Carlo (HMC) and 85% for No U-Turn Sampler (NUTS)</p>
 <p>If you have convergence issues as indicated by the visual inspection of the trace, you can try increasing the number of samples used for tuning. It is also worth pointing out that there is more than just step-size adaptation that is happening during this tuning phase.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pm.sample(num_samples,</span> <span class="pre">n_tune=num_tuning)</span></code></p>
 <div class="section" id="metropolis-algorithm">
@@ -5030,7 +4338,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_124_3.png" src="../_images/PyMC3_124_3.png" />
+</div></div><img alt="../_images/PyMC3_106_3.png" src="../_images/PyMC3_106_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5241,7 +4549,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_125_3.png" src="../_images/PyMC3_125_3.png" />
+</div></div><img alt="../_images/PyMC3_107_3.png" src="../_images/PyMC3_107_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -5282,7 +4590,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_127_2.png" src="../_images/PyMC3_127_2.png" />
+<img alt="../_images/PyMC3_109_2.png" src="../_images/PyMC3_109_2.png" />
 </div>
 </div>
 </div>
@@ -5314,7 +4622,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_129_2.png" src="../_images/PyMC3_129_2.png" />
+<img alt="../_images/PyMC3_111_2.png" src="../_images/PyMC3_111_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -5377,8 +4685,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_133_2.png" src="../_images/PyMC3_133_2.png" />
-<img alt="../_images/PyMC3_133_3.png" src="../_images/PyMC3_133_3.png" />
+<img alt="../_images/PyMC3_115_2.png" src="../_images/PyMC3_115_2.png" />
+<img alt="../_images/PyMC3_115_3.png" src="../_images/PyMC3_115_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5398,8 +4706,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_134_2.png" src="../_images/PyMC3_134_2.png" />
-<img alt="../_images/PyMC3_134_3.png" src="../_images/PyMC3_134_3.png" />
+<img alt="../_images/PyMC3_116_2.png" src="../_images/PyMC3_116_2.png" />
+<img alt="../_images/PyMC3_116_3.png" src="../_images/PyMC3_116_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -5428,13 +4736,192 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_136_2.png" src="../_images/PyMC3_136_2.png" />
+<img alt="../_images/PyMC3_118_2.png" src="../_images/PyMC3_118_2.png" />
 </div>
 </div>
 </div>
 <div class="section" id="a-note-on-why-we-compute-the-log-of-the-posterior">
 <h3>A note on why we compute the log of the posterior<a class="headerlink" href="#a-note-on-why-we-compute-the-log-of-the-posterior" title="Permalink to this headline">¶</a></h3>
 <p>In short, this is done to avoid numerical overflow or underflow issues. When dealing with really large or small numbers, it is likely the limited precision of storage types (float, double etc.) can be an issue. In order to avoid this, the log of the probabilities are used instead in the calculations.</p>
+</div>
+</div>
+<div class="section" id="revisiting-the-multiclass-classification-problem">
+<h2>Revisiting the Multiclass Classification Problem<a class="headerlink" href="#revisiting-the-multiclass-classification-problem" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_s</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">target</span>
+<span class="n">x_n</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">x_s</span> <span class="o">=</span> <span class="n">iris_data</span><span class="p">[</span><span class="n">x_n</span><span class="p">]</span>
+<span class="n">x_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_s</span> <span class="o">-</span> <span class="n">x_s</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">x_s</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+<span class="n">x_s</span> <span class="o">=</span> <span class="n">x_s</span><span class="o">.</span><span class="n">values</span>
+
+<span class="kn">import</span> <span class="nn">theano</span> <span class="k">as</span> <span class="nn">tt</span>
+<span class="c1">#tt.config.gcc.cxxflags = &quot;-Wno-c++11-narrowing&quot;</span>
+
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_mclass</span><span class="p">:</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">beta</span><span class="p">))</span>
+    <span class="n">θ</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">nnet</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">μ</span><span class="p">)</span>
+    <span class="n">yl</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="s1">&#39;yl&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">θ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_s</span><span class="p">)</span>
+    <span class="n">trace_s</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+
+<span class="n">data_pred</span> <span class="o">=</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;μ&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">point</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">point</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">data_pred</span><span class="p">]</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_s</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
+<span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_s</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_s</span><span class="p">)</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All diagnostics in PyMC3 is now in Arviz starting with version 3.9 of PyMC3</span>
+<span class="c1"># Summary is a good place to start</span>
+<span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can call rhat from ArViz</span>
+<span class="n">az</span><span class="o">.</span><span class="n">rhat</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">stat_names</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Length of trace_s&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Depth of the tree used to generate the sample  &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">depth</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy at the point where the sample was generated &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
+<span class="c1"># This is difference in energy beween the start and the end of the trajectory, should ideally be zero</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy error between start and end of the trajectory &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy_error</span><span class="p">)</span>
+<span class="c1"># maximum difference in energy along the whole trajectory of sampling, this can help identify divergences</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy error maximum over the entire trajectory &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">max_energy_error</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step size &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best step size determined from tuning &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seaborn uses the interquartile range to draw the box plot whiskers given by Q1 - 1.5IQR, Q3 + 1.5IQR</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">max_energy_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)),</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">energyplot</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A score of less than 2 indicates good convergence. Computes the z score at each interval and returns and array of (interval start location, z score)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">geweke</span><span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
+<span class="n">beta_divergent</span> <span class="o">=</span> <span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">][</span><span class="n">divergent</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Shape of beta_divergent - Sum of divergences from all chains x shape of variable &quot;</span><span class="p">,</span> <span class="n">beta_divergent</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Total number of warnings &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">))</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">dir</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Message ----------&quot;</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Kind of warning ----------&quot;</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">kind</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Level ----------&quot;</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">level</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Step ----------&quot;</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Source ---------- &quot;</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_point_source</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;---------- Destination ---------- &quot;</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_point_dest</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">divergence_info</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">report</span><span class="o">.</span><span class="n">_warnings</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">theano</span> <span class="k">as</span> <span class="nn">tt</span> 
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span> 
+
+<span class="c1"># If we run into the identifiability problem, we can solve for n-1 variables </span>
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_sf</span><span class="p">:</span>
+    <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">α_f</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span><span class="n">α</span><span class="p">])</span>
+    <span class="n">β_f</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="p">,</span> <span class="n">β</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">μ</span> <span class="o">=</span> <span class="n">α_f</span> <span class="o">+</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">β_f</span><span class="p">)</span>
+    <span class="n">θ</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">nnet</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">μ</span><span class="p">)</span>
+    <span class="n">yl</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="s1">&#39;yl&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">θ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_s</span><span class="p">)</span>
+    <span class="n">trace_sf</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+    
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_sf</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="diagnosing-mcmc-using-pymc3">
@@ -10767,6 +10254,31 @@ dl.xr-attrs {
 </div></div></div>
 </div>
 </div>
+</div>
+<div class="section" id="graded-evaluation-30-min">
+<h2>GRADED EVALUATION (30 min)<a class="headerlink" href="#graded-evaluation-30-min" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>For Metropolis-Hastings algorithms, an acceptance rate of 23.4 was shown to be ideal</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>A high acceptance rate (&gt;90%) is an indication that the sampler is not exploring the space very well</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>A low acceptance rate is an indication that</p>
+<p>a. An incorrect proposal distribution is being used (C)</p>
+<p>b. The variance of the proposal distribution is too low</p>
+</li>
+<li><p>When using the NUTS algorithm, PyMC3 aims to get an acceptance rate of</p>
+<p>a. 75%</p>
+<p>b. 85%</p>
+</li>
+<li><p>If you have convergence issues, it is better to</p>
+<p>a. Try increasing the total number of samples drawn</p>
+<p>b. Try increasing the number of tuning samples</p>
+</li>
+</ol>
 </div>
 </div>
 
