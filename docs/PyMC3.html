@@ -373,6 +373,11 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#graded-evaluation-18-mins">
+   GRADED EVALUATION (18 mins)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#linear-regression-again">
    Linear Regression Again!
   </a>
@@ -461,6 +466,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#graded-evaluation-30-mins">
+   GRADED EVALUATION (30 mins)
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#mcmc-metrics">
@@ -2222,6 +2232,39 @@ There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
 </div>
 </div>
 </div>
+<div class="section" id="graded-evaluation-18-mins">
+<h2>GRADED EVALUATION (18 mins)<a class="headerlink" href="#graded-evaluation-18-mins" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>According to the Central Limit Theorem, the mean of the sample means tends to the true population mean as the number of samples increase</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Many real-world phenomena are averages of various factors, hence it is reasonable to use a Gaussian distribution to model them</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>What type of distribution is better suited to modeling positive values?</p>
+<p>a. Normal</p>
+<p>b. Half-normal (C)</p>
+</li>
+<li><p>Posterior predictive checks can be used to verify that the inferred distribution is similar to the observed data</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Which distribution is better suited to model data that has a lot of outliers?</p>
+<p>a. Gaussian distribution</p>
+<p>b. Student’s t-distribution (C)</p>
+</li>
+<li><p>Hierarchical models are beneficial in modeling data from groups where there might be limited data in certain groups</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Hierarchical models share information through hyperpriors</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+</ol>
+</div>
 <div class="section" id="linear-regression-again">
 <h2>Linear Regression Again!<a class="headerlink" href="#linear-regression-again" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -2246,7 +2289,7 @@ There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_51_0.png" src="../_images/PyMC3_51_0.png" />
+<img alt="../_images/PyMC3_52_0.png" src="../_images/PyMC3_52_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2370,12 +2413,12 @@ The acceptance probability does not match the target. It is 0.8919464665402735, 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff3d0a70490&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_52_7.png" src="../_images/PyMC3_52_7.png" />
+<img alt="../_images/PyMC3_53_7.png" src="../_images/PyMC3_53_7.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_52_9.png" src="../_images/PyMC3_52_9.png" />
-<img alt="../_images/PyMC3_52_10.png" src="../_images/PyMC3_52_10.png" />
+<img alt="../_images/PyMC3_53_9.png" src="../_images/PyMC3_53_9.png" />
+<img alt="../_images/PyMC3_53_10.png" src="../_images/PyMC3_53_10.png" />
 </div>
 </div>
 <div class="section" id="we-sample-from-the-posterior">
@@ -2550,7 +2593,7 @@ can be reformulated as</p>
  2.38910517 2.69086179]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_61_1.svg" src="../_images/PyMC3_61_1.svg" /></div>
+<img alt="../_images/PyMC3_62_1.svg" src="../_images/PyMC3_62_1.svg" /></div>
 </div>
 <div class="section" id="we-build-a-non-hierarchical-model-first">
 <h3>We build a non-hierarchical model first<a class="headerlink" href="#we-build-a-non-hierarchical-model-first" title="Permalink to this headline">¶</a></h3>
@@ -2590,10 +2633,10 @@ NUTS: [ν, ϵ, β, α_tmp]
 Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:18&lt;00:00, 548.27draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_63_1.svg" src="../_images/PyMC3_63_1.svg" /><img alt="../_images/PyMC3_63_2.svg" src="../_images/PyMC3_63_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<img alt="../_images/PyMC3_64_1.svg" src="../_images/PyMC3_64_1.svg" /><img alt="../_images/PyMC3_64_2.svg" src="../_images/PyMC3_64_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_63_4.svg" src="../_images/PyMC3_63_4.svg" /></div>
+<img alt="../_images/PyMC3_64_4.svg" src="../_images/PyMC3_64_4.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2659,7 +2702,7 @@ The acceptance probability does not match the target. It is 0.884780567793289, b
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_64_1.svg" src="../_images/PyMC3_64_1.svg" /><img alt="../_images/PyMC3_64_2.svg" src="../_images/PyMC3_64_2.svg" /><img alt="../_images/PyMC3_64_3.svg" src="../_images/PyMC3_64_3.svg" /></div>
+<img alt="../_images/PyMC3_65_1.svg" src="../_images/PyMC3_65_1.svg" /><img alt="../_images/PyMC3_65_2.svg" src="../_images/PyMC3_65_2.svg" /><img alt="../_images/PyMC3_65_3.svg" src="../_images/PyMC3_65_3.svg" /></div>
 </div>
 </div>
 </div>
@@ -2852,13 +2895,13 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_79_0.png" src="../_images/PyMC3_79_0.png" />
-<img alt="../_images/PyMC3_79_1.png" src="../_images/PyMC3_79_1.png" />
+<img alt="../_images/PyMC3_80_0.png" src="../_images/PyMC3_80_0.png" />
+<img alt="../_images/PyMC3_80_1.png" src="../_images/PyMC3_80_1.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_79_3.png" src="../_images/PyMC3_79_3.png" />
-<img alt="../_images/PyMC3_79_4.png" src="../_images/PyMC3_79_4.png" />
+<img alt="../_images/PyMC3_80_3.png" src="../_images/PyMC3_80_3.png" />
+<img alt="../_images/PyMC3_80_4.png" src="../_images/PyMC3_80_4.png" />
 </div>
 </div>
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
@@ -2985,7 +3028,7 @@ NUTS: [β, α]
 </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_83_6.svg" src="../_images/PyMC3_83_6.svg" /></div>
+<img alt="../_images/PyMC3_84_6.svg" src="../_images/PyMC3_84_6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3120,8 +3163,8 @@ NUTS: [β, α]
   Text(2.0, 0, &#39;7.5&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_85_2.png" src="../_images/PyMC3_85_2.png" />
-<img alt="../_images/PyMC3_85_3.png" src="../_images/PyMC3_85_3.png" />
+<img alt="../_images/PyMC3_86_2.png" src="../_images/PyMC3_86_2.png" />
+<img alt="../_images/PyMC3_86_3.png" src="../_images/PyMC3_86_3.png" />
 </div>
 </div>
 <p>In this case, the decision boundary is defined to be the value of ‘x’ when ‘y’ = 0.5. This turns out to be <span class="math notranslate nohighlight">\(-\alpha / \beta\)</span>. However, this value was chosen under the assumption that the midpoint of the class values are a good candidate, but this does not have to be the case.</p>
@@ -3370,8 +3413,8 @@ NUTS: [β, α]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_90_2.png" src="../_images/PyMC3_90_2.png" />
-<img alt="../_images/PyMC3_90_3.png" src="../_images/PyMC3_90_3.png" />
+<img alt="../_images/PyMC3_91_2.png" src="../_images/PyMC3_91_2.png" />
+<img alt="../_images/PyMC3_91_3.png" src="../_images/PyMC3_91_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3381,7 +3424,7 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_91_0.svg" src="../_images/PyMC3_91_0.svg" /></div>
+<img alt="../_images/PyMC3_92_0.svg" src="../_images/PyMC3_92_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -3516,7 +3559,7 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_94_7.png" src="../_images/PyMC3_94_7.png" />
+<img alt="../_images/PyMC3_95_7.png" src="../_images/PyMC3_95_7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3807,7 +3850,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_99_1.png" src="../_images/PyMC3_99_1.png" />
+<img alt="../_images/PyMC3_100_1.png" src="../_images/PyMC3_100_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3821,7 +3864,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_100_1.png" src="../_images/PyMC3_100_1.png" />
+<img alt="../_images/PyMC3_101_1.png" src="../_images/PyMC3_101_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3834,7 +3877,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_101_1.png" src="../_images/PyMC3_101_1.png" />
+<img alt="../_images/PyMC3_102_1.png" src="../_images/PyMC3_102_1.png" />
 </div>
 </div>
 <p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
@@ -3852,7 +3895,7 @@ Energy at the point where the sample was generated  [0.11441112 0.11441112 0.114
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_103_2.png" src="../_images/PyMC3_103_2.png" />
+<img alt="../_images/PyMC3_104_2.png" src="../_images/PyMC3_104_2.png" />
 </div>
 </div>
 <p>A score of less than 2 indicates good convergence. Computes the z score at each interval and returns and array of (interval start location, z score)</p>
@@ -4223,7 +4266,7 @@ NUTS: [β, α]
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_112_4.png" src="../_images/PyMC3_112_4.png" />
+<img alt="../_images/PyMC3_113_4.png" src="../_images/PyMC3_113_4.png" />
 </div>
 </div>
 </div>
@@ -4331,9 +4374,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_114_4.png" src="../_images/PyMC3_114_4.png" />
-<img alt="../_images/PyMC3_114_5.png" src="../_images/PyMC3_114_5.png" />
-<img alt="../_images/PyMC3_114_6.png" src="../_images/PyMC3_114_6.png" />
+<img alt="../_images/PyMC3_115_4.png" src="../_images/PyMC3_115_4.png" />
+<img alt="../_images/PyMC3_115_5.png" src="../_images/PyMC3_115_5.png" />
+<img alt="../_images/PyMC3_115_6.png" src="../_images/PyMC3_115_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4581,10 +4624,27 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_119_1.png" src="../_images/PyMC3_119_1.png" />
+<img alt="../_images/PyMC3_120_1.png" src="../_images/PyMC3_120_1.png" />
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="graded-evaluation-30-mins">
+<h2>GRADED EVALUATION (30 mins)<a class="headerlink" href="#graded-evaluation-30-mins" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Mean-centering the data helps MCMC Sampling by</p>
+<p>a. Reducing the correlation between the variables (C)</p>
+<p>b. Reducing the variance of the variables</p>
+</li>
+<li><p>Hierarchical Linear Regression is beneficial when pooling data results in vital group information being lost</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Non-hierarchical Linear Regression with groups of sparse data can result in</p>
+<p>a. very large credible intervals (C)</p>
+<p>b. very small credible intervals</p>
+</li>
+</ol>
 </div>
 <div class="section" id="mcmc-metrics">
 <h2>MCMC Metrics<a class="headerlink" href="#mcmc-metrics" title="Permalink to this headline">¶</a></h2>
@@ -4927,7 +4987,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_122_3.png" src="../_images/PyMC3_122_3.png" />
+</div></div><img alt="../_images/PyMC3_124_3.png" src="../_images/PyMC3_124_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5138,7 +5198,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_123_3.png" src="../_images/PyMC3_123_3.png" />
+</div></div><img alt="../_images/PyMC3_125_3.png" src="../_images/PyMC3_125_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -5179,7 +5239,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_125_2.png" src="../_images/PyMC3_125_2.png" />
+<img alt="../_images/PyMC3_127_2.png" src="../_images/PyMC3_127_2.png" />
 </div>
 </div>
 </div>
@@ -5211,7 +5271,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_127_2.png" src="../_images/PyMC3_127_2.png" />
+<img alt="../_images/PyMC3_129_2.png" src="../_images/PyMC3_129_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -5274,8 +5334,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_131_2.png" src="../_images/PyMC3_131_2.png" />
-<img alt="../_images/PyMC3_131_3.png" src="../_images/PyMC3_131_3.png" />
+<img alt="../_images/PyMC3_133_2.png" src="../_images/PyMC3_133_2.png" />
+<img alt="../_images/PyMC3_133_3.png" src="../_images/PyMC3_133_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5295,8 +5355,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_132_2.png" src="../_images/PyMC3_132_2.png" />
-<img alt="../_images/PyMC3_132_3.png" src="../_images/PyMC3_132_3.png" />
+<img alt="../_images/PyMC3_134_2.png" src="../_images/PyMC3_134_2.png" />
+<img alt="../_images/PyMC3_134_3.png" src="../_images/PyMC3_134_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -5325,7 +5385,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_134_2.png" src="../_images/PyMC3_134_2.png" />
+<img alt="../_images/PyMC3_136_2.png" src="../_images/PyMC3_136_2.png" />
 </div>
 </div>
 </div>
