@@ -117,13 +117,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Sampling.html">
-   Sampling strategies
+  <a class="reference internal" href="Distributions.html">
+   Introduction to Distributions
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Distributions.html">
-   Introduction to Distributions
+  <a class="reference internal" href="Sampling.html">
+   Sampling Strategies
   </a>
  </li>
 </ul>
@@ -2843,7 +2843,7 @@ The number of effective samples is smaller than 25% for some parameters.
 <h3>Inverse Link function<a class="headerlink" href="#inverse-link-function" title="Permalink to this headline">¶</a></h3>
 <p>At this point it is a good idea to bring up the concept of a inverse link function, which takes the form</p>
 <p><span class="math notranslate nohighlight">\(\theta = f(\alpha + \beta x)\)</span></p>
-<p>Here ‘f’ is called the inverse link function, the term inverse refers to the fact that the function is applied to the right hand side of the equation. In a linear regression, this inverse link function is the identity function. In the case of a lienar regression model, the value ‘y’ at any point ‘x’ is modeled as the mean of a Gaussian distribution centered at the point (x,y). The error as a result of the true ‘y’ and the estimated ‘y’ as modeled with the standard deviation of this Gaussian at that point (x,y). Now think about the scenario where this is not appropriately modeled using a Gaussian. A classification problem is a perfect example of such a scenario where the discrete classes are not modeled well as a Gaussian and hence we can’t use a Gaussian to model the mean of those classes. As a result, we would like to convert the output of <span class="math notranslate nohighlight">\(\alpha = \beta x\)</span> to some other range of values that are more appropriate to the distribution being modeled, which is what the link function intends to do.</p>
+<p>Here ‘f’ is called the inverse link function, the term inverse refers to the fact that the function is applied to the right hand side of the equation. In a linear regression, this inverse link function is the identity function. In the case of a linear regression model, the value ‘y’ at any point ‘x’ is modeled as the mean of a Gaussian distribution centered at the point (x,y). The error as a result of the true ‘y’ and the estimated ‘y’ as modeled with the standard deviation of this Gaussian at that point (x,y). Now think about the scenario where this is not appropriately modeled using a Gaussian. A classification problem is a perfect example of such a scenario where the discrete classes are not modeled well as a Gaussian and hence we can’t use a Gaussian to model the mean of those classes. As a result, we would like to convert the output of <span class="math notranslate nohighlight">\(\alpha = \beta x\)</span> to some other range of values that are more appropriate to the distribution being modeled, which is what the link function intends to do.</p>
 </div>
 <div class="section" id="logistic-function">
 <h3>Logistic function<a class="headerlink" href="#logistic-function" title="Permalink to this headline">¶</a></h3>
@@ -4640,9 +4640,52 @@ Day  139 [0.] [1.]
 <p>a. True (C)</p>
 <p>b. False</p>
 </li>
+<li><p>Does this code indicate a</p>
+<p>a. Hierarchical model</p>
+<p>b. Non-hierarchical model (C)</p>
+</li>
+</ol>
+<div class="highlight-α_tmp notranslate"><div class="highlight"><pre><span></span>    β = pm.Normal(&#39;β&#39;, mu=0, sd=10, shape=M)
+    ϵ = pm.HalfCauchy(&#39;ϵ&#39;, 5)
+    ν = pm.Exponential(&#39;ν&#39;, 1/30)
+    
+    y_pred = pm.StudentT(&#39;y_pred&#39;, mu=α_tmp[idx] + β[idx] * x_centered,
+                         sd=ϵ, nu=ν, observed=y_m)
+   
+</pre></div>
+</div>
+<ol>
 <li><p>Non-hierarchical Linear Regression with groups of sparse data can result in</p>
 <p>a. very large credible intervals (C)</p>
 <p>b. very small credible intervals</p>
+</li>
+<li><p>In Hierarchical Linear Regression, priors (not hyperpriors) on variable distributions</p>
+<p>a. are constant values</p>
+<p>b. distributions</p>
+</li>
+<li><p>Polynomial Regression is useful for</p>
+<p>a. Linear data</p>
+<p>b. Non-linear data</p>
+</li>
+<li><p>Multiple Linear Regression is used when you have</p>
+<p>a. Multiple dependent or target variables</p>
+<p>b. Multiple independent or predictor variables (C)</p>
+</li>
+<li><p>PyMC3 allows you to model multiple predictor variables uing the shape parameter in a distribution without having to create multiple parameters explicitly</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>The inverse link function of linear regression is</p>
+<p>a. Logit function</p>
+<p>b. Identity function (C)</p>
+</li>
+<li><p>Multiclass classification uses the</p>
+<p>a. Sigmoid function</p>
+<p>b. Softmax function (C)</p>
+</li>
+<li><p>A binary classification problem uses the Bernoulli distribution to model the target, the multiclass classification uses</p>
+<p>a. Categorical distribution (C)</p>
+<p>b. Poisson distribution</p>
 </li>
 </ol>
 </div>
