@@ -576,8 +576,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#graded-evaluation-30-min">
-   GRADED EVALUATION (30 min)
+  <a class="reference internal nav-link" href="#graded-evaluation-36-min">
+   GRADED EVALUATION (36 min)
   </a>
  </li>
 </ul>
@@ -4636,7 +4636,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
 </div>
 <div class="section" id="divergence">
 <h3>Divergence<a class="headerlink" href="#divergence" title="Permalink to this headline">¶</a></h3>
-<p>Divergences happen in regions of high curvature in the manifold. When PyMC3 detects a divergence it abandons that chain and as a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.</p>
+<p>Divergences happen in regions of high curvature or high gradientt in the manifold. When PyMC3 detects a divergence it abandons that chain and as a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.</p>
 <p>In some cases, PyMC3 can indicate falsely that some samples are divergences, this is due to the heuristics used to identify divergences. Concentration of samples in a region is an indication that these are not divergences.</p>
 <p>We visualize this for the cm and ncm models with pairplots of the variables. You can see how the cm models have difficulty sampling at the edge of the funnel shaped two-dimensional manifold formed by the pairplot. This is a result of the sharp discontinuity where the sampler is having difficulty sampling.</p>
 <div class="cell docutils container">
@@ -4934,7 +4934,7 @@ Number of divergences 126 and percent 6.300000
 <li><p>Increase the target_accept parameter as
 <code class="docutils literal notranslate"><span class="pre">pm.sample(5000,</span> <span class="pre">chains=2,</span> <span class="pre">target_accept=0.95)</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">pm.sample(5000,</span> <span class="pre">chains=2,</span> <span class="pre">nuts_kwargs=dict(target_accept=0.95))</span></code></p>
-<p>Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process so that we get the desired acceptance probability as indicated by the value to target_accept. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. (See below section on tuning)</p>
+<p>Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process so that we get the desired acceptance probability as indicated by the value to target_accept. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. Smaller step sizes lead to larger acceptance rates and larger step sizes lead to smaller acceptance rates. If the current acceptance rate is smaller than the target acceptance rate, the step size is reduced to increase the current acceptance rates (See the section on tuning).</p>
 </li>
 <li><p>Reparameterize the model so that the model while remaining the same, is expressed differently so that is easier to explore the space and find solutions.</p></li>
 <li><p>Modify the data representation - mean centering and standardizing the data are two standard techniques that can be applied here. Note that (5) refers to model transformation while this is specifically modifying the data.</p></li>
@@ -10255,8 +10255,8 @@ dl.xr-attrs {
 </div>
 </div>
 </div>
-<div class="section" id="graded-evaluation-30-min">
-<h2>GRADED EVALUATION (30 min)<a class="headerlink" href="#graded-evaluation-30-min" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="graded-evaluation-36-min">
+<h2>GRADED EVALUATION (36 min)<a class="headerlink" href="#graded-evaluation-36-min" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>For Metropolis-Hastings algorithms, an acceptance rate of 23.4 was shown to be ideal</p>
 <p>a. True (C)</p>
@@ -10295,15 +10295,15 @@ dl.xr-attrs {
 <p>b. the ratio of the variance between the chains to the variance within the chains (C)</p>
 </li>
 <li><p>Rhat values below 1.1 indicate convergence while those above do not</p>
-<p>a. True</p>
+<p>a. True (C)</p>
 <p>b. False</p>
 </li>
 <li><p>Thinning or pruning refers to dropping every n’th sample to avoid correlated samples</p>
-<p>a. True</p>
+<p>a. True (C)</p>
 <p>b. False</p>
 </li>
 <li><p>Divergences happen in regions of high curvature or sharp gradients in the sampling manifold</p>
-<p>a. True</p>
+<p>a. True (C)</p>
 <p>b. False</p>
 </li>
 </ol>
