@@ -256,6 +256,11 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parametric-vs-non-parametric-models">
+   Parametric vs. Non-parametric Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#parametric-methods">
    Parametric Methods
   </a>
@@ -325,8 +330,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluation-24-mins">
-   EVALUATION (24 mins)
+  <a class="reference internal nav-link" href="#graded-evaluation-27-mins">
+   GRADED EVALUATION (27 mins)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -442,6 +447,10 @@
                 
   <div class="section" id="introduction-to-distributions">
 <h1>Introduction to Distributions<a class="headerlink" href="#introduction-to-distributions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="parametric-vs-non-parametric-models">
+<h2>Parametric vs. Non-parametric Models<a class="headerlink" href="#parametric-vs-non-parametric-models" title="Permalink to this headline">¶</a></h2>
+<p>Parametric methods assume that the data can be represented using a model with a finite number of parameter. The number of parameters is bounded and as a result is inflexible for modeling data when the size of the data grows. In non-parametric methods we cannot model the data with a preset number of parameters. The number of parameters here grow with the size of the data and as a result can be quite flexible</p>
+</div>
 <div class="section" id="parametric-methods">
 <h2>Parametric Methods<a class="headerlink" href="#parametric-methods" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
@@ -1227,8 +1236,8 @@ if (outputEl) {{
                         })                };                });            </script>        </div></div></div>
 </div>
 </div>
-<div class="section" id="evaluation-24-mins">
-<h2>EVALUATION (24 mins)<a class="headerlink" href="#evaluation-24-mins" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="graded-evaluation-27-mins">
+<h2>GRADED EVALUATION (27 mins)<a class="headerlink" href="#graded-evaluation-27-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>What percentage of the area under a PDF is given by 1 standard deviation on either side of the Normal distribution?</p>
 <p>a. 68.27 (C)</p>
@@ -1262,6 +1271,10 @@ if (outputEl) {{
 <p>a. True (C)</p>
 <p>b. False</p>
 </li>
+<li><p>The binomial distribution can be used to describe the number of successes ‘p’ in ‘n’ total events</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
 </ol>
 </div>
 <div class="section" id="generate-data">
@@ -1290,8 +1303,8 @@ if (outputEl) {{
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;2-d Distribution, Outlier Distribution in Red &#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_26_1.png" src="../_images/Distributions_26_1.png" />
-<img alt="../_images/Distributions_26_2.png" src="../_images/Distributions_26_2.png" />
+<img alt="../_images/Distributions_27_1.png" src="../_images/Distributions_27_1.png" />
+<img alt="../_images/Distributions_27_2.png" src="../_images/Distributions_27_2.png" />
 </div>
 </div>
 </div>
@@ -1465,7 +1478,7 @@ if (outputEl) {{
  &lt;BarContainer object of 10 artists&gt;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_33_2.png" src="../_images/Distributions_33_2.png" />
+<img alt="../_images/Distributions_34_2.png" src="../_images/Distributions_34_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1486,7 +1499,7 @@ Converged  True
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fb323f9a3a0&gt;
 </pre></div>
 </div>
-<img alt="../_images/Distributions_34_2.png" src="../_images/Distributions_34_2.png" />
+<img alt="../_images/Distributions_35_2.png" src="../_images/Distributions_35_2.png" />
 </div>
 </div>
 <div class="section" id="get-model-parameters">
@@ -1606,8 +1619,8 @@ Initialization converged: True
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Log of BIC scores&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_41_1.png" src="../_images/Distributions_41_1.png" />
-<img alt="../_images/Distributions_41_2.png" src="../_images/Distributions_41_2.png" />
+<img alt="../_images/Distributions_42_1.png" src="../_images/Distributions_42_1.png" />
+<img alt="../_images/Distributions_42_2.png" src="../_images/Distributions_42_2.png" />
 </div>
 </div>
 </div>
@@ -1640,7 +1653,7 @@ The other problem with binning is bin placement; depending on where the bins are
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;KDE in log scale vs. x&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_44_1.png" src="../_images/Distributions_44_1.png" />
+<img alt="../_images/Distributions_45_1.png" src="../_images/Distributions_45_1.png" />
 </div>
 </div>
 </div>
@@ -1663,7 +1676,7 @@ Valid kernels are [‘gaussian’|’tophat’|’epanechnikov’|’exponential
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Log probability of KDE vs. x&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Distributions_46_1.png" src="../_images/Distributions_46_1.png" />
+<img alt="../_images/Distributions_47_1.png" src="../_images/Distributions_47_1.png" />
 </div>
 </div>
 </div>
