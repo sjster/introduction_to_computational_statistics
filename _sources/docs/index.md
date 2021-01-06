@@ -11,15 +11,39 @@ This series of notebooks and material is being put together by Dr.Srijith Rajamo
 With this goal in mind, the content is divided into the following three main sections.
 
 *  Introduction to Bayesian Statistics 
-*  Introduction to Monte Carlo simulation
-*  Introduction to PyMC3 for Monte Carlo simulations
-
+*  Introduction to Monte Carlo Methods
+*  PyMC3 for Bayesian Modeling and Inference
 
 ```{note}
 This draws a lot of inspiration from some brilliant people in this field and I will list those names here as this work is being developed.
 ```
 
-
 PyMC3 can be found [here](https://docs.pymc.io/notebooks/getting_started).
+
+### Course Outline
+
+#### Course 1 - Introduction to Bayesian Statistics
+
+- Probability 
+
+- Bayesian and Frequentist approach 
+
+- Distributions 
+   - Generate data and Parameter estimation 
+   - Gaussian Mixture Models
+   - Information Criterion 
+
+- Non-parametric Methods and Kernel Density Estimation 
+
+- Introduction to Sampling 
+
+- Sampling from Discrete Distributions 
+
+- Inverse Transform Method 
+
+- Rejection Sampling Method 
+
+- Importance Sampling Method 
+
 
 
