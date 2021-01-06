@@ -4,12 +4,12 @@
   chapters:
     - file: docs/getting_started
     - file: docs/Databricks.ipynb
-- part: Introduction to Computational Statistics
+- part: Introduction to Bayesian Statistics
   chapters:
     - file: docs/Intro.ipynb
     - file: docs/Distributions.ipynb
     - file: docs/Sampling.ipynb
-- part: Introduction to Monte Carlo Methods for Bayesian Inference
+- part: Introduction to Monte Carlo Methods 
   chapters:
     - file: docs/BayesianInference.ipynb
     - file: docs/MonteCarlo.ipynb
