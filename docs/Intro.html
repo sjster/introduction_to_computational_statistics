@@ -299,6 +299,11 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#graded-questions-15-mins">
+   GRADED QUESTIONS (15 mins)
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -314,7 +319,7 @@
 <h1>Bayesian vs. Frequentist Statistics<a class="headerlink" href="#bayesian-vs-frequentist-statistics" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Likelihood is a type of probability except that this describes the probability of the data has already been observed. Probability, in general, refers to the possibility of occurence of future events. This is the basis of frequentist statistics, our probabilities are only based on what we have observed. In Bayesian statistics, we also use our prior understanding of the environment or the system that generated the observations to infer the possibility of future events. An Ben Lambert says in his book ‘A Students Guide to Bayesian Statistics’, ‘for Bayesians it is unncessary for events to be repeatable in order to define a probability. They are merely abstractions to help express our uncertainty’.</p>
+<p>Likelihood is a type of probability except that this describes the probability of the data that has already been observed. Probability, in general, refers to the possibility of occurence of future events. In frequentist statistics, our probabilities are only based on what we have observed. In Bayesian statistics, we also use our prior understanding of the environment or the system that generated the observations to infer the possibility of future events. As Ben Lambert says in his book ‘A Students Guide to Bayesian Statistics’, ‘for Bayesians it is unnecessary for events to be repeatable in order to define a probability. They are merely abstractions to help express our uncertainty’.</p>
 <div class="section" id="the-bayesian">
 <h3>The Bayesian<a class="headerlink" href="#the-bayesian" title="Permalink to this headline">¶</a></h3>
 <p>Data is fixed and in light of new data we update our beliefs. The data is fixed and the beliefs are updated. The belief represented by some parameter is a random variable that we update. They are comfortable with the idea that our knowledge of these parameters evolve over time. In the case where there is a true parameter value that can be estimated, Bayes theorem allows one to specify an uncertainty over this parameter.</p>
@@ -372,6 +377,31 @@
 <p>Hypothesis testing using significance testing by formulating a null hypothesis and testing the probability of an event having occurred under this null hypothesis. If this probability is less than a predefined theshold (usually 5% but is very much context dependent), we reject the null hypothesis otherwise we say that the event has a reasonable chance of occuring under the null hypothesis. The general notion behind the null hypothesis is that this is a hypothesis we want to prove wrong, the opposite of the null hypothesis is the alternate hypothesis. P-values and confidence intervals are routinely used in research to convey the credibility of experiments. However, these p-values depend on the <a class="reference external" href="https://en.wikipedia.org/wiki/Likelihood_principle#Experimental_design_arguments_on_the_likelihood_principle">experimental setup</a>.</p>
 <p>Suppose we have a group of measurements for temperature in Virginia for the month of December in 2020 and it turns out that the mean temperature is 45F. The mean temperature across all the years from 1980 to 2020 was 50F. We want to test if this was an anomaly or not using NHST with p-values. Our null hypothesis here is that this is not an anomaly and the alternate hypothesis is that this was an unusually colder December. We have to select a threshold to assess accept or reject our hypothesis, as mentioned above it is usually selected to be 5%. In order to confirm our suspicion we must reject the null hypothesis, we start by obtaining the probability of the data occurring under the null hypothesis, i.e. the probability of the data in 2020 given the distribution of data from 1980 to 2020. If this probability is less that 5%, we reject the null hypothesis saying that it is unlikely for the data in 2020 to have come from the null hypothesis distribution. It is therefore a colder winter than Virginia is accustomed to seeing. If the probability is greater than 5%, we fail to reject the null hypothesis since there is some reason to believe (based on our subjective threshold) that this data could have been produced by the null hypothesis distribution. It is therefore no colder than expected and hence not an anomaly.</p>
 </div>
+</div>
+<div class="section" id="graded-questions-15-mins">
+<h2>GRADED QUESTIONS (15 mins)<a class="headerlink" href="#graded-questions-15-mins" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>In the Bayesian approach, it is unnecessary for events to be repeatable in order to define a probability</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Bayesians use a prior to incorporate previous knowledge to make inferences while Frequentists do not</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>One way Frequentists incorporate their domain knowledge in through the use of p-values to reject a hypothesis</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Frequentists express a probability over a hypothesis while Bayesians do not</p>
+<p>a. True</p>
+<p>b. False (C)</p>
+</li>
+<li><p>Bayesians do not need to accept or reject a hypothesis since they have the full distribution of the hypothesis allowing them to quantify the uncertainty of that hypothesis</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+</ol>
 </div>
 </div>
 
