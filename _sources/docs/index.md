@@ -46,4 +46,46 @@ PyMC3 can be found [here](https://docs.pymc.io/notebooks/getting_started).
 - Importance Sampling Method 
 
 
+### Course 2 - Introduction to Monte Carlo Methods
 
+- R2 and Explained Variance 
+
+- Underfitting vs. Overfitting, Simplicity vs. Accuracy 
+
+- Cross Validation 
+
+- Log-likelihood and Deviance 
+
+- AIC and WAIC 
+
+- Entropy 
+
+- KL Divergence 
+
+- Model Averaging 
+
+- Stationarity and Ergodicity 
+
+- Building blocks - Markov Chains 
+
+- Building blocks - Why does it work? 
+
+- Foundations of Bayesian Inference 
+
+- Outline of the Metropolis Algorithm 
+
+- Building the Inferred Distribution 
+
+- Python Code for the Metropolis Algorithm 
+
+- Introduction to the Metropolis-Hastings Algorithm 
+
+- Introduction to Gibbs Sampling 
+
+- Details of the Gibbs Sampling algorithm 1 
+
+- Details of the Gibbs Sampling algorithm 2 
+
+- Hamiltonian Monte Carlo 
+
+- Characteristics of MCMC 
