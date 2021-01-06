@@ -452,8 +452,30 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
-   GRADED EVALUATION (15 mins)
+  <a class="reference internal nav-link" href="#properties-of-mcmc">
+   Properties of MCMC
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#representativeness">
+     Representativeness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accurate">
+     Accurate
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#efficiency">
+     Efficiency
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id6">
+   GRADED EVALUATION (30 mins)
   </a>
  </li>
 </ul>
@@ -476,6 +498,13 @@
 <p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ">Betancourt HMC - Best introduction to HMC</a></p>
 <p><a class="reference external" href="http://arxiv.org/abs/1111.4246">NUTS paper</a></p>
 <p><a class="reference external" href="https://colcarroll.github.io/hmc_tuning_talk/">HMC Tuning by Colin Caroll</a></p>
+<p>Monte Carlo simulations refer to any set of simulations that samples a lot of values from some distribution. We look at three specific algorithms here</p>
+<ol class="simple">
+<li><p>Metropolis</p></li>
+<li><p>Metropolis-Hastings</p></li>
+<li><p>Gibbs Sampling</p></li>
+</ol>
+<p>A fourth one, the Hamiltonian Monte Carlo algorithm based on Hamiltonian mechanics is briefly illustrated here.</p>
 </div>
 <div class="section" id="building-blocks">
 <h2>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h2>
@@ -599,7 +628,7 @@
 <p>Using the example above, we are going to look at code to run the Metropolis algorithm 1000 iterations. This will simualte the inference process. Around 5000 iterations will get you closer to the true posterior distribution.</p>
 <div class="section" id="problem-statement">
 <h3>Problem Statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
-<p>This is trivial problem and is only designed to help illustrate the workings of the Metropolis algorithm with a single data point. We observe about 9 power outages in a year in Charlottesville, VA and we know that the number of power outages can be modeled by a Poisson distribution with parameter <span class="math notranslate nohighlight">\(\lambda\)</span> that is drawn from a Gamma prior distribution that has parameters <span class="math notranslate nohighlight">\(\alpha\)</span> = 7 and <span class="math notranslate nohighlight">\(\beta\)</span> = 1. In a frequentist world, we would conclude that the rate parameter is 9 based on the information we have, but in a Bayesian landscape we have some knowledge about this rate parameter should be based on what we may have observed in the past. This past knowledge gets incorporated into the prior and tempers our belief so we are not making assumption based only on what we just saw. In a way, you can consider this a way of online learning since the posterior or the rate parameter from the past data can be incorporated as a prior in our current inference process, resulting in continuous refinement of our posterior based on new data.</p>
+<p>This is trivial problem and is only designed to help illustrate the workings of the Metropolis algorithm with a single data point. We observe about 9 power outages in a year in Charlottesville, VA and we know that the number of power outages can be modeled by a Poisson distribution with parameter <span class="math notranslate nohighlight">\(\lambda\)</span> that is drawn from a Gamma prior distribution that has parameters <span class="math notranslate nohighlight">\(\alpha\)</span> = 7 and <span class="math notranslate nohighlight">\(\beta\)</span> = 1. In a frequentist world, we would conclude that the rate parameter is 9 based on the information we have, but in a Bayesian landscape we have some knowledge about this rate parameter should be based on what we may have observed in the past. This past knowledge gets incorporated into the prior and tempers our belief so we are not making assumption based only on what we just saw. In a way, you can consider this a way of online learning since the posterior of the rate parameter from the past data can be incorporated as a prior in our current inference process, resulting in continuous refinement of our posterior based on new data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -742,11 +771,23 @@
 <p>a. They are more fun to use!</p>
 <p>b. To avoid invalid draws (C)</p>
 </li>
+<li><p>In the Metropolis algorithm, what is used as the tuning parameter if a Normal distribution is used as a proposal distribution?</p>
+<p>a. Standard deviation (C)</p>
+<p>b. Mean</p>
+</li>
+<li><p>Bayesian Inference can be seen as a type of online learning since</p>
+<p>a. The inferred posterior can be used as the prior when new data arrives (C)</p>
+<p>b. The prior can be reused again for new data</p>
+</li>
+<li><p>If the traceplot displays a straight line, this is a sign that</p>
+<p>a. The newly proposed values are being rejected (C)</p>
+<p>b. The sampling has converged</p>
+</li>
 </ol>
 </div>
 <div class="section" id="gibbs-sampling">
 <h2>Gibbs Sampling<a class="headerlink" href="#gibbs-sampling" title="Permalink to this headline">¶</a></h2>
-<p>In a Gibbs sampler, the proposal distribution matches the posterior conditional distribution and the proposals are always accepted. This can be seen as a specific case of a Metropolis algorithm. One of the features of the Gibbs sampler is that it allows us to perform inference on more than one parameter at a time. This is done by drawing one parameter at a time conditional on the values on the other parameters. It iteratively works through the parameters using this process and continues till sufficient samples have been drawn for all parameters.</p>
+<p>In a Gibbs sampler, the proposal distribution matches the posterior conditional distribution and as a result the  proposals are always accepted (since there is no reason to reject unlike in the Metropolis algorithm where an arbitrary proposal distribution is used). This can be seen as a specific case of a Metropolis algorithm. One of the features of the Gibbs sampler is that it allows us to perform inference on more than one parameter at a time. This is done by drawing one parameter at a time conditional on the values on the other parameters. It iteratively works through the parameters using this process and continues till sufficient samples have been drawn for all parameters.</p>
 <p>Additionally, Gibbs Sampling can draw proposals from an asymmetric distribution. In the example below, we will be drawing from a Gamma distribution which is not symmetric. Not having a pre-determined proposal distribution is seen sometimes as an advantage. The disadvantage of this method, however, is that you are required to decompose the joint distribution into the conditional distributions in order to sample from them.  If the conjugate solutions are known, the Gibbs sampler can be faster than the Metropolis-Hastings algorithm.</p>
 <p>In the following example, we are going to to try the infer the parameters of a Normal distribution, i.e. the mean given by <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>. We use a Normal distribution here since we can use that to illustrate how Gibbs sampling can be used to estimate multiple parameters at the same time.</p>
 <div class="section" id="outline">
@@ -824,7 +865,9 @@ to (10) till we have a sufficient number of samples.</p></li>
 </div>
 <div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
 <h2>Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)<a class="headerlink" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo" title="Permalink to this headline">¶</a></h2>
-<p>The best resource on the topic! - <a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ">Betancourt Youtube Video</a></p>
+<p>The best resource on the topic! -</p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ">Betancourt Youtube Video</a></p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ"><img alt="Betancourt Youtube Video" src="https://statmodeling.stat.columbia.edu/wp-content/uploads/2016/06/Screen-Shot-2016-06-10-at-5.29.51-PM.png" /></a></p>
 <p><a class="reference external" href="https://mc-stan.org/docs/2_21/reference-manual/hamiltonian-monte-carlo.html">Stan page on HMC</a></p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo">Wikipedia Reference</a></p>
 <p>We won’t go into a lot of detail of HMC here since this is quite conceptually involved.
@@ -839,9 +882,55 @@ This is based on the solution of differential equations known as Hamilton’s eq
 <p>The leapfrog integration introduces errors due to the fact that it is a numerical integration method and not an exact integral. This is corrected using a Metropolis-Hastings step that probabilistically accepts the new values of <span class="math notranslate nohighlight">\(x_{n+1}\)</span> as <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> or <span class="math notranslate nohighlight">\(x_n(0)\)</span>. The probability used here to determine what is accepted depends on the Hamiltonian calculated using the new values <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> and <span class="math notranslate nohighlight">\(p_n(L \cdot \Delta t)\)</span>. This is repeated for <span class="math notranslate nohighlight">\(n\)</span> for a number of spatial steps.</p>
 <p>A No U-Turn sampler (NUTS) is an extension of the HMC where the number of steps of the integrator <span class="math notranslate nohighlight">\(L\)</span> is automatically tuned.</p>
 </div>
-<div class="section" id="graded-evaluation-15-mins">
-<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="properties-of-mcmc">
+<h2>Properties of MCMC<a class="headerlink" href="#properties-of-mcmc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="representativeness">
+<h3>Representativeness<a class="headerlink" href="#representativeness" title="Permalink to this headline">¶</a></h3>
+<p>The samples from the MCMC process should be representative of the posterior distribution, it should cover the distribution space throughly. The final state of the inferred distribution should be independent of the initial value.</p>
+<p>There are two ways to measure this:</p>
+<ol class="simple">
+<li><p>Visual inspection using a trace for convergence</p></li>
+<li><p>Numerical measures for convergence</p></li>
+</ol>
+<p>The trace is simply the plot of the sample value on the y-axis and the draw iteration when it is sampled on the x-axis. The first ‘n’ samples are discarded because the sampling process is moving around in space trying to find the regions of representative posterior density. These ‘n’ samples are called the burn-in and the samples are usually discarded. The choice of ‘n’ depends on the distribution but usually around 500 is selected to be an adequate number of samples. As shown below, there is good overlap between the samples from the different chains as indicated by the trace and the density plots.</p>
+<p>Numerical measures include the Gelman-Rubin statistic (also called the potential scale reduction factor or the shrink factor). This measures the ratio of the variance of the samples among the chain to the variance within the chains. A number greater than 1 usually indicates a lack of convergence.</p>
+<p><img alt="Trace plot" src="https://srijithr.gitlab.io/image-20201207170920197.png" /></p>
+<center> Trace plot </center>
+</div>
+<div class="section" id="accurate">
+<h3>Accurate<a class="headerlink" href="#accurate" title="Permalink to this headline">¶</a></h3>
+<p>The samples should be sufficiently large such that the estimates are stable. For this reason, separate ‘chains’ of samples are run to ensure consistency of results. If the chains vary a lot, as seen by inspecting a histogram or a density plot of the samples, the samples are deemed to not be stable and this requires further investigation. Autocorrelation is a common issue where samples that are drawn are not completely independent of each other. An effective sample size is calculated that gives you the true number of samples that are useful for constructing a distribution.</p>
+<p>Another measure of accuracy is the Monte Carlo Standard Error (MCSE). If we draw 4 chains, chances are that the sample mean each time will differ from each other and the true mean. The MCSE is simply the standard error of this computed mean. The larger the sample size, the less the MCSE will be.</p>
+</div>
+<div class="section" id="efficiency">
+<h3>Efficiency<a class="headerlink" href="#efficiency" title="Permalink to this headline">¶</a></h3>
+<p>The samples spanning the distribution should be generated efficiently such that sharper regions are resolved appropriately. There is quite a bit of difference in runtimes between the least and the most efficient MCMC algorithms. For more complex models where the dimensionality of the parameters increase, vanilla Metropolis algorithms can be downright impractical.</p>
+<p>Run multiple chains in parallel as much as possible since each chain is an embarassingly parallel task. Knowledge of the problem at hand helps one to pick the right sampling algorithm, resulting in more efficient sampling.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>GRADED EVALUATION (30 mins)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ol>
+<li><p>In a Gibbs Sampler, the proposals are always accepted</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>A Gibbs Sampler is a specific case of a Metropolis algorithm</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>Gibbs sampler samples from one parameter at a time, cycling through one parameter at a time.</p>
+<p>a. True (C)</p>
+<p>b. False</p>
+</li>
+<li><p>In Gibbs sampling, the proposal distribution is</p>
+<p>a. A Normal distribution</p>
+<p>b. The posterior conditional distribution</p>
+</li>
+<li><p>We visually inspect the trace to</p>
+<p>a. Check for convergence</p>
+<p>b. Determine the largest sampled value</p>
+</li>
 <li><p>We can use a histogram to look at the distribution of the posterior from Metropolis, Metropolis-Hastings or Gibbs sampling</p>
 <p>a. True (C)</p>
 <p>b. False</p>
@@ -858,11 +947,10 @@ This is based on the solution of differential equations known as Hamilton’s eq
 <p>a. Make HMC run faster</p>
 <p>b. Correct the errors from the numerical integration scheme (C)</p>
 </li>
-<li><p>When using NUTS, the number of steps ‘L’ is automatically tuned</p>
+<li><p>When using NUTS, the number of steps ‘L’ is automatically tuned</p></li>
+</ol>
 <p>a. True (C)</p>
 <p>b. False</p>
-</li>
-</ol>
 </div>
 </div>
 
