@@ -89,3 +89,70 @@ PyMC3 can be found [here](https://docs.pymc.io/notebooks/getting_started).
 - Hamiltonian Monte Carlo 
 
 - Characteristics of MCMC 
+
+
+### Course 3 - PyMC3 for Bayesian Modeling and Inference
+
+- Introduction to PyMC3 
+
+- Introduction to PyMC3 with Linear Regression 
+
+- Introduction to PyMC3 - Traces 
+
+- Composition of Distributions for Uncertainty 
+
+- Highest Posterior Density and Region of Practical Equivalence 
+
+- Credible Intervals and Confidence Intervals 
+
+- Modeling with a Gaussian Distribution 
+
+- Using PyMC3 to Model a Phenomenon with a Gaussian distribution 
+
+- Posterior Predictive Checks 
+
+- Robust Models with a Student's t-Distribution 
+
+- Hierarchical/Multilevel Models 
+
+- Hierarchical Models - Shrinkage 
+
+- Linear Regression 
+
+- Mean-center for Linear Regression 
+
+- Hierarchical Linear Regression 
+
+- Polynomial Regression for Non-linear Data 
+
+- Multiple Linear Regression 
+
+- Logistic Regression
+
+- Multiple Logistic Regression 
+
+- Multiclass Classification 
+
+- Inferring Rate Change with a Poisson Distribution 
+
+- Tuning 
+
+- Mixing and Potential Scale Reduction Factor 
+
+- Centered vs. Non-centered Parameterization 
+
+- Autocorrelation and Effective Sample Size 
+
+- Monte Carlo Error 
+
+- Divergence 
+
+- Revisiting the Multiclass Classification problem 
+
+- PyMC3 metrics 
+
+- Diagnosing and Debugging MCMC with PyMC3 (7 min)
+
+- ArViz Data Representation 
+
+- PyMC3 COVID project 
