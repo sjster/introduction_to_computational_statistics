@@ -46,7 +46,7 @@ PyMC3 can be found [here](https://docs.pymc.io/notebooks/getting_started).
 - Importance Sampling Method 
 
 
-### Course 2 - Introduction to Monte Carlo Methods
+#### Course 2 - Introduction to Monte Carlo Methods
 
 - R2 and Explained Variance 
 
@@ -91,7 +91,7 @@ PyMC3 can be found [here](https://docs.pymc.io/notebooks/getting_started).
 - Characteristics of MCMC 
 
 
-### Course 3 - PyMC3 for Bayesian Modeling and Inference
+#### Course 3 - PyMC3 for Bayesian Modeling and Inference
 
 - Introduction to PyMC3 
 
