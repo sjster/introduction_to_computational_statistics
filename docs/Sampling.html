@@ -385,7 +385,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <p>If ‘y’ is a function of z, where the PDF of y is given by p(y) and the PDF of z is given by p(z)</p>
 <div class="math notranslate nohighlight">
 \[y = f(z)\]</div>
-<p>and</p>
+<p><em>We want to determine the function f(z) such that the distribution of values y formed by the transformation \( y = f(z)\) is our desired distribution. The distribution of y will adhere to the following</em></p>
 <div class="math notranslate nohighlight">
 \[ p(y) = p(z) \lvert \dfrac{dz}{dy} \rvert\]</div>
 <p>If z has a uniform distribution this becomes</p>
@@ -396,15 +396,16 @@ In most practical scenarios, the distributions are complex enough that it is dif
 \[z = \int^y_{-\infty} p(y) dy = h(y)\]</div>
 <p>If you look at the integral, it is simply the CDF of y. If we take the inverse of the CDF function on both sides we get</p>
 <p><span class="math notranslate nohighlight">\(y = h^{-1} (z)\)</span></p>
+<p>If we sample from the z distribution, transform the values with the inverse of the CDF of the desired distribution, we get the values for y which will have the desired distribution</p>
 </div>
 <div class="section" id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
 <ol>
-<li><p>Calculate the inverse of the CDF given by \(F^{-1}\)</p></li>
-<li><p>Sample from U[0,1]</p></li>
+<li><p>Calculate the inverse of the CDF of the desired dsitribution given by \(F^{-1}\)</p></li>
+<li><p>Sample from z which is U[0,1]</p></li>
 <li><p>Use the sampled values from (2) as input to the inverse of the CDF <span class="math notranslate nohighlight">\(F^{-1}\)</span> such that</p>
 <div class="math notranslate nohighlight">
-\[X \sim F^{-1} (U)\]</div>
+\[Y \sim F^{-1} (U)\]</div>
 </li>
 </ol>
 <p>The limitation with this approach is that it must be possible to compute the inverse of the CDF of the distribution.</p>
@@ -413,14 +414,18 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>An exponential distribution is given by the PDF</p>
 <div class="math notranslate nohighlight">
-\[f(x) = \lambda e^{-\lambda x}\]</div>
-<p>if x &gt;= 0</p>
+\[p(y) = \lambda e^{-\lambda y}\]</div>
+<p>if y &gt;= 0</p>
 <p>The CDF for this function is</p>
 <div class="math notranslate nohighlight">
-\[F(x) = 1 - e^{-\lambda x}\]</div>
+\[F = 1 - e^{-\lambda y}\]</div>
+<p>but</p>
+<div class="math notranslate nohighlight">
+\[ F = h(y) = z \longrightarrow z = 1 - e^{-\lambda y} \]</div>
 <p>Taking the logarithm on both sides of the equation</p>
 <div class="math notranslate nohighlight">
-\[ x = -log(1 - F(x)) / \lambda \]</div>
+\[ y = -log(1 - z) / \lambda \]</div>
+<p>Now if you sample from z and plug those values into the equation above, you get values of y which will have the desired distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -514,8 +519,8 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <div class="math notranslate nohighlight">
 \[E[f] = \sum_i p(x_i) f(x_i)\]</div>
 <p>Importance sampling is also based on the idea of using another proposal distribution that is easier to sample from compared to the original distribution p(x).</p>
-<p>$<span class="math notranslate nohighlight">\(E[f] = \int p(x) f(x) dx = \int \dfrac{p(x)}{q(x)} q(x) f(x) dx = \dfrac{1}{L} \sum_l \dfrac{p(x)}{q(x)} f(x) \)</span>$ where samples are drawn from (q(x))</p>
-<p>The \(\dfrac{p(x)}{q(x)}\) is known as the importance weights and correct the bias resulting from sampling from the wrong distribution. Unlike rejection sampling, all samples are retained.</p>
+<p>$<span class="math notranslate nohighlight">\(E[f] = \int p(x) f(x) dx = \int \dfrac{p(x)}{q(x)} q(x) f(x) dx = \dfrac{1}{L} \sum_l \dfrac{p(x)}{q(x)} f(x) \)</span>$ where samples are drawn from q(x) instead of the difficult-to-sample-from distribution p(x).</p>
+<p>The \(\dfrac{p(x)}{q(x)}\) is known as the importance weights and correct the bias resulting from sampling from the wrong distribution. Unlike rejection sampling, all samples are retained. Similar to rejection sampling, the envelope disribution should be close to the desired distribution for efficient sampling.</p>
 </div>
 <div class="section" id="id1">
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
