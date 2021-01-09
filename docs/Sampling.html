@@ -283,6 +283,16 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#derivation">
+     Derivation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#algorithm">
+     Algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#example">
      Example
     </a>
@@ -293,13 +303,6 @@
   <a class="reference internal nav-link" href="#ungraded-evaluation-30mins">
    UNGRADED EVALUATION (30mins)
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#add-description-of-the-rayleigh-distribution-here">
-     ADD DESCRIPTION OF THE RAYLEIGH DISTRIBUTION HERE
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
@@ -344,6 +347,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <li><p>In high-dimensional spaces, there are vast regions of nothingness and most of the probability density is concentrated in a small region. Ideally, we want to sample from regions in space where the function f(x) and the probability of that value f(x) given by p(x) is high so that the contribution of this term \(f(x) p(x)\) is high.</p></li>
 </ol>
 <p>We will look at various ways to perform efficient sampling here. This is useful not only to understand how distributions are sampled in practice in a package such as SciPy but it also helps you to write your own custom distribution should that need arise.</p>
+<p>The techniques listed are mostly applicable to univariate distributions, but they are useful to understand since they form the components in more sophisticated techniques.</p>
 </div>
 <div class="section" id="sampling-from-discrete-distributions">
 <h2>Sampling from Discrete Distributions<a class="headerlink" href="#sampling-from-discrete-distributions" title="Permalink to this headline">¶</a></h2>
@@ -376,6 +380,25 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <div class="math notranslate nohighlight">
 \[F^{-1} (Y) = X\]</div>
 <p>The steps required to sample from the distribution with CDF given by ‘F’ is shown below</p>
+<div class="section" id="derivation">
+<h3>Derivation<a class="headerlink" href="#derivation" title="Permalink to this headline">¶</a></h3>
+<p>If ‘y’ is a function of z, where the PDF of y is given by p(y) and the PDF of z is given by p(z)</p>
+<div class="math notranslate nohighlight">
+\[y = f(z)\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[ p(y) = p(z) \lvert \dfrac{dz}{dy} \rvert\]</div>
+<p>If z has a uniform distribution this becomes</p>
+<div class="math notranslate nohighlight">
+\[p(y) = \lvert \dfrac{dz}{dy} \rvert\]</div>
+<p>Integrating both sides, we get</p>
+<div class="math notranslate nohighlight">
+\[z = \int^y_{-\infty} p(y) dy = h(y)\]</div>
+<p>If you look at the integral, it is simply the CDF of y. If we take the inverse of the CDF function on both sides we get</p>
+<p><span class="math notranslate nohighlight">\(y = h^{-1} (z)\)</span></p>
+</div>
+<div class="section" id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
 <ol>
 <li><p>Calculate the inverse of the CDF given by \(F^{-1}\)</p></li>
 <li><p>Sample from U[0,1]</p></li>
@@ -384,6 +407,8 @@ In most practical scenarios, the distributions are complex enough that it is dif
 \[X \sim F^{-1} (U)\]</div>
 </li>
 </ol>
+<p>The limitation with this approach is that it must be possible to compute the inverse of the CDF of the distribution.</p>
+</div>
 <div class="section" id="example">
 <h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
 <p>An exponential distribution is given by the PDF</p>
@@ -392,7 +417,10 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <p>if x &gt;= 0</p>
 <p>The CDF for this function is</p>
 <div class="math notranslate nohighlight">
-\[F(a) = 1 - e^{-\lambda a}\]</div>
+\[F(x) = 1 - e^{-\lambda x}\]</div>
+<p>Taking the logarithm on both sides of the equation</p>
+<div class="math notranslate nohighlight">
+\[ x = -log(1 - F(x)) / \lambda \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -426,10 +454,10 @@ In most practical scenarios, the distributions are complex enough that it is dif
 </div>
 <div class="section" id="ungraded-evaluation-30mins">
 <h2>UNGRADED EVALUATION (30mins)<a class="headerlink" href="#ungraded-evaluation-30mins" title="Permalink to this headline">¶</a></h2>
-<p>Generate a Rayleigh distribution using the Inverse Transform Method</p>
-<div class="section" id="add-description-of-the-rayleigh-distribution-here">
-<h3>ADD DESCRIPTION OF THE RAYLEIGH DISTRIBUTION HERE<a class="headerlink" href="#add-description-of-the-rayleigh-distribution-here" title="Permalink to this headline">¶</a></h3>
-</div>
+<p>Generate a Rayleigh distribution using the Inverse Transform Method. The PDF of the Raleigh function f(x) is given by</p>
+<p><span class="math notranslate nohighlight">\(f(x) = \dfrac{x}{\sigma^2} e^{-x^2 / 2\sigma^2}\)</span></p>
+<p>when <span class="math notranslate nohighlight">\(x &gt; 0\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> is the scale parameter. The CDF for the Rayleigh distribution is given by</p>
+<p><span class="math notranslate nohighlight">\(F(x) = 1 - e^{-x^2 / 2\sigma^2}\)</span></p>
 </div>
 <div class="section" id="graded-evaluation-15-mins">
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
@@ -462,7 +490,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <ol class="simple">
 <li><p>A probability density called the proposal density ‘q(z)’. This density is selected such that it is easier to sample than the original distribution p(z).</p></li>
 <li><p>p(z) is difficult to sample from but we can evaluate it up to a certain proportionality constant.</p></li>
-<li><p>A constant ‘k’ such that \(k q(z) &gt;= p(z)\) for all values of z. This forms an envelope around p(z).</p></li>
+<li><p>A constant ‘k’ such that \(k q(z) &gt;= p(z)\) for all values of z. This forms an envelope around p(z) denoted by Q(z, i.e. \(Q(z) = kq(z)\)</p></li>
 </ol>
 <p><img alt="Sampling" src="../_images/sampling_distribution.png" /></p>
 <p>Given the above densities, we use the following steps</p>
@@ -472,7 +500,13 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <li><p>If \(u_0 &gt; p(z_0)\), the sample is rejected otherwise save \(u_0\). By doing so, anything that falls under \(p(z)\) is saved and has a uniform distribution thereby obtaining the distribution of p(z)</p></li>
 <li><p>Continue with (1) until sufficient samples have been drawn</p></li>
 </ol>
-<p>The samples are accepted with probability \(\dfrac{p(z)}{k q(z)}\).</p>
+<p>The samples are accepted with probability \(\dfrac{p(z)}{k q(z)}\). For effective rejection sampling, we want the number of samples that are rejected to a minimum. This is possible only when the envelope distribution is close to the desired distribution. It is also inefficient to use in high dimensional spaces for the following reasons</p>
+<ul class="simple">
+<li><p>The ideal value of k in a ‘D’ dimensional space is given by \( (\dfrac{\sigma_q}{\sigma_p})^D\) where \(\sigma\) is the variance of either distribution.</p></li>
+<li><p>The acceptance ratio for two normalized distributions \(p(x)\) and \(q(x)\) is simply \(1/k\)</p></li>
+<li><p>This acceptance ratio now scales as the ratio \( (\dfrac{\sigma_p}{\sigma_q})^D\). If \( \sigma_q\) is greater than \( \sigma_p\), for D = 1000 the acceptance ratio is close to 1/20000</p></li>
+<li><p>In practical scenarios where the distributions are multimodal, this effect is exacerbated.</p></li>
+</ul>
 </div>
 <div class="section" id="importance-sampling">
 <h2>Importance Sampling<a class="headerlink" href="#importance-sampling" title="Permalink to this headline">¶</a></h2>
