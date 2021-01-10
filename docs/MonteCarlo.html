@@ -470,6 +470,13 @@
     <a class="reference internal nav-link" href="#efficiency">
      Efficiency
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mean-center-the-data">
+       Mean-center the data
+      </a>
+     </li>
+    </ul>
    </li>
   </ul>
  </li>
@@ -906,6 +913,19 @@ This is based on the solution of differential equations known as Hamilton’s eq
 <h3>Efficiency<a class="headerlink" href="#efficiency" title="Permalink to this headline">¶</a></h3>
 <p>The samples spanning the distribution should be generated efficiently such that sharper regions are resolved appropriately. There is quite a bit of difference in runtimes between the least and the most efficient MCMC algorithms. For more complex models where the dimensionality of the parameters increase, vanilla Metropolis algorithms can be downright impractical.</p>
 <p>Run multiple chains in parallel as much as possible since each chain is an embarassingly parallel task. Knowledge of the problem at hand helps one to pick the right sampling algorithm, resulting in more efficient sampling.</p>
+<div class="section" id="mean-center-the-data">
+<h4>Mean-center the data<a class="headerlink" href="#mean-center-the-data" title="Permalink to this headline">¶</a></h4>
+<p>It is advantageous to mean-center the data before performing MCMC sampling. The example below of linear regression helps to illustrate this. The figure below is a 1-dimensional linear regression problem given by</p>
+<div class="math notranslate nohighlight">
+\[ y = \alpha x + \beta \]</div>
+<p>and the class of regression lines with the uncertainty is reflected by the spread of these lines. Here \(\alpha\) is the slope of the line and \(\beta\) is the y-intercept. The lines pass around the mean of the x and y values of the data and rotate around this ‘pivot point’. For each line, as the slope increases, the y-intercept decreases and vice-versa. Hence there is a strong correlation between these coefficients.</p>
+<p><img alt="Regression lines" src="docs/images/family_regression.png" /></p>
+<center> Family of Regression lines </center>
+<p>The figure beneath illustates this correlation between the coefficients of linear regression \(\alpha\) and \(\beta\). It has a very narrow diagonal shape which is not ideal for sampling. If you think about the example of Gibbs sampling, you select one parameter \(\alpha\) and then search for the other parameter \(\beta\) by moving along the line representing \(\alpha\). This has a limited range because of this narrow shape of the parameter space as indicated by the correlation plot. Convergence, as a result, can take a long time.</p>
+<p>When you mean-center the data, you subtract the mean of x from all the values which results in the x values being centered around zero. The pivot point (not exactly at the mean but close to it) is now almost over zero on the x axis which means that the y-intercept does not change much. This breaks the correlation between the two coordinates making it easier to sample.</p>
+<p><img alt="Inverse correlation" src="docs/images/inverse_correlation.png" /></p>
+<p>It is a good idea to mean center the data so</p>
+<center> Inverse correlation of the intercepts </center></div>
 </div>
 </div>
 <div class="section" id="id6">
