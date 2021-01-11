@@ -1,7 +1,7 @@
 # Computational Statistics for Bayesian Inference with PyMC3 
 
 
-This series of notebooks and material is being put together by Dr.Srijith Rajamohan. The purpose of this series is to teach the basics of Bayesian statistics for the purpose of performing Inference. This is not intended to be a comprehensive course that teaches the basics of statistics and probability nor does it cover Frequentist statistical techniques based on the Null Hypothesis Significance Testing (NHST). What it does cover is:
+This series of notebooks and material is being put together by Dr.Srijith Rajamohan with the introductory lectures on the foundations of Probability and the Bayes Theorem being offered by Dr. Robert Settlage. The purpose of this series is to teach the basics of Bayesian statistics for the purpose of performing Inference. This is not intended to be a comprehensive course that teaches the basics of statistics and probability nor does it cover Frequentist statistical techniques based on the Null Hypothesis Significance Testing (NHST). What it does cover is:
 
 * The basics of Bayesian probability
 * Understanding Bayesian inference and how it works
@@ -24,7 +24,15 @@ PyMC3 can be found [here](https://docs.pymc.io/notebooks/getting_started).
 
 #### Course 1 - Introduction to Bayesian Statistics
 
-- Probability 
+- The Foundations of Probability 
+
+- Distributions, Central Tendencies and Shape Parameters
+
+- Parameter Estimation
+
+- Introduction to the Bayes Theorem
+
+- Inference and Decisions
 
 - Bayesian and Frequentist approach 
 
