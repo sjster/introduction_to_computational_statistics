@@ -143,7 +143,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Distributions.html">
-   Introduction to Distributions
+   Introduction to Common Distributions
   </a>
  </li>
  <li class="toctree-l1">
@@ -465,11 +465,8 @@
 <h3>1. Use the method of moments<a class="headerlink" href="#use-the-method-of-moments" title="Permalink to this headline">¶</a></h3>
 <p>Find the method of moments estimator for <span class="math notranslate nohighlight">\(\sigma^2\)</span> given</p>
 <p><span class="math notranslate nohighlight">\(X_i \overset{\text{iid}}{\sim}N(1,\sigma^2), i=1..n\)</span></p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a.  $\frac{1}{n} \sum_{i=1}^{n} X_i^2 -1$ (C)
-
-b.  $\frac{1}{n}\sum_{i=1}^{n}(X_i -1)^2$
-</pre></div>
-</div>
+<p>a. $<span class="math notranslate nohighlight">\( \frac{1}{n} \sum_{i=1}^{n} X_i^2 -1\)</span>$ (C)</p>
+<p>b.  $<span class="math notranslate nohighlight">\(\frac{1}{n}\sum_{i=1}^{n}(X_i -1)^2\)</span>$</p>
 </div>
 <div class="section" id="using-the-maximum-likelihood-method">
 <h3>2. Using the maximum likelihood method<a class="headerlink" href="#using-the-maximum-likelihood-method" title="Permalink to this headline">¶</a></h3>
@@ -483,14 +480,11 @@ b. no (C)
 </div>
 <div class="section" id="graded-evaluation-15-mins">
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
-<ol>
-<li><p>For a variable <span class="math notranslate nohighlight">\(X_i \overset{\text{iid}}{\sim}N(\mu,\sigma^2), i=1..n\)</span></p>
-<p>find the MLE for <span class="math notranslate nohighlight">\((\mu,\sigma^2)\)</span></p>
-<p><span class="math notranslate nohighlight">\((\hat{\mu},\hat{\sigma^2})=\)</span></p>
-<p>a. <span class="math notranslate nohighlight">\(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n}\)</span> (C)</p>
-<p>b. <span class="math notranslate nohighlight">\(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n-1}\)</span></p>
-</li>
+<ol class="simple">
+<li><p>For a variable <span class="math notranslate nohighlight">\(X_i \overset{\text{iid}}{\sim}N(\mu,\sigma^2), i=1..n\)</span>, find the MLE for <span class="math notranslate nohighlight">\((\mu,\sigma^2)\)</span></p></li>
 </ol>
+<p>a. $<span class="math notranslate nohighlight">\(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n}\)</span>$ (C)</p>
+<p>b. $<span class="math notranslate nohighlight">\(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n-1}\)</span>$</p>
 </div>
 </div>
 
