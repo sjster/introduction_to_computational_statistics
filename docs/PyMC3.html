@@ -391,6 +391,23 @@
     <a class="reference internal nav-link" href="#mean-center-the-data">
      Mean center the data
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#transformation">
+       Transformation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#recovering-the-data">
+       Recovering the data
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mean-centered-broader-sampling-space">
+     Mean Centered - Broader Sampling Space
+    </a>
    </li>
   </ul>
  </li>
@@ -677,9 +694,9 @@
 <span class="k">with</span> <span class="n">basic_model</span><span class="p">:</span>
 
     <span class="c1"># Priors for unknown model parameters</span>
-    <span class="n">alpha</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">beta</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">sigma</span> <span class="o">=</span> <span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
     <span class="c1"># Expected value of outcome</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">X1</span> <span class="o">+</span> <span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">X2</span> 
@@ -700,8 +717,19 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">map_estimate</span> <span class="o">=</span> <span class="n">find_MAP</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">basic_model</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">map_estimate</span> <span class="o">=</span> <span class="n">find_MAP</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">basic_model</span><span class="p">,</span> <span class="n">maxeval</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
 <span class="n">map_estimate</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>logp = -164.27, ||grad|| = 3.5988: 100%|██████████| 20/20 [00:00&lt;00:00, 3391.39it/s]   
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;alpha&#39;: array(1.0154193),
+ &#39;beta&#39;: array([1.46379432, 0.29275886]),
+ &#39;sigma_log__&#39;: array(0.12023688),
+ &#39;sigma&#39;: array(1.12776396)}
 </pre></div>
 </div>
 </div>
@@ -721,7 +749,7 @@
     <span class="c1"># obtain starting values via MAP</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">find_MAP</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="n">optimize</span><span class="o">.</span><span class="n">fmin_powell</span><span class="p">)</span>
 
-    <span class="c1"># instantiate sampler</span>
+    <span class="c1"># instantiate sampler - not really a good practice</span>
     <span class="n">step</span> <span class="o">=</span> <span class="n">NUTS</span><span class="p">(</span><span class="n">scaling</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
 
     <span class="c1"># draw 2000 posterior samples</span>
@@ -730,55 +758,30 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/pymc3/tuning/starting.py:129: UserWarning: In future versions, set the optimization algorithm with a string. For example, use `method=&quot;L-BFGS-B&quot;` instead of `fmin=sp.optimize.fmin_l_bfgs_b&quot;`.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/pymc3/tuning/starting.py:115: UserWarning: In future versions, set the optimization algorithm with a string. For example, use `method=&quot;L-BFGS-B&quot;` instead of `fmin=sp.optimize.fmin_l_bfgs_b&quot;`.
   warnings.warn(
+logp = -165.87:   5%|▍         | 230/5000 [00:00&lt;00:00, 6126.10it/s] 
 </pre></div>
 </div>
-<div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='271' class='' max='5000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  5.42% [271/5000 00:00<00:00 logp = -164.5]
-</div>
-</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
-         Current function value: 164.496957
-         Iterations: 6
-         Function evaluations: 271
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
+         Current function value: 163.261934
+         Iterations: 5
+         Function evaluations: 230
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (4 chains in 4 jobs)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [sigma, beta, alpha]
-</pre></div>
-</div>
-<div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [12000/12000 00:08<00:00 Sampling 4 chains, 0 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 17 seconds.
+Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:16&lt;00:00, 607.87draws/s]
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
@@ -791,8 +794,8 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.13521069, 1.07569489, 1.17120621, ..., 1.12173482, 1.14242057,
-       0.98915958])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.17257076, 0.66991082, 1.26713518, ..., 1.3967013 , 1.2705309 ,
+       1.10360491])
 </pre></div>
 </div>
 </div>
@@ -811,16 +814,47 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
   warnings.warn(
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;alpha&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;alpha&#39;}&gt;],
-       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;beta&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;beta&#39;}&gt;],
-       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;sigma&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;sigma&#39;}&gt;]], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fc30a3c7190&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fc327f82490&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fc309852f70&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fc30986ebb0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fc30988f3d0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fc3098a6700&gt;]],
+      dtype=object)
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_9_2.png" src="../_images/PyMC3_9_2.png" />
@@ -834,10 +868,6 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
-</pre></div>
-</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -858,8 +888,8 @@ The number of effective samples is smaller than 25% for some parameters.
       <th></th>
       <th>mean</th>
       <th>sd</th>
-      <th>hdi_3%</th>
-      <th>hdi_97%</th>
+      <th>hpd_3%</th>
+      <th>hpd_97%</th>
       <th>mcse_mean</th>
       <th>mcse_sd</th>
       <th>ess_mean</th>
@@ -872,58 +902,58 @@ The number of effective samples is smaller than 25% for some parameters.
   <tbody>
     <tr>
       <th>alpha</th>
-      <td>1.013</td>
-      <td>0.236</td>
-      <td>0.570</td>
-      <td>1.457</td>
+      <td>1.008</td>
+      <td>0.229</td>
+      <td>0.557</td>
+      <td>1.419</td>
+      <td>0.004</td>
       <td>0.003</td>
-      <td>0.002</td>
-      <td>4813.0</td>
-      <td>4728.0</td>
-      <td>4815.0</td>
-      <td>4216.0</td>
+      <td>3976.0</td>
+      <td>3976.0</td>
+      <td>4009.0</td>
+      <td>3701.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>beta[0]</th>
-      <td>1.475</td>
-      <td>1.949</td>
-      <td>-2.027</td>
-      <td>5.261</td>
-      <td>0.054</td>
-      <td>0.040</td>
-      <td>1291.0</td>
-      <td>1172.0</td>
-      <td>1290.0</td>
-      <td>1337.0</td>
+      <td>1.482</td>
+      <td>1.044</td>
+      <td>-0.438</td>
+      <td>3.441</td>
+      <td>0.028</td>
+      <td>0.020</td>
+      <td>1426.0</td>
+      <td>1426.0</td>
+      <td>1425.0</td>
+      <td>1760.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>beta[1]</th>
-      <td>0.273</td>
-      <td>9.582</td>
-      <td>-17.902</td>
-      <td>18.001</td>
-      <td>0.266</td>
-      <td>0.190</td>
-      <td>1298.0</td>
-      <td>1269.0</td>
-      <td>1297.0</td>
-      <td>1290.0</td>
+      <td>0.264</td>
+      <td>4.847</td>
+      <td>-8.781</td>
+      <td>9.343</td>
+      <td>0.130</td>
+      <td>0.092</td>
+      <td>1397.0</td>
+      <td>1397.0</td>
+      <td>1398.0</td>
+      <td>2042.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>sigma</th>
-      <td>1.148</td>
-      <td>0.082</td>
-      <td>0.995</td>
-      <td>1.295</td>
+      <td>1.155</td>
+      <td>0.085</td>
+      <td>0.993</td>
+      <td>1.312</td>
       <td>0.001</td>
       <td>0.001</td>
-      <td>7598.0</td>
-      <td>7589.0</td>
-      <td>7548.0</td>
-      <td>4748.0</td>
+      <td>7311.0</td>
+      <td>7125.0</td>
+      <td>7574.0</td>
+      <td>6080.0</td>
       <td>1.0</td>
     </tr>
   </tbody>
@@ -938,10 +968,6 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
-</pre></div>
-</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -962,8 +988,8 @@ The number of effective samples is smaller than 25% for some parameters.
       <th></th>
       <th>mean</th>
       <th>sd</th>
-      <th>hdi_3%</th>
-      <th>hdi_97%</th>
+      <th>hpd_3%</th>
+      <th>hpd_97%</th>
       <th>mcse_mean</th>
       <th>mcse_sd</th>
       <th>ess_mean</th>
@@ -976,58 +1002,58 @@ The number of effective samples is smaller than 25% for some parameters.
   <tbody>
     <tr>
       <th>alpha</th>
-      <td>1.013</td>
-      <td>0.236</td>
-      <td>0.570</td>
-      <td>1.457</td>
+      <td>1.008</td>
+      <td>0.229</td>
+      <td>0.557</td>
+      <td>1.419</td>
+      <td>0.004</td>
       <td>0.003</td>
-      <td>0.002</td>
-      <td>4813.0</td>
-      <td>4728.0</td>
-      <td>4815.0</td>
-      <td>4216.0</td>
+      <td>3976.0</td>
+      <td>3976.0</td>
+      <td>4009.0</td>
+      <td>3701.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>beta[0]</th>
-      <td>1.475</td>
-      <td>1.949</td>
-      <td>-2.027</td>
-      <td>5.261</td>
-      <td>0.054</td>
-      <td>0.040</td>
-      <td>1291.0</td>
-      <td>1172.0</td>
-      <td>1290.0</td>
-      <td>1337.0</td>
+      <td>1.482</td>
+      <td>1.044</td>
+      <td>-0.438</td>
+      <td>3.441</td>
+      <td>0.028</td>
+      <td>0.020</td>
+      <td>1426.0</td>
+      <td>1426.0</td>
+      <td>1425.0</td>
+      <td>1760.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>beta[1]</th>
-      <td>0.273</td>
-      <td>9.582</td>
-      <td>-17.902</td>
-      <td>18.001</td>
-      <td>0.266</td>
-      <td>0.190</td>
-      <td>1298.0</td>
-      <td>1269.0</td>
-      <td>1297.0</td>
-      <td>1290.0</td>
+      <td>0.264</td>
+      <td>4.847</td>
+      <td>-8.781</td>
+      <td>9.343</td>
+      <td>0.130</td>
+      <td>0.092</td>
+      <td>1397.0</td>
+      <td>1397.0</td>
+      <td>1398.0</td>
+      <td>2042.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>sigma</th>
-      <td>1.148</td>
-      <td>0.082</td>
-      <td>0.995</td>
-      <td>1.295</td>
+      <td>1.155</td>
+      <td>0.085</td>
+      <td>0.993</td>
+      <td>1.312</td>
       <td>0.001</td>
       <td>0.001</td>
-      <td>7598.0</td>
-      <td>7589.0</td>
-      <td>7548.0</td>
-      <td>4748.0</td>
+      <td>7311.0</td>
+      <td>7125.0</td>
+      <td>7574.0</td>
+      <td>6080.0</td>
       <td>1.0</td>
     </tr>
   </tbody>
@@ -1326,7 +1352,8 @@ values are essential for good results.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.YTick at 0x7ff3f22ed3d0&gt;], [Text(0, 0, &#39;&#39;)])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.YTick at 0x7fc30a579d60&gt;],
+ &lt;a list of 1 Text major ticklabel objects&gt;)
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_23_1.png" src="../_images/PyMC3_23_1.png" />
@@ -1374,31 +1401,26 @@ values are essential for good results.</p>
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [σ, μ]
-</pre></div>
-</div>
-<div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='8000' class='' max='8000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [8000/8000 00:01<00:00 Sampling 4 chains, 0 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 9 seconds.
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000 [00:03&lt;00:00, 1939.11draws/s]
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
   warnings.warn(
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_25_3.svg" src="../_images/PyMC3_25_3.svg" /><img alt="../_images/PyMC3_25_4.png" src="../_images/PyMC3_25_4.png" />
+<img alt="../_images/PyMC3_25_1.svg" src="../_images/PyMC3_25_1.svg" /><img alt="../_images/PyMC3_25_2.png" src="../_images/PyMC3_25_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1559,7 +1581,7 @@ FILE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>710
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>71000
 </pre></div>
 </div>
 </div>
@@ -1572,14 +1594,10 @@ FILE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fc327ebad90&gt;
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;μ&#39;, ylabel=&#39;σ&#39;&gt;
-</pre></div>
-</div>
-<img alt="../_images/PyMC3_29_2.png" src="../_images/PyMC3_29_2.png" />
+<img alt="../_images/PyMC3_29_1.png" src="../_images/PyMC3_29_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1609,8 +1627,8 @@ FILE
       <th></th>
       <th>mean</th>
       <th>sd</th>
-      <th>hdi_3%</th>
-      <th>hdi_97%</th>
+      <th>hpd_3%</th>
+      <th>hpd_97%</th>
       <th>mcse_mean</th>
       <th>mcse_sd</th>
       <th>ess_mean</th>
@@ -1623,30 +1641,30 @@ FILE
   <tbody>
     <tr>
       <th>μ</th>
-      <td>53.563</td>
-      <td>0.534</td>
-      <td>52.591</td>
-      <td>54.565</td>
-      <td>0.009</td>
+      <td>53.524</td>
+      <td>0.544</td>
+      <td>52.504</td>
+      <td>54.513</td>
+      <td>0.010</td>
       <td>0.007</td>
-      <td>3243.0</td>
-      <td>3243.0</td>
-      <td>3256.0</td>
-      <td>2227.0</td>
+      <td>2716.0</td>
+      <td>2716.0</td>
+      <td>2708.0</td>
+      <td>2008.0</td>
       <td>1.0</td>
     </tr>
     <tr>
       <th>σ</th>
-      <td>3.568</td>
-      <td>0.383</td>
-      <td>2.913</td>
-      <td>4.308</td>
+      <td>3.564</td>
+      <td>0.389</td>
+      <td>2.877</td>
+      <td>4.320</td>
       <td>0.007</td>
       <td>0.005</td>
-      <td>3056.0</td>
-      <td>3024.0</td>
-      <td>3054.0</td>
-      <td>2451.0</td>
+      <td>2902.0</td>
+      <td>2755.0</td>
+      <td>3059.0</td>
+      <td>2413.0</td>
       <td>1.0</td>
     </tr>
   </tbody>
@@ -1668,24 +1686,15 @@ FILE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='100' class='' max='100' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [100/100 00:00<00:00]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/pymc3/sampling.py:1246: UserWarning: samples parameter is smaller than nchains times ndraws, some draws and/or chains may not be represented in the returned posterior predictive sample
+  warnings.warn(
+100%|██████████| 100/100 [00:00&lt;00:00, 101.83it/s]
+</pre></div>
 </div>
-</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of the sampled variable y and data  (100, 47) 47
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of the sampled variable y and data  (100, 47) 47
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
@@ -1697,16 +1706,16 @@ FILE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([54.89081574, 51.22194466, 56.11432563, 55.46165617, 54.32144226,
-       48.96194259, 52.92067811, 47.34516304, 56.07251752, 58.75310751,
-       54.48894594, 49.36799772, 53.28191241, 56.49077707, 52.88174639,
-       51.74632302, 55.0208239 , 56.16776376, 51.20222469, 50.68273258,
-       52.83109457, 55.91677434, 52.29954768, 49.84854089, 54.57114384,
-       56.41602873, 52.96434454, 47.09080199, 48.38257226, 47.36051665,
-       51.26919707, 51.87549412, 60.56445352, 52.38265861, 59.37778488,
-       56.68705548, 47.12182829, 57.29953073, 51.60334495, 57.05021493,
-       51.99733048, 55.25925157, 54.78427234, 54.13861868, 49.31464265,
-       48.98858109, 51.25127967])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([49.98215799, 50.49180512, 53.60669804, 48.74337005, 50.29863699,
+       59.54910476, 53.50308172, 47.34045313, 52.41444856, 61.66610749,
+       53.72045164, 52.13519161, 54.05471775, 55.68761778, 54.02016869,
+       50.82728688, 49.47533008, 53.48387655, 49.47059529, 54.08160974,
+       57.10149016, 57.73911416, 55.22624273, 53.14480796, 60.61579931,
+       55.46234238, 55.67484251, 52.86432449, 53.32556662, 52.37654397,
+       55.13428194, 52.5889095 , 57.22628181, 54.90364271, 52.15965992,
+       54.32998443, 52.15962073, 57.73351664, 54.11044118, 52.77336772,
+       57.02683647, 49.96149962, 51.96178445, 57.56350741, 62.15517288,
+       54.27968979, 54.64943262])
 </pre></div>
 </div>
 </div>
@@ -1720,12 +1729,10 @@ FILE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
-arviz.data.io_pymc3 - WARNING - posterior predictive variable y&#39;s shape not compatible with number of chains and draws. This can mean that some draws or even whole chains are not represented.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>arviz.data.io_pymc3 - WARNING - posterior predictive shape not compatible with number of chains and draws. This can mean that some draws or even whole chains are not represented.
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff3e08168e0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc309bbf520&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_34_2.png" src="../_images/PyMC3_34_2.png" />
@@ -1761,10 +1768,35 @@ arviz.data.io_pymc3 - WARNING - posterior predictive variable y&#39;s shape not 
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [ν, σ, μ]
-Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000 [00:04&lt;00:00, 1235.33draws/s]
+Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000 [00:03&lt;00:00, 1603.67draws/s]
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_36_1.svg" src="../_images/PyMC3_36_1.svg" /><img alt="../_images/PyMC3_36_2.svg" src="../_images/PyMC3_36_2.svg" /></div>
+<img alt="../_images/PyMC3_36_1.svg" src="../_images/PyMC3_36_1.svg" /><img alt="../_images/PyMC3_36_2.png" src="../_images/PyMC3_36_2.png" />
+</div>
 </div>
 <p>Using a student’s t distribution we notice that the outliers are captured more accurately now and the model fits better</p>
 <div class="cell docutils container">
@@ -1779,6 +1811,18 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/pymc3/sampling.py:1246: UserWarning: samples parameter is smaller than nchains times ndraws, some draws and/or chains may not be represented in the returned posterior predictive sample
+  warnings.warn(
+100%|██████████| 100/100 [00:00&lt;00:00, 1295.03it/s]
+arviz.data.io_pymc3 - WARNING - posterior predictive shape not compatible with number of chains and draws. This can mean that some draws or even whole chains are not represented.
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40.0, 70.0)
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_38_2.png" src="../_images/PyMC3_38_2.png" />
 </div>
 </div>
 </div>
@@ -2337,98 +2381,43 @@ There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [ϵ, β, α]
-Could not pickle model, sampling singlethreaded.
-Sequential sampling (4 chains in 1 job)
-NUTS: [ϵ, β, α]
-</pre></div>
-</div>
-<div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:07<00:00 Sampling chain 0, 0 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:07<00:00 Sampling chain 1, 0 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:07<00:00 Sampling chain 2, 0 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:08<00:00 Sampling chain 3, 0 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 31 seconds.
-The acceptance probability does not match the target. It is 0.8919464665402735, but should be close to 0.8. Try to increase the number of tuning steps.
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+Sampling 4 chains, 0 divergences: 100%|██████████| 12000/12000 [00:13&lt;00:00, 918.56draws/s] 
+The number of effective samples is smaller than 25% for some parameters.
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
   warnings.warn(
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/plots/pairplot.py:186: UserWarning: plot_kwargs will be deprecated. Please use scatter_kwargs, kde_kwargs and/or hexbin_kwargs
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
   warnings.warn(
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
   warnings.warn(
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff3d0a70490&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc30a0ecc70&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_53_7.png" src="../_images/PyMC3_53_7.png" />
+<img alt="../_images/PyMC3_53_2.png" src="../_images/PyMC3_53_2.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_53_9.png" src="../_images/PyMC3_53_9.png" />
-<img alt="../_images/PyMC3_53_10.png" src="../_images/PyMC3_53_10.png" />
+<img alt="../_images/PyMC3_53_4.png" src="../_images/PyMC3_53_4.png" />
+<img alt="../_images/PyMC3_53_5.png" src="../_images/PyMC3_53_5.png" />
 </div>
 </div>
 <div class="section" id="we-sample-from-the-posterior">
@@ -2446,6 +2435,17 @@ The acceptance probability does not match the target. It is 0.8919464665402735, 
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/pymc3/sampling.py:1246: UserWarning: samples parameter is smaller than nchains times ndraws, some draws and/or chains may not be represented in the returned posterior predictive sample
+  warnings.warn(
+100%|██████████| 2000/2000 [00:01&lt;00:00, 1302.40it/s]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fc309d59970&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_55_2.png" src="../_images/PyMC3_55_2.png" />
+</div>
 </div>
 </div>
 <div class="section" id="mean-center-the-data">
@@ -2457,18 +2457,89 @@ The acceptance probability does not match the target. It is 0.8919464665402735, 
 <li><p>The pivot point is the intercept when the slope changes</p></li>
 <li><p>The parameter posterior space is more circular</p></li>
 </ol>
+<div class="section" id="transformation">
+<h4>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h4>
 <p>In order to center the data</p>
 <p><span class="math notranslate nohighlight">\(y = \alpha - \beta x\)</span>
 can be reformulated as</p>
 <p><span class="math notranslate nohighlight">\(y = \alpha - \tilde{\beta}(x - \bar{x})\)</span> = <span class="math notranslate nohighlight">\(\alpha + \tilde{\beta} \bar{x} - \tilde{\beta} x\)</span></p>
 <p><span class="math notranslate nohighlight">\(y = \tilde{\alpha} - \tilde{\beta} x\)</span></p>
-<p>which implies that the original alpha can now be recovered using the formula</p>
+</div>
+<div class="section" id="recovering-the-data">
+<h4>Recovering the data<a class="headerlink" href="#recovering-the-data" title="Permalink to this headline">¶</a></h4>
+<p>This implies that the original alpha can now be recovered using the formula</p>
 <p><span class="math notranslate nohighlight">\(\alpha = \tilde{\alpha} - \tilde{\beta} \bar{x}\)</span></p>
 <p>You can also standardize the data by mean centering and dividing by the standard deviation</p>
 <p><span class="math notranslate nohighlight">\(\tilde{x} = (x - \bar{x}) / \sigma_x\)</span></p>
+</div>
+</div>
+<div class="section" id="mean-centered-broader-sampling-space">
+<h3>Mean Centered - Broader Sampling Space<a class="headerlink" href="#mean-centered-broader-sampling-space" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Center the data</span>
+<span class="n">x_centered</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_g</span><span class="p">:</span>
+    <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x_centered</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="s1">&#39;ϵ&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">],</span> <span class="n">plot_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [ϵ, β, α]
+Sampling 4 chains, 0 divergences: 100%|██████████| 12000/12000 [00:04&lt;00:00, 2406.62draws/s]
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fc30d49c2e0&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_58_2.png" src="../_images/PyMC3_58_2.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_58_4.png" src="../_images/PyMC3_58_4.png" />
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
 
 <span class="c1"># Load the example dataset for Anscombe&#39;s quartet</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;anscombe&quot;</span><span class="p">)</span>
@@ -2476,6 +2547,298 @@ can be reformulated as</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dataset</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>I</td>
+      <td>10.0</td>
+      <td>8.04</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>I</td>
+      <td>8.0</td>
+      <td>6.95</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>I</td>
+      <td>13.0</td>
+      <td>7.58</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>I</td>
+      <td>9.0</td>
+      <td>8.81</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>I</td>
+      <td>11.0</td>
+      <td>8.33</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>I</td>
+      <td>14.0</td>
+      <td>9.96</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>I</td>
+      <td>6.0</td>
+      <td>7.24</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>I</td>
+      <td>4.0</td>
+      <td>4.26</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>I</td>
+      <td>12.0</td>
+      <td>10.84</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>I</td>
+      <td>7.0</td>
+      <td>4.82</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>I</td>
+      <td>5.0</td>
+      <td>5.68</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>II</td>
+      <td>10.0</td>
+      <td>9.14</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>II</td>
+      <td>8.0</td>
+      <td>8.14</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>II</td>
+      <td>13.0</td>
+      <td>8.74</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>II</td>
+      <td>9.0</td>
+      <td>8.77</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>II</td>
+      <td>11.0</td>
+      <td>9.26</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>II</td>
+      <td>14.0</td>
+      <td>8.10</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>II</td>
+      <td>6.0</td>
+      <td>6.13</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>II</td>
+      <td>4.0</td>
+      <td>3.10</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>II</td>
+      <td>12.0</td>
+      <td>9.13</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>II</td>
+      <td>7.0</td>
+      <td>7.26</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>II</td>
+      <td>5.0</td>
+      <td>4.74</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>III</td>
+      <td>10.0</td>
+      <td>7.46</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>III</td>
+      <td>8.0</td>
+      <td>6.77</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>III</td>
+      <td>13.0</td>
+      <td>12.74</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>III</td>
+      <td>9.0</td>
+      <td>7.11</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>III</td>
+      <td>11.0</td>
+      <td>7.81</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>III</td>
+      <td>14.0</td>
+      <td>8.84</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>III</td>
+      <td>6.0</td>
+      <td>6.08</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>III</td>
+      <td>4.0</td>
+      <td>5.39</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>III</td>
+      <td>12.0</td>
+      <td>8.15</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>III</td>
+      <td>7.0</td>
+      <td>6.42</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>III</td>
+      <td>5.0</td>
+      <td>5.73</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>6.58</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>5.76</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>7.71</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>8.84</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>8.47</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>7.04</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>5.25</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>IV</td>
+      <td>19.0</td>
+      <td>12.50</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>5.56</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>7.91</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>IV</td>
+      <td>8.0</td>
+      <td>6.89</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2511,6 +2874,12 @@ can be reformulated as</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;y&#39;)
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_60_1.png" src="../_images/PyMC3_60_1.png" />
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2531,6 +2900,9 @@ can be reformulated as</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/PyMC3_61_0.png" src="../_images/PyMC3_61_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2558,6 +2930,17 @@ can be reformulated as</p>
 <span class="n">pm</span><span class="o">.</span><span class="n">model_to_graphviz</span><span class="p">(</span><span class="n">model_t</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [ν_, ϵ, β, α]
+Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:08&lt;00:00, 1229.46draws/s]
+The number of effective samples is smaller than 25% for some parameters.
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_62_1.svg" src="../_images/PyMC3_62_1.svg" /><img alt="../_images/PyMC3_62_2.png" src="../_images/PyMC3_62_2.png" />
 </div>
 </div>
 </div>
@@ -2603,7 +2986,7 @@ can be reformulated as</p>
  2.38910517 2.69086179]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_62_1.svg" src="../_images/PyMC3_62_1.svg" /></div>
+<img alt="../_images/PyMC3_64_1.svg" src="../_images/PyMC3_64_1.svg" /></div>
 </div>
 <div class="section" id="we-build-a-non-hierarchical-model-first">
 <h3>We build a non-hierarchical model first<a class="headerlink" href="#we-build-a-non-hierarchical-model-first" title="Permalink to this headline">¶</a></h3>
@@ -2643,10 +3026,10 @@ NUTS: [ν, ϵ, β, α_tmp]
 Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:18&lt;00:00, 548.27draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_64_1.svg" src="../_images/PyMC3_64_1.svg" /><img alt="../_images/PyMC3_64_2.svg" src="../_images/PyMC3_64_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<img alt="../_images/PyMC3_66_1.svg" src="../_images/PyMC3_66_1.svg" /><img alt="../_images/PyMC3_66_2.svg" src="../_images/PyMC3_66_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_64_4.svg" src="../_images/PyMC3_64_4.svg" /></div>
+<img alt="../_images/PyMC3_66_4.svg" src="../_images/PyMC3_66_4.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2712,7 +3095,7 @@ The acceptance probability does not match the target. It is 0.884780567793289, b
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_65_1.svg" src="../_images/PyMC3_65_1.svg" /><img alt="../_images/PyMC3_65_2.svg" src="../_images/PyMC3_65_2.svg" /><img alt="../_images/PyMC3_65_3.svg" src="../_images/PyMC3_65_3.svg" /></div>
+<img alt="../_images/PyMC3_67_1.svg" src="../_images/PyMC3_67_1.svg" /><img alt="../_images/PyMC3_67_2.svg" src="../_images/PyMC3_67_2.svg" /><img alt="../_images/PyMC3_67_3.svg" src="../_images/PyMC3_67_3.svg" /></div>
 </div>
 </div>
 </div>
@@ -2905,13 +3288,13 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_80_0.png" src="../_images/PyMC3_80_0.png" />
-<img alt="../_images/PyMC3_80_1.png" src="../_images/PyMC3_80_1.png" />
+<img alt="../_images/PyMC3_82_0.png" src="../_images/PyMC3_82_0.png" />
+<img alt="../_images/PyMC3_82_1.png" src="../_images/PyMC3_82_1.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_80_3.png" src="../_images/PyMC3_80_3.png" />
-<img alt="../_images/PyMC3_80_4.png" src="../_images/PyMC3_80_4.png" />
+<img alt="../_images/PyMC3_82_3.png" src="../_images/PyMC3_82_3.png" />
+<img alt="../_images/PyMC3_82_4.png" src="../_images/PyMC3_82_4.png" />
 </div>
 </div>
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
@@ -3038,7 +3421,7 @@ NUTS: [β, α]
 </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_84_6.svg" src="../_images/PyMC3_84_6.svg" /></div>
+<img alt="../_images/PyMC3_86_6.svg" src="../_images/PyMC3_86_6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3173,8 +3556,8 @@ NUTS: [β, α]
   Text(2.0, 0, &#39;7.5&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_86_2.png" src="../_images/PyMC3_86_2.png" />
-<img alt="../_images/PyMC3_86_3.png" src="../_images/PyMC3_86_3.png" />
+<img alt="../_images/PyMC3_88_2.png" src="../_images/PyMC3_88_2.png" />
+<img alt="../_images/PyMC3_88_3.png" src="../_images/PyMC3_88_3.png" />
 </div>
 </div>
 <p>In this case, the decision boundary is defined to be the value of ‘x’ when ‘y’ = 0.5. This turns out to be <span class="math notranslate nohighlight">\(-\alpha / \beta\)</span>. However, this value was chosen under the assumption that the midpoint of the class values are a good candidate, but this does not have to be the case.</p>
@@ -3423,8 +3806,8 @@ NUTS: [β, α]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_91_2.png" src="../_images/PyMC3_91_2.png" />
-<img alt="../_images/PyMC3_91_3.png" src="../_images/PyMC3_91_3.png" />
+<img alt="../_images/PyMC3_93_2.png" src="../_images/PyMC3_93_2.png" />
+<img alt="../_images/PyMC3_93_3.png" src="../_images/PyMC3_93_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3434,7 +3817,7 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_92_0.svg" src="../_images/PyMC3_92_0.svg" /></div>
+<img alt="../_images/PyMC3_94_0.svg" src="../_images/PyMC3_94_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -3569,7 +3952,7 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_95_7.png" src="../_images/PyMC3_95_7.png" />
+<img alt="../_images/PyMC3_97_7.png" src="../_images/PyMC3_97_7.png" />
 </div>
 </div>
 </div>
@@ -3677,9 +4060,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_97_4.png" src="../_images/PyMC3_97_4.png" />
-<img alt="../_images/PyMC3_97_5.png" src="../_images/PyMC3_97_5.png" />
-<img alt="../_images/PyMC3_97_6.png" src="../_images/PyMC3_97_6.png" />
+<img alt="../_images/PyMC3_99_4.png" src="../_images/PyMC3_99_4.png" />
+<img alt="../_images/PyMC3_99_5.png" src="../_images/PyMC3_99_5.png" />
+<img alt="../_images/PyMC3_99_6.png" src="../_images/PyMC3_99_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3927,7 +4310,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_102_1.png" src="../_images/PyMC3_102_1.png" />
+<img alt="../_images/PyMC3_104_1.png" src="../_images/PyMC3_104_1.png" />
 </div>
 </div>
 </div>
@@ -4338,7 +4721,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_106_3.png" src="../_images/PyMC3_106_3.png" />
+</div></div><img alt="../_images/PyMC3_108_3.png" src="../_images/PyMC3_108_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4549,7 +4932,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_107_3.png" src="../_images/PyMC3_107_3.png" />
+</div></div><img alt="../_images/PyMC3_109_3.png" src="../_images/PyMC3_109_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4590,7 +4973,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_109_2.png" src="../_images/PyMC3_109_2.png" />
+<img alt="../_images/PyMC3_111_2.png" src="../_images/PyMC3_111_2.png" />
 </div>
 </div>
 </div>
@@ -4622,7 +5005,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_111_2.png" src="../_images/PyMC3_111_2.png" />
+<img alt="../_images/PyMC3_113_2.png" src="../_images/PyMC3_113_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -4685,8 +5068,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_115_2.png" src="../_images/PyMC3_115_2.png" />
-<img alt="../_images/PyMC3_115_3.png" src="../_images/PyMC3_115_3.png" />
+<img alt="../_images/PyMC3_117_2.png" src="../_images/PyMC3_117_2.png" />
+<img alt="../_images/PyMC3_117_3.png" src="../_images/PyMC3_117_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4706,8 +5089,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_116_2.png" src="../_images/PyMC3_116_2.png" />
-<img alt="../_images/PyMC3_116_3.png" src="../_images/PyMC3_116_3.png" />
+<img alt="../_images/PyMC3_118_2.png" src="../_images/PyMC3_118_2.png" />
+<img alt="../_images/PyMC3_118_3.png" src="../_images/PyMC3_118_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -4736,7 +5119,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_118_2.png" src="../_images/PyMC3_118_2.png" />
+<img alt="../_images/PyMC3_120_2.png" src="../_images/PyMC3_120_2.png" />
 </div>
 </div>
 </div>
