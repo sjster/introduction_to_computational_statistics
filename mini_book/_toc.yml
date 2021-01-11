@@ -8,6 +8,9 @@
   chapters:
     - file: docs/Foundations.ipynb
     - file: docs/CentralTendency.ipynb
+    - file: docs/ParameterEstimation.ipynb
+    - file: docs/Bayes.ipynb
+    - file: docs/Decisions.ipynb
     - file: docs/Intro.ipynb
     - file: docs/Distributions.ipynb
     - file: docs/Sampling.ipynb
