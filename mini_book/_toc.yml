@@ -6,6 +6,7 @@
     - file: docs/Databricks.ipynb
 - part: Introduction to Bayesian Statistics
   chapters:
+    - file: docs/Foundations.ipynb
     - file: docs/Intro.ipynb
     - file: docs/Distributions.ipynb
     - file: docs/Sampling.ipynb
