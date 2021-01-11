@@ -137,16 +137,6 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="#classification">
-   Classification
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#confusion-matrix">
-   Confusion matrix
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="Intro.html">
    Bayesian vs. Frequentist Statistics
   </a>
@@ -290,62 +280,57 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Inference and Decisions
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#classification">
    Classification
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#rejection-regions-or-decision-boundaries">
      Rejection regions or decision boundaries
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#loss-functions">
      Loss functions
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#cross-entropy-loss">
      Cross Entropy Loss
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#categorical-cross-entropy-loss">
      Categorical cross entropy loss
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#other-classification-loss-functions">
      Other classification loss functions
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#continuous-response">
      Continuous response
     </a>
     <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#mean-squared-error">
        Mean squared error
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#mean-absolute-error">
        Mean absolute error
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#l1-and-l2-loss">
        L1 and L2 loss
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#regularization">
        Regularization
       </a>
@@ -354,54 +339,52 @@
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#confusion-matrix">
    Confusion matrix
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ungraded-evaluation-20-min">
+   UNGRADED EVALUATION (20 min)
+  </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ungraded-evaluation-20-min">
-     UNGRADED EVALUATION (20 min)
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#categorical-cross-entropy-can-be-used-when-multiple-classes-are-to-be-differentiated-for-each-sample-you-expect-the-output-of-the-algorithm-to-give">
+     1. Categorical cross entropy can be used when multiple classes are to be differentiated.  For each sample, you expect the output of the algorithm to give
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#categorical-cross-entropy-can-be-used-when-multiple-classes-are-to-be-differentiated-for-each-sample-you-expect-the-output-of-the-algorithm-to-give">
-       1. Categorical cross entropy can be used when multiple classes are to be differentiated.  For each sample, you expect the output of the algorithm to give
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#the-loss-in-for-a-correct-assignment-in-a-binary-trial-is-always-0">
-       2.  The loss in for a correct assignment in a binary trial is always 0
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#you-are-building-a-classifier-to-classify-dogs-vs-cats-where-dogs-1-your-algorithm-is-presented-with-the-following-set-of-images-1-0-1-0-1-0-0-1-1-1-and-gives-the-following-predictions-1-0-0-0-1-1-1-0-0-1-with-respect-to-classifying-dogs-the-sensitivity-is">
-       3. You are building a classifier to classify dogs vs cats.  Where dogs =1, your algorithm is presented with the following set of images {1 0 1 0 1 0 0 1 1 1} and gives the following predictions {1 0 0 0 1 1 1 0 0 1}.  With respect to classifying dogs, the sensitivity is:
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#in-the-dog-classification-problem-correctly-classifying-cats-as-cats-will-give-the">
-       4. In the dog classification problem, correctly classifying cats as cats will give the
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#you-are-building-a-spam-classifier">
-       5.  You are building a spam classifier,
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#in-your-spam-classifier-you-choose-to-weight-the-choice-as-spam-or-not-differently-you-should">
-       6. In your spam classifier, you choose to weight the choice as spam or not differently, you should
-      </a>
-     </li>
-    </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
-     GRADED EVALUATION (15 mins)
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-loss-in-for-a-correct-assignment-in-a-binary-trial-is-always-0">
+     2.  The loss in for a correct assignment in a binary trial is always 0
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#you-are-building-a-classifier-to-classify-dogs-vs-cats-where-dogs-1-your-algorithm-is-presented-with-the-following-set-of-images-1-0-1-0-1-0-0-1-1-1-and-gives-the-following-predictions-1-0-0-0-1-1-1-0-0-1-with-respect-to-classifying-dogs-the-sensitivity-is">
+     3. You are building a classifier to classify dogs vs cats.  Where dogs =1, your algorithm is presented with the following set of images {1 0 1 0 1 0 0 1 1 1} and gives the following predictions {1 0 0 0 1 1 1 0 0 1}.  With respect to classifying dogs, the sensitivity is:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#in-the-dog-classification-problem-correctly-classifying-cats-as-cats-will-give-the">
+     4. In the dog classification problem, correctly classifying cats as cats will give the
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#you-are-building-a-spam-classifier">
+     5.  You are building a spam classifier,
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#in-your-spam-classifier-you-choose-to-weight-the-choice-as-spam-or-not-differently-you-should">
+     6. In your spam classifier, you choose to weight the choice as spam or not differently, you should
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
+   GRADED EVALUATION (15 mins)
+  </a>
  </li>
 </ul>
 
@@ -426,14 +409,13 @@
 </ul>
 <br>
 <br>
-<hr style="border:2px solid blue"> </hr></div>
-<div class="section" id="classification">
-<h1>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h1>
+<hr style="border:2px solid blue"> </hr><div class="section" id="classification">
+<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
 <p>In the last section, we gave an example taking of a test for determining status of disease.  We took the test and discovered a positive result which led to a probability that we are truly infected given the postivite test of 79%.  The odds are, we have the disease.  Are we sure enough that we will seek appropriate treatment or perhaps we want a second opinion?  Is there a second test?  Do we simply take two tests and combine the results?  When we build a computational model, we repeatedly ask this question and have to make a decision, do we continue in the current direction or go from whence we came. The consequences of making a wrong choice are often not symmetric.  Our overall goal is to simply be right, but understanding consequence discrepancies may suggest wrong answers are not all the same.  In this example we may choose to weigh a wrong answer differently in one direction than another.</p>
 <p>Restating this in terms of probability, for a binary decision, our goal is:</p>
 <p><span class="math notranslate nohighlight">\(\text{argmin } p(mistake) = \sum_{i=1}^k p(x_{k \notin j},C_k)\)</span> where j/k are class labels.</p>
 <div class="section" id="rejection-regions-or-decision-boundaries">
-<h2>Rejection regions or decision boundaries<a class="headerlink" href="#rejection-regions-or-decision-boundaries" title="Permalink to this headline">¶</a></h2>
+<h3>Rejection regions or decision boundaries<a class="headerlink" href="#rejection-regions-or-decision-boundaries" title="Permalink to this headline">¶</a></h3>
 <p>In our decision, we may choose a region for inclusion in one class or another, for instance, we may decide the optimal boundary in our disease classification is at <span class="math notranslate nohighlight">\(p(disease|+test)&gt;75%\)</span>.  Note that the decision boundary should parition the space.  Written with a decision boundary,</p>
 <p><span class="math notranslate nohighlight">\(\text{argmin } p(mistake) = \int_{\mathbb{R_1}} p(x,C_2) dx + \int_{\mathbb{R_2}} p(x,C_1) dx\)</span></p>
 <p>Returning to the coin toss experiment, after we perform the experiment many times, we can arrange the data and find the regions to the right/left that give the desired partions between ‘fair’ and ‘biased’ based on our tolerance for error.</p>
@@ -508,7 +490,7 @@
 <p><span class="math notranslate nohighlight">\(E[loss] = \sum_k \sum_j \int_{\mathbb{R_j}} L_{kj}p(x,C_k) dx\)</span></p>
 </div>
 <div class="section" id="loss-functions">
-<h2>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h2>
+<h3>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h3>
 <p>Loss functions are functions created to match our goals with penalties to steer our algorithm to beneficial regions.  As an example, consider the follow loss function:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{matrix} &amp; \text{disease} &amp; \text{no disease} \\ \text{disease} &amp; 0 &amp; 100 \\\text{no disease} &amp; 1 &amp; 0 \end{matrix}\end{split}\]</div>
@@ -522,7 +504,7 @@
 \)</span></p>
 </div>
 <div class="section" id="cross-entropy-loss">
-<h2>Cross Entropy Loss<a class="headerlink" href="#cross-entropy-loss" title="Permalink to this headline">¶</a></h2>
+<h3>Cross Entropy Loss<a class="headerlink" href="#cross-entropy-loss" title="Permalink to this headline">¶</a></h3>
 <p>Any loss function which is the negative log likelihood between the empirical distribution of the data and the probability distribution of the model is a cross entropy loss.</p>
 <p>Often, when one talks about cross entropy loss, the meaning is for binary classification.  In fact, cross entropy loss, also called log loss, is the go-to function for binary classification tasks.  It is the log likelihood for a Bernoulli trial.</p>
 <p><span class="math notranslate nohighlight">\(-y_i ln(\hat{\theta}_i) - (1-y_i) ln (1-\hat{\theta}_i)\)</span></p>
@@ -564,39 +546,39 @@ Total cross entropy loss is: 0.8438820897043499
 <p>Note that this can easily be extended to the case of multiple categories.</p>
 </div>
 <div class="section" id="categorical-cross-entropy-loss">
-<h2>Categorical cross entropy loss<a class="headerlink" href="#categorical-cross-entropy-loss" title="Permalink to this headline">¶</a></h2>
+<h3>Categorical cross entropy loss<a class="headerlink" href="#categorical-cross-entropy-loss" title="Permalink to this headline">¶</a></h3>
 <p><span class="math notranslate nohighlight">\(\text{CE loss }= - \sum_{i=1}^I \sum_{k=1}^K \mathbb{1}_{y_i = k}log p(y_i = k | x_i,\theta)\)</span></p>
 <p>This looks completely different, but understanding the terms will quickly lead to a familiar setup.  The CE loss is a sum of the probabilities assigned to the predicted class.  The <span class="math notranslate nohighlight">\(\mathbb{1}\)</span> is an idicator function determining which class is the correct class while the <span class="math notranslate nohighlight">\(p(y_i = k | x_i,\theta)\)</span> is the likelihood of the correct class given the data.  In the case of two categories, this reduces to the cross entropy case above.</p>
 </div>
 <div class="section" id="other-classification-loss-functions">
-<h2>Other classification loss functions<a class="headerlink" href="#other-classification-loss-functions" title="Permalink to this headline">¶</a></h2>
+<h3>Other classification loss functions<a class="headerlink" href="#other-classification-loss-functions" title="Permalink to this headline">¶</a></h3>
 <p><strong>Focal loss</strong> is a modified loss attempting to highlight the loss from incorrectly classified samples vs those that are classified correctly, but perhaps with less than perfect probability.</p>
 <p><span class="math notranslate nohighlight">\(FL = - \sum_{i=1}^{C=2}(1-\hat{\theta}_i)^\gamma t_i log(\hat{\theta}_i)\)</span>, where <span class="math notranslate nohighlight">\((1-\hat{\theta}_i)^\gamma\)</span> modulates the loss.  As the probability of the assignment goes towards 1 for correct responses, the contribution to the loss goes to 0 more quickly.</p>
 <p><strong>Hinge loss</strong> is a maximum margin classifier.  Basically, this loss aims to make the classification more of a sure event.  The score of a correct assignment should exceed the sum of scores of incorrect assignments by some margin.</p>
 <p><span class="math notranslate nohighlight">\(HL = \sum_{j \ne y_i} max(0,s_j-s_{y_i}+1)\)</span></p>
 </div>
 <div class="section" id="continuous-response">
-<h2>Continuous response<a class="headerlink" href="#continuous-response" title="Permalink to this headline">¶</a></h2>
+<h3>Continuous response<a class="headerlink" href="#continuous-response" title="Permalink to this headline">¶</a></h3>
 <p>In continuous responses, the goodness of fit measure is some function of distance.</p>
 <div class="section" id="mean-squared-error">
-<h3>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h3>
+<h4>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h4>
 <p>Mean squared error, MSE, is defined as</p>
 <p><span class="math notranslate nohighlight">\(MSE = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y_i})^2\)</span></p>
 <p>This has a number of nice features as a loss function including penalizing based on distance from the prediction and mathmatical properties such as that it is differentiable and there is always a single solution.  MSE is sensitive to outliers, ie it is not robust to outliers.</p>
 </div>
 <div class="section" id="mean-absolute-error">
-<h3>Mean absolute error<a class="headerlink" href="#mean-absolute-error" title="Permalink to this headline">¶</a></h3>
+<h4>Mean absolute error<a class="headerlink" href="#mean-absolute-error" title="Permalink to this headline">¶</a></h4>
 <p>Mean absolute error, MAE, is defined as</p>
 <p><span class="math notranslate nohighlight">\(MAE = \frac{1}{N} \sum_{i=1}^N |y_i - \hat{y_i}|\)</span></p>
 <p>Like MSE, MAE returns the average of the magnetude of errors, but needs computational tools to deal with the lack of a differential.  MAE is less sensitive to ouliers than MSE, however, there is no guarantee of a unique solution.</p>
 </div>
 <div class="section" id="l1-and-l2-loss">
-<h3>L1 and L2 loss<a class="headerlink" href="#l1-and-l2-loss" title="Permalink to this headline">¶</a></h3>
+<h4>L1 and L2 loss<a class="headerlink" href="#l1-and-l2-loss" title="Permalink to this headline">¶</a></h4>
 <p>L1 loss is sum of absolute differences, also called the method of Least Absolute Deviations (LAD).  <span class="math notranslate nohighlight">\(L_1 = N \ast MAE\)</span>.</p>
 <p>L2 loss is <span class="math notranslate nohighlight">\(N \ast MSE\)</span> also called least squares error, or LSE.</p>
 </div>
 <div class="section" id="regularization">
-<h3>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h3>
+<h4>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h4>
 <p>Regularization is a technique to prevent overfitting throug addition of penatly term to the sum of the regression coefficents.  For instance:</p>
 <p><span class="math notranslate nohighlight">\(argmin LSE + \lambda \sum_{i=1}^k|w_i|\)</span>, where the <span class="math notranslate nohighlight">\(w_i\)</span> are the weights being learned.</p>
 <p>The above woulld be an L1 regularization on least squares (LASSO).  There are other variations including L2 regularization (ridge regression) where the penalty is on the squared weights, elastic net (both L1 and L2 regularization), etc.</p>
@@ -604,7 +586,7 @@ Total cross entropy loss is: 0.8438820897043499
 </div>
 </div>
 <div class="section" id="confusion-matrix">
-<h1>Confusion matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this headline">¶</a></h1>
+<h2>Confusion matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this headline">¶</a></h2>
 <p>For binary classification problems, we have the so called confusion matrix.  For a class known to be A, did we predict A or B?  The result to that question can be summarized in the confusion matrix:</p>
 <table class="colwidths-auto table">
 <thead>
@@ -644,85 +626,106 @@ P(not B) = Probability of Negative Prediction (NP)</p>
 <p>Type 2 error = false negative</p>
 <br>
 <br>
-<hr style="border:2px solid blue"> </hr><div class="section" id="ungraded-evaluation-20-min">
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="ungraded-evaluation-20-min">
 <h2>UNGRADED EVALUATION (20 min)<a class="headerlink" href="#ungraded-evaluation-20-min" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="categorical-cross-entropy-can-be-used-when-multiple-classes-are-to-be-differentiated-for-each-sample-you-expect-the-output-of-the-algorithm-to-give">
 <h3>1. Categorical cross entropy can be used when multiple classes are to be differentiated.  For each sample, you expect the output of the algorithm to give<a class="headerlink" href="#categorical-cross-entropy-can-be-used-when-multiple-classes-are-to-be-differentiated-for-each-sample-you-expect-the-output-of-the-algorithm-to-give" title="Permalink to this headline">¶</a></h3>
-<p>a- a single probability giving the probability of being correct<br />
-b- 4 probabilities representing the probability of assignment to each class (C)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. A single probability giving the probability of being correct  
+
+b. 4 probabilities representing the probability of assignment to each class (C)  
+</pre></div>
+</div>
 </div>
 <div class="section" id="the-loss-in-for-a-correct-assignment-in-a-binary-trial-is-always-0">
 <h3>2.  The loss in for a correct assignment in a binary trial is always 0<a class="headerlink" href="#the-loss-in-for-a-correct-assignment-in-a-binary-trial-is-always-0" title="Permalink to this headline">¶</a></h3>
-<p>a- true<br />
-b- false (C)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. true  
+
+b. false (C)
+</pre></div>
+</div>
 </div>
 <div class="section" id="you-are-building-a-classifier-to-classify-dogs-vs-cats-where-dogs-1-your-algorithm-is-presented-with-the-following-set-of-images-1-0-1-0-1-0-0-1-1-1-and-gives-the-following-predictions-1-0-0-0-1-1-1-0-0-1-with-respect-to-classifying-dogs-the-sensitivity-is">
 <h3>3. You are building a classifier to classify dogs vs cats.  Where dogs =1, your algorithm is presented with the following set of images {1 0 1 0 1 0 0 1 1 1} and gives the following predictions {1 0 0 0 1 1 1 0 0 1}.  With respect to classifying dogs, the sensitivity is:<a class="headerlink" href="#you-are-building-a-classifier-to-classify-dogs-vs-cats-where-dogs-1-your-algorithm-is-presented-with-the-following-set-of-images-1-0-1-0-1-0-0-1-1-1-and-gives-the-following-predictions-1-0-0-0-1-1-1-0-0-1-with-respect-to-classifying-dogs-the-sensitivity-is" title="Permalink to this headline">¶</a></h3>
-<p>a- 0.5  (C)<br />
-b- 0.83<br />
-c- 6</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. 0.5  (C)  
+
+b. 0.83 
+
+c. 6
+</pre></div>
+</div>
 </div>
 <div class="section" id="in-the-dog-classification-problem-correctly-classifying-cats-as-cats-will-give-the">
 <h3>4. In the dog classification problem, correctly classifying cats as cats will give the<a class="headerlink" href="#in-the-dog-classification-problem-correctly-classifying-cats-as-cats-will-give-the" title="Permalink to this headline">¶</a></h3>
-<p>a- true positives<br />
-b- false positives<br />
-c- false negatives<br />
-d- true negatives  (C)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. true positives 
+
+b. false positives  
+
+c. false negatives  
+
+d. true negatives  (C)  
+</pre></div>
+</div>
 </div>
 <div class="section" id="you-are-building-a-spam-classifier">
 <h3>5.  You are building a spam classifier,<a class="headerlink" href="#you-are-building-a-spam-classifier" title="Permalink to this headline">¶</a></h3>
-<p>a- false positives are more problematic than false negatives<br />
-b- false negatives are more problematic than false positives<br />
-c- both false positives and false negatives are equally problematic  (C)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. false positives are more problematic than false negatives  
+
+b. false negatives are more problematic than false positives  
+
+c both false positives and false negatives are equally problematic  (C)  
+</pre></div>
+</div>
 </div>
 <div class="section" id="in-your-spam-classifier-you-choose-to-weight-the-choice-as-spam-or-not-differently-you-should">
 <h3>6. In your spam classifier, you choose to weight the choice as spam or not differently, you should<a class="headerlink" href="#in-your-spam-classifier-you-choose-to-weight-the-choice-as-spam-or-not-differently-you-should" title="Permalink to this headline">¶</a></h3>
-<p>a- choose a penalized regression to dampen the weights<br />
-b- choose a custom categorical loss function to allow setting importance of decisions  (C)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. choose a penalized regression to dampen the weights 
+
+b. choose a custom categorical loss function to allow setting importance of decisions  (C)  
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="graded-evaluation-15-mins">
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
-<ol class="simple">
-<li><p>Cost functions are measures of fit.</p></li>
-</ol>
-<p>a- true (C)<br />
-b- false</p>
-<ol class="simple">
-<li><p>Cost functions are only useful in categorical decision settings.</p></li>
-</ol>
-<p>a- false (C)<br />
-b- true</p>
-<ol class="simple">
-<li><p>The following is a valid example of a cost function:</p></li>
-</ol>
+<ol>
+<li><p>Cost functions are measures of fit.</p>
+<p>a. true (C)</p>
+<p>b. false</p>
+</li>
+<li><p>Cost functions are only useful in categorical decision settings.</p>
+<p>a. false (C)</p>
+<p>b. true</p>
+</li>
+<li><p>The following is a valid example of a cost function:</p>
 <p>a.</p>
 <p><span class="math notranslate nohighlight">\(L(\theta,a) = 
-\begin{cases}
-    0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
-    1, \text{for predict no disease, actual no disease} \\
-    100, \text{for predict disease, actual no disease} \\
-\end{cases}
-\)</span></p>
+ \begin{cases}
+     0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
+     1, \text{for predict no disease, actual no disease} \\
+     100, \text{for predict disease, actual no disease} \\
+ \end{cases}
+ \)</span></p>
 <p>b. (C)</p>
 <p><span class="math notranslate nohighlight">\(L(\theta,a) = 
-\begin{cases}
-    0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
-    1, \text{for predict no disease, actual disease} \\
-    100, \text{for predict disease, actual no disease} \\
-\end{cases}
-\)</span></p>
-<ol class="simple">
-<li><p>In a recent study, you created a cost function for classification of 4 classes.  Following training, you obtained the following resuls.  What are the predictions for the samples in terms of thier class?</p></li>
-</ol>
+ \begin{cases}
+     0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
+     1, \text{for predict no disease, actual disease} \\
+     100, \text{for predict disease, actual no disease} \\
+ \end{cases}
+ \)</span></p>
+</li>
+<li><p>In a recent study, you created a cost function for classification of 4 classes.  Following training, you obtained the following resuls.  What are the predictions for the samples in terms of thier class?</p>
 <p>predictions = np.array([[0.25,0.25,0.20,0.30],
 [0.25,0.30,0.20,0.25],
 [0.10,0.25,0.25,0.40],
 [0.45,0.10,0.20,0.25],
 [0.01,0.01,0.01,0.96]])</p>
-<p>a- A,B,C,B
-b- D,B,D,A,D (C)
-c- D,B,C,E</p>
+<p>a. A,B,C,B</p>
+<p>b. D,B,D,A,D (C)</p>
+<p>c. D,B,C,E</p>
+</li>
+</ol>
 </div>
 </div>
 
