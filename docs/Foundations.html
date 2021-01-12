@@ -575,7 +575,7 @@ Name: dots, dtype: int64
 </div>
 <div class="section" id="belief-and-probability">
 <h2>Belief and probability<a class="headerlink" href="#belief-and-probability" title="Permalink to this headline">¶</a></h2>
-<p>So, from this and maybe experience, we see that 7’s occur more frequently than 12’s, 5’s and 9’s about the same, etc, so we have a beleif.  How do we go from a ‘hunch’ to a quantified understanding of the game?  The answer is statistics and probability.</p>
+<p>So, from this and maybe experience, we see that 7’s occur more frequently than 12’s, 5’s and 9’s about the same, etc., so we have a beleif.  How do we go from a ‘hunch’ to a quantified understanding of the game?  The answer is statistics and probability.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
@@ -628,14 +628,12 @@ Sample space: 0,1,2,3</p>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="addition-rules">
 <h2>Addition rules<a class="headerlink" href="#addition-rules" title="Permalink to this headline">¶</a></h2>
-<p>Addition rules deal with unions (<span class="math notranslate nohighlight">\(\bigcup\)</span>) of events.  These can be thought of OR probabilities.</p>
+<p>Addition rules deal with unions (<span class="math notranslate nohighlight">\(\bigcup\)</span>) of events.  These can be thought of as OR probabilities.</p>
 <p>(<span class="math notranslate nohighlight">\(\bigcup\)</span> - non-repeating superset, <span class="math notranslate nohighlight">\(\bigcap\)</span> - common elements)</p>
 <p>P(A <span class="math notranslate nohighlight">\(\cup\)</span> B) = P(A) + P(B) - P(A <span class="math notranslate nohighlight">\(\cap\)</span> B)</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>or when A and B are mutually exclusive
-</pre></div>
-</div>
+<p>or when A and B are mutually exclusive</p>
 <p>P(A <span class="math notranslate nohighlight">\(\cup\)</span> B) = P(A) + P(B)</p>
-<p>In the figure below, A represents a case where events in the two shaded regions are mutually exclusive, ie there are no overlapping areas.  In B, the overlapping area is the intersection (<span class="math notranslate nohighlight">\(\bigcap\)</span>) of the two areas.
+<p>In the figure below, A represents a case where events in the two shaded regions are mutually exclusive, i.e. there are no overlapping areas.  In B, the overlapping area is the intersection (<span class="math notranslate nohighlight">\(\bigcap\)</span>) of the two areas.
 <img alt="Figure 1" src="docs/sets.jpg" /></p>
 <br>
 <br>
@@ -676,7 +674,7 @@ P(A then B) = P(B then A)</p>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="random-variable">
 <h2>Random variable<a class="headerlink" href="#random-variable" title="Permalink to this headline">¶</a></h2>
-<p>Random variables are (often) real-valued functions mapping outcomes to a measureable space.  In set notation, this looks like:</p>
+<p>Random variables are (often) real-valued functions mapping outcomes to a measureable space. In set notation, this looks like:</p>
 <p><span class="math notranslate nohighlight">\(X: \Omega \to \mathbb{R}\)</span></p>
 <p>This mapping defines the probability giving by X in a measureable set as:</p>
 <p><span class="math notranslate nohighlight">\(P(X \in S) = P({x \in \Omega | X(x) \in S})\)</span></p>
@@ -740,39 +738,39 @@ Random sample = we have 500 realizations of two dice being thrown</p>
 <h2>UNGRADED EVALUATION (20 min)<a class="headerlink" href="#ungraded-evaluation-20-min" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="for-each-of-the-following-experiments-describe-the-sample-space">
 <h3>1. For each of the following experiments, describe the sample space:<a class="headerlink" href="#for-each-of-the-following-experiments-describe-the-sample-space" title="Permalink to this headline">¶</a></h3>
-<p>(1a) Toss 2 coins 3 times.<br />
-a- {(HH),(TT),(HT),(TH)} (C)<br />
-b- {HH),(TT),(HT),(TH),HH),(TT),(HT),(TH),HH),(TT),(HT),(TH)}</p>
-<p>(1b) Record the number of cats that pass by your house in 1 hour.<br />
-a- <span class="math notranslate nohighlight">\(\mathbb{R}\)</span><br />
-b- <span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span><br />
-c- integers &gt; 0. (C).</p>
-<p>(1c) In a clinic, you record the sex, height, and weight of 100 individuals for a study.<br />
-a- (F,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>), (M,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>  ,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>)<br />
-b- (F,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>), (M,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>) (C)</p>
+<p>(1a) Toss 2 coins 3 times.</p>
+<p>a. {(HH),(TT),(HT),(TH)} (C)</p>
+<p>b. {HH),(TT),(HT),(TH),HH),(TT),(HT),(TH),HH),(TT),(HT),(TH)}</p>
+<p>(1b) Record the number of cats that pass by your house in 1 hour.</p>
+<p>a. \(\mathbb{R}\)</p>
+<p>b. <span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span></p>
+<p>c. integers &gt; 0. (C).</p>
+<p>(1c) In a clinic, you record the sex, height, and weight of 100 individuals for a study.</p>
+<p>a. (F,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>), (M,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>  ,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>)</p>
+<p>b. (F,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>), (M,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>) (C)</p>
 </div>
 <div class="section" id="darts">
 <h3>2. Darts<a class="headerlink" href="#darts" title="Permalink to this headline">¶</a></h3>
 <p>You are in the local pub playing darts.  Based on luck, you have 1/50 chance of hitting a bullseye in a single throw of a dart.</p>
-<p>(2a) What is the probability of hitting the bullseye in 1 throw (in 0.0%)?<br />
-a- 2.0</p>
-<p>(2b) You throw the dart a second time, are the throws dependent or independent?
-a- dependent<br />
-b- independent  (C)</p>
-<p>(2c) What is the probability of hitting the bullseye in the second throw (in 0.0%)?<br />
-a- 2.0</p>
-<p>(2c) What is the probability of hitting at least 1 bullseye in 5 throws (in 0.0%)?
-a- 9.6</p>
+<p>(2a) What is the probability of hitting the bullseye in 1 throw (in 0.0%)?</p>
+<p>a. 2.0</p>
+<p>(2b) You throw the dart a second time, are the throws dependent or independent?</p>
+<p>a. dependent</p>
+<p>b. independent  (C)</p>
+<p>(2c) What is the probability of hitting the bullseye in the second throw (in 0.0%)?</p>
+<p>a. 2.0</p>
+<p>(2c) What is the probability of hitting at least 1 bullseye in 5 throws (in 0.0%)?</p>
+<p>a. 9.6</p>
 </div>
 <div class="section" id="id1">
 <h3>3.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>You are rolling a single 6 sided die and counting dots.</p>
-<p>(3a) What is the probability of rolling a 3 or more assuming a fair die?<br />
-a- 0.67</p>
-<p>(3b) You change the game and roll 2 dice, what is the probability of rolling 3 total dots or less?
-a- 0.08</p>
-<p>(3c) Rolling 2 dice, the first lands 1 while the second rolls off the table, what is the probability of that you have a total of 3 or less dots?<br />
-a- 0.33</p>
+<p>(3a) What is the probability of rolling a 3 or more assuming a fair die?</p>
+<p>a. 0.67</p>
+<p>(3b) You change the game and roll 2 dice, what is the probability of rolling 3 total dots or less?</p>
+<p>a. 0.08</p>
+<p>(3c) Rolling 2 dice, the first lands 1 while the second rolls off the table, what is the probability of that you have a total of 3 or less dots?</p>
+<p>a. 0.33</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>

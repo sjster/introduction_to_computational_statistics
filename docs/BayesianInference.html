@@ -399,10 +399,10 @@
                 
   <div class="section" id="topics-in-model-performance">
 <h1>Topics in Model Performance<a class="headerlink" href="#topics-in-model-performance" title="Permalink to this headline">¶</a></h1>
-<p>References</p>
-<ol class="simple">
+<p><strong>References</strong></p>
+<ul class="simple">
 <li><p>Bayesian Analysis with Python: Introduction to Statistical Modeling and Probabilistic Programming with PyMC3 and ArViz, 2nd Edition</p></li>
-</ol>
+</ul>
 <div class="section" id="r-2-and-explained-variance">
 <h2><span class="math notranslate nohighlight">\(R^2\)</span> and Explained Variance<a class="headerlink" href="#r-2-and-explained-variance" title="Permalink to this headline">¶</a></h2>
 <p>If we observe data given by <span class="math notranslate nohighlight">\(y_i\)</span> such that the fitted model predicts <span class="math notranslate nohighlight">\(f_i\)</span> for each point i, we can write <span class="math notranslate nohighlight">\(y_{mean}\)</span> as</p>
@@ -438,7 +438,10 @@
 </div>
 <div class="section" id="information-criteria">
 <h3>2. Information criteria<a class="headerlink" href="#information-criteria" title="Permalink to this headline">¶</a></h3>
-<p><em>Reference</em> <a class="reference external" href="https://www.casact.org/education/rpm/2016/presentations/PM-LM-4-Tevet.pdf">Predictive metrics presentation from Liberty Mutual</a></p>
+<p><strong>Reference</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.casact.org/education/rpm/2016/presentations/PM-LM-4-Tevet.pdf">Predictive metrics presentation from Liberty Mutual</a></p></li>
+</ul>
 <p>A number of ideas that are firmly rooted in Information theory help us to quantify how well a model performs.</p>
 <ol class="simple">
 <li><p>Log-likelihood and deviance</p></li>
@@ -449,7 +452,10 @@
 </div>
 <div class="section" id="log-likelihood-and-deviance">
 <h3>Log-likelihood and Deviance<a class="headerlink" href="#log-likelihood-and-deviance" title="Permalink to this headline">¶</a></h3>
-<p><em>Reference</em> <a class="reference external" href="https://www.erudit.org/en/journals/mee/2015-v37-n3-mee02497/1036328ar/">Cousineau, Denis et Teresa A. Allan. “Likelihood and its use in Parameter Estimation and Model Comparison.” Mesure et évaluation en éducation, volume 37, number 3, 2015, p. 63–98. https://doi.org/10.7202/1036328ar</a></p>
+<p><strong>Reference</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.erudit.org/en/journals/mee/2015-v37-n3-mee02497/1036328ar/">Cousineau, Denis et Teresa A. Allan. “Likelihood and its use in Parameter Estimation and Model Comparison.” Mesure et évaluation en éducation, volume 37, number 3, 2015, p. 63–98. https://doi.org/10.7202/1036328ar</a></p></li>
+</ul>
 <p>These terms are used to measure the error in our model with regards to the data that the model is trying to fit. Most folks are familiar with the Mean Squared Error (MSE) given by</p>
 <p>MSE = <span class="math notranslate nohighlight">\(\sum_1^n (y_{true} - y_{predicted})^2 / n\)</span></p>
 <p>While this is a perfectly acceptably way of measuring error, another way to measure the performance of a model is using the log-likelihood function.</p>
@@ -468,7 +474,10 @@
 </div>
 <div class="section" id="widely-applicable-information-criterion-waic">
 <h3>Widely Applicable Information Criterion (WAIC)<a class="headerlink" href="#widely-applicable-information-criterion-waic" title="Permalink to this headline">¶</a></h3>
-<p><em>Reference</em> <a class="reference external" href="http://www.stat.columbia.edu/~gelman/research/published/waic_understand3.pdf">WAIC by Gelman</a></p>
+<p><strong>Reference</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.stat.columbia.edu/~gelman/research/published/waic_understand3.pdf">WAIC by Gelman</a></p></li>
+</ul>
 <p>The Widely Applicable Information Criterion or WAIC is the Bayesian extension to the AIC. Before we explain the WAIC, a related concept is the log pointwise predicted density (lppd)</p>
 <p>The predicted value of a new data point <span class="math notranslate nohighlight">\(y_{new}\)</span> can be defined</p>
 <p><span class="math notranslate nohighlight">\(p_{post}(y_{new}) = \int p(y_{new} | \theta) p_{post}(\theta) d \theta \)</span></p>
@@ -487,7 +496,10 @@
 </div>
 <div class="section" id="entropy-and-kl-divergence">
 <h2>Entropy and KL Divergence<a class="headerlink" href="#entropy-and-kl-divergence" title="Permalink to this headline">¶</a></h2>
-<p><em>Reference</em> <a class="reference external" href="https://arxiv.org/pdf/1511.00860.pdf">Information Theory</a></p>
+<p><strong>Reference</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/1511.00860.pdf">Information Theory</a></p></li>
+</ul>
 <p>I am using summation in the examples below assuming discrete distributions. This can be replaced by the integral for continuous distributions.</p>
 <div class="section" id="entropy">
 <h3>Entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h3>

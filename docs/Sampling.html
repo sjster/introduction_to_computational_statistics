@@ -281,11 +281,6 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reference">
-   Reference
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#sampling-from-discrete-distributions">
    Sampling from Discrete Distributions
   </a>
@@ -362,9 +357,10 @@
                 
   <div class="section" id="sampling-strategies">
 <h1>Sampling Strategies<a class="headerlink" href="#sampling-strategies" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="reference">
-<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://www.wiley.com/en-us/An+Introduction+to+Statistical+Computing%3A+A+Simulation+based+Approach-p-9781118357729">An Introduction to Statistical Computing: A Simulation-based Approach, Jochen Voss</a></p>
+<p><strong>Reference</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.wiley.com/en-us/An+Introduction+to+Statistical+Computing%3A+A+Simulation+based+Approach-p-9781118357729">An Introduction to Statistical Computing: A Simulation-based Approach, Jochen Voss</a></p></li>
+</ul>
 <p>We want to look at ways to sample from a distribution.
 In most practical scenarios, the distributions are complex enough that it is difficult enough to sample from appropriately but they can often be evaluated at a certain point. The simple strategy of sampling uniformly fails for a couple of reasons.</p>
 <ol class="simple">
@@ -373,7 +369,6 @@ In most practical scenarios, the distributions are complex enough that it is dif
 </ol>
 <p>We will look at various ways to perform efficient sampling here. This is useful not only to understand how distributions are sampled in practice in a package such as SciPy but it also helps you to write your own custom distribution should that need arise.</p>
 <p>The techniques listed are mostly applicable to univariate distributions, but they are useful to understand since they form the components in more sophisticated techniques.</p>
-</div>
 <div class="section" id="sampling-from-discrete-distributions">
 <h2>Sampling from Discrete Distributions<a class="headerlink" href="#sampling-from-discrete-distributions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="uniform-continuous-to-uniform-discrete">
