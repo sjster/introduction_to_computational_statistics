@@ -371,8 +371,13 @@
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pairplot-for-correlations">
+     Pairplot for Correlations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#posterior-predictive-check">
-     Posterior predictive check
+     Posterior Predictive Check
     </a>
    </li>
   </ul>
@@ -1283,7 +1288,9 @@ We will plot the posterior of the beta distribution with the set parameters and 
 <p>b. False</p>
 </li>
 </ol>
-</div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="modeling-with-a-gaussian-distribution">
 <h2>Modeling with a Gaussian Distribution<a class="headerlink" href="#modeling-with-a-gaussian-distribution" title="Permalink to this headline">¶</a></h2>
 <p>Gaussians (Normal distributions) are normally used to approximate a lot of practical data distributions. One reason for this is the Central Limit Theorem, which states:</p>
@@ -1369,6 +1376,9 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 <img alt="../_images/PyMC3_29_1.svg" src="../_images/PyMC3_29_1.svg" /><img alt="../_images/PyMC3_29_2.png" src="../_images/PyMC3_29_2.png" />
 </div>
 </div>
+<br>
+<br>
+<hr style="border:2px green solid "> </hr>
 <div class="section" id="note-on-scalablility">
 <h4>Note on scalablility<a class="headerlink" href="#note-on-scalablility" title="Permalink to this headline">¶</a></h4>
 <p>If your trace information is too big as a result of too many variables or the model being large, you do not want to store this in memory since it can overrun the machine memory. Persisting this in a DB will allow you to reload it and inspect it at a later time as well. For each run, it appends the samples to the DB (or file if not deleted).</p>
@@ -1535,6 +1545,13 @@ FILE
 </div>
 </div>
 </div>
+<br>
+<br>
+<hr style="border:2px green solid "> </hr>
+</div>
+</div>
+<div class="section" id="pairplot-for-correlations">
+<h3>Pairplot for Correlations<a class="headerlink" href="#pairplot-for-correlations" title="Permalink to this headline">¶</a></h3>
 <p>Use a pairplot of the parameters to ensure that there are no correlations that would adversely affect the sampling process.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1621,12 +1638,15 @@ FILE
 </div></div></div>
 </div>
 </div>
-</div>
 <div class="section" id="posterior-predictive-check">
-<h3>Posterior predictive check<a class="headerlink" href="#posterior-predictive-check" title="Permalink to this headline">¶</a></h3>
-<p>We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that of the data from this posterior. You are returned a dictionary for each of the observed variables in the model. You can also plot the distribution of these samples by passing this variable ‘y_pred_g’ as shown below. Setting mean=True in the call to plot_ppc computes the mean distribution of the 100 sampled distributions and plots it as well.</p>
-<p>Two things can be noted here, the mean distribution of the samples from the posterior predictive distribution is close to the distribution of the observed data but the mean of this mean distribution is slightly shifted to the right. Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.</p>
-<p>Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how we can use a Student’s t-distribution for that.</p>
+<h3>Posterior Predictive Check<a class="headerlink" href="#posterior-predictive-check" title="Permalink to this headline">¶</a></h3>
+<p>We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that of the data from this posterior. You are returned a dictionary for each of the observed variables in the model. You can also plot the distribution of these samples by passing this variable ‘y_pred_g’ as shown below. Setting <code class="docutils literal notranslate"><span class="pre">mean=True</span></code> in the call to <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> computes the mean distribution of the 100 sampled distributions and plots it as well.</p>
+<p>Two things can be noted here:</p>
+<ul class="simple">
+<li><p>The mean distribution of the samples from the posterior predictive distribution is close to the distribution of the observed data but the mean of this mean distribution is slightly shifted to the right.</p></li>
+<li><p>Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.</p></li>
+</ul>
+<p>Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how to use a Student’s t-distribution for that.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model_g</span><span class="p">)</span>
@@ -1635,9 +1655,7 @@ FILE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/pymc3/sampling.py:1246: UserWarning: samples parameter is smaller than nchains times ndraws, some draws and/or chains may not be represented in the returned posterior predictive sample
-  warnings.warn(
-100%|██████████| 100/100 [00:00&lt;00:00, 101.83it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 100/100 [00:00&lt;00:00, 998.82it/s]
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Shape of the sampled variable y and data  (100, 47) 47
@@ -1655,16 +1673,16 @@ FILE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([49.98215799, 50.49180512, 53.60669804, 48.74337005, 50.29863699,
-       59.54910476, 53.50308172, 47.34045313, 52.41444856, 61.66610749,
-       53.72045164, 52.13519161, 54.05471775, 55.68761778, 54.02016869,
-       50.82728688, 49.47533008, 53.48387655, 49.47059529, 54.08160974,
-       57.10149016, 57.73911416, 55.22624273, 53.14480796, 60.61579931,
-       55.46234238, 55.67484251, 52.86432449, 53.32556662, 52.37654397,
-       55.13428194, 52.5889095 , 57.22628181, 54.90364271, 52.15965992,
-       54.32998443, 52.15962073, 57.73351664, 54.11044118, 52.77336772,
-       57.02683647, 49.96149962, 51.96178445, 57.56350741, 62.15517288,
-       54.27968979, 54.64943262])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([45.53260993, 54.10289681, 48.66040023, 53.77971592, 56.46850139,
+       53.04692598, 58.67379494, 53.78900017, 49.40837911, 53.89149333,
+       50.7769683 , 52.76403229, 56.49493798, 49.45154213, 50.9368833 ,
+       52.15412225, 53.68402289, 54.5480772 , 55.48493177, 50.47109214,
+       60.26921123, 63.47612414, 52.57626571, 55.85031574, 57.09879031,
+       53.60009516, 53.60991658, 57.54224547, 54.01678025, 55.67096381,
+       53.68052361, 53.62875786, 56.11198038, 48.00436409, 53.1587586 ,
+       55.4568336 , 54.16217932, 54.45011005, 59.10133838, 52.74692729,
+       57.09680258, 63.12037032, 56.84681701, 52.67425532, 59.41026027,
+       49.80051262, 53.30718519])
 </pre></div>
 </div>
 </div>
@@ -1681,22 +1699,25 @@ FILE
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>arviz.data.io_pymc3 - WARNING - posterior predictive shape not compatible with number of chains and draws. This can mean that some draws or even whole chains are not represented.
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc309bbf520&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc327c15d30&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_39_2.png" src="../_images/PyMC3_39_2.png" />
 </div>
 </div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 </div>
 <div class="section" id="robust-models-with-a-student-s-t-distribution">
 <h2>Robust Models with a Student’s t-Distribution<a class="headerlink" href="#robust-models-with-a-student-s-t-distribution" title="Permalink to this headline">¶</a></h2>
-<p>As mentioned in the previous section, one of the issues with assuming a Gaussian distribution is the assumption of finite variance. When you have observed data that lies outside this ‘boundary’, a Gaussian distribution is not a good fit and PyMC3 and other MCMC-based tools will be unable to reconcile these differences appropriately.</p>
+<p>As mentioned in the previous section, one of the issues with assuming a Gaussian distribution is the assumption of finite variance. When you have observed data that lies outside this ‘boundary’, a Gaussian distribution is not a good fit and PyMC3, and other MCMC-based tools will be unable to reconcile these differences appropriately.</p>
 <p>The probability density function is given by:</p>
 <p><span class="math notranslate nohighlight">\(P(t) = \dfrac{\gamma ((v+1) / 2)}{\sqrt{v \pi} \gamma (v/2)} (1 + \dfrac{t^2}{v})^{-(v+1)/2}\)</span></p>
 <p>μ corresponds to the mean of the distribution</p>
-<p>σ is the scale and corresponds to the standard deviation</p>
-<p>ν is the degrees of freedom and takes between 0 and <span class="math notranslate nohighlight">\(\infty\)</span>. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the t-dsitribution used to model this would have degrees of freedom set to 9. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinty corresponds to a Normal distribution.</p>
+<p>σ is the scale and corresponds roughly to the standard deviation</p>
+<p>ν is the degrees of freedom and takes values between 0 and <span class="math notranslate nohighlight">\(\infty\)</span>. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the t-distribution used to model this would have degrees of freedom set to 9. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinty corresponds to a Normal distribution.</p>
 <p>The mean of the distribution is 0 and the variance is given by ν/(ν - 2).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
