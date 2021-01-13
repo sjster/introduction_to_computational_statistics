@@ -496,8 +496,18 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#we-build-a-non-hierarchical-model-first">
-     We build a non-hierarchical model first
+    <a class="reference internal nav-link" href="#data-generation">
+     Data Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#non-hierarchical-model">
+     Non-hierarchical Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hierarchical-model">
+     Hierarchical model
     </a>
    </li>
   </ul>
@@ -2426,17 +2436,22 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 <div class="section" id="transformation">
 <h4>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h4>
 <p>In order to center the data</p>
-<p><span class="math notranslate nohighlight">\(y = \alpha - \beta x\)</span>
-can be reformulated as</p>
-<p><span class="math notranslate nohighlight">\(y = \alpha - \tilde{\beta}(x - \bar{x})\)</span> = <span class="math notranslate nohighlight">\(\alpha + \tilde{\beta} \bar{x} - \tilde{\beta} x\)</span></p>
-<p><span class="math notranslate nohighlight">\(y = \tilde{\alpha} - \tilde{\beta} x\)</span></p>
+<div class="math notranslate nohighlight">
+\[y = \alpha - \beta x\]</div>
+<p>can be reformulated as</p>
+<div class="math notranslate nohighlight">
+\[y = \alpha - \tilde{\beta}(x - \bar{x}) = \alpha + \tilde{\beta} \bar{x} - \tilde{\beta} x\]</div>
+<div class="math notranslate nohighlight">
+\[y = \tilde{\alpha} - \tilde{\beta} x\]</div>
 </div>
 <div class="section" id="recovering-the-data">
 <h4>Recovering the data<a class="headerlink" href="#recovering-the-data" title="Permalink to this headline">¶</a></h4>
 <p>This implies that the original alpha can now be recovered using the formula</p>
-<p><span class="math notranslate nohighlight">\(\alpha = \tilde{\alpha} - \tilde{\beta} \bar{x}\)</span></p>
+<div class="math notranslate nohighlight">
+\[\alpha = \tilde{\alpha} - \tilde{\beta} \bar{x}\]</div>
 <p>You can also standardize the data by mean centering and dividing by the standard deviation</p>
-<p><span class="math notranslate nohighlight">\(\tilde{x} = (x - \bar{x}) / \sigma_x\)</span></p>
+<div class="math notranslate nohighlight">
+\[\tilde{x} = (x - \bar{x}) / \sigma_x\]</div>
 </div>
 </div>
 <div class="section" id="mean-centered-broader-sampling-space">
@@ -2452,6 +2467,7 @@ can be reformulated as</p>
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x_centered</span><span class="p">)</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">α_recovered</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;α_recovered&#39;</span><span class="p">,</span> <span class="n">α</span> <span class="o">-</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
     <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
     
 <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="s1">&#39;ϵ&#39;</span><span class="p">])</span>
@@ -2898,8 +2914,10 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 <div class="section" id="hierarchical-linear-regression">
 <h2>Hierarchical Linear Regression<a class="headerlink" href="#hierarchical-linear-regression" title="Permalink to this headline">¶</a></h2>
-<p>In this example, we create 8 subgroups with 7 of them having 20 data points and the last one having a single data point. This is to illustrate the importance of imbalanced subgroups with sparse data.</p>
-<p>The data for the 8 groups are generated from a normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from normal and beta distributions.</p>
+<p>We want to use the same hierarchical or multilevel modeling technique for linear regression problems. As mentioned above, this is particularly useful when presented with imbalanced subgroups of sparse data. In this example, we create 8 subgroups with 7 of them having 20 data points and the last one having a single data point.</p>
+<p>The data for the 8 groups are generated from a Normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from the Normal and Beta distributions.</p>
+<div class="section" id="data-generation">
+<h3>Data Generation<a class="headerlink" href="#data-generation" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">20</span>
@@ -2908,8 +2926,8 @@ The number of effective samples is smaller than 25% for some parameters.
 <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">314</span><span class="p">)</span>
-<span class="n">alpha_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">M</span><span class="p">)</span> 
-<span class="n">beta_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
+<span class="n">alpha_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">M</span><span class="p">)</span> 
+<span class="n">beta_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">beta</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
 <span class="n">eps_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Alpha parameters &quot;</span><span class="p">,</span> <span class="n">alpha_real</span> <span class="p">)</span>
 
@@ -2933,15 +2951,17 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alpha parameters  [2.58304272 2.89098224 2.92614255 2.14646452 2.0341714  2.94333044
- 2.38910517 2.69086179]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alpha parameters  [4.16608544 4.78196448 4.85228509 3.29292904 3.06834281 4.88666088
+ 3.77821034 4.38172358]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_76_1.svg" src="../_images/PyMC3_76_1.svg" /></div>
+<img alt="../_images/PyMC3_76_1.png" src="../_images/PyMC3_76_1.png" />
 </div>
-<div class="section" id="we-build-a-non-hierarchical-model-first">
-<h3>We build a non-hierarchical model first<a class="headerlink" href="#we-build-a-non-hierarchical-model-first" title="Permalink to this headline">¶</a></h3>
-<p>Note how the obtained <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> values vary for each group, particularly the last one which is really off.</p>
+</div>
+</div>
+<div class="section" id="non-hierarchical-model">
+<h3>Non-hierarchical Model<a class="headerlink" href="#non-hierarchical-model" title="Permalink to this headline">¶</a></h3>
+<p>We build a non-hierarchical model first for comparison. We also mean-center the data for ease of convergence. Note how the obtained <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> values vary for each group, particularly the scale of the last one, which is really off.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Center the data</span>
@@ -2954,8 +2974,7 @@ The number of effective samples is smaller than 25% for some parameters.
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">ν</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s1">&#39;ν&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">30</span><span class="p">)</span>
     
-    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">StudentT</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">α_tmp</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">β</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_centered</span><span class="p">,</span>
-                         <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">ν</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_m</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">StudentT</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">α_tmp</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">β</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">*</span> <span class="n">x_centered</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">ν</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_m</span><span class="p">)</span>
     <span class="c1"># Rescale alpha back - after x had been centered the computed alpha is different from the original alpha</span>
     <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">α_tmp</span> <span class="o">-</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x_m</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
     <span class="n">trace_up</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
@@ -2974,14 +2993,20 @@ The number of effective samples is smaller than 25% for some parameters.
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [ν, ϵ, β, α_tmp]
-Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:18&lt;00:00, 548.27draws/s]
+Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:17&lt;00:00, 584.40draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_78_1.svg" src="../_images/PyMC3_78_1.svg" /><img alt="../_images/PyMC3_78_2.svg" src="../_images/PyMC3_78_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<img alt="../_images/PyMC3_78_1.svg" src="../_images/PyMC3_78_1.svg" /><img alt="../_images/PyMC3_78_2.png" src="../_images/PyMC3_78_2.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_78_4.svg" src="../_images/PyMC3_78_4.svg" /></div>
+<img alt="../_images/PyMC3_78_4.png" src="../_images/PyMC3_78_4.png" />
 </div>
+</div>
+</div>
+<div class="section" id="hierarchical-model">
+<h3>Hierarchical model<a class="headerlink" href="#hierarchical-model" title="Permalink to this headline">¶</a></h3>
+<p>We set hyperpriors on the \(\alpha\) and \(\beta\) parameters. To be more precise, the hyperpriors are applied to the scaled version of \(\alpha\), i.e. \(\alpha_{tmp}\).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">hierarchical_model</span><span class="p">:</span>
@@ -3035,18 +3060,20 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [ν, ϵ, β, α_tmp, β_σ, β_μ, α_σ_tmp, α_μ_tmp]
-Sampling 4 chains, 42 divergences: 100%|██████████| 6000/6000 [00:28&lt;00:00, 211.74draws/s]
-There were 3 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.9726394132105417, but should be close to 0.8. Try to increase the number of tuning steps.
-There were 18 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.9328867621937116, but should be close to 0.8. Try to increase the number of tuning steps.
+Sampling 4 chains, 119 divergences: 100%|██████████| 6000/6000 [00:34&lt;00:00, 173.77draws/s]
+There were 94 divergences after tuning. Increase `target_accept` or reparameterize.
 There were 12 divergences after tuning. Increase `target_accept` or reparameterize.
+The acceptance probability does not match the target. It is 0.9296457057021434, but should be close to 0.8. Try to increase the number of tuning steps.
 There were 9 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.884780567793289, but should be close to 0.8. Try to increase the number of tuning steps.
-The number of effective samples is smaller than 25% for some parameters.
+The acceptance probability does not match the target. It is 0.9215539233466684, but should be close to 0.8. Try to increase the number of tuning steps.
+There were 4 divergences after tuning. Increase `target_accept` or reparameterize.
+The acceptance probability does not match the target. It is 0.9761114878843552, but should be close to 0.8. Try to increase the number of tuning steps.
+The number of effective samples is smaller than 10% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_79_1.svg" src="../_images/PyMC3_79_1.svg" /><img alt="../_images/PyMC3_79_2.svg" src="../_images/PyMC3_79_2.svg" /><img alt="../_images/PyMC3_79_3.svg" src="../_images/PyMC3_79_3.svg" /></div>
+<img alt="../_images/PyMC3_80_1.svg" src="../_images/PyMC3_80_1.svg" /><img alt="../_images/PyMC3_80_2.png" src="../_images/PyMC3_80_2.png" />
+<img alt="../_images/PyMC3_80_3.png" src="../_images/PyMC3_80_3.png" />
+</div>
 </div>
 <br>
 <br>
@@ -3248,13 +3275,13 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_94_0.png" src="../_images/PyMC3_94_0.png" />
-<img alt="../_images/PyMC3_94_1.png" src="../_images/PyMC3_94_1.png" />
+<img alt="../_images/PyMC3_95_0.png" src="../_images/PyMC3_95_0.png" />
+<img alt="../_images/PyMC3_95_1.png" src="../_images/PyMC3_95_1.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_94_3.png" src="../_images/PyMC3_94_3.png" />
-<img alt="../_images/PyMC3_94_4.png" src="../_images/PyMC3_94_4.png" />
+<img alt="../_images/PyMC3_95_3.png" src="../_images/PyMC3_95_3.png" />
+<img alt="../_images/PyMC3_95_4.png" src="../_images/PyMC3_95_4.png" />
 </div>
 </div>
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
@@ -3381,7 +3408,7 @@ NUTS: [β, α]
 </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_98_6.svg" src="../_images/PyMC3_98_6.svg" /></div>
+<img alt="../_images/PyMC3_99_6.svg" src="../_images/PyMC3_99_6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3516,8 +3543,8 @@ NUTS: [β, α]
   Text(2.0, 0, &#39;7.5&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_100_2.png" src="../_images/PyMC3_100_2.png" />
-<img alt="../_images/PyMC3_100_3.png" src="../_images/PyMC3_100_3.png" />
+<img alt="../_images/PyMC3_101_2.png" src="../_images/PyMC3_101_2.png" />
+<img alt="../_images/PyMC3_101_3.png" src="../_images/PyMC3_101_3.png" />
 </div>
 </div>
 <p>In this case, the decision boundary is defined to be the value of ‘x’ when ‘y’ = 0.5. This turns out to be <span class="math notranslate nohighlight">\(-\alpha / \beta\)</span>. However, this value was chosen under the assumption that the midpoint of the class values are a good candidate, but this does not have to be the case.</p>
@@ -3766,8 +3793,8 @@ NUTS: [β, α]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_105_2.png" src="../_images/PyMC3_105_2.png" />
-<img alt="../_images/PyMC3_105_3.png" src="../_images/PyMC3_105_3.png" />
+<img alt="../_images/PyMC3_106_2.png" src="../_images/PyMC3_106_2.png" />
+<img alt="../_images/PyMC3_106_3.png" src="../_images/PyMC3_106_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3777,7 +3804,7 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_106_0.svg" src="../_images/PyMC3_106_0.svg" /></div>
+<img alt="../_images/PyMC3_107_0.svg" src="../_images/PyMC3_107_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -3912,7 +3939,7 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_109_7.png" src="../_images/PyMC3_109_7.png" />
+<img alt="../_images/PyMC3_110_7.png" src="../_images/PyMC3_110_7.png" />
 </div>
 </div>
 <br>
@@ -4023,9 +4050,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_111_4.png" src="../_images/PyMC3_111_4.png" />
-<img alt="../_images/PyMC3_111_5.png" src="../_images/PyMC3_111_5.png" />
-<img alt="../_images/PyMC3_111_6.png" src="../_images/PyMC3_111_6.png" />
+<img alt="../_images/PyMC3_112_4.png" src="../_images/PyMC3_112_4.png" />
+<img alt="../_images/PyMC3_112_5.png" src="../_images/PyMC3_112_5.png" />
+<img alt="../_images/PyMC3_112_6.png" src="../_images/PyMC3_112_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4273,7 +4300,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_116_1.png" src="../_images/PyMC3_116_1.png" />
+<img alt="../_images/PyMC3_117_1.png" src="../_images/PyMC3_117_1.png" />
 </div>
 </div>
 </div>
@@ -4687,7 +4714,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_120_3.png" src="../_images/PyMC3_120_3.png" />
+</div></div><img alt="../_images/PyMC3_121_3.png" src="../_images/PyMC3_121_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4898,7 +4925,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_121_3.png" src="../_images/PyMC3_121_3.png" />
+</div></div><img alt="../_images/PyMC3_122_3.png" src="../_images/PyMC3_122_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4939,7 +4966,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_123_2.png" src="../_images/PyMC3_123_2.png" />
+<img alt="../_images/PyMC3_124_2.png" src="../_images/PyMC3_124_2.png" />
 </div>
 </div>
 </div>
@@ -4971,7 +4998,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_125_2.png" src="../_images/PyMC3_125_2.png" />
+<img alt="../_images/PyMC3_126_2.png" src="../_images/PyMC3_126_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -5034,8 +5061,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_129_2.png" src="../_images/PyMC3_129_2.png" />
-<img alt="../_images/PyMC3_129_3.png" src="../_images/PyMC3_129_3.png" />
+<img alt="../_images/PyMC3_130_2.png" src="../_images/PyMC3_130_2.png" />
+<img alt="../_images/PyMC3_130_3.png" src="../_images/PyMC3_130_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5055,8 +5082,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_130_2.png" src="../_images/PyMC3_130_2.png" />
-<img alt="../_images/PyMC3_130_3.png" src="../_images/PyMC3_130_3.png" />
+<img alt="../_images/PyMC3_131_2.png" src="../_images/PyMC3_131_2.png" />
+<img alt="../_images/PyMC3_131_3.png" src="../_images/PyMC3_131_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -5085,7 +5112,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_132_2.png" src="../_images/PyMC3_132_2.png" />
+<img alt="../_images/PyMC3_133_2.png" src="../_images/PyMC3_133_2.png" />
 </div>
 </div>
 </div>
