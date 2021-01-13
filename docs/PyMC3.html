@@ -516,11 +516,40 @@
   <a class="reference internal nav-link" href="#polynomial-regression-for-nonlinear-data">
    Polynomial Regression for Nonlinear Data
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Data Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inference-on-data-i">
+     Inference on Data I
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inference-on-data-ii">
+     Inference on Data II
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#multiple-linear-regression">
    Multiple Linear Regression
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Data Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inference">
+     Inference
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#logistic-regression">
@@ -3082,6 +3111,12 @@ The number of effective samples is smaller than 10% for some parameters.
 </div>
 <div class="section" id="polynomial-regression-for-nonlinear-data">
 <h2>Polynomial Regression for Nonlinear Data<a class="headerlink" href="#polynomial-regression-for-nonlinear-data" title="Permalink to this headline">¶</a></h2>
+<p>What happens when the data is inherently nonlinear? It is more appropriate to use non-linear combinations of the inputs. This could be in the form of higher order terms such as \(x^2, x^3\) or it could use basis functions such as the cosine function, \(cos(x)\).</p>
+<div class="section" id="id1">
+<h3>Data Generation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Use the values from the dataset in Anscombe’s quartet we used earlier as our non-linear data. We will use the regression model given by</p>
+<div class="math notranslate nohighlight">
+\[ y = \alpha + \beta_1 * x_{centered} + \beta_2 * x_{centered}^2 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_1_centered</span> <span class="o">=</span> <span class="n">x_1</span> <span class="o">-</span> <span class="n">x_1</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -3097,7 +3132,17 @@ The number of effective samples is smaller than 10% for some parameters.
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;y&#39;)
+</pre></div>
 </div>
+<img alt="../_images/PyMC3_82_1.png" src="../_images/PyMC3_82_1.png" />
+<img alt="../_images/PyMC3_82_2.png" src="../_images/PyMC3_82_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="inference-on-data-i">
+<h3>Inference on Data I<a class="headerlink" href="#inference-on-data-i" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_poly</span><span class="p">:</span>
@@ -3107,14 +3152,9 @@ The number of effective samples is smaller than 10% for some parameters.
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">mu</span> <span class="o">=</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β1</span> <span class="o">*</span> <span class="n">x_1_centered</span> <span class="o">+</span> <span class="n">β2</span> <span class="o">*</span> <span class="n">x_1_centered</span><span class="o">**</span><span class="mi">2</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_1</span><span class="p">)</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+    
+<span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="n">y_p</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;β1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">x_p</span> <span class="o">+</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;β2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">x_p</span><span class="o">**</span><span class="mi">2</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_1_centered</span><span class="p">,</span> <span class="n">y_1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
@@ -3123,7 +3163,23 @@ The number of effective samples is smaller than 10% for some parameters.
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [ϵ, β2, β1, α]
+Sampling 4 chains, 0 divergences: 100%|██████████| 16000/16000 [00:08&lt;00:00, 1779.71draws/s]
+</pre></div>
 </div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc300ba97f0&gt;]
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_84_2.png" src="../_images/PyMC3_84_2.png" />
+</div>
+</div>
+</div>
+<div class="section" id="inference-on-data-ii">
+<h3>Inference on Data II<a class="headerlink" href="#inference-on-data-ii" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_poly</span><span class="p">:</span>
@@ -3134,13 +3190,8 @@ The number of effective samples is smaller than 10% for some parameters.
     <span class="n">mu</span> <span class="o">=</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β1</span> <span class="o">*</span> <span class="n">x_0_centered</span> <span class="o">+</span> <span class="n">β2</span> <span class="o">*</span> <span class="n">x_0_centered</span><span class="o">**</span><span class="mi">2</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_0</span><span class="p">)</span>
     <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    
+<span class="n">x_p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 <span class="n">y_p</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">+</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;β1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">x_p</span> <span class="o">+</span> <span class="n">trace</span><span class="p">[</span><span class="s1">&#39;β2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">*</span> <span class="n">x_p</span><span class="o">**</span><span class="mi">2</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_0_centered</span><span class="p">,</span> <span class="n">y_0</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
@@ -3149,13 +3200,33 @@ The number of effective samples is smaller than 10% for some parameters.
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [ϵ, β2, β1, α]
+Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:05&lt;00:00, 1669.11draws/s]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc2fd471e80&gt;]
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_86_2.png" src="../_images/PyMC3_86_2.png" />
+</div>
 </div>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr>
 </div>
+</div>
 <div class="section" id="multiple-linear-regression">
 <h2>Multiple Linear Regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this headline">¶</a></h2>
+<p>In Multiple Linear Regression, there is more than one independent variable to predict the outcome of one dependent variable.</p>
+<div class="math notranslate nohighlight">
+\[ y = \alpha + \overrightarrow{\beta} \cdot \overrightarrow{X} \]</div>
+<div class="section" id="id2">
+<h3>Data Generation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>The example below generates two-dimensional data for X. It plots the variation of ‘y’ with each component of X in the top two figures. The bottom figure indicates the correlation of the two components of X.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">314</span><span class="p">)</span>
@@ -3172,13 +3243,8 @@ The number of effective samples is smaller than 10% for some parameters.
 <span class="n">X_mean</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">X_centered</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">X_mean</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">alpha_real</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">beta_real</span><span class="p">)</span> <span class="o">+</span> <span class="n">eps_real</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scatter_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">scatter_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x_i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">idx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
@@ -3194,36 +3260,165 @@ The number of effective samples is smaller than 10% for some parameters.
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/PyMC3_88_0.png" src="../_images/PyMC3_88_0.png" />
 </div>
+</div>
+</div>
+<div class="section" id="inference">
+<h3>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h3>
+<p>This code is very similar to what we have already seen, the only real difference being the dimensionality of the coefficients and the inputs. Something you would notice is that as the number of unknowns increase, the uncertainty associated with our inferences become larger. It is beneficial to have more accurate priors in this situation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_mlr</span><span class="p">:</span>
-    <span class="n">α_tmp</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α_tmp&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">α_tmp</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α_tmp&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Try changing the prior distribution</span>
+    <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># Note the shape of beta</span>
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="n">α_tmp</span> <span class="o">+</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_centered</span><span class="p">,</span> <span class="n">β</span><span class="p">)</span>
     <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">α_tmp</span> <span class="o">-</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_mean</span><span class="p">,</span> <span class="n">β</span><span class="p">))</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
-
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    
 <span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
-<span class="n">pm</span><span class="o">.</span><span class="n">model_to_graphviz</span><span class="p">(</span><span class="n">model_mlr</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [ϵ, β, α_tmp]
+Sampling 4 chains, 0 divergences: 100%|██████████| 12000/12000 [00:05&lt;00:00, 2090.64draws/s]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+      <th>sd</th>
+      <th>hpd_3%</th>
+      <th>hpd_97%</th>
+      <th>mcse_mean</th>
+      <th>mcse_sd</th>
+      <th>ess_mean</th>
+      <th>ess_sd</th>
+      <th>ess_bulk</th>
+      <th>ess_tail</th>
+      <th>r_hat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>α_tmp</th>
+      <td>14.589</td>
+      <td>0.048</td>
+      <td>14.502</td>
+      <td>14.679</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>12793.0</td>
+      <td>12793.0</td>
+      <td>12773.0</td>
+      <td>6290.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>β[0]</th>
+      <td>0.971</td>
+      <td>0.044</td>
+      <td>0.885</td>
+      <td>1.050</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>10265.0</td>
+      <td>10248.0</td>
+      <td>10282.0</td>
+      <td>6003.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>β[1]</th>
+      <td>1.471</td>
+      <td>0.033</td>
+      <td>1.411</td>
+      <td>1.533</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>11240.0</td>
+      <td>11240.0</td>
+      <td>11270.0</td>
+      <td>5879.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>ϵ</th>
+      <td>0.474</td>
+      <td>0.035</td>
+      <td>0.412</td>
+      <td>0.545</td>
+      <td>0.000</td>
+      <td>0.000</td>
+      <td>10134.0</td>
+      <td>10104.0</td>
+      <td>10083.0</td>
+      <td>6060.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>α[0]</th>
+      <td>1.822</td>
+      <td>0.457</td>
+      <td>0.975</td>
+      <td>2.688</td>
+      <td>0.005</td>
+      <td>0.003</td>
+      <td>10166.0</td>
+      <td>9754.0</td>
+      <td>10210.0</td>
+      <td>6202.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">model_to_graphviz</span><span class="p">(</span><span class="n">model_mlr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/PyMC3_91_0.svg" src="../_images/PyMC3_91_0.svg" /></div>
 </div>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr>
 </div>
+</div>
 <div class="section" id="logistic-regression">
 <h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h2>
-<p>While everything we have seen so far involved regression, the same ideas can be applied to a classification task as well. We use the logistic regression model to perform this classification here. The name ‘regression’ is due to the fact that the model outputs class probabilities as numbers which is then converted into classes using a decision boundary. There are many ways to select an appropriate decision boundary, many of which is covered in the section for model selection.</p>
+<p>While everything we have seen so far involved regression, the same ideas can be applied to a classification task as well. We use the logistic regression model to perform this classification here. The name ‘regression’ is due to the fact that the model outputs class probabilities as numbers which is then converted into classes using a decision boundary. There are many ways to select an appropriate decision boundary, a few of which were covered in Course 1 and Course 2.</p>
 <div class="section" id="inverse-link-function">
 <h3>Inverse Link function<a class="headerlink" href="#inverse-link-function" title="Permalink to this headline">¶</a></h3>
 <p>At this point it is a good idea to bring up the concept of a inverse link function, which takes the form</p>
 <p><span class="math notranslate nohighlight">\(\theta = f(\alpha + \beta x)\)</span></p>
-<p>Here ‘f’ is called the inverse link function, the term inverse refers to the fact that the function is applied to the right hand side of the equation. In a linear regression, this inverse link function is the identity function. In the case of a linear regression model, the value ‘y’ at any point ‘x’ is modeled as the mean of a Gaussian distribution centered at the point (x,y). The error as a result of the true ‘y’ and the estimated ‘y’ as modeled with the standard deviation of this Gaussian at that point (x,y). Now think about the scenario where this is not appropriately modeled using a Gaussian. A classification problem is a perfect example of such a scenario where the discrete classes are not modeled well as a Gaussian and hence we can’t use a Gaussian to model the mean of those classes. As a result, we would like to convert the output of <span class="math notranslate nohighlight">\(\alpha = \beta x\)</span> to some other range of values that are more appropriate to the distribution being modeled, which is what the link function intends to do.</p>
+<p>Here ‘f’ is called the inverse link function, the term inverse refers to the fact that the function is applied to the right hand side of the equation. In a linear regression, this inverse link function is the identity function. In the case of a linear regression model, the value ‘y’ at any point ‘x’ is modeled as the mean of a Gaussian distribution centered at the point (x,y). The error as a result of the true ‘y’ and the estimated ‘y’ are modeled with the standard deviation of this Gaussian at that point (x,y). Now think about the scenario where this is not appropriately modeled using a Gaussian. A classification problem is a perfect example of such a scenario where the discrete classes are not modeled well as a Gaussian and hence we can’t use this distribution to model the mean of those classes. As a result, we would like to convert the output of <span class="math notranslate nohighlight">\(\alpha + \beta x\)</span> to some other range of values that are more appropriate to the distribution being modeled, which is what the link function intends to do.</p>
 </div>
 <div class="section" id="logistic-function">
 <h3>Logistic function<a class="headerlink" href="#logistic-function" title="Permalink to this headline">¶</a></h3>
@@ -3275,13 +3470,13 @@ The number of effective samples is smaller than 10% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_95_0.png" src="../_images/PyMC3_95_0.png" />
-<img alt="../_images/PyMC3_95_1.png" src="../_images/PyMC3_95_1.png" />
+<img alt="../_images/PyMC3_96_0.png" src="../_images/PyMC3_96_0.png" />
+<img alt="../_images/PyMC3_96_1.png" src="../_images/PyMC3_96_1.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_95_3.png" src="../_images/PyMC3_95_3.png" />
-<img alt="../_images/PyMC3_95_4.png" src="../_images/PyMC3_95_4.png" />
+<img alt="../_images/PyMC3_96_3.png" src="../_images/PyMC3_96_3.png" />
+<img alt="../_images/PyMC3_96_4.png" src="../_images/PyMC3_96_4.png" />
 </div>
 </div>
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
@@ -3408,7 +3603,7 @@ NUTS: [β, α]
 </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_99_6.svg" src="../_images/PyMC3_99_6.svg" /></div>
+<img alt="../_images/PyMC3_100_6.svg" src="../_images/PyMC3_100_6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3543,8 +3738,8 @@ NUTS: [β, α]
   Text(2.0, 0, &#39;7.5&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_101_2.png" src="../_images/PyMC3_101_2.png" />
-<img alt="../_images/PyMC3_101_3.png" src="../_images/PyMC3_101_3.png" />
+<img alt="../_images/PyMC3_102_2.png" src="../_images/PyMC3_102_2.png" />
+<img alt="../_images/PyMC3_102_3.png" src="../_images/PyMC3_102_3.png" />
 </div>
 </div>
 <p>In this case, the decision boundary is defined to be the value of ‘x’ when ‘y’ = 0.5. This turns out to be <span class="math notranslate nohighlight">\(-\alpha / \beta\)</span>. However, this value was chosen under the assumption that the midpoint of the class values are a good candidate, but this does not have to be the case.</p>
@@ -3793,8 +3988,8 @@ NUTS: [β, α]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_106_2.png" src="../_images/PyMC3_106_2.png" />
-<img alt="../_images/PyMC3_106_3.png" src="../_images/PyMC3_106_3.png" />
+<img alt="../_images/PyMC3_107_2.png" src="../_images/PyMC3_107_2.png" />
+<img alt="../_images/PyMC3_107_3.png" src="../_images/PyMC3_107_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3804,7 +3999,7 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_107_0.svg" src="../_images/PyMC3_107_0.svg" /></div>
+<img alt="../_images/PyMC3_108_0.svg" src="../_images/PyMC3_108_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -3939,7 +4134,7 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_110_7.png" src="../_images/PyMC3_110_7.png" />
+<img alt="../_images/PyMC3_111_7.png" src="../_images/PyMC3_111_7.png" />
 </div>
 </div>
 <br>
@@ -4050,9 +4245,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_112_4.png" src="../_images/PyMC3_112_4.png" />
-<img alt="../_images/PyMC3_112_5.png" src="../_images/PyMC3_112_5.png" />
-<img alt="../_images/PyMC3_112_6.png" src="../_images/PyMC3_112_6.png" />
+<img alt="../_images/PyMC3_113_4.png" src="../_images/PyMC3_113_4.png" />
+<img alt="../_images/PyMC3_113_5.png" src="../_images/PyMC3_113_5.png" />
+<img alt="../_images/PyMC3_113_6.png" src="../_images/PyMC3_113_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4300,7 +4495,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_117_1.png" src="../_images/PyMC3_117_1.png" />
+<img alt="../_images/PyMC3_118_1.png" src="../_images/PyMC3_118_1.png" />
 </div>
 </div>
 </div>
@@ -4714,7 +4909,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_121_3.png" src="../_images/PyMC3_121_3.png" />
+</div></div><img alt="../_images/PyMC3_122_3.png" src="../_images/PyMC3_122_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4925,7 +5120,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_122_3.png" src="../_images/PyMC3_122_3.png" />
+</div></div><img alt="../_images/PyMC3_123_3.png" src="../_images/PyMC3_123_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4966,7 +5161,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_124_2.png" src="../_images/PyMC3_124_2.png" />
+<img alt="../_images/PyMC3_125_2.png" src="../_images/PyMC3_125_2.png" />
 </div>
 </div>
 </div>
@@ -4998,7 +5193,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_126_2.png" src="../_images/PyMC3_126_2.png" />
+<img alt="../_images/PyMC3_127_2.png" src="../_images/PyMC3_127_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -5061,8 +5256,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_130_2.png" src="../_images/PyMC3_130_2.png" />
-<img alt="../_images/PyMC3_130_3.png" src="../_images/PyMC3_130_3.png" />
+<img alt="../_images/PyMC3_131_2.png" src="../_images/PyMC3_131_2.png" />
+<img alt="../_images/PyMC3_131_3.png" src="../_images/PyMC3_131_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5082,8 +5277,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_131_2.png" src="../_images/PyMC3_131_2.png" />
-<img alt="../_images/PyMC3_131_3.png" src="../_images/PyMC3_131_3.png" />
+<img alt="../_images/PyMC3_132_2.png" src="../_images/PyMC3_132_2.png" />
+<img alt="../_images/PyMC3_132_3.png" src="../_images/PyMC3_132_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -5112,7 +5307,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_133_2.png" src="../_images/PyMC3_133_2.png" />
+<img alt="../_images/PyMC3_134_2.png" src="../_images/PyMC3_134_2.png" />
 </div>
 </div>
 </div>
