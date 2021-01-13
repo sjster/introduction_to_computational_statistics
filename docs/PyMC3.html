@@ -469,6 +469,28 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#robust-linear-regression">
+   Robust Linear Regression
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-the-4-subgroups-in-the-data">
+     Plot the 4 Subgroups in the Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-data-group-3-and-its-kernel-density">
+     Plot Data Group 3 and its Kernel Density
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-using-a-student-s-t-distribution">
+     Model using a Student’s t Distribution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#hierarchical-linear-regression">
    Hierarchical Linear Regression
   </a>
@@ -2456,6 +2478,12 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 <img alt="../_images/PyMC3_66_4.png" src="../_images/PyMC3_66_4.png" />
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="robust-linear-regression">
+<h2>Robust Linear Regression<a class="headerlink" href="#robust-linear-regression" title="Permalink to this headline">¶</a></h2>
+<p>We fitted our model parameters by assuming the data likelihood was a Normal distribution, however as we saw earlier this assumption suffers from not doing well with outliers. Our solution to this problem is the same, use a Student’s t-distribution for the likelihood.</p>
+<p>Here we look at the <a class="reference external" href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe’s quartet</a>, which is a set of 4 data sets. They have similar statistical properties even though they look very different and were used to illustrate the effect of outliers. Our intended goal is the same, how to model data with outliers and the sensitivity of the model to these outliers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -2760,11 +2788,11 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 </table>
 </div></div></div>
 </div>
+<div class="section" id="plot-the-4-subgroups-in-the-data">
+<h3>Plot the 4 Subgroups in the Data<a class="headerlink" href="#plot-the-4-subgroups-in-the-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the 4 subgroups in the data</span>
-
-<span class="n">x_0</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;I&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_0</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;I&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">y_0</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;I&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">x_1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;II&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">y_1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;II&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -2798,14 +2826,15 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;y&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_68_1.png" src="../_images/PyMC3_68_1.png" />
+<img alt="../_images/PyMC3_70_1.png" src="../_images/PyMC3_70_1.png" />
 </div>
 </div>
+</div>
+<div class="section" id="plot-data-group-3-and-its-kernel-density">
+<h3>Plot Data Group 3 and its Kernel Density<a class="headerlink" href="#plot-data-group-3-and-its-kernel-density" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot data group 3 and its Kernel density</span>
-
-<span class="n">x_2</span> <span class="o">=</span> <span class="n">x_2</span> <span class="o">-</span> <span class="n">x_2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_2</span> <span class="o">=</span> <span class="n">x_2</span> <span class="o">-</span> <span class="n">x_2</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">beta_c</span><span class="p">,</span> <span class="n">alpha_c</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">linregress</span><span class="p">(</span><span class="n">x_2</span><span class="p">,</span> <span class="n">y_2</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_2</span><span class="p">,</span> <span class="p">(</span><span class="n">alpha_c</span> <span class="o">+</span> <span class="n">beta_c</span> <span class="o">*</span> <span class="n">x_2</span><span class="p">),</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
@@ -2822,13 +2851,15 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_69_0.png" src="../_images/PyMC3_69_0.png" />
+<img alt="../_images/PyMC3_72_0.png" src="../_images/PyMC3_72_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="model-using-a-student-s-t-distribution">
+<h3>Model using a Student’s t Distribution<a class="headerlink" href="#model-using-a-student-s-t-distribution" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use PyMC3 to model this Linear Regression using a Student&#39;s t distribution</span>
-<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_t</span><span class="p">:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_t</span><span class="p">:</span>
     <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">y_2</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
@@ -2860,7 +2891,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_70_1.svg" src="../_images/PyMC3_70_1.svg" /><img alt="../_images/PyMC3_70_2.png" src="../_images/PyMC3_70_2.png" />
+<img alt="../_images/PyMC3_74_1.svg" src="../_images/PyMC3_74_1.svg" /><img alt="../_images/PyMC3_74_2.png" src="../_images/PyMC3_74_2.png" />
 </div>
 </div>
 </div>
@@ -2906,7 +2937,7 @@ The number of effective samples is smaller than 25% for some parameters.
  2.38910517 2.69086179]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_72_1.svg" src="../_images/PyMC3_72_1.svg" /></div>
+<img alt="../_images/PyMC3_76_1.svg" src="../_images/PyMC3_76_1.svg" /></div>
 </div>
 <div class="section" id="we-build-a-non-hierarchical-model-first">
 <h3>We build a non-hierarchical model first<a class="headerlink" href="#we-build-a-non-hierarchical-model-first" title="Permalink to this headline">¶</a></h3>
@@ -2946,10 +2977,10 @@ NUTS: [ν, ϵ, β, α_tmp]
 Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:18&lt;00:00, 548.27draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_74_1.svg" src="../_images/PyMC3_74_1.svg" /><img alt="../_images/PyMC3_74_2.svg" src="../_images/PyMC3_74_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
+<img alt="../_images/PyMC3_78_1.svg" src="../_images/PyMC3_78_1.svg" /><img alt="../_images/PyMC3_78_2.svg" src="../_images/PyMC3_78_2.svg" /><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_74_4.svg" src="../_images/PyMC3_74_4.svg" /></div>
+<img alt="../_images/PyMC3_78_4.svg" src="../_images/PyMC3_78_4.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3015,8 +3046,11 @@ The acceptance probability does not match the target. It is 0.884780567793289, b
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_75_1.svg" src="../_images/PyMC3_75_1.svg" /><img alt="../_images/PyMC3_75_2.svg" src="../_images/PyMC3_75_2.svg" /><img alt="../_images/PyMC3_75_3.svg" src="../_images/PyMC3_75_3.svg" /></div>
+<img alt="../_images/PyMC3_79_1.svg" src="../_images/PyMC3_79_1.svg" /><img alt="../_images/PyMC3_79_2.svg" src="../_images/PyMC3_79_2.svg" /><img alt="../_images/PyMC3_79_3.svg" src="../_images/PyMC3_79_3.svg" /></div>
 </div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 </div>
 <div class="section" id="polynomial-regression-for-nonlinear-data">
@@ -3089,6 +3123,9 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 </div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 <div class="section" id="multiple-linear-regression">
 <h2>Multiple Linear Regression<a class="headerlink" href="#multiple-linear-regression" title="Permalink to this headline">¶</a></h2>
@@ -3148,6 +3185,9 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 </div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 <div class="section" id="logistic-regression">
 <h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">¶</a></h2>
@@ -3208,13 +3248,13 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_90_0.png" src="../_images/PyMC3_90_0.png" />
-<img alt="../_images/PyMC3_90_1.png" src="../_images/PyMC3_90_1.png" />
+<img alt="../_images/PyMC3_94_0.png" src="../_images/PyMC3_94_0.png" />
+<img alt="../_images/PyMC3_94_1.png" src="../_images/PyMC3_94_1.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_90_3.png" src="../_images/PyMC3_90_3.png" />
-<img alt="../_images/PyMC3_90_4.png" src="../_images/PyMC3_90_4.png" />
+<img alt="../_images/PyMC3_94_3.png" src="../_images/PyMC3_94_3.png" />
+<img alt="../_images/PyMC3_94_4.png" src="../_images/PyMC3_94_4.png" />
 </div>
 </div>
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
@@ -3341,7 +3381,7 @@ NUTS: [β, α]
 </div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 1_000 draw iterations (4_000 + 4_000 draws total) took 4 seconds.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_94_6.svg" src="../_images/PyMC3_94_6.svg" /></div>
+<img alt="../_images/PyMC3_98_6.svg" src="../_images/PyMC3_98_6.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3476,8 +3516,8 @@ NUTS: [β, α]
   Text(2.0, 0, &#39;7.5&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_96_2.png" src="../_images/PyMC3_96_2.png" />
-<img alt="../_images/PyMC3_96_3.png" src="../_images/PyMC3_96_3.png" />
+<img alt="../_images/PyMC3_100_2.png" src="../_images/PyMC3_100_2.png" />
+<img alt="../_images/PyMC3_100_3.png" src="../_images/PyMC3_100_3.png" />
 </div>
 </div>
 <p>In this case, the decision boundary is defined to be the value of ‘x’ when ‘y’ = 0.5. This turns out to be <span class="math notranslate nohighlight">\(-\alpha / \beta\)</span>. However, this value was chosen under the assumption that the midpoint of the class values are a good candidate, but this does not have to be the case.</p>
@@ -3726,8 +3766,8 @@ NUTS: [β, α]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_101_2.png" src="../_images/PyMC3_101_2.png" />
-<img alt="../_images/PyMC3_101_3.png" src="../_images/PyMC3_101_3.png" />
+<img alt="../_images/PyMC3_105_2.png" src="../_images/PyMC3_105_2.png" />
+<img alt="../_images/PyMC3_105_3.png" src="../_images/PyMC3_105_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3737,7 +3777,7 @@ NUTS: [β, α]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_102_0.svg" src="../_images/PyMC3_102_0.svg" /></div>
+<img alt="../_images/PyMC3_106_0.svg" src="../_images/PyMC3_106_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -3872,9 +3912,12 @@ There were 36 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_105_7.png" src="../_images/PyMC3_105_7.png" />
+<img alt="../_images/PyMC3_109_7.png" src="../_images/PyMC3_109_7.png" />
 </div>
 </div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 </div>
 <div class="section" id="inferring-rate-change-with-a-poisson-distribution">
@@ -3980,9 +4023,9 @@ The number of effective samples is smaller than 25% for some parameters.
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_107_4.png" src="../_images/PyMC3_107_4.png" />
-<img alt="../_images/PyMC3_107_5.png" src="../_images/PyMC3_107_5.png" />
-<img alt="../_images/PyMC3_107_6.png" src="../_images/PyMC3_107_6.png" />
+<img alt="../_images/PyMC3_111_4.png" src="../_images/PyMC3_111_4.png" />
+<img alt="../_images/PyMC3_111_5.png" src="../_images/PyMC3_111_5.png" />
+<img alt="../_images/PyMC3_111_6.png" src="../_images/PyMC3_111_6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4230,7 +4273,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_112_1.png" src="../_images/PyMC3_112_1.png" />
+<img alt="../_images/PyMC3_116_1.png" src="../_images/PyMC3_116_1.png" />
 </div>
 </div>
 </div>
@@ -4294,6 +4337,9 @@ Day  139 [0.] [1.]
 <p>b. Poisson distribution</p>
 </li>
 </ol>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 <div class="section" id="mcmc-metrics">
 <h2>MCMC Metrics<a class="headerlink" href="#mcmc-metrics" title="Permalink to this headline">¶</a></h2>
@@ -4340,7 +4386,7 @@ Day  139 [0.] [1.]
 </div>
 <div class="section" id="diagnostic-statistics">
 <h3>Diagnostic statistics<a class="headerlink" href="#diagnostic-statistics" title="Permalink to this headline">¶</a></h3>
-<p>We can compute a metric called Rhat (also called the potential scale reduction factor) that measures the variance between the chains with the variance within the chains. It is calculated as the standard deviation using the samples from all the chains (all samples appended together from each chain) over the  RMS of the within-chain standard deviations of all the chains. Poorly mixed samples will have greater variance in the accumulated samples (numerator) compared to the variance in the individual chains. It was empirically accepted that Rhat values below 1.1 are considered acceptable while those above it are indications of a lack of convergence in the chains. Gelman et al. (2013) introduced a split Rhat that compares the first half with the second half of the samples from each chain to improve upon the regular Rhat. Arviz implements a split Rhat as can be seen from <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.rhat.html">Arviz Rhat</a>, along an improved rank-based Rhat
+<p>We can compute a metric called Rhat (also called the potential scale reduction factor) that measures the variance between the chains with the variance within the chains. It is calculated as the standard deviation using the samples from all the chains (all samples appended together from each chain) over the  RMS of the within-chain standard deviations of all the chains. Poorly mixed samples will have greater variance in the accumulated samples (numerator) compared to the variance in the individual chains. It was empirically accepted that Rhat values below 1.1 are considered acceptable while those above it are indications of a lack of convergence in the chains. Gelman et al. (2013) introduced a split Rhat that compares the first half with the second half of the samples from each chain to improve upon the regular Rhat. Arviz implements a split Rhat as can be seen from <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.rhat.html">Arviz Rhat</a>, along with an improved rank-based Rhat
 <a class="reference external" href="https://arxiv.org/pdf/1903.08008.pdf">Improved Rhat</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">az.rhat(trace,</span> <span class="pre">method='split')</span></code></p>
 </div>
@@ -4641,7 +4687,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_116_3.png" src="../_images/PyMC3_116_3.png" />
+</div></div><img alt="../_images/PyMC3_120_3.png" src="../_images/PyMC3_120_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4852,7 +4898,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_117_3.png" src="../_images/PyMC3_117_3.png" />
+</div></div><img alt="../_images/PyMC3_121_3.png" src="../_images/PyMC3_121_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4893,7 +4939,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_119_2.png" src="../_images/PyMC3_119_2.png" />
+<img alt="../_images/PyMC3_123_2.png" src="../_images/PyMC3_123_2.png" />
 </div>
 </div>
 </div>
@@ -4925,7 +4971,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_121_2.png" src="../_images/PyMC3_121_2.png" />
+<img alt="../_images/PyMC3_125_2.png" src="../_images/PyMC3_125_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -4988,8 +5034,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_125_2.png" src="../_images/PyMC3_125_2.png" />
-<img alt="../_images/PyMC3_125_3.png" src="../_images/PyMC3_125_3.png" />
+<img alt="../_images/PyMC3_129_2.png" src="../_images/PyMC3_129_2.png" />
+<img alt="../_images/PyMC3_129_3.png" src="../_images/PyMC3_129_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5009,8 +5055,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_126_2.png" src="../_images/PyMC3_126_2.png" />
-<img alt="../_images/PyMC3_126_3.png" src="../_images/PyMC3_126_3.png" />
+<img alt="../_images/PyMC3_130_2.png" src="../_images/PyMC3_130_2.png" />
+<img alt="../_images/PyMC3_130_3.png" src="../_images/PyMC3_130_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -5039,7 +5085,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_128_2.png" src="../_images/PyMC3_128_2.png" />
+<img alt="../_images/PyMC3_132_2.png" src="../_images/PyMC3_132_2.png" />
 </div>
 </div>
 </div>
