@@ -710,6 +710,28 @@
   <a class="reference internal nav-link" href="#revisiting-the-multiclass-classification-problem">
    Revisiting the Multiclass Classification Problem
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#diagnostics">
+     Diagnostics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rhat">
+     Rhat
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stat-names">
+     Stat Names
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trace-energy">
+     Trace Energy
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#diagnosing-mcmc-using-pymc3">
@@ -3828,7 +3850,6 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
 <span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
-<span class="kn">import</span> <span class="nn">sklearn</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">graphviz</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -3873,9 +3894,6 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [beta, alpha]
-Could not pickle model, sampling singlethreaded.
-Sequential sampling (4 chains in 1 job)
-NUTS: [beta, alpha]
 </pre></div>
 </div>
 <div class="output text_html">
@@ -3892,71 +3910,19 @@ NUTS: [beta, alpha]
             background: #F44336;
         }
     </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:19<00:00 Sampling chain 0, 2 divergences]
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:48<00:00 Sampling 4 chains, 110 divergences]
 </div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:19<00:00 Sampling chain 1, 5 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:17<00:00 Sampling chain 2, 35 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:18<00:00 Sampling chain 3, 10 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 77 seconds.
-There were 2 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 7 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 42 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 52 divergences after tuning. Increase `target_accept` or reparameterize.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 75 seconds.
+There were 6 divergences after tuning. Increase `target_accept` or reparameterize.
+There were 101 divergences after tuning. Increase `target_accept` or reparameterize.
+There were 3 divergences after tuning. Increase `target_accept` or reparameterize.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_114_7.png" src="../_images/PyMC3_114_7.png" />
+<img alt="../_images/PyMC3_114_4.png" src="../_images/PyMC3_114_4.png" />
 </div>
 </div>
 <br>
@@ -5192,9 +5158,6 @@ Number of divergences 126 and percent 6.300000
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [beta, alpha]
-Could not pickle model, sampling singlethreaded.
-Sequential sampling (4 chains in 1 job)
-NUTS: [beta, alpha]
 </pre></div>
 </div>
 <div class="output text_html">
@@ -5211,78 +5174,25 @@ NUTS: [beta, alpha]
             background: #F44336;
         }
     </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:19<00:00 Sampling chain 0, 5 divergences]
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:23<00:00 Sampling 4 chains, 26 divergences]
 </div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:19<00:00 Sampling chain 1, 1 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:20<00:00 Sampling chain 2, 25 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:20<00:00 Sampling chain 3, 14 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 80 seconds.
-There were 5 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 6 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 31 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 45 divergences after tuning. Increase `target_accept` or reparameterize.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 37 seconds.
+There were 26 divergences after tuning. Increase `target_accept` or reparameterize.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_142_7.png" src="../_images/PyMC3_142_7.png" />
+<img alt="../_images/PyMC3_142_4.png" src="../_images/PyMC3_142_4.png" />
 </div>
 </div>
+<div class="section" id="diagnostics">
+<h3>Diagnostics<a class="headerlink" href="#diagnostics" title="Permalink to this headline">¶</a></h3>
+<p>All diagnostics in PyMC3 is now in Arviz starting with version 3.9 of PyMC3. Summary is a good place to start</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># All diagnostics in PyMC3 is now in Arviz starting with version 3.9 of PyMC3</span>
-<span class="c1"># Summary is a good place to start</span>
-<span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -5478,10 +5388,12 @@ There were 45 divergences after tuning. Increase `target_accept` or reparameteri
 <p>465 rows × 11 columns</p>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="rhat">
+<h3>Rhat<a class="headerlink" href="#rhat" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can call rhat from ArViz</span>
-<span class="n">az</span><span class="o">.</span><span class="n">rhat</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">rhat</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -5902,6 +5814,10 @@ Data variables:
        [1.00031781, 1.0006039 , 1.00051195],
        [1.00101265, 1.00013988, 1.00007682]])</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-9fd6987a-a7cc-43cb-9000-b3e5f4ad043e' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-9fd6987a-a7cc-43cb-9000-b3e5f4ad043e' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
 </div>
+</div>
+<div class="section" id="stat-names">
+<h3>Stat Names<a class="headerlink" href="#stat-names" title="Permalink to this headline">¶</a></h3>
+<p>Print out the available statistics for your model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace_s</span><span class="o">.</span><span class="n">stat_names</span>
@@ -5957,6 +5873,9 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="trace-energy">
+<h3>Trace Energy<a class="headerlink" href="#trace-energy" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
@@ -5967,7 +5886,7 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_147_1.png" src="../_images/PyMC3_147_1.png" />
+<img alt="../_images/PyMC3_151_1.png" src="../_images/PyMC3_151_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5981,7 +5900,7 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_148_1.png" src="../_images/PyMC3_148_1.png" />
+<img alt="../_images/PyMC3_152_1.png" src="../_images/PyMC3_152_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5994,7 +5913,7 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_149_1.png" src="../_images/PyMC3_149_1.png" />
+<img alt="../_images/PyMC3_153_1.png" src="../_images/PyMC3_153_1.png" />
 </div>
 </div>
 <p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
@@ -6008,7 +5927,7 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_151_1.png" src="../_images/PyMC3_151_1.png" />
+<img alt="../_images/PyMC3_155_1.png" src="../_images/PyMC3_155_1.png" />
 </div>
 </div>
 <p>A score of less than 2 indicates good convergence. Computes the z score at each interval and returns and array of (interval start location, z score)</p>
@@ -6335,7 +6254,8 @@ NUTS: [β, α]
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_158_4.png" src="../_images/PyMC3_158_4.png" />
+<img alt="../_images/PyMC3_162_4.png" src="../_images/PyMC3_162_4.png" />
+</div>
 </div>
 </div>
 </div>
