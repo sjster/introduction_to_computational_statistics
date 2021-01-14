@@ -731,6 +731,21 @@
      Trace Energy
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-size">
+     Step size
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convergence-with-the-geweke-score">
+     Convergence with the Geweke Score
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#divergences">
+     Divergences
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -5848,6 +5863,9 @@ Data variables:
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Length of trace_s&quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Depth of the tree used to generate the sample  &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">depth</span><span class="p">)</span>
+<span class="c1"># If tree size is too large, it is an indication of difficulty sampling, due to correlations, sharp posterior space</span>
+<span class="c1"># or long-tailed posteriors. A solution is to reparameterize the model.</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tree size  &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">tree_size</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy at the point where the sample was generated &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
 <span class="c1"># This is difference in energy beween the start and the end of the trajectory, should ideally be zero</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Energy error between start and end of the trajectory &quot;</span><span class="p">,</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy_error</span><span class="p">)</span>
@@ -5859,16 +5877,17 @@ Data variables:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Length of trace_s 8000 81.54323369231595
-Depth of the tree used to generate the sample   [5 5 6 ... 5 6 6]
-Energy at the point where the sample was generated  [64.69004004 63.63098864 59.64514668 ... 64.08071937 65.74173783
- 63.1587611 ]
-Energy error between start and end of the trajectory  [ 0.62108355  0.48962397 -0.23471664 ... -0.0163391  -0.1050254
-  0.18436941]
-Energy error maximum over the entire trajectory  [ 1.06444109  1.9773263   1.99534032 ... -0.3849383  11.342811
-  0.41111627]
-Step size  [0.16129868 0.16129868 0.16129868 ... 0.10791323 0.10791323 0.10791323]
-Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.11238369 0.11238369 0.11238369]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Length of trace_s 8000 85.27436221098932
+Depth of the tree used to generate the sample   [5 5 5 ... 6 5 6]
+Tree size   [31. 31. 31. ... 63. 31. 63.]
+Energy at the point where the sample was generated  [67.60260509 71.9989758  67.11958372 ... 62.29556323 63.4178659
+ 68.47732931]
+Energy error between start and end of the trajectory  [-0.01308503 -0.00519639  0.15062165 ... -0.00040919  0.36297431
+  0.0268963 ]
+Energy error maximum over the entire trajectory  [  0.59337975  12.23336243 210.17707617 ...   6.49041347   2.38167132
+   2.75552062]
+Step size  [0.13179172 0.13179172 0.13179172 ... 0.1181592  0.1181592  0.1181592 ]
+Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.11001385 0.11001385 0.11001385]
 </pre></div>
 </div>
 </div>
@@ -5876,14 +5895,18 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 </div>
 <div class="section" id="trace-energy">
 <h3>Trace Energy<a class="headerlink" href="#trace-energy" title="Permalink to this headline">¶</a></h3>
+<p>Ideally, you want your enerygy and the transition energy to be similar. If your transition energy is too narrow, it could imply that your sampler does not have enough energy to sample the entire posterior space and the sampled results may not appropriately represent the posterior well (biased estimate)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span> <span class="o">-</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Energy of trace&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">energy_diff</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Transition energy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fbd6516b340&gt;
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_151_1.png" src="../_images/PyMC3_151_1.png" />
@@ -5892,6 +5915,7 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Seaborn uses the interquartile range to draw the box plot whiskers given by Q1 - 1.5IQR, Q3 + 1.5IQR</span>
+<span class="c1"># The boxplot helps to better visualize the density of outliers</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">max_energy_error</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -5901,19 +5925,6 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 </pre></div>
 </div>
 <img alt="../_images/PyMC3_152_1.png" src="../_images/PyMC3_152_1.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)),</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
-</pre></div>
-</div>
-<img alt="../_images/PyMC3_153_1.png" src="../_images/PyMC3_153_1.png" />
 </div>
 </div>
 <p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
@@ -5927,10 +5938,31 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_155_1.png" src="../_images/PyMC3_155_1.png" />
+<img alt="../_images/PyMC3_154_1.png" src="../_images/PyMC3_154_1.png" />
 </div>
 </div>
-<p>A score of less than 2 indicates good convergence. Computes the z score at each interval and returns and array of (interval start location, z score)</p>
+</div>
+<div class="section" id="step-size">
+<h3>Step size<a class="headerlink" href="#step-size" title="Permalink to this headline">¶</a></h3>
+<p>The variation of step size through the sampling process.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)),</span> <span class="n">trace_s</span><span class="o">.</span><span class="n">step_size_bar</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_156_1.png" src="../_images/PyMC3_156_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="convergence-with-the-geweke-score">
+<h3>Convergence with the Geweke Score<a class="headerlink" href="#convergence-with-the-geweke-score" title="Permalink to this headline">¶</a></h3>
+<p>The Geweke score is a z-score that is computed at various segments in the time-series for an inferred parameter.
+A score of less than 2 (less than 2 standard deviations) indicates good convergence. It computes the z-score between each segment and the last 50%, by default, from the sampled chain. The function <code class="docutils literal notranslate"><span class="pre">pm.geweke</span></code> returns an array of (interval start location, z-score)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pm</span><span class="o">.</span><span class="n">geweke</span><span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
@@ -5938,37 +5970,33 @@ Best step size determined from tuning  [0.119153   0.119153   0.119153   ... 0.1
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">17</span><span class="o">-</span><span class="mi">0</span><span class="n">c950cb3c8ac</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">pm</span><span class="o">.</span><span class="n">geweke</span><span class="p">(</span><span class="n">trace_s</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">])</span>
-
-<span class="nn">~/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/pymc3/stats/__init__.py</span> in <span class="ni">wrapped</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span>                 <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">37</span>                 <span class="n">kwargs</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">old</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">38</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">39</span> 
-<span class="g g-Whitespace">     </span><span class="mi">40</span>     <span class="k">return</span> <span class="n">wrapped</span>
-
-<span class="nn">~/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/utils.py</span> in <span class="ni">__call__</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">181</span>         <span class="sd">&quot;&quot;&quot;Call the jitted function or normal, depending on flag.&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">182</span>         <span class="k">if</span> <span class="n">Numba</span><span class="o">.</span><span class="n">numba_flag</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">183</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">numba_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">184</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span>             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">~/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/stats/diagnostics.py</span> in <span class="ni">_geweke</span><span class="nt">(ary, first, last, intervals)</span>
-<span class="g g-Whitespace">    </span><span class="mi">464</span>         <span class="n">z_score</span> <span class="o">=</span> <span class="n">first_slice</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">last_slice</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">465</span>         <span class="k">if</span> <span class="n">_numba_flag</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">466</span>             <span class="n">z_score</span> <span class="o">/=</span> <span class="n">_sqrt</span><span class="p">(</span><span class="n">svar</span><span class="p">(</span><span class="n">first_slice</span><span class="p">),</span> <span class="n">svar</span><span class="p">(</span><span class="n">last_slice</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">467</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">468</span>             <span class="n">z_score</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">first_slice</span><span class="o">.</span><span class="n">var</span><span class="p">()</span> <span class="o">+</span> <span class="n">last_slice</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
-
-<span class="ne">ValueError</span>: operands could not be broadcast together with shapes (799,) (4001,) 
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ 0.00000000e+00, -1.64177407e-03],
+       [ 2.10000000e+02, -1.93876484e-02],
+       [ 4.21000000e+02, -5.96878074e-02],
+       [ 6.31000000e+02, -3.75154517e-02],
+       [ 8.42000000e+02, -3.54967016e-02],
+       [ 1.05200000e+03, -1.33707673e-02],
+       [ 1.26300000e+03,  7.23970572e-03],
+       [ 1.47300000e+03,  2.58405319e-02],
+       [ 1.68400000e+03,  2.68190262e-03],
+       [ 1.89400000e+03, -3.28226146e-04],
+       [ 2.10500000e+03, -2.66005904e-02],
+       [ 2.31500000e+03, -1.86748532e-02],
+       [ 2.52600000e+03, -2.44376140e-02],
+       [ 2.73600000e+03, -2.21331281e-02],
+       [ 2.94700000e+03, -2.43697434e-02],
+       [ 3.15700000e+03, -1.20595485e-02],
+       [ 3.36800000e+03, -2.49474340e-03],
+       [ 3.57800000e+03, -6.57561572e-05],
+       [ 3.78900000e+03,  1.63419595e-02],
+       [ 3.99900000e+03,  4.32800662e-03]])
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="divergences">
+<h3>Divergences<a class="headerlink" href="#divergences" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
@@ -6254,7 +6282,7 @@ NUTS: [β, α]
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_162_4.png" src="../_images/PyMC3_162_4.png" />
+<img alt="../_images/PyMC3_164_4.png" src="../_images/PyMC3_164_4.png" />
 </div>
 </div>
 </div>
