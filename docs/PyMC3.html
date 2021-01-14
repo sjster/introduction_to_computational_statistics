@@ -507,7 +507,7 @@
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#hierarchical-model">
-     Hierarchical model
+     Hierarchical Model
     </a>
    </li>
   </ul>
@@ -618,6 +618,16 @@
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#poisson-distribution-example">
      Poisson Distribution Example
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualize-tau">
+     Visualize \(\tau\)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#expected-value-of-tau">
+     Expected Value of  \(\tau\)
     </a>
    </li>
   </ul>
@@ -3054,7 +3064,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 </div>
 <div class="section" id="hierarchical-model">
-<h3>Hierarchical model<a class="headerlink" href="#hierarchical-model" title="Permalink to this headline">¶</a></h3>
+<h3>Hierarchical Model<a class="headerlink" href="#hierarchical-model" title="Permalink to this headline">¶</a></h3>
 <p>We set hyperpriors on the \(\alpha\) and \(\beta\) parameters. To be more precise, the hyperpriors are applied to the scaled version of \(\alpha\), i.e. \(\alpha_{tmp}\).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3813,7 +3823,22 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 <p>We reuse the previous example, however we are going to use all the three classes in the data here along with all the features for maximum separability. The data is also standardized instead of just mean-centered here.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_s</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">target</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">import</span> <span class="nn">sklearn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">graphviz</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_iris</span><span class="p">()</span>
+<span class="n">iris_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;feature_names&#39;</span><span class="p">])</span>
+<span class="n">iris_data</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">y_s</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">target</span>
 <span class="n">x_n</span> <span class="o">=</span> <span class="n">iris_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">x_s</span> <span class="o">=</span> <span class="n">iris_data</span><span class="p">[</span><span class="n">x_n</span><span class="p">]</span>
 <span class="n">x_s</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_s</span> <span class="o">-</span> <span class="n">x_s</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">x_s</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
@@ -3831,8 +3856,8 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
     <span class="n">alpha</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="n">beta</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_s</span><span class="p">,</span> <span class="n">beta</span><span class="p">))</span>
-    <span class="n">θ</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">tensor</span><span class="o">.</span><span class="n">nnet</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">μ</span><span class="p">)</span>
-    <span class="n">θ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">μ</span><span class="p">)</span><span class="o">/</span><span class="n">pm</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">μ</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="c1">#θ = tt.tensor.nnet.softmax(μ)</span>
+    <span class="n">θ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">μ</span><span class="p">)</span><span class="o">/</span><span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">μ</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">yl</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="s1">&#39;yl&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">θ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_s</span><span class="p">)</span>
     <span class="n">trace_s</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
 
@@ -3844,20 +3869,17 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>INFO (theano.gof.compilelock): Refreshing lock /Users/srijith.rajamohan/.theano/compiledir_macOS-10.15.6-x86_64-i386-64bit-i386-3.8.3-64/lock_dir/lock
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/tensor/subtensor.py:2197: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  rval = inputs[0].__getitem__(inputs[1:])
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/tensor/subtensor.py:2197: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  rval = inputs[0].__getitem__(inputs[1:])
 Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
-INFO (theano.gof.compilelock): Refreshing lock /Users/srijith.rajamohan/.theano/compiledir_macOS-10.15.6-x86_64-i386-64bit-i386-3.8.3-64/lock_dir/lock
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/tensor/subtensor.py:2197: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  rval = inputs[0].__getitem__(inputs[1:])
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [beta, alpha]
 Sampling 4 chains, 0 divergences:   0%|          | 0/10000 [00:00&lt;?, ?draws/s]
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 </pre></div>
 </div>
 </div>
@@ -3869,37 +3891,42 @@ Sampling 4 chains, 0 divergences:   0%|          | 0/10000 [00:00&lt;?, ?draws/s
 </div>
 <div class="section" id="inferring-rate-change-with-a-poisson-distribution">
 <h2>Inferring Rate Change with a Poisson Distribution<a class="headerlink" href="#inferring-rate-change-with-a-poisson-distribution" title="Permalink to this headline">¶</a></h2>
-<p>Discrete variables that represents count data can be handled using a Poisson distribution. The key element here is that it is the number of events happening in a given interval of time. The events are supposed to be independent and   the distribution is parameterized using a single value called the rate parameter. This corresponds to and controls both the mean and the variance of the distribution. One implication of this is that the higher the mean, the larger the variance of the distribution which can be limitation for some phenomena. A higher value of the rate parameter indicates a higher likelihood of getting higher values from our distribution. It is represented by</p>
+<p>Discrete variables that represents count data can be handled using a Poisson distribution. The key element here is that it is the number of events happening in a given interval of time. The events are supposed to be independent and   the distribution is parameterized using a single value called the rate parameter. This corresponds to and controls both the mean and the variance of the distribution. One implication of this is that the higher the mean, the larger the variance of the distribution which can be a limitation for some phenomena. A higher value of the rate parameter indicates a higher likelihood of getting larger values from our distribution. It is represented by</p>
 <p><span class="math notranslate nohighlight">\(f(x) = e^{-\mu} \mu^x / x!\)</span></p>
-<p>The mean rate is represented by <span class="math notranslate nohighlight">\(\mu\)</span> and x is positive integer that represents the number of events that can happen. If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of ‘n’ trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes.</p>
+<ul class="simple">
+<li><p>The mean rate is represented by <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
+<li><p>x is a positive integer that represents the number of events that can happen</p></li>
+</ul>
+<p>If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of ‘n’ trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes.</p>
 <div class="section" id="poisson-distribution-example">
 <h3>Poisson Distribution Example<a class="headerlink" href="#poisson-distribution-example" title="Permalink to this headline">¶</a></h3>
-<p>In the following example we look at a time-varying rate phenomena, consider the observations as the number of COVID-19 cases per day. We observe cases for 140 days, however due to some interventional measures put in place it is suspected that the number of cases per day have gone down. If we assume that the number of cases can be modeled using a Poisson distribution then this implies that there are two rates <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span> and we can try to find where this rate-switch happens (time <span class="math notranslate nohighlight">\(\tau\)</span>).</p>
-<p>We don’t really know a lot about these rates, so we select a prior for both which can be from an Exponential, Gamma or Uniform distributions. Both Exponential and Gamma distributions work better than the Uniform distribution since the Uniform distribution is the least informative. As usual, with enough observations one can even get away with a Uniform prior. Since we have no information regarding <span class="math notranslate nohighlight">\(\tau\)</span>, we select a Uniform prior distribution for that.</p>
-<p>Try varying the following</p>
+<p>In the following example we look at a time-varying rate phenomena, consider the observations as the number of COVID-19 cases per day. We observe cases for 140 days, however due to some interventional measures put in place it is suspected that the number of cases per day have gone down. If we assume that the number of cases can be modeled using a Poisson distribution, then this implies that there are two rates <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span>, and we can try to find where this rate-switch happens (time <span class="math notranslate nohighlight">\(\tau\)</span>).</p>
+<p>We don’t really know a lot about these rates, so we select a prior for both which can be from an Exponential, Gamma or Uniform distributions. Both the Exponential and Gamma distributions work better than the Uniform distribution since the Uniform distribution is the least informative. As usual, with enough observations one can even get away with a Uniform prior. Since we have no information regarding <span class="math notranslate nohighlight">\(\tau\)</span>, we select a Uniform prior distribution for that.</p>
+<p>In the example below, try varying the following</p>
 <ol class="simple">
-<li><p>types of priors - a more informed prior is always better if this information is available</p></li>
-<li><p>the size of the data or the observations and the value of the theta parameter - more data results in better inference overall, the larger the difference in theta the easier to determine these rates</p></li>
-<li><p>the number of drawn samples - better and more accurate inference</p></li>
-<li><p>the number of chains - should reduce variance</p></li>
-<li><p>the number of cores - cores should be no more than the total number of chains and should be limited to the total number of cores on your hardware, you should see an increase in speed or decrease in runtime as you increase the number of cores.</p></li>
+<li><p>Types of priors - a more informed prior is always better if this information is available</p></li>
+<li><p>The size of the data or the observations and the value of the theta parameter - more data results in better inference overall, the larger the difference in theta the easier to determine these rates</p></li>
+<li><p>The number of drawn samples - better and more accurate inference</p></li>
+<li><p>The number of chains - should reduce variance</p></li>
+<li><p>The number of cores - cores should be no more than the total number of chains and should be limited to the total number of cores on your hardware, you should see an increase in speed or decrease in runtime as you increase the number of cores.</p></li>
 </ol>
+<p>Note that this uses the Metropolis algorithm since this is a discrete sampling problem.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ------------ Create the data ---------- #</span>
 <span class="n">n_1</span> <span class="o">=</span> <span class="mi">70</span>
-<span class="n">θ_real_1</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">θ_real_1</span> <span class="o">=</span> <span class="mf">7.5</span>
 <span class="c1">#ψ = 0.1</span>
  <span class="c1"># Simulate some data</span>
 <span class="n">counts_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">θ_real_1</span><span class="p">,</span><span class="n">n_1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">counts_1</span><span class="p">)),</span><span class="n">counts_1</span><span class="p">)</span>
+<span class="c1">#plt.bar(np.arange(len(counts_1)),counts_1)</span>
 
 <span class="n">n_2</span> <span class="o">=</span> <span class="mi">70</span>
-<span class="n">θ_real_2</span> <span class="o">=</span> <span class="mf">7.5</span>
+<span class="n">θ_real_2</span> <span class="o">=</span> <span class="mf">2.0</span>
 <span class="c1">#ψ = 0.1</span>
  <span class="c1"># Simulate some data</span>
 <span class="n">counts_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">θ_real_2</span><span class="p">,</span><span class="n">n_2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">counts_2</span><span class="p">)),</span><span class="n">counts_2</span><span class="p">)</span>
+<span class="c1">#plt.bar(np.arange(len(counts_2)),counts_2)</span>
 
 <span class="n">total_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">counts_1</span><span class="p">,</span> <span class="n">counts_2</span><span class="p">))</span>
 <span class="n">n_counts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts_1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">counts_2</span><span class="p">)</span>
@@ -3920,13 +3947,14 @@ Sampling 4 chains, 0 divergences:   0%|          | 0/10000 [00:00&lt;?, ?draws/s
     <span class="c1">#lambda_2 = pm.Gamma(&quot;lambda_2&quot;, 2, 0.1)</span>
     <span class="c1">#lambda_1 = pm.Uniform(&quot;lambda_1&quot;,lower=0, upper=5)</span>
     
-    <span class="c1"># Uniform prior for the day since we have no information, if we do we should modify the prior to         # incorporate that information</span>
+    <span class="c1"># Uniform prior for the day since we have no information, if we do we should modify the prior to         </span>
+    <span class="c1"># incorporate that information</span>
     <span class="n">tau</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">DiscreteUniform</span><span class="p">(</span><span class="s2">&quot;tau&quot;</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">n_counts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_counts</span><span class="p">)</span> <span class="c1"># id for the day</span>
     <span class="n">lambda_c</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">switch</span><span class="p">(</span><span class="n">tau</span> <span class="o">&gt;</span> <span class="n">idx</span><span class="p">,</span> <span class="n">lambda_1</span><span class="p">,</span> <span class="n">lambda_2</span><span class="p">)</span> <span class="c1"># switch rate depending on the tau drawn</span>
 
     <span class="n">observation</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Poisson</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">lambda_c</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">total_data</span><span class="p">)</span>
-    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cores</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
 </pre></div>
@@ -3937,44 +3965,28 @@ Sampling 4 chains, 0 divergences:   0%|          | 0/10000 [00:00&lt;?, ?draws/s
 CompoundStep
 &gt;NUTS: [lambda_2, lambda_1]
 &gt;Metropolis: [tau]
-</pre></div>
-</div>
-<div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='30000' class='' max='30000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [30000/30000 00:06<00:00 Sampling 10 chains, 0 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 10 chains for 1_000 tune and 2_000 draw iterations (10_000 + 20_000 draws total) took 25 seconds.
+Sampling 10 chains, 0 divergences: 100%|██████████| 55000/55000 [00:14&lt;00:00, 3720.80draws/s]
 The number of effective samples is smaller than 25% for some parameters.
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;tau&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;tau&#39;}&gt;],
-       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_1&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_1&#39;}&gt;],
-       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e6bff1f0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e6c459a0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e40450d0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e6c80fd0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e37d5670&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e6806490&gt;]],
+      dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_117_4.png" src="../_images/PyMC3_117_4.png" />
-<img alt="../_images/PyMC3_117_5.png" src="../_images/PyMC3_117_5.png" />
-<img alt="../_images/PyMC3_117_6.png" src="../_images/PyMC3_117_6.png" />
+<img alt="../_images/PyMC3_116_2.png" src="../_images/PyMC3_116_2.png" />
+<img alt="../_images/PyMC3_116_3.png" src="../_images/PyMC3_116_3.png" />
 </div>
 </div>
+</div>
+<div class="section" id="visualize-tau">
+<h3>Visualize \(\tau\)<a class="headerlink" href="#visualize-tau" title="Permalink to this headline">¶</a></h3>
+<p>We can use the ECDF (Empirical Cumulative Distribution Function) to visualize the distribution of \(\tau\). The ECDF helps to visualize the distribution by plotting the CDF as opposed to the binning techniques used by a histogram. It also helps us to identify what values in the data are beneath a certain probability.</p>
+<p>It is expected that the rate parameter will be \(\lambda_1\) initially for a time till the day where the value of \(\tau\) has some probability mass ‘x’ when it switches to rate parameter \(\lambda_2\) with this probability mass ‘x’, whereas probability that this day could have the rate parameter \(\lambda_1\) will be ‘1 - x’. You could do this for all the days.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
@@ -3983,170 +3995,200 @@ The number of effective samples is smaller than 25% for some parameters.
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Lambda 1 is &#39;</span><span class="p">,</span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Length of Lambda 1 &quot;</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;lambda_1&#39;</span><span class="p">]))</span>
 <span class="n">ecdf</span> <span class="o">=</span> <span class="n">ECDF</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ecdf</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">ecdf</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tau is  [70 70 70 ... 71 71 71]
-Length of tau 20000
-Lambda 1 is  [1.52271483 2.01420405 2.02746349 ... 1.99592266 1.69478059 1.69478059]
-Length of Lambda 1  20000
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tau is  [70 69 69 ... 69 69 70]
+Length of tau 50000
+Lambda 1 is  [7.51185013 7.91206181 8.09581346 ... 7.73812503 8.78132404 7.65830744]
+Length of Lambda 1  50000
 </pre></div>
 </div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd1e61eeb80&gt;]
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_118_2.png" src="../_images/PyMC3_118_2.png" />
 </div>
 </div>
-<p>For each draw of <span class="math notranslate nohighlight">\(\tau\)</span>, there is a draw of <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span>. We can use the principles of Monte Carlo approximation to compute the expected value of COVID-19 cases on any day.</p>
-<p>Expected value for day = <span class="math notranslate nohighlight">\( \dfrac{1}{N} \sum_{0}^{num\_samples}\)</span> Lambda_draw ;  day &gt; Tau_draw ? lambda_2_draw : lambda_1_draw</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
     <span class="n">prob_lambda_2</span> <span class="o">=</span> <span class="n">ecdf</span><span class="p">([</span><span class="n">elem</span><span class="p">])</span>
     <span class="n">prob_lambda_1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">prob_lambda_2</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Day &quot;</span><span class="p">,</span><span class="n">elem</span><span class="p">,</span><span class="n">prob_lambda_1</span><span class="p">,</span><span class="n">prob_lambda_2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Day </span><span class="si">%d</span><span class="s2">, the probability of rate being lambda_1 is </span><span class="si">%lf</span><span class="s2"> and lambda_2 is </span><span class="si">%lf</span><span class="s2"> &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">prob_lambda_1</span><span class="p">,</span> <span class="n">prob_lambda_2</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Day  0 [1.] [0.]
-Day  1 [1.] [0.]
-Day  2 [1.] [0.]
-Day  3 [1.] [0.]
-Day  4 [1.] [0.]
-Day  5 [1.] [0.]
-Day  6 [1.] [0.]
-Day  7 [1.] [0.]
-Day  8 [1.] [0.]
-Day  9 [1.] [0.]
-Day  10 [1.] [0.]
-Day  11 [1.] [0.]
-Day  12 [1.] [0.]
-Day  13 [1.] [0.]
-Day  14 [1.] [0.]
-Day  15 [1.] [0.]
-Day  16 [1.] [0.]
-Day  17 [1.] [0.]
-Day  18 [1.] [0.]
-Day  19 [1.] [0.]
-Day  20 [1.] [0.]
-Day  21 [1.] [0.]
-Day  22 [1.] [0.]
-Day  23 [1.] [0.]
-Day  24 [1.] [0.]
-Day  25 [1.] [0.]
-Day  26 [1.] [0.]
-Day  27 [1.] [0.]
-Day  28 [1.] [0.]
-Day  29 [1.] [0.]
-Day  30 [1.] [0.]
-Day  31 [1.] [0.]
-Day  32 [1.] [0.]
-Day  33 [1.] [0.]
-Day  34 [1.] [0.]
-Day  35 [1.] [0.]
-Day  36 [1.] [0.]
-Day  37 [1.] [0.]
-Day  38 [1.] [0.]
-Day  39 [1.] [0.]
-Day  40 [1.] [0.]
-Day  41 [1.] [0.]
-Day  42 [1.] [0.]
-Day  43 [1.] [0.]
-Day  44 [1.] [0.]
-Day  45 [1.] [0.]
-Day  46 [1.] [0.]
-Day  47 [1.] [0.]
-Day  48 [1.] [0.]
-Day  49 [1.] [0.]
-Day  50 [1.] [0.]
-Day  51 [1.] [0.]
-Day  52 [1.] [0.]
-Day  53 [1.] [0.]
-Day  54 [1.] [0.]
-Day  55 [1.] [0.]
-Day  56 [1.] [0.]
-Day  57 [1.] [0.]
-Day  58 [1.] [0.]
-Day  59 [1.] [0.]
-Day  60 [1.] [0.]
-Day  61 [1.] [0.]
-Day  62 [1.] [0.]
-Day  63 [1.] [0.]
-Day  64 [1.] [0.]
-Day  65 [1.] [0.]
-Day  66 [1.] [0.]
-Day  67 [1.] [0.]
-Day  68 [1.] [0.]
-Day  69 [0.996] [0.004]
-Day  70 [0.62425] [0.37575]
-Day  71 [5.e-05] [0.99995]
-Day  72 [0.] [1.]
-Day  73 [0.] [1.]
-Day  74 [0.] [1.]
-Day  75 [0.] [1.]
-Day  76 [0.] [1.]
-Day  77 [0.] [1.]
-Day  78 [0.] [1.]
-Day  79 [0.] [1.]
-Day  80 [0.] [1.]
-Day  81 [0.] [1.]
-Day  82 [0.] [1.]
-Day  83 [0.] [1.]
-Day  84 [0.] [1.]
-Day  85 [0.] [1.]
-Day  86 [0.] [1.]
-Day  87 [0.] [1.]
-Day  88 [0.] [1.]
-Day  89 [0.] [1.]
-Day  90 [0.] [1.]
-Day  91 [0.] [1.]
-Day  92 [0.] [1.]
-Day  93 [0.] [1.]
-Day  94 [0.] [1.]
-Day  95 [0.] [1.]
-Day  96 [0.] [1.]
-Day  97 [0.] [1.]
-Day  98 [0.] [1.]
-Day  99 [0.] [1.]
-Day  100 [0.] [1.]
-Day  101 [0.] [1.]
-Day  102 [0.] [1.]
-Day  103 [0.] [1.]
-Day  104 [0.] [1.]
-Day  105 [0.] [1.]
-Day  106 [0.] [1.]
-Day  107 [0.] [1.]
-Day  108 [0.] [1.]
-Day  109 [0.] [1.]
-Day  110 [0.] [1.]
-Day  111 [0.] [1.]
-Day  112 [0.] [1.]
-Day  113 [0.] [1.]
-Day  114 [0.] [1.]
-Day  115 [0.] [1.]
-Day  116 [0.] [1.]
-Day  117 [0.] [1.]
-Day  118 [0.] [1.]
-Day  119 [0.] [1.]
-Day  120 [0.] [1.]
-Day  121 [0.] [1.]
-Day  122 [0.] [1.]
-Day  123 [0.] [1.]
-Day  124 [0.] [1.]
-Day  125 [0.] [1.]
-Day  126 [0.] [1.]
-Day  127 [0.] [1.]
-Day  128 [0.] [1.]
-Day  129 [0.] [1.]
-Day  130 [0.] [1.]
-Day  131 [0.] [1.]
-Day  132 [0.] [1.]
-Day  133 [0.] [1.]
-Day  134 [0.] [1.]
-Day  135 [0.] [1.]
-Day  136 [0.] [1.]
-Day  137 [0.] [1.]
-Day  138 [0.] [1.]
-Day  139 [0.] [1.]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Day 0, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 1, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 2, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 3, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 4, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 5, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 6, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 7, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 8, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 9, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 10, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 11, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 12, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 13, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 14, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 15, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 16, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 17, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 18, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 19, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 20, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 21, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 22, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 23, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 24, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 25, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 26, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 27, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 28, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 29, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 30, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 31, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 32, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 33, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 34, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 35, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 36, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 37, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 38, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 39, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 40, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 41, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 42, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 43, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 44, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 45, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 46, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 47, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 48, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 49, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 50, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 51, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 52, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 53, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 54, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 55, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 56, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 57, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 58, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 59, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 60, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 61, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 62, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 63, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 64, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 65, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 66, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 67, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
+Day 68, the probability of rate being lambda_1 is 0.999980 and lambda_2 is 0.000020 
+Day 69, the probability of rate being lambda_1 is 0.505640 and lambda_2 is 0.494360 
+Day 70, the probability of rate being lambda_1 is 0.020120 and lambda_2 is 0.979880 
+Day 71, the probability of rate being lambda_1 is 0.000180 and lambda_2 is 0.999820 
+Day 72, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 73, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 74, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 75, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 76, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 77, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 78, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 79, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 80, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 81, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 82, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 83, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 84, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 85, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 86, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 87, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 88, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 89, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 90, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 91, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 92, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 93, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 94, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 95, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 96, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 97, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 98, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 99, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 100, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 101, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 102, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 103, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 104, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 105, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 106, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 107, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 108, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 109, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 110, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 111, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 112, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 113, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 114, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 115, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 116, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 117, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 118, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 119, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 120, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 121, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 122, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 123, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 124, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 125, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 126, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 127, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 128, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 129, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 130, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 131, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 132, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 133, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 134, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 135, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 136, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 137, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 138, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 139, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="expected-value-of-tau">
+<h3>Expected Value of  \(\tau\)<a class="headerlink" href="#expected-value-of-tau" title="Permalink to this headline">¶</a></h3>
+<p>For each draw of <span class="math notranslate nohighlight">\(\tau\)</span>, there is a draw of <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span>. We can use the principles of Monte Carlo approximation to compute the expected value of COVID-19 cases on any day.</p>
+<p>Expected value for day = <span class="math notranslate nohighlight">\( \dfrac{1}{N} \sum_{0}^{num\_samples}\)</span> Lambda_draw ;  day &gt; Tau_draw ? lambda_2_draw : lambda_1_draw</p>
+<ul class="simple">
+<li><p>Draws are in combinations of \((\lambda_1, \lambda_2, \tau)\), we want to average out the \(\lambda\) value based on the proportion of \(\lambda\) suggestions as indicated by the samples</p></li>
+<li><p>For days 0,…67 we see that the probability of \(\lambda_1\) is 1 whereas the probability of \(\lambda_2\) is 0. So the expected value is just the average of all the \(\lambda_1\) samples.</p></li>
+<li><p>Similarly, for days from 72,… the probability of \(\lambda_2\) is 1 and the probability of \(\lambda_1\) is 0. So the expected value of \(\lambda\) is just the average of all the \(\lambda_2\) samples.</p></li>
+<li><p>For days in between - let us assume for day 69, we have 10% of the samples indicating that \(\tau\) is 70 while 90% indicate that \(\tau\) is 69.</p></li>
+<li><p>If \(\tau\) is 70, that means that day 69 has rate \(\lambda_1\) but if \(\tau\) is 69 that implies that day 69 has rate \(\lambda_2\).</p></li>
+<li><p>The expected value is 0.1 * sum(lambda_1_samples_that_have_tau_70) + 0.9 * sum(lambda_2_samples_that_have_tau_69)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">lambda_1_samples</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lambda_2_samples</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.9741810401030493
+7.421339061365563
 </pre></div>
 </div>
 </div>
@@ -4164,7 +4206,7 @@ Day  139 [0.] [1.]
     <span class="c1"># the switchpoint occurring prior to value of &#39;day&#39;</span>
     <span class="n">ix</span> <span class="o">=</span> <span class="n">day</span> <span class="o">&lt;</span> <span class="n">tau_samples</span>
     <span class="c1"># Each posterior sample corresponds to a value for tau.</span>
-    <span class="c1"># for each day, that value of tau indicates whether we&#39;re &quot;before&quot;</span>
+    <span class="c1"># For each day, that value of tau indicates whether we&#39;re &quot;before&quot;</span>
     <span class="c1"># (in the lambda1 &quot;regime&quot;) or</span>
     <span class="c1">#  &quot;after&quot; (in the lambda2 &quot;regime&quot;) the switchpoint.</span>
     <span class="c1"># by taking the posterior sample of lambda1/2 accordingly, we can average</span>
@@ -4176,34 +4218,34 @@ Day  139 [0.] [1.]
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 1.97689761,
-       1.97689761, 1.97689761, 1.97689761, 1.97689761, 2.00150371,
-       4.32682239, 8.25602262, 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ,
-       8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 , 8.2563347 ])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97418104, 1.97418104, 1.97418104, 1.97418104, 1.97418104,
+       1.97446319, 1.97446319, 1.97576911, 1.98390101, 2.32024244,
+       7.30613614, 7.42059683, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906,
+       7.42133906, 7.42133906, 7.42133906, 7.42133906, 7.42133906])
 </pre></div>
 </div>
 </div>
@@ -4220,7 +4262,7 @@ Day  139 [0.] [1.]
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_122_1.png" src="../_images/PyMC3_122_1.png" />
+<img alt="../_images/PyMC3_123_1.png" src="../_images/PyMC3_123_1.png" />
 </div>
 </div>
 </div>
@@ -4634,7 +4676,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_126_3.png" src="../_images/PyMC3_126_3.png" />
+</div></div><img alt="../_images/PyMC3_127_3.png" src="../_images/PyMC3_127_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4845,7 +4887,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_127_3.png" src="../_images/PyMC3_127_3.png" />
+</div></div><img alt="../_images/PyMC3_128_3.png" src="../_images/PyMC3_128_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4886,7 +4928,7 @@ There were 126 divergences after tuning. Increase `target_accept` or reparameter
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_129_2.png" src="../_images/PyMC3_129_2.png" />
+<img alt="../_images/PyMC3_130_2.png" src="../_images/PyMC3_130_2.png" />
 </div>
 </div>
 </div>
@@ -4918,7 +4960,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_131_2.png" src="../_images/PyMC3_131_2.png" />
+<img alt="../_images/PyMC3_132_2.png" src="../_images/PyMC3_132_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -4981,8 +5023,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_135_2.png" src="../_images/PyMC3_135_2.png" />
-<img alt="../_images/PyMC3_135_3.png" src="../_images/PyMC3_135_3.png" />
+<img alt="../_images/PyMC3_136_2.png" src="../_images/PyMC3_136_2.png" />
+<img alt="../_images/PyMC3_136_3.png" src="../_images/PyMC3_136_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5002,8 +5044,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_136_2.png" src="../_images/PyMC3_136_2.png" />
-<img alt="../_images/PyMC3_136_3.png" src="../_images/PyMC3_136_3.png" />
+<img alt="../_images/PyMC3_137_2.png" src="../_images/PyMC3_137_2.png" />
+<img alt="../_images/PyMC3_137_3.png" src="../_images/PyMC3_137_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -5032,7 +5074,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_138_2.png" src="../_images/PyMC3_138_2.png" />
+<img alt="../_images/PyMC3_139_2.png" src="../_images/PyMC3_139_2.png" />
 </div>
 </div>
 </div>
