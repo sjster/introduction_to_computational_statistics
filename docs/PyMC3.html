@@ -57,7 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Covid Modeling with PyMC3" href="Covid_modeling.html" />
+    <link rel="next" title="Traceplot" href="Reparameterization.html" />
     <link rel="prev" title="Introduction to Monte Carlo Methods" href="MonteCarlo.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -178,6 +178,36 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Introduction to PyMC3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reparameterization.html">
+   Traceplot
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reparameterization.html#forest-plot">
+   Forest Plot
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reparameterization.html#autocorrelation-and-effective-sample-sizes">
+   Autocorrelation and effective sample sizes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reparameterization.html#monte-carlo-error">
+   Monte Carlo error
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reparameterization.html#divergence">
+   Divergence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reparameterization.html#a-note-on-why-we-compute-the-log-of-the-posterior">
+   A note on why we compute the log of the posterior
   </a>
  </li>
  <li class="toctree-l1">
@@ -676,7 +706,7 @@
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#centered-vs-non-centered-parameterization">
-     Centered vs. Non-centered parameterization
+     Centered vs. Non-centered Parameterization
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -4437,13 +4467,19 @@ Day 139, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.00
 <p><code class="docutils literal notranslate"><span class="pre">az.rhat(trace,</span> <span class="pre">method='split')</span></code></p>
 </div>
 <div class="section" id="centered-vs-non-centered-parameterization">
-<h3>Centered vs. Non-centered parameterization<a class="headerlink" href="#centered-vs-non-centered-parameterization" title="Permalink to this headline">¶</a></h3>
+<h3>Centered vs. Non-centered Parameterization<a class="headerlink" href="#centered-vs-non-centered-parameterization" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://twiecki.io/blog/2017/02/08/bayesian-hierchical-non-centered/">T Wiecki on Reparametrization</a></p>
+<p>When there is insufficient data in a hierarchical model, the variables being inferred ends up having correlation effects, thereby making it difficult to sample. One obvious solution is to obtain more data, but when this isnt’ possible we resort to reparameterization by creating a non-centered model from the centered model.</p>
 <p>This is a centered parameterization for <span class="math notranslate nohighlight">\(\beta\)</span> since it is centered around <span class="math notranslate nohighlight">\(\mu\)</span></p>
-<p><span class="math notranslate nohighlight">\(\beta \sim Normal(\mu, \sigma)\)</span></p>
-<p>We try to fit the two parameters for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> directly</p>
-<p>However, this is a non-centered parameterization since it is scaled from a unit Normal</p>
-<p><span class="math notranslate nohighlight">\(\beta_{unit} \sim Normal(0,1)\)</span></p>
-<p><span class="math notranslate nohighlight">\(\beta = \mu + \sigma \beta_{unit}\)</span></p>
+<div class="math notranslate nohighlight">
+\[\beta \sim Normal(\mu, \sigma)\]</div>
+<p>And we try to fit the two parameters for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> directly here.</p>
+<p>However, the following is a non-centered parameterization since it is scaled from a unit Normal and shifted</p>
+<div class="math notranslate nohighlight">
+\[\beta_{unit} \sim Normal(0,1)\]</div>
+<div class="math notranslate nohighlight">
+\[\beta = \mu + \sigma \beta_{unit}\]</div>
+<p>This works because we are effectively reducing the dependence of \(\alpha\) and \(\beta\), or making them less correlated, making them easier to sample in a non-centered model. The effect is a joint posterior space that is more rounded.</p>
 </div>
 <div class="section" id="convergence">
 <h3>Convergence<a class="headerlink" href="#convergence" title="Permalink to this headline">¶</a></h3>
@@ -4466,14 +4502,12 @@ Day 139, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.00
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
-Initializing NUTS using jitter+adapt_diag...
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting centered model, direct fit
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (4 chains in 4 jobs)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [b, a]
 </pre></div>
 </div>
@@ -4492,29 +4526,25 @@ NUTS: [b, a]
         }
     </style>
   <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [12000/12000 00:03<00:00 Sampling 4 chains, 483 divergences]
+  100.00% [12000/12000 00:13<00:00 Sampling 4 chains, 217 divergences]
 </div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 12 seconds.
-There were 64 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.7123159853774708, but should be close to 0.8. Try to increase the number of tuning steps.
-There were 26 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 325 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.3379873889345934, but should be close to 0.8. Try to increase the number of tuning steps.
-There were 68 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.6927958731489019, but should be close to 0.8. Try to increase the number of tuning steps.
-The rhat statistic is larger than 1.05 for some parameters. This indicates slight problems during sampling.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 25 seconds.
+There were 36 divergences after tuning. Increase `target_accept` or reparameterize.
+The acceptance probability does not match the target. It is 0.6988342615548193, but should be close to 0.8. Try to increase the number of tuning steps.
+There were 125 divergences after tuning. Increase `target_accept` or reparameterize.
+The acceptance probability does not match the target. It is 0.6098936743574452, but should be close to 0.8. Try to increase the number of tuning steps.
+There were 34 divergences after tuning. Increase `target_accept` or reparameterize.
+The acceptance probability does not match the target. It is 0.682236486313318, but should be close to 0.8. Try to increase the number of tuning steps.
+There were 22 divergences after tuning. Increase `target_accept` or reparameterize.
 The estimated number of effective samples is smaller than 200 for some parameters.
-Auto-assigning NUTS sampler...
-Initializing NUTS using jitter+adapt_diag...
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting non-centered model, shifted and scaled model
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (4 chains in 4 jobs)
-NUTS: [b_standard, a]
-Could not pickle model, sampling singlethreaded.
-Sequential sampling (4 chains in 1 job)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [b_standard, a]
 </pre></div>
 </div>
@@ -4532,65 +4562,14 @@ NUTS: [b_standard, a]
             background: #F44336;
         }
     </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:01<00:00 Sampling chain 0, 5 divergences]
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:02<00:00 Sampling 4 chains, 38 divergences]
 </div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:01<00:00 Sampling chain 1, 107 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:01<00:00 Sampling chain 2, 12 divergences]
-</div>
-</div><div class="output text_html">
-<div>
-    <style>
-        /* Turns off some styling */
-        progress {
-            /* gets rid of default border in Firefox and Opera. */
-            border: none;
-            /* Needs to be in here for Safari polyfill so background images work as expected. */
-            background-size: auto;
-        }
-        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
-            background: #F44336;
-        }
-    </style>
-  <progress value='3000' class='' max='3000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [3000/3000 00:01<00:00 Sampling chain 3, 2 divergences]
-</div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 7 seconds.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 14 seconds.
+There were 18 divergences after tuning. Increase `target_accept` or reparameterize.
 There were 5 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 112 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 124 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 126 divergences after tuning. Increase `target_accept` or reparameterize.
+There were 6 divergences after tuning. Increase `target_accept` or reparameterize.
+There were 9 divergences after tuning. Increase `target_accept` or reparameterize.
 </pre></div>
 </div>
 </div>
@@ -11702,7 +11681,7 @@ dl.xr-attrs {
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="MonteCarlo.html" title="previous page">Introduction to Monte Carlo Methods</a>
-    <a class='right-next' id="next-link" href="Covid_modeling.html" title="next page">Covid Modeling with PyMC3</a>
+    <a class='right-next' id="next-link" href="Reparameterization.html" title="next page">Traceplot</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
