@@ -372,11 +372,13 @@
 \[ Posterior \propto Likelihood \times Prior \longrightarrow P(\theta | O = H) \propto P( O = H | \theta) \times P(\theta) \]</div>
 <div class="math notranslate nohighlight">
 \[ Posterior \propto 0.8 * 0.5 \]</div>
-<p>Suppose that you are measuring the heights of citizens in your state and there is a hypothesis that their heights are normally distributed with mean  5.75ft and a standard deviation of 0.4ft. What is the probability of a person having a height of 6.5ft? Frequentists would have to compute the probability of this observation happening as</p>
+<p><strong>To summarize: In Inference, we want to measure the probability of a hypothesis given certain data. Frequentists choose a hypothesis and determine the probability of the data given this hypothesis. They then use this as evidence of the hypothesis. Bayesians go one step further to invert this to get the probability of the hypothesis given the data.</strong></p>
+<p>Suppose that you are measuring the heights of citizens in your state and there is a <strong>hypothesis</strong> that their heights are normally distributed with mean  5.75ft and a standard deviation of 0.4ft. We observe a person with a height of 6.5ft? Frequentists would have to compute the probability of this observation happening as</p>
 <div class="math notranslate nohighlight">
 \[P(h = 6.5 | N(\mu, \sigma) )\]</div>
 <p>and use a threshold to determine if our original hypothesis was valid. In Bayesian statistics, the posterior is a probability distribution of the parameters of our hypothesis given our observation of seeing a sample with height 6.5ft</p>
-<p>$<span class="math notranslate nohighlight">\(P(N(\mu, \sigma) | h = 6.5\)</span>$.</p>
+<div class="math notranslate nohighlight">
+\[P(N(\mu, \sigma) | h = 6.5\]</div>
 <p>However, in this case we use a subjective prior to compute this posterior. We trade an arbitrary threshold (usually 1% or 5% depending on the problem being solved) in frequentist statistics for a subjective prior in Bayesian statistics. One could argue that both of these are different ways to incorporate domain-knowledge and subjective expertise into the decision making process. Bayesians, however, do not need to accept or reject a hypothesis since they have the full distribution available as a result of the posterior and can therefore quantify the uncertainty with the hypothesis. More information about hypothesis testing is in the section below.</p>
 </div>
 </div>
