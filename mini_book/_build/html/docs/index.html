@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Statistical Computing with PyMC3 &#8212; Introduction to Statistical Computing for Aspiring Data Scientists</title>
+    <title>Computational Statistics for Bayesian Inference with PyMC3 &#8212; Introduction to Computational Statistics with PyMC3</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -63,7 +63,7 @@
   <img src="../_static/logo_large.png" class="logo" alt="logo">
   
   
-  <h1 class="site-logo" id="site-title">Introduction to Statistical Computing for Aspiring Data Scientists</h1>
+  <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
   
 </a>
 </div>
@@ -86,47 +86,72 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="python_by_example.html">
-   An Introductory Example
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="learn_more.html">
-   Learn More
+  <a class="reference internal" href="Databricks.html">
+   Introduction to the Databricks Environment
   </a>
  </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Introduction to Computational Statistics
+  Introduction to Bayesian Statistics
  </span>
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="notebooks.html">
-   Bayesian vs Frequentist statistics
+  <a class="reference internal" href="Foundations.html">
+   Foundations of Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="CentralTendency.html">
+   Distributions, Central Tendency, and Shape Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ParameterEstimation.html">
+   Parameter Estimation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bayes.html">
+   Introduction to the Bayes Theorem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Decisions.html">
+   Inference and Decisions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro.html">
+   Bayesian vs. Frequentist Statistics
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Distributions.html">
-   Introduction to Distributions
+   Introduction to Common Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Sampling.html">
+   Sampling Strategies
   </a>
  </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
-  Introduction to Monte Carlo Methods for Bayesian Inference
+  Introduction to Monte Carlo Methods
  </span>
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="MonteCarlo.html">
-   Introduction to Monte Carlo Methods
+  <a class="reference internal" href="BayesianInference.html">
+   Topics in Model Performance
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="BayesianInference.html">
-   Topics in Model Performance
+  <a class="reference internal" href="MonteCarlo.html">
+   Introduction to Monte Carlo Methods
   </a>
  </li>
 </ul>
@@ -142,8 +167,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Covid_forecast.html">
-   Covid Forecast with PyMC3
+  <a class="reference internal" href="Reparameterization.html">
+   Reparameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Covid_modeling.html">
+   Covid Modeling with PyMC3
   </a>
  </li>
 </ul>
@@ -211,7 +241,33 @@
             <i class="fas fa-list"></i> Contents
         </div>
         <nav id="bd-toc-nav">
-            
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#course-outline">
+   Course Outline
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#course-1-introduction-to-bayesian-statistics">
+     Course 1 - Introduction to Bayesian Statistics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#course-2-introduction-to-monte-carlo-methods">
+     Course 2 - Introduction to Monte Carlo Methods
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#course-3-pymc3-for-bayesian-modeling-and-inference">
+     Course 3 - PyMC3 for Bayesian Modeling and Inference
+    </a>
+    <ul class="nav section-nav flex-column">
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
         </nav>
     </div>
 </div>
@@ -220,19 +276,114 @@
         
               <div>
                 
-  <div class="section" id="statistical-computing-with-pymc3">
-<h1>Statistical Computing with PyMC3<a class="headerlink" href="#statistical-computing-with-pymc3" title="Permalink to this headline">¶</a></h1>
-<p>This series of notebooks and material is being put together by Srijith Rajamohan. This covers the following topics</p>
+  <div class="section" id="computational-statistics-for-bayesian-inference-with-pymc3">
+<h1>Computational Statistics for Bayesian Inference with PyMC3<a class="headerlink" href="#computational-statistics-for-bayesian-inference-with-pymc3" title="Permalink to this headline">¶</a></h1>
+<p>This series of notebooks and material is being put together by Dr.Srijith Rajamohan with the introductory lectures on the foundations of Probability and the Bayes Theorem being offered by Dr. Robert Settlage. The purpose of this series is to teach the basics of Bayesian statistics for the purpose of performing Inference. This is not intended to be a comprehensive course that teaches the basics of statistics and probability nor does it cover Frequentist statistical techniques based on the Null Hypothesis Significance Testing (NHST). What it does cover is:</p>
+<ul class="simple">
+<li><p>The basics of Bayesian probability</p></li>
+<li><p>Understanding Bayesian inference and how it works</p></li>
+<li><p>The bare-minimum set of tools and a body of knowledge required to perform Bayesian inference in Python, i.e. the PyData stack of NumPy, Pandas, Scipy, Matplotlib, Seaborn and Plot.ly</p></li>
+<li><p>A scalable Python-based framework for performing Bayesian inference, i.e. PyMC3</p></li>
+</ul>
+<p>With this goal in mind, the content is divided into the following three main sections.</p>
 <ul class="simple">
 <li><p>Introduction to Bayesian Statistics</p></li>
-<li><p>Introduction to Monte Carlo simulation</p></li>
-<li><p>Introduction to PyMC3</p></li>
+<li><p>Introduction to Monte Carlo Methods</p></li>
+<li><p>PyMC3 for Bayesian Modeling and Inference</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This draws a lot of inspiration from some brilliant people in this field and I will list those names here as this work is being developed.</p>
 </div>
 <p>PyMC3 can be found <a class="reference external" href="https://docs.pymc.io/notebooks/getting_started">here</a>.</p>
+<div class="section" id="course-outline">
+<h2>Course Outline<a class="headerlink" href="#course-outline" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="course-1-introduction-to-bayesian-statistics">
+<h3>Course 1 - Introduction to Bayesian Statistics<a class="headerlink" href="#course-1-introduction-to-bayesian-statistics" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The Foundations of Probability</p></li>
+<li><p>Distributions, Central Tendencies and Shape Parameters</p></li>
+<li><p>Parameter Estimation</p></li>
+<li><p>Introduction to the Bayes Theorem</p></li>
+<li><p>Inference and Decisions</p></li>
+<li><p>Bayesian and Frequentist approach</p></li>
+<li><p>Distributions</p>
+<ul>
+<li><p>Generate data and Parameter estimation</p></li>
+<li><p>Gaussian Mixture Models</p></li>
+<li><p>Information Criterion</p></li>
+</ul>
+</li>
+<li><p>Non-parametric Methods and Kernel Density Estimation</p></li>
+<li><p>Introduction to Sampling</p></li>
+<li><p>Sampling from Discrete Distributions</p></li>
+<li><p>Inverse Transform Method</p></li>
+<li><p>Rejection Sampling Method</p></li>
+<li><p>Importance Sampling Method</p></li>
+</ul>
+</div>
+<div class="section" id="course-2-introduction-to-monte-carlo-methods">
+<h3>Course 2 - Introduction to Monte Carlo Methods<a class="headerlink" href="#course-2-introduction-to-monte-carlo-methods" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>R2 and Explained Variance</p></li>
+<li><p>Underfitting vs. Overfitting, Simplicity vs. Accuracy</p></li>
+<li><p>Cross Validation</p></li>
+<li><p>Log-likelihood and Deviance</p></li>
+<li><p>AIC and WAIC</p></li>
+<li><p>Entropy</p></li>
+<li><p>KL Divergence</p></li>
+<li><p>Model Averaging</p></li>
+<li><p>Stationarity and Ergodicity</p></li>
+<li><p>Building blocks - Markov Chains</p></li>
+<li><p>Building blocks - Why does it work?</p></li>
+<li><p>Foundations of Bayesian Inference</p></li>
+<li><p>Outline of the Metropolis Algorithm</p></li>
+<li><p>Building the Inferred Distribution</p></li>
+<li><p>Python Code for the Metropolis Algorithm</p></li>
+<li><p>Introduction to the Metropolis-Hastings Algorithm</p></li>
+<li><p>Introduction to Gibbs Sampling</p></li>
+<li><p>Details of the Gibbs Sampling algorithm 1</p></li>
+<li><p>Details of the Gibbs Sampling algorithm 2</p></li>
+<li><p>Hamiltonian Monte Carlo</p></li>
+<li><p>Characteristics of MCMC</p></li>
+</ul>
+</div>
+<div class="section" id="course-3-pymc3-for-bayesian-modeling-and-inference">
+<h3>Course 3 - PyMC3 for Bayesian Modeling and Inference<a class="headerlink" href="#course-3-pymc3-for-bayesian-modeling-and-inference" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Introduction to PyMC3</p></li>
+<li><p>Introduction to PyMC3 with Linear Regression</p></li>
+<li><p>Introduction to PyMC3 - Traces</p></li>
+<li><p>Composition of Distributions for Uncertainty</p></li>
+<li><p>Highest Posterior Density and Region of Practical Equivalence</p></li>
+<li><p>Credible Intervals and Confidence Intervals</p></li>
+<li><p>Modeling with a Gaussian Distribution</p></li>
+<li><p>Using PyMC3 to Model a Phenomenon with a Gaussian distribution</p></li>
+<li><p>Posterior Predictive Checks</p></li>
+<li><p>Robust Models with a Student’s t-Distribution</p></li>
+<li><p>Hierarchical/Multilevel Models</p></li>
+<li><p>Hierarchical Models - Shrinkage</p></li>
+<li><p>Linear Regression</p></li>
+<li><p>Mean-center for Linear Regression</p></li>
+<li><p>Hierarchical Linear Regression</p></li>
+<li><p>Polynomial Regression for Non-linear Data</p></li>
+<li><p>Multiple Linear Regression</p></li>
+<li><p>Logistic Regression</p></li>
+<li><p>Multiple Logistic Regression</p></li>
+<li><p>Multiclass Classification</p></li>
+<li><p>Inferring Rate Change with a Poisson Distribution</p></li>
+<li><p>Tuning</p></li>
+<li><p>Mixing and Potential Scale Reduction Factor</p></li>
+<li><p>Centered vs. Non-centered Parameterization</p></li>
+<li><p>Autocorrelation and Effective Sample Size</p></li>
+<li><p>Monte Carlo Error</p></li>
+<li><p>Divergence</p></li>
+<li><p>Revisiting the Multiclass Classification problem</p></li>
+<li><p>PyMC3 metrics</p></li>
+<li><p>Diagnosing and Debugging MCMC with PyMC3 (7 min)</p></li>
+<li><p>ArViz Data Representation</p></li>
+<li><p>PyMC3 COVID project</p></li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -240,6 +391,8 @@
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
+</div>
+</div>
 </div>
 </div>
 
