@@ -1355,10 +1355,10 @@ if (outputEl) {{
 <p>The following example illustrates the posterior distribution for a parameter given a prior for the parameter and a likelihood distribution for the data. The problem here has the data being drawn from a Binomial distribution. The parameter \(\theta\) can be represented by a Beta prior distribution. Because the Beta prior is a conjugate prior for a Binomial likelihood, the posterior also takes the form of a Beta distribution.</p>
 <p>To summarize the data likelihood given by</p>
 <div class="math notranslate nohighlight">
-\[ Binomial\_likelihood(m | N, \theta)\]</div>
+\[ Binomial\,likelihood(m | N, \theta)\]</div>
 <p>where the parameter for the Binomial distribution is given by \(\theta\) and ‘N’ represents the total number of trials in a binomial experiment and ‘m’ represents the total number of successes (probability of success = \(\theta\)). Since it is a likelihood, we are trying to determine the probability of the success ‘m’ given the dsitribution parameter \(\theta\). We can define the number of failures as \(l = N - m\). Then the posterior given this likelihood and prior is given by</p>
 <div class="math notranslate nohighlight">
-\[ Beta\_prior(\theta|a,b) + Binomial\_likelihood(m | N, \theta) \longrightarrow Beta\_posterior(\theta|m+a,l+b) \]</div>
+\[ Beta\,prior(\theta|a,b) + Binomial\,likelihood(m | N, \theta) \longrightarrow Beta\,posterior(\theta|m+a,l+b) \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span> 
