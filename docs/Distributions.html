@@ -690,33 +690,45 @@ The example below illustrates the answer to the question “What is the probabil
 </div>
 <div class="section" id="gamma-distribution">
 <h2>Gamma Distribution<a class="headerlink" href="#gamma-distribution" title="Permalink to this headline">¶</a></h2>
-<p>The Gamma distribution is a distribution over a postive value \( \theta \) and is given by the PDF</p>
+<p>The Gamma distribution is used to model the time taken for ‘n’ independent events to occur. It can be derived from the CDF of a Poisson distribution by computing the probability of ‘a’ events in a time ‘x’. It is a distribution over a postive value \( \theta \) and is given by the PDF</p>
 <div class="math notranslate nohighlight">
-\[p(\theta) = \dfrac{b^a}{\gamma(a)} \cdot \theta^{a - 1} e^{-b \theta} \]</div>
-<p>Here ‘a’ and ‘b’ are the parameters of the distribution such that</p>
+\[p(x) = \dfrac{b^a}{\gamma(a)} \cdot x^{a - 1} e^{-b x} \]</div>
+<p>Here ‘a’ is the shape parameter and ‘b’ is the rate parameter of the distribution (same as the rate parameter of the Poisson distribution from which this distribution is derived)  such that</p>
 <div class="math notranslate nohighlight">
 \[ a&gt; 0\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[b &gt; 0\]</div>
 <p>In the case where a = 1, we get the exponential distribution</p>
+<div class="math notranslate nohighlight">
+\[ mean = a/b \]</div>
+<div class="math notranslate nohighlight">
+\[ variance = a/b^2 \]</div>
+<p><strong>Example</strong></p>
+<p>It can be used to model the time before 4 bolts in your car to fail.</p>
+<p><strong>Conditions</strong></p>
+<ul class="simple">
+<li><p>Continuous non-negative data</p></li>
+<li><p>A generalization of the exponential distribution, but more parameters to fit (With great flexibility, comes great complexity!)</p></li>
+<li><p>An exponential models the time to the first event, the Gamma distribution models the time to the ‘n’th event.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gamma_individual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">theta_max</span><span class="p">):</span>
-    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">theta_max</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gamma_individual</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x_max</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x_max</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>
     
     <span class="n">term</span> <span class="o">=</span> <span class="n">b</span><span class="o">**</span><span class="n">a</span> <span class="o">/</span><span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="n">p_theta</span> <span class="o">=</span> <span class="n">term</span> <span class="o">*</span> <span class="n">theta</span><span class="o">**</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="n">p_x</span> <span class="o">=</span> <span class="n">term</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">b</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
     
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">p_theta</span><span class="p">,</span> <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;steelblue&quot;</span><span class="p">],</span> 
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">p_x</span><span class="p">,</span> <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;steelblue&quot;</span><span class="p">],</span> 
                   <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot; Gamma distribution for a </span><span class="si">%d</span><span class="s2">, b </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">line</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Theta&quot;</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;P(theta)&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;P(x)&quot;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     
 <span class="k">if</span><span class="p">(</span><span class="n">INTERACT_FLAG</span><span class="p">):</span>    
-    <span class="n">interact</span><span class="p">(</span><span class="n">gamma_individual</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">theta_max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">interact</span><span class="p">(</span><span class="n">gamma_individual</span><span class="p">,</span><span class="n">a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">x_max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">gamma_individual</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
@@ -724,7 +736,7 @@ The example below illustrates the answer to the question “What is the probabil
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "3d6f3d5bab1349109eef5aa88fd1212b", "version_major": 2, "version_minor": 0}
+{"model_id": "35ce47c36e7347b3b76df5773d59ec78", "version_major": 2, "version_minor": 0}
 </script></div>
 </div>
 </div>
@@ -733,9 +745,13 @@ The example below illustrates the answer to the question “What is the probabil
 <p>The exponential distribution is a special case of the Gamma distribution. An exponential distribution (continuous distribution) has the PDF given by</p>
 <div class="math notranslate nohighlight">
 \[P(x) = \lambda e^{-\lambda x}\]</div>
-<p>Here \(\lambda\) is called the rate parameter and can be used to model the duration of events, for e.g. the length of a phone call can be modeled as exponential distribution. There is a relationship between the \(\lambda\) that we see here and the one that is used as the rate parameter in the Poisson distribution. This can be used to relate the count of events in a certain amount of time and the time between consecutive events. If the number of epidemics per year is modeled by a Poisson distribution with parameter \(\lambda_{1}\), the time between the epidemics can be modeled by an exponential distribution with</p>
+<p>Here \(\lambda\) is called the rate parameter and can be used to model the duration of events, for e.g. the length of a phone call can be modeled as exponential distribution. There is a relationship between the \(\lambda\) that we see here and the one that is used as the rate parameter in the Poisson distribution. This can be used to relate the count of events in a certain amount of time and the time between consecutive events. If the number of epidemics per year is modeled by a Poisson distribution with parameter \(\lambda_{1}\), the time between the epidemics can be modeled by an exponential distribution with parameter \(\lambda_{2} = \dfrac{1}{\lambda_{1}}\)</p>
+<div class="math notranslate nohighlight">
+\[ mean = \dfrac{1}{\lambda} \]</div>
+<div class="math notranslate nohighlight">
+\[ variance = \dfrac{1}{\lambda^2} \]</div>
 <p><strong>Example</strong></p>
-<p>Time to failure for the radiator in a car</p>
+<p>Time to failure for the radiator in a car.</p>
 <p><strong>Conditions</strong></p>
 <ul class="simple">
 <li><p>Continuous non-negative data</p></li>
