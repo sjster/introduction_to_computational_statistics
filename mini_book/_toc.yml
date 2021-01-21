@@ -11,6 +11,7 @@
     - file: docs/ParameterEstimation.ipynb
     - file: docs/Bayes.ipynb
     - file: docs/Decisions.ipynb
+    - file: docs/Priors.ipynb
     - file: docs/Intro.ipynb
     - file: docs/Distributions.ipynb
     - file: docs/Sampling.ipynb
