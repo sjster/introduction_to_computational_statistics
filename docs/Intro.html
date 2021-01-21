@@ -296,6 +296,23 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#likelihood">
+     Likelihood
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inference">
+     Inference
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-bayesian-and-the-frequentist">
+   The Bayesian and the Frequentist
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#the-bayesian">
      The Bayesian
     </a>
@@ -313,7 +330,7 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#inference">
+  <a class="reference internal nav-link" href="#id1">
    Inference
   </a>
   <ul class="nav section-nav flex-column">
@@ -356,7 +373,21 @@
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://www.amazon.com/Students-Guide-Bayesian-Statistics/dp/1473916356">1. Ben Lambert - A Student’s Guide to Bayesian Statistics</a></p>
 <p><a class="reference external" href="https://link.springer.com/chapter/10.1007%2F978-0-387-09612-4_9">2. Bayesian Evaluation of Informative Hypotheses</a></p>
-<p>Likelihood is a type of probability except that this describes the probability of the data that has already been observed given a certain hypothesis parameter. Probability, in general, refers to the possibility of occurence of future events. It is worthwhile to draw the distinction between probability and likelihood here. Probability refers to varying data given a fixed hypothesis parameter(s). Likelihood refers to variable hypothesis for the fixed observed data.</p>
+<div class="section" id="likelihood">
+<h3>Likelihood<a class="headerlink" href="#likelihood" title="Permalink to this headline">¶</a></h3>
+<p>Likelihood is a type of probability except that this describes the probability of the data that has already been observed given a certain hypothesis parameter. Probability, in general, refers to the possibility of occurence of future events. It is worthwhile to draw the distinction between probability and likelihood here. Probability refers to varying data given a fixed hypothesis parameter(s). Likelihood refers to variable hypothesis for the fixed observed data. If ‘x’ represents our data and \(\theta\) represents our hypothesis parameter, the Likelihood is written as</p>
+<div class="math notranslate nohighlight">
+\[ P(x | \theta) \]</div>
+</div>
+<div class="section" id="inference">
+<h3>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h3>
+<p>Inference refers to the process of identifying the distribution for the parameters that represent our hypothesis. However, this is a distinctly Bayesian definition of Inference, since a Frequentist believes in the existence of true parameter. We will spend some time understanding these differences in the next section. The posterior distribution is computed during the inference step and can be denoted as</p>
+<div class="math notranslate nohighlight">
+\[ P\theta | x) \]</div>
+</div>
+</div>
+<div class="section" id="the-bayesian-and-the-frequentist">
+<h2>The Bayesian and the Frequentist<a class="headerlink" href="#the-bayesian-and-the-frequentist" title="Permalink to this headline">¶</a></h2>
 <p>In frequentist statistics, our probabilities are only based on what we have observed. In Bayesian statistics, we also use our prior understanding of the environment or the system that generated the observations to infer the possibility of future events. As Ben Lambert says in his book ‘A Students Guide to Bayesian Statistics’, ‘for Bayesians it is unnecessary for events to be repeatable in order to define a probability. They are merely abstractions to help express our uncertainty’. The fundamental difference between a Bayesian and a Frequentist point of view is determined by how one treats parameters and data. For a Frequentist, the uncertainty associated with a probability assigned to an event comes from randomness (aleatoric uncertainty), they do not consider the uncertainty arising from a lack of knowledge (epistemic uncertainty).</p>
 <div class="section" id="the-bayesian">
 <h3>The Bayesian<a class="headerlink" href="#the-bayesian" title="Permalink to this headline">¶</a></h3>
@@ -390,8 +421,8 @@
 <p>However, in this case we use a subjective prior to compute this posterior. We trade an arbitrary threshold (usually 1% or 5% depending on the problem being solved) in frequentist statistics for a subjective prior in Bayesian statistics. One could argue that both of these are different ways to incorporate domain-knowledge and subjective expertise into the decision making process. Bayesians, however, do not need to accept or reject a hypothesis since they have the full distribution available as a result of the posterior and can therefore quantify the uncertainty with the hypothesis. More information about hypothesis testing is in the section below.</p>
 </div>
 </div>
-<div class="section" id="inference">
-<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h2>Inference<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading20.pdf">Reference - MIT Course Notes, Jeremy Orloff and Jonathan Bloom</a></p>
 <p><a class="reference external" href="https://education.arcus.chop.edu/null-hypothesis-testing/">Reference - Null Hypothesis Significance Testing (NHST)</a></p>
 <div class="section" id="features-of-bayesian-inference">
