@@ -137,6 +137,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="Priors.html">
+   Priors
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="Intro.html">
    Bayesian vs. Frequentist Statistics
   </a>
@@ -364,7 +369,7 @@
                 
   <div class="section" id="parameter-estimation">
 <h1>Parameter Estimation<a class="headerlink" href="#parameter-estimation" title="Permalink to this headline">¶</a></h1>
-<p>Given a representative sample of data from some population, we may need to estimate the parameters for a distribution characterizing the population.  We give two methods below:</p>
+<p>Given a representative sample of data from some population, we may need to estimate the parameters for a distribution characterizing the population.  We discus properties of estimators and the following estimation methods below:</p>
 <ol class="simple">
 <li><p>Method of Moments.</p></li>
 <li><p>Maximum Likelihood Estimation (MLE).</p></li>
@@ -401,9 +406,9 @@
 <p>An estimator that has the lowest possible variance among all unbiased estimators is considered efficent.</p>
 <div class="section" id="mean-squared-error">
 <h3>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h3>
-<p>Combining the two, we get a measure of the quality of the estimator called mean squared error (MSE):</p>
+<p>Combining the variance and bias, we get a measure of the quality of the estimator called mean squared error (MSE):</p>
 <p><span class="math notranslate nohighlight">\(MSE = variance + bias^2\)</span></p>
-<p>MSE is a measure of the trade off between accuracy and precision.</p>
+<p>MSE is a measure of the trade off between accuracy (spread) and precision (location).</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
@@ -411,7 +416,8 @@
 <div class="section" id="method-of-moments">
 <h2>Method of moments<a class="headerlink" href="#method-of-moments" title="Permalink to this headline">¶</a></h2>
 <p>The method of moments amounts to matching population moments to sample moments.  Basically, we are using the finite approximation given by:</p>
-<p><span class="math notranslate nohighlight">\(E[f] = \int f(x)^r p(x) dx = \mu \approx \bar{x} = \frac{1}{N} \sum f(x)^r p(x)\)</span></p>
+<p><span class="math notranslate nohighlight">\(E[f] = \int f(x)^r p(x) dx = \approx = \frac{1}{N} \sum f(x)^r p(x)\)</span>, where <span class="math notranslate nohighlight">\(f(x)=x\)</span> and <span class="math notranslate nohighlight">\(r=1\)</span>, this amounts to</p>
+<p><span class="math notranslate nohighlight">\(\mu \approx \bar{x}\)</span></p>
 <p>It is up to us to chose which moment to use, however, the number of moments required will be equal to the number of parameters we are looking to estimate.  As an example, suppose we are looking to estimate the probability of success for a coin toss experiment given by the Bernoulli distribution.  We know:</p>
 <p><span class="math notranslate nohighlight">\(X_i \sim Bern(\theta)\)</span>, where we have coded x = 1 for heads:</p>
 <p><span class="math notranslate nohighlight">\(P_X(x;\theta) = 
@@ -427,7 +433,7 @@
 <p>For the population:</p>
 <p><span class="math notranslate nohighlight">\(E[X] = \sum_x x f(x) = \sum_x x [\theta^x(1-\theta)^{(1-x)}] = 0\ast(1-\theta) + 1\ast\theta = \theta\)</span></p>
 <p><span class="math notranslate nohighlight">\(Var(X) = \theta(1-\theta)\)</span></p>
-<p>From the this, we see we only need to estimate one parameter as the variance is a function of the mean.</p>
+<p>From this, we see we only need to estimate one parameter as the variance is a function of the mean.</p>
 <p>So, we can match the first sample moment to the population moment to get our estimate:</p>
 <p><span class="math notranslate nohighlight">\(\hat{\theta} = \frac{1}{N} \sum_N x_i = \frac{13}{20}\)</span></p>
 <p>from which the variance can also be computed.</p>
@@ -470,8 +476,11 @@
 <h3>1. Use the method of moments<a class="headerlink" href="#use-the-method-of-moments" title="Permalink to this headline">¶</a></h3>
 <p>Find the method of moments estimator for <span class="math notranslate nohighlight">\(\sigma^2\)</span> given</p>
 <p><span class="math notranslate nohighlight">\(X_i \overset{\text{iid}}{\sim}N(1,\sigma^2), i=1..n\)</span></p>
-<p>a. $<span class="math notranslate nohighlight">\( \frac{1}{n} \sum_{i=1}^{n} X_i^2 -1\)</span>$ (C)</p>
-<p>b.  $<span class="math notranslate nohighlight">\(\frac{1}{n}\sum_{i=1}^{n}(X_i -1)^2\)</span>$</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a.  $\frac{1}{n} \sum_{i=1}^{n} X_i^2 -1$ (C)
+
+b.  $\frac{1}{n}\sum_{i=1}^{n}(X_i -1)^2$
+</pre></div>
+</div>
 </div>
 <div class="section" id="using-the-maximum-likelihood-method">
 <h3>2. Using the maximum likelihood method<a class="headerlink" href="#using-the-maximum-likelihood-method" title="Permalink to this headline">¶</a></h3>
@@ -486,10 +495,11 @@ b. no (C)
 <div class="section" id="graded-evaluation-15-mins">
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>For a variable <span class="math notranslate nohighlight">\(X_i \overset{\text{iid}}{\sim}N(\mu,\sigma^2), i=1..n\)</span>, find the MLE for <span class="math notranslate nohighlight">\((\mu,\sigma^2)\)</span></p></li>
+<li><p>For a variable <span class="math notranslate nohighlight">\(X_i \overset{iid} \sim N(\mu,\sigma^2)\)</span>, <span class="math notranslate nohighlight">\(i=1\dots n\)</span>, find the MLE for <span class="math notranslate nohighlight">\((\mu ,\sigma^2)\)</span></p></li>
 </ol>
-<p>a. $<span class="math notranslate nohighlight">\(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n}\)</span>$ (C)</p>
-<p>b. $<span class="math notranslate nohighlight">\(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n-1}\)</span>$</p>
+<p><span class="math notranslate nohighlight">\(\text{     }(\hat{ \mu },\hat{ \sigma^2 })\)</span>=</p>
+<p>a. <span class="math notranslate nohighlight">\(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n}\)</span> (C)</p>
+<p>b. <span class="math notranslate nohighlight">\(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n-1}\)</span></p>
 </div>
 </div>
 

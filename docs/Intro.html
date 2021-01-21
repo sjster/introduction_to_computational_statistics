@@ -58,7 +58,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introduction to Common Distributions" href="Distributions.html" />
-    <link rel="prev" title="Inference and Decisions" href="Decisions.html" />
+    <link rel="prev" title="Priors" href="Priors.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -134,6 +134,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="Decisions.html">
    Inference and Decisions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Priors.html">
+   Priors
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -349,7 +354,10 @@
 <h1>Bayesian vs. Frequentist Statistics<a class="headerlink" href="#bayesian-vs-frequentist-statistics" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Likelihood is a type of probability except that this describes the probability of the data that has already been observed. Probability, in general, refers to the possibility of occurence of future events. In frequentist statistics, our probabilities are only based on what we have observed. In Bayesian statistics, we also use our prior understanding of the environment or the system that generated the observations to infer the possibility of future events. As Ben Lambert says in his book ‘A Students Guide to Bayesian Statistics’, ‘for Bayesians it is unnecessary for events to be repeatable in order to define a probability. They are merely abstractions to help express our uncertainty’.</p>
+<p><a class="reference external" href="https://www.amazon.com/Students-Guide-Bayesian-Statistics/dp/1473916356">1. Ben Lambert - A Student’s Guide to Bayesian Statistics</a></p>
+<p><a class="reference external" href="https://link.springer.com/chapter/10.1007%2F978-0-387-09612-4_9">2. Bayesian Evaluation of Informative Hypotheses</a></p>
+<p>Likelihood is a type of probability except that this describes the probability of the data that has already been observed given a certain hypothesis parameter. Probability, in general, refers to the possibility of occurence of future events. It is worthwhile to draw the distinction between probability and likelihood here. Probability refers to varying data given a fixed hypothesis parameter(s). Likelihood refers to variable hypothesis for the fixed observed data.</p>
+<p>In frequentist statistics, our probabilities are only based on what we have observed. In Bayesian statistics, we also use our prior understanding of the environment or the system that generated the observations to infer the possibility of future events. As Ben Lambert says in his book ‘A Students Guide to Bayesian Statistics’, ‘for Bayesians it is unnecessary for events to be repeatable in order to define a probability. They are merely abstractions to help express our uncertainty’. The fundamental difference between a Bayesian and a Frequentist point of view is determined by how one treats parameters and data. For a Frequentist, the uncertainty associated with a probability assigned to an event comes from randomness (aleatoric uncertainty), they do not consider the uncertainty arising from a lack of knowledge (epistemic uncertainty).</p>
 <div class="section" id="the-bayesian">
 <h3>The Bayesian<a class="headerlink" href="#the-bayesian" title="Permalink to this headline">¶</a></h3>
 <p>Data is fixed and in light of new data we update our beliefs. The belief represented by some parameter is a random variable that we update. They are comfortable with the idea that our knowledge of these parameters evolve over time. In the case where there is a true parameter value that can be estimated, Bayes theorem allows one to specify an uncertainty over this parameter.</p>
@@ -473,7 +481,7 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Decisions.html" title="previous page">Inference and Decisions</a>
+    <a class='left-prev' id="prev-link" href="Priors.html" title="previous page">Priors</a>
     <a class='right-next' id="next-link" href="Distributions.html" title="next page">Introduction to Common Distributions</a>
 
     </div>

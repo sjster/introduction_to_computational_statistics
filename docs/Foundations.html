@@ -137,6 +137,11 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="Priors.html">
+   Priors
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="Intro.html">
    Bayesian vs. Frequentist Statistics
   </a>
@@ -339,6 +344,23 @@
   <a class="reference internal nav-link" href="#random-sample-experiment-trial">
    Random sample, experiment, trial
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-experiment">
+     Random experiment
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-sample">
+     Random sample
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trial">
+     Trial
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-generating-mechanism">
@@ -396,7 +418,7 @@
 <li><p>Stochastic processes – chance regularities</p></li>
 <li><p>Beleif and probability</p></li>
 <li><p>Rules of probabillity</p></li>
-<li><p>Factoring joing probabilities</p></li>
+<li><p>Factoring joint probabilities</p></li>
 </ul>
 <p>General references:</p>
 <ul class="simple">
@@ -410,7 +432,7 @@
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="chance-regularities">
 <h2>Chance regularities<a class="headerlink" href="#chance-regularities" title="Permalink to this headline">¶</a></h2>
-<p>The processes we are interested in are non-deterministic (exhibits chance) where patterns reveal themselves (show regularities) after collection lots of data.  Arguably, modeern statistics started with quantifying betting odds in dice games such as the sum of spots (for example, see <a class="reference external" href="http://jse.amstat.org/v11n2/feldman.html">Feldman and Morgan</a> for a discussion of HOG).  To illustrate this, consider a game of dice where we throw 2 dice and sum the dots.  Let’s simulate this in python and look at the data.</p>
+<p>The processes we are interested in are non-deterministic (exhibits chance) where patterns reveal themselves (show regularities) after collecting lots of data.  Arguably, modern statistics started with quantifying betting odds in dice games such as the sum of spots (for example, see <a class="reference external" href="http://jse.amstat.org/v11n2/feldman.html">Feldman and Morgan</a> for a discussion of HOG).  To illustrate this, consider a game of dice where we throw 2 dice and sum the dots.  Let’s simulate this in python and look at the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## simulate 500 rolls of 2 dice using random sampling with replacement</span>
@@ -539,22 +561,22 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># summarize the dot counts</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;dots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;dots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7     92
-6     79
-8     73
-9     47
-5     46
-10    40
-4     35
-3     32
-11    27
-12    15
-2     14
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2      9
+3     24
+4     47
+5     62
+6     68
+7     78
+8     81
+9     50
+10    43
+11    24
+12    13
 Name: dots, dtype: int64
 </pre></div>
 </div>
@@ -572,15 +594,15 @@ Name: dots, dtype: int64
 </div>
 </div>
 <p>In this simulated game, we notice:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* we are not able to predice with certainty the next throw  
-* some combinations occur with higher frequency  
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* we are not able to predice with certainty the next throw (t-plot)  
+* some combinations occur with higher frequency (table and histogram)  
 * the shape of the tabulated data is roughly triangular  
 </pre></div>
 </div>
 </div>
 <div class="section" id="belief-and-probability">
 <h2>Belief and probability<a class="headerlink" href="#belief-and-probability" title="Permalink to this headline">¶</a></h2>
-<p>So, from this and maybe experience, we see that 7’s occur more frequently than 12’s, 5’s and 9’s about the same, etc., so we have a beleif.  How do we go from a ‘hunch’ to a quantified understanding of the game?  The answer is statistics and probability.</p>
+<p>So, from this and maybe experience, we see that 7’s occur more frequently than 12’s, 5’s and 9’s about the same, etc, so we have a beleif.  How do we go from a ‘hunch’ to a quantified understanding of the game?  The answer is statistics and probability.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
@@ -630,29 +652,32 @@ Sample space: 0,1,2,3</p>
 <br></p>
 </li>
 </ol>
-<hr style="border:2px solid blue"> </hr></div>
+<hr style="border:2px solid blue"> </hr><p>Now that we know what probability is, we need some rules to manipulate it.</p>
+</div>
 <div class="section" id="addition-rules">
 <h2>Addition rules<a class="headerlink" href="#addition-rules" title="Permalink to this headline">¶</a></h2>
-<p>Addition rules deal with unions (<span class="math notranslate nohighlight">\(\bigcup\)</span>) of events.  These can be thought of as OR probabilities.</p>
-<p>(<span class="math notranslate nohighlight">\(\bigcup\)</span> - non-repeating superset, <span class="math notranslate nohighlight">\(\bigcap\)</span> - common elements)</p>
-<p>P(A <span class="math notranslate nohighlight">\(\cup\)</span> B) = P(A) + P(B) - P(A <span class="math notranslate nohighlight">\(\cap\)</span> B)</p>
-<p>or when A and B are mutually exclusive</p>
-<p>P(A <span class="math notranslate nohighlight">\(\cup\)</span> B) = P(A) + P(B)</p>
-<p>In the figure below, A represents a case where events in the two shaded regions are mutually exclusive, i.e. there are no overlapping areas.  In B, the overlapping area is the intersection (<span class="math notranslate nohighlight">\(\bigcap\)</span>) of the two areas.
-<img alt="Figure 1" src="../_images/sets.jpg" /></p>
+<p>Addition rules deal with unions (<span class="math notranslate nohighlight">\(\bigcup\)</span>) of events.  These can be thought of OR probabilities.</p>
+<p>(union = <span class="math notranslate nohighlight">\(\bigcup\)</span> - non-repeating superset, intersection = <span class="math notranslate nohighlight">\(\bigcap\)</span> - common elements)</p>
+<p>P(<span class="math notranslate nohighlight">\(E_1\)</span> <span class="math notranslate nohighlight">\(\cup\)</span> <span class="math notranslate nohighlight">\(E_2\)</span>) = P(<span class="math notranslate nohighlight">\(E_1\)</span>) + P(<span class="math notranslate nohighlight">\(E_2\)</span>) - P(<span class="math notranslate nohighlight">\(E_1\)</span> <span class="math notranslate nohighlight">\(\cap\)</span> <span class="math notranslate nohighlight">\(E_2\)</span>)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>or when A and B are mutually exclusive
+</pre></div>
+</div>
+<p>P(<span class="math notranslate nohighlight">\(E_1\)</span> <span class="math notranslate nohighlight">\(\cup\)</span> <span class="math notranslate nohighlight">\(E_2\)</span>) = P(<span class="math notranslate nohighlight">\(E_1\)</span>) + P(<span class="math notranslate nohighlight">\(E_2\)</span>)</p>
+<p>In the figure below, A represents a case where events in the two shaded regions are mutually exclusive, ie there are no overlapping areas.  In B, the overlapping area is the intersection (<span class="math notranslate nohighlight">\(\bigcap\)</span>) of the two areas.
+<img alt="Figure 1" src="docs/sets.jpg" /></p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="multiplication-rules">
 <h2>Multiplication rules<a class="headerlink" href="#multiplication-rules" title="Permalink to this headline">¶</a></h2>
 <p>Multiplication rules deal with intersections (<span class="math notranslate nohighlight">\(\bigcup\)</span>) of events.  These can be thought of AND probabilities.</p>
-<p>(<span class="math notranslate nohighlight">\(\bigcup\)</span> - non-repeating superset, <span class="math notranslate nohighlight">\(\bigcap\)</span> - common elements)</p>
+<p>(union = <span class="math notranslate nohighlight">\(\bigcup\)</span> - non-repeating superset, intersection = <span class="math notranslate nohighlight">\(\bigcap\)</span> - common elements)</p>
 <p>Dependent<br />
-P(A <span class="math notranslate nohighlight">\(\cap\)</span> B) = P(A) <span class="math notranslate nohighlight">\(\ast\)</span> P(B|A)</p>
+P(<span class="math notranslate nohighlight">\(E_1\)</span> <span class="math notranslate nohighlight">\(\cap\)</span> <span class="math notranslate nohighlight">\(E_2\)</span>) = P(<span class="math notranslate nohighlight">\(E_1\)</span>) <span class="math notranslate nohighlight">\(\ast\)</span> P(<span class="math notranslate nohighlight">\(E_2\)</span>|<span class="math notranslate nohighlight">\(E_1\)</span>)</p>
 <p>Independent<br />
-P(A <span class="math notranslate nohighlight">\(\cap\)</span> B) = P(A) <span class="math notranslate nohighlight">\(\ast\)</span> P(B)</p>
+P(<span class="math notranslate nohighlight">\(E_1\)</span> <span class="math notranslate nohighlight">\(\cap\)</span> <span class="math notranslate nohighlight">\(E_2\)</span>) = P(<span class="math notranslate nohighlight">\(E_1\)</span>) <span class="math notranslate nohighlight">\(\ast\)</span> P(<span class="math notranslate nohighlight">\(E_2\)</span>)</p>
 <p>Mutually exclusive<br />
-P(A <span class="math notranslate nohighlight">\(\cap\)</span> B) = 0</p>
+P(<span class="math notranslate nohighlight">\(E_1\)</span> <span class="math notranslate nohighlight">\(\cap\)</span> B) = 0</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
@@ -660,6 +685,7 @@ P(A <span class="math notranslate nohighlight">\(\cap\)</span> B) = 0</p>
 <h2>Conditional, Independent, disjoint, exchangeable<a class="headerlink" href="#conditional-independent-disjoint-exchangeable" title="Permalink to this headline">¶</a></h2>
 <p>Conditional<br />
 P(A|B) = <span class="math notranslate nohighlight">\(\frac{P(A,B)}{P(B)}\)</span></p>
+<p>NOTE: P(A <span class="math notranslate nohighlight">\(\cap\)</span> B) is read as probability of A and B and is also written as the joint probability P(A,B)</p>
 <p>Independent<br />
 P(A,B) = P(A) <span class="math notranslate nohighlight">\(\ast\)</span> P(B)</p>
 <p>Disjoint<br />
@@ -679,7 +705,7 @@ P(A then B) = P(B then A)</p>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="random-variable">
 <h2>Random variable<a class="headerlink" href="#random-variable" title="Permalink to this headline">¶</a></h2>
-<p>Random variables are (often) real-valued functions mapping outcomes to a measureable space. In set notation, this looks like:</p>
+<p>Random variables are (often) real-valued functions mapping outcomes to a measureable space.  In set notation, this looks like:</p>
 <p><span class="math notranslate nohighlight">\(X: \Omega \to \mathbb{R}\)</span></p>
 <p>This mapping defines the probability giving by X in a measureable set as:</p>
 <p><span class="math notranslate nohighlight">\(P(X \in S) = P({x \in \Omega | X(x) \in S})\)</span></p>
@@ -688,14 +714,26 @@ P(A then B) = P(B then A)</p>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="random-sample-experiment-trial">
 <h2>Random sample, experiment, trial<a class="headerlink" href="#random-sample-experiment-trial" title="Permalink to this headline">¶</a></h2>
-<p>Random sample = unbiased realization of outcomes<br />
-Random experiment = an activity with an observable result<br />
-Trial = 1 or more experiments</p>
+<div class="section" id="random-experiment">
+<h3>Random experiment<a class="headerlink" href="#random-experiment" title="Permalink to this headline">¶</a></h3>
+<p>A <em>random experiment</em> is an activity with an observable result.  Prior to conducting the experiment, we are uncertain as to the outcome.</p>
+<p>Experiment – flip a coin, record the face that lands up</p>
+<p>We know the outcome space: {H,T}, however, we are not certain which result will occur prior to the experiment.</p>
+</div>
+<div class="section" id="random-sample">
+<h3>Random sample<a class="headerlink" href="#random-sample" title="Permalink to this headline">¶</a></h3>
+<p>A <em>random sample</em> is an unbiased realization of outcomes.</p>
+<p>Randomly draw 5 numbers from a bag containing cards numbered 1-10, with replacement.</p>
+</div>
+<div class="section" id="trial">
+<h3>Trial<a class="headerlink" href="#trial" title="Permalink to this headline">¶</a></h3>
+<p>Trial = 1 or more experiments</p>
 <p>In the figure and table below, we are plotting and tabulating the results from the roll of two dice.  We did not define the experiment up front, but will do so now for clarity.</p>
-<p>Experiment = throw 2 dice 500 times<br />
+<p>Experiment = throw a pair of dice 1 time, record the total dots face up
 Trial = in this case, there was a single trial of the experiment<br />
 Random sample = we have 500 realizations of two dice being thrown</p>
-<p>Note, due to how random numbers are generated and used to get the die rolls, we sampled with replacement into a long 1000 long list.  We then pulled the list into two sequences with every other 1 being die1 vs die2.  We could have done this in a for loop rolling both dice in each iteration.  Based on how randon numbers are generated, this would have resulted in the same sequence of die rolls.</p>
+<p>We could have defined the experiment as throwing two dice 10 times.  In this case, we have 50 trials of the experiment.</p>
+<p>Note, due to how random numbers are generated and used to get the die rolls, we sampled with replacement into a 1000 element long list.  We then pulled the list into two sequences with every other 1 being die1 vs die2.  We could have done this in a for loop rolling both dice in each iteration.  Based on how randon numbers are generated, this would have resulted in the same sequence of die rolls.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr><div class="cell docutils container">
@@ -733,6 +771,7 @@ Random sample = we have 500 realizations of two dice being thrown</p>
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="data-generating-mechanism">
 <h2>Data generating mechanism<a class="headerlink" href="#data-generating-mechanism" title="Permalink to this headline">¶</a></h2>
 <p>This is the actual process we are trying to model.  In the case of the dice, it was the throwing and counting of dots where we are lookign to learn (and use) a statistical model of outcome probabilities.  In a count toss experiment, it is the binary outcome of heads or tails.</p>
@@ -743,39 +782,39 @@ Random sample = we have 500 realizations of two dice being thrown</p>
 <h2>UNGRADED EVALUATION (20 min)<a class="headerlink" href="#ungraded-evaluation-20-min" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="for-each-of-the-following-experiments-describe-the-sample-space">
 <h3>1. For each of the following experiments, describe the sample space:<a class="headerlink" href="#for-each-of-the-following-experiments-describe-the-sample-space" title="Permalink to this headline">¶</a></h3>
-<p>(1a) Toss 2 coins 3 times.</p>
-<p>a. {(HH),(TT),(HT),(TH)} (C)</p>
-<p>b. {HH),(TT),(HT),(TH),HH),(TT),(HT),(TH),HH),(TT),(HT),(TH)}</p>
-<p>(1b) Record the number of cats that pass by your house in 1 hour.</p>
-<p>a. \(\mathbb{R}\)</p>
-<p>b. <span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span></p>
-<p>c. integers &gt; 0. (C).</p>
-<p>(1c) In a clinic, you record the sex, height, and weight of 100 individuals for a study.</p>
-<p>a. (F,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>), (M,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>  ,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>)</p>
-<p>b. (F,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>), (M,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>) (C)</p>
+<p>(1a) Toss 2 coins 3 times.<br />
+a- {(HH),(TT),(HT),(TH)} (C)<br />
+b- {HH),(TT),(HT),(TH),HH),(TT),(HT),(TH),HH),(TT),(HT),(TH)}</p>
+<p>(1b) Record the number of cats that pass by your house in 1 hour.<br />
+a- <span class="math notranslate nohighlight">\(\mathbb{R}\)</span><br />
+b- <span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span><br />
+c- integers &gt; 0. (C).</p>
+<p>(1c) In a clinic, you record the sex, height, and weight of 100 individuals for a study.<br />
+a- (F,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>), (M,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>  ,<span class="math notranslate nohighlight">\(\mathbb{R}\)</span>)<br />
+b- (F,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>), (M,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>,<span class="math notranslate nohighlight">\(\mathbb{R}_+\)</span>) (C)</p>
 </div>
 <div class="section" id="darts">
 <h3>2. Darts<a class="headerlink" href="#darts" title="Permalink to this headline">¶</a></h3>
 <p>You are in the local pub playing darts.  Based on luck, you have 1/50 chance of hitting a bullseye in a single throw of a dart.</p>
-<p>(2a) What is the probability of hitting the bullseye in 1 throw (in 0.0%)?</p>
-<p>a. 2.0</p>
-<p>(2b) You throw the dart a second time, are the throws dependent or independent?</p>
-<p>a. dependent</p>
-<p>b. independent  (C)</p>
-<p>(2c) What is the probability of hitting the bullseye in the second throw (in 0.0%)?</p>
-<p>a. 2.0</p>
-<p>(2c) What is the probability of hitting at least 1 bullseye in 5 throws (in 0.0%)?</p>
-<p>a. 9.6</p>
+<p>(2a) What is the probability of hitting the bullseye in 1 throw (in 0.0%)?<br />
+a- 2.0</p>
+<p>(2b) You throw the dart a second time, are the throws dependent or independent?
+a- dependent<br />
+b- independent  (C)</p>
+<p>(2c) What is the probability of hitting the bullseye in the second throw (in 0.0%)?<br />
+a- 2.0</p>
+<p>(2c) What is the probability of hitting at least 1 bullseye in 5 throws (in 0.0%)?<br />
+a- 9.6</p>
 </div>
 <div class="section" id="id1">
 <h3>3.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>You are rolling a single 6 sided die and counting dots.</p>
-<p>(3a) What is the probability of rolling a 3 or more assuming a fair die?</p>
-<p>a. 0.67</p>
-<p>(3b) You change the game and roll 2 dice, what is the probability of rolling 3 total dots or less?</p>
-<p>a. 0.08</p>
-<p>(3c) Rolling 2 dice, the first lands 1 while the second rolls off the table, what is the probability of that you have a total of 3 or less dots?</p>
-<p>a. 0.33</p>
+<p>(3a) What is the probability of rolling a 3 or more assuming a fair die?<br />
+a- 0.67</p>
+<p>(3b) You change the game and roll 2 dice, what is the probability of rolling 3 total dots or less?
+a- 0.08</p>
+<p>(3c) Rolling 2 dice, the first lands 1 while the second rolls off the table, what is the probability of that you have a total of 3 or less dots?<br />
+a- 0.33</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
