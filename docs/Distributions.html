@@ -1082,27 +1082,23 @@ if (outputEl) {{
 <div class="math notranslate nohighlight">
 \[ Posterior\;for\;\theta = P(\theta|y) = Beta(num_p + a, total - num_p +b) \]</div>
 <p>where the observed data ‘y’ is represented by \(num_p\) and \(total\). The parameter \(\theta\) is associated with the success event represented by \(num_p\). \(num_p\) is the number of positive events and \(total\) is the total number of events. Here ‘a’ and ‘b’ can be considered pseudo counts. Setting a = 1 and b = 1 gives you a uniform distribution.</p>
+<p>The mean and variance for Beta(a,b) is given by</p>
+<div class="math notranslate nohighlight">
+\[ Mean = \dfrac{a}{a +b} \]</div>
+<div class="math notranslate nohighlight">
+\[ Variance = \dfrac{ab}{(a + b)^2(a + b + 1)} \]</div>
+<p><strong>Example</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://varianceexplained.org/statistics/beta_distribution_and_baseball/">Baseball batting averages</a> The Beta distribution can be used as a prior distribution as shown above, for modeling the batting average \(\theta\) in baseball. For a new player, since we have no information we can rely on historical batting averages to form a prior. Since batting averages are known to be in a certain range, we use that information to define a Beta prior for \(\theta\). The number of hits and misses can be represented by a binomial distribution. After every game, the posterior for \(\theta\) can be computed from these values. The posterior value for theta can then be used as the prior for tbe next game.</p></li>
+</ul>
+<p><strong>Conditions</strong></p>
+<ul class="simple">
+<li><p>Takes positive values between 0 and 1 as input</p></li>
+<li><p>Setting a and b to 1 gives you a uniform distribution</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#def beta_vector(total, theta):</span>
-<span class="c1">#    num_p =  np.arange(0,total)</span>
-<span class="c1">#    alpha = num_p + 1</span>
-<span class="c1">#    beta = total - num_p + 1 </span>
-<span class="c1">#    print(&quot;num_p &quot;,num_p)</span>
-<span class="c1">#    print(&quot;alpha &quot;,alpha)</span>
-<span class="c1">#    print(&quot;beta &quot;,beta)</span>
-    
-<span class="c1">#    term = gamma(alpha + beta) / ( gamma(alpha) * gamma(beta) )</span>
-    
-<span class="c1">#    p_alpha_beta = term * theta**(alpha - 1) * (1 - theta)**(beta - 1)</span>
-<span class="c1">#    fig = px.line(x=alpha, y=p_alpha_beta, color_discrete_sequence=[&quot;steelblue&quot;], </span>
-<span class="c1">#                  height=600, width=800, title=&quot; Beta distribution for total %d, theta %lf&quot; %(total, theta))</span>
-<span class="c1">#    fig.data[0].line[&#39;width&#39;] = 4</span>
-<span class="c1">#    fig.layout.xaxis.title.text = &quot;alpha&quot;</span>
-<span class="c1">#    fig.layout.yaxis.title.text = &quot;P(alpha,beta|theta)&quot;</span>
-<span class="c1">#    fig.show()</span>
-    
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Beta posterior with uniform Beta prior, a=1, b=1</span>
 <span class="k">def</span> <span class="nf">beta_vector_theta</span><span class="p">(</span><span class="n">num_p</span><span class="p">,</span> <span class="n">total</span><span class="p">):</span>
     
     <span class="n">alpha</span> <span class="o">=</span> <span class="n">num_p</span> <span class="o">+</span> <span class="mi">1</span>
@@ -1116,7 +1112,7 @@ if (outputEl) {{
     <span class="n">p_theta</span> <span class="o">=</span> <span class="n">term</span> <span class="o">*</span> <span class="n">theta</span><span class="o">**</span><span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">beta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     
     <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">p_theta</span><span class="p">,</span> <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;steelblue&quot;</span><span class="p">],</span> 
-                  <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot; Beta distribution for total number of events=</span><span class="si">%d</span><span class="s2">, number of positive events=</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">num_p</span><span class="p">))</span>
+                  <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot; Beta distribution (uniform prior, a=1,b=1) for total number of events=</span><span class="si">%d</span><span class="s2">, number of positive events=</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">total</span><span class="p">,</span> <span class="n">num_p</span><span class="p">))</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">line</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;theta&quot;</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;P(theta)&quot;</span>
