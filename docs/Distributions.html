@@ -575,7 +575,7 @@ var n,a=t("./lib/build-log"),i=t("./lib/epsilon"),o=t("./lib/intersecter"),s=t("
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">INTERACT_FLAG</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">INTERACT_FLAG</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 </div>
@@ -655,7 +655,7 @@ if (outputEl) {{
 </div>
 <div class="section" id="negative-binomial-distribution">
 <h2>Negative Binomial Distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this headline">¶</a></h2>
-<p>A negative binomial distribution can be used to describe the number of successes ‘r - 1’ and ‘x’ failures in ‘x + r -1’ trials, until you have a success on the ‘x + r’th trial. The Probability Density Function (PDF) for a negative binomial distribution modeling the number of failures is given by</p>
+<p>A negative binomial distribution can be used to describe the number of successes ‘r - 1’ and ‘x’ failures in ‘x + r -1’ trials, until you have a success on the ‘x + r’th trial. Rephrased, this models the number of failures (x) you would have to see before you see a certain number of successes (r). The Probability Density Function (PDF) for a negative binomial distribution modeling the number of failures is given by</p>
 <div class="math notranslate nohighlight">
 \[P(x| \theta) = {x + r - 1 \choose r - 1} \: \theta^r  (1- \theta)^x\]</div>
 <p>where \(\theta\) is the probability of success</p>
@@ -665,17 +665,17 @@ if (outputEl) {{
 \[variance = r ( 1- \theta) / \theta^2 \]</div>
 <div class="section" id="similarity-to-a-poisson-distribution">
 <h3>Similarity to a Poisson Distribution<a class="headerlink" href="#similarity-to-a-poisson-distribution" title="Permalink to this headline">¶</a></h3>
-<p>Can be used to model phenomenon that a Poisson distribution can but where the mean = variance criterion no longer holds. Hence this distribution is sometimes called the overdispersed Poisson. There is an alternate parameterization where the inverse dispersion parameter \(\kappa\) is used. In this scenario, the negative binomial distribution can be shown to have a variance given by</p>
+<p>Can be used to model phenomenon that a Poisson distribution can but where the mean = variance criterion no longer holds. Hence this distribution is sometimes called the overdispersed Poisson. There is an alternate parameterization where the inverse dispersion parameter \(\kappa\) is used. If the Poisson distribution is parameterized by the rate parameter \(\lambda\), the negative binomial distribution can be shown to have a variance given by</p>
 <p><span class="math notranslate nohighlight">\(\lambda + \dfrac{\lambda^2}{\kappa}\)</span></p>
 <p><strong>Example</strong></p>
-<p>The negative binomial distribution can be used to measure the number of days your car would work before it breaks down for the 3rd time. Note that here the success event is defined as the car breaking down!</p>
+<p>The negative binomial distribution can be used to measure the number of days your car would work before it breaks down for the 3rd time. Note that here the failure event is the car running properly and the success event is defined as the car breaking down!</p>
 <p><strong>Conditions</strong></p>
 <ul class="simple">
 <li><p>Count of discrete events</p></li>
 <li><p>The events CAN be non-independent, implying that events can influence or cause other events</p></li>
-<li><p>Variance can exceed the mean
-The example below illustrates the answer to the question “What is the probability of seeing ‘x’ failures when a number of events = total_events has occurred, when I know the probability of success is \(\theta\)?”</p></li>
+<li><p>Variance can exceed the mean</p></li>
 </ul>
+<p>The example below illustrates the answer to the question “What is the probability of seeing ‘x’ failures when a number of events = total_events has occurred, when I know the probability of success is \(\theta\)?”</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">negative_binomial_vector_over_y</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">total_events</span><span class="p">):</span>
