@@ -377,13 +377,14 @@
 <h3>Likelihood<a class="headerlink" href="#likelihood" title="Permalink to this headline">¶</a></h3>
 <p>Likelihood is a type of probability except that this describes the probability of the data that has already been observed given a certain hypothesis parameter. Probability, in general, refers to the possibility of occurence of future events. It is worthwhile to draw the distinction between probability and likelihood here. Probability refers to varying data given a fixed hypothesis parameter(s). Likelihood refers to variable hypothesis for the fixed observed data. If ‘x’ represents our data and \(\theta\) represents our hypothesis parameter, the Likelihood is written as</p>
 <div class="math notranslate nohighlight">
-\[ P(x | \theta) \]</div>
+\[ Likelihood(\theta | data) = P(x | \theta) \]</div>
+<p>It is worth pointing out likelihood does not form a valid probability since the Probability Density Function formed by varying theta with the observed data does not integrate to 1. It is for this reason that the term likelihood exists, i.e. to remind us that it is not a valid probability density.</p>
 </div>
 <div class="section" id="inference">
 <h3>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h3>
 <p>Inference refers to the process of identifying the distribution for the parameters that represent our hypothesis. However, this is a distinctly Bayesian definition of Inference, since a Frequentist believes in the existence of true parameter. We will spend some time understanding these differences in the next section. The posterior distribution is computed during the inference step and can be denoted as</p>
 <div class="math notranslate nohighlight">
-\[ P\theta | x) \]</div>
+\[ P(\theta | x) \]</div>
 </div>
 </div>
 <div class="section" id="the-bayesian-and-the-frequentist">

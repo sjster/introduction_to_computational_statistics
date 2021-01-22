@@ -860,6 +860,13 @@ The example below illustrates the answer to the question “What is the probabil
 <p>This is particularly important when you want to design a lognormal distribution for sampling data. The PDF for a lognormal distribution is given by</p>
 <div class="math notranslate nohighlight">
 \[P(x) = \dfrac{1}{x \sigma \sqrt{2 \pi }} e^{- (ln(x) - \mu)^2 / 2 \sigma^2}\]</div>
+<p><strong>Example</strong></p>
+<p>This can be used to model the disease parameters such as the reproduction number for epidemics.</p>
+<p><strong>Conditions</strong></p>
+<ol class="simple">
+<li><p>Continuous non-negative values</p></li>
+<li><p>Asymmetric unlike the Normal distribution</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
@@ -1064,22 +1071,17 @@ if (outputEl) {{
 </div>
 <div class="section" id="beta-distribution">
 <h2>Beta distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this headline">¶</a></h2>
-<p>Beta distribution is the conjugate prior of a binomial distribution. A class of conjugate priors for a sampling model \(P(y | \theta)\) is one that makes the posterior \(P(\theta |y)\) have the same form as the prior. The PDF for a Beta distributions is shown below.</p>
+<p>The Beta distribution is a distribution over a probability, therefore the range of values it takes as input is from 0 to 1. Beta distribution is the conjugate prior of a binomial distribution. A class of conjugate priors for a sampling model \(P(y | \theta)\) is one that makes the posterior \(P(\theta |y)\) have the same form as the prior. The PDF for a Beta distributions is shown below.</p>
 <div class="math notranslate nohighlight">
 \[P(\theta | a, b) = \dfrac{\gamma(a + b)}{\gamma(a) \gamma(b)} \cdot \theta^{a - 1} \cdot (1 - \theta)^{b -1}\]</div>
-<p>This means that the posterior, computed from a likelihood function that has a binomial form,  will have a beta distribution. If we start with a uniform prior for \(p(\theta)\), this posterior can be analytically computed as beta(a, b) where</p>
+<p>This means that the posterior computed from a likelihood that has a binomial form, with a beta prior, will have a beta distribution.</p>
 <div class="math notranslate nohighlight">
-\[a = num_p + 1\]</div>
-<p>where \(num_p\) is the number of positive events</p>
+\[ Prior\;for\;\theta = P(\theta) = Beta(a,b) \]</div>
 <div class="math notranslate nohighlight">
-\[b = total - num_p + 1\]</div>
-<p>where \(total\) is the total number of events</p>
-<p>where a and b are called pseudo counts.</p>
-<ul class="simple">
-<li><p>Setting a = 1 and b = 1 gives you a uniform distribution.</p></li>
-<li><p>If a beta distribution beta(a,b) is used as a prior for a binomial sampling model, the posterior is then given by beta(a+1,b+1)</p></li>
-<li><p>Conjugate priors make calculating the posterior easy, but it may not accurately reflect our prior information always</p></li>
-</ul>
+\[ Sampling\; distribution = P(y|\theta) = Binomial(num_p, total) \]</div>
+<div class="math notranslate nohighlight">
+\[ Posterior\;for\;\theta = P(\theta|y) = Beta(num_p + a, total - num_p +b) \]</div>
+<p>where the observed data ‘y’ is represented by \(num_p\) and \(total\). The parameter \(\theta\) is associated with the success event represented by \(num_p\). \(num_p\) is the number of positive events and \(total\) is the total number of events. Here ‘a’ and ‘b’ can be considered pseudo counts. Setting a = 1 and b = 1 gives you a uniform distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#def beta_vector(total, theta):</span>
