@@ -301,8 +301,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#arbitrary-discrete-distributions">
-     Arbitrary Discrete Distributions
+    <a class="reference internal nav-link" href="#arbitrary-non-uniform-discrete-distributions">
+     Arbitrary (Non-uniform) Discrete Distributions
     </a>
    </li>
   </ul>
@@ -377,25 +377,31 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <li><p>This quickly becomes inefficient as the number of dimensions grow.</p></li>
 <li><p>In high-dimensional spaces, there are vast regions of nothingness and most of the probability density is concentrated in a small region. Ideally, we want to sample from regions in space where the function f(x) and the probability of that value f(x) given by p(x) is high so that the contribution of this term \(f(x) p(x)\) is high.</p></li>
 </ol>
-<p>We will look at various ways to perform efficient sampling here. This is useful not only to understand how distributions are sampled in practice in a package such as SciPy but it also helps you to write your own custom distribution should that need arise.</p>
+<p>We will look at various ways to perform efficient sampling here. This is useful not only to understand how distributions are sampled in practice in a package such as SciPy, but it also helps you to write your own custom distribution should that need arise.</p>
 <p>The techniques listed are mostly applicable to univariate distributions, but they are useful to understand since they form the components in more sophisticated techniques.</p>
 <div class="section" id="sampling-from-discrete-distributions">
 <h2>Sampling from Discrete Distributions<a class="headerlink" href="#sampling-from-discrete-distributions" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="uniform-continuous-to-uniform-discrete">
 <h3>Uniform Continuous to Uniform Discrete<a class="headerlink" href="#uniform-continuous-to-uniform-discrete" title="Permalink to this headline">¶</a></h3>
-<p>In order to sample data from a particular distribution we can start with a uniform continuous distribution between 0 and 1 denoted as U[0,1]. The probability of picking a value less than ‘a’ that is between 0 and 1 is given by</p>
+<ul class="simple">
+<li><p>In order to sample data from a particular distribution we can start with a uniform continuous distribution between 0 and 1 denoted as U[0,1]. The probability of picking a value less than ‘a’ that is between 0 and 1 is given by</p></li>
+</ul>
 <div class="math notranslate nohighlight">
 \[P(x &lt; a) = a\]</div>
-<p>but because there are infinite possibilities between 0 and 1, the probability of picking any particular value ‘a’ is close to 0.</p>
-<p>If we have a discrete uniform distribution from 0 to ‘n’ denoted as U{0,1,…n-1}, this set has ‘n’ samples and the probability of choosing any discrete value ‘a’ is</p>
+<p>       but because there are infinite possibilities between 0 and 1, the probability of picking any particular value ‘a’ is close to 0.</p>
+<ul class="simple">
+<li><p>If we wanted an arbitrary continuous distribution U[0,k], multiply U[0,1] by k to obtain the scaled distribution</p></li>
+<li><p>If we have a discrete uniform distribution from 0 to ‘n’ denoted as U{0,1,…n-1}, this set has ‘n’ samples and the probability of choosing any discrete value ‘a’ is</p></li>
+</ul>
 <div class="math notranslate nohighlight">
 \[P(x = a) = \dfrac{1}{n}\]</div>
-<p>since this is a discrete value and there are a finite number of elements in this set. One way to convert this continuous uniform distribution U[0,1] to the discrete distribution U{0,1,…n-1} is through the transformation X = [[n U]] where I have used the notation [[ ]] for rounding the values within to the nearest integer. Now</p>
-<p><span class="math notranslate nohighlight">\(X \sim U \{0,1,...n-1\}\)</span></p>
+<p>       since this is a discrete value and there are a finite number of elements in  this set. One way to convert this continuous uniform distribution U[0,1] to the        discrete distribution U{0,1,…n-1} is through the transformation X = [[n U]] where I have used the notation [[ ]] for rounding the values within to the nearest        integer. Now</p>
+<div class="math notranslate nohighlight">
+\[X \sim U \{0,1,...n-1\}\]</div>
 </div>
-<div class="section" id="arbitrary-discrete-distributions">
-<h3>Arbitrary Discrete Distributions<a class="headerlink" href="#arbitrary-discrete-distributions" title="Permalink to this headline">¶</a></h3>
-<p>To generate an arbitrary distribution, we can use the continuous uniform distribution and sample from it followed by a transform such that we get our desired distribution. In the figure below, we have divided the uniform continuous distribution U[0,1] into uneven lengths given by \(p_1, p_2, p_3…p_n\) (here n = 5) such that \(\sum p_i = 1\)</p>
+<div class="section" id="arbitrary-non-uniform-discrete-distributions">
+<h3>Arbitrary (Non-uniform) Discrete Distributions<a class="headerlink" href="#arbitrary-non-uniform-discrete-distributions" title="Permalink to this headline">¶</a></h3>
+<p>To generate an arbitrary distribution, we can use the continuous uniform distribution and sample from it followed by a transform such that we get our desired distribution. In the figure below, we have divided the uniform continuous distribution U[0,1] into ‘n’ sections with uneven lengths, given by \(p_1, p_2, p_3…p_n\) (here n = 5) such that \(\sum p_i = 1\)</p>
 <p><img alt="Interval Transformation" src="../_images/transformation.png" /></p>
 <p>If we want to sample from a arbitrary discrete set \(A = {a_1, a_2…a_n}\), with probabilities given by \(p_1, p_2, p_3…p_n\) all we have to do is sample from the uniform continuous distribution U[0,1] since the interval \(i\) will be picked with probability \(p_i\) corresponding to the set element \(a_i\).</p>
 </div>
@@ -406,16 +412,21 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <p>If a variable ‘Y’ is generated by applying a function ‘F’ to ‘X’ we get</p>
 <div class="math notranslate nohighlight">
 \[Y = F(X)\]</div>
-<p>which implies that we can apply an inverse transformation to ‘Y’, if it exists, to obtain ‘X’. Here the function has to be invertible. The function ‘F’ is said to be bijective and has no jumps in its behavior.</p>
+<p>which implies that we can apply an inverse transformation to ‘Y’, if it exists, to obtain ‘X’. Here the function  ‘F’ has to be invertible. The function ‘F’ is said to be bijective and has no jumps in its behavior.</p>
 <div class="math notranslate nohighlight">
 \[F^{-1} (Y) = X\]</div>
-<p>The steps required to sample from the distribution with CDF given by ‘F’ is shown below</p>
+<p>The steps required to generate the new distribution from an existing distribution is shown below.</p>
 <div class="section" id="derivation">
 <h3>Derivation<a class="headerlink" href="#derivation" title="Permalink to this headline">¶</a></h3>
-<p>If ‘y’ is a function of z, where the PDF of y is given by p(y) and the PDF of z is given by p(z)</p>
+<p>If ‘y’ is a function of z, where</p>
+<ul class="simple">
+<li><p>the PDF of y is given by p(y) and</p></li>
+<li><p>the PDF of z is given by p(z)</p></li>
+</ul>
 <div class="math notranslate nohighlight">
 \[y = f(z)\]</div>
-<p><em>We want to determine the function f(z) such that the distribution of values y formed by the transformation \( y = f(z)\) is our desired distribution. The distribution of y will adhere to the following</em></p>
+<p><em><strong>We want to determine the function f(z) such that the distribution of values y formed by the transformation \( y = f(z)\) is our desired distribution.</strong></em></p>
+<p>The distribution of y will adhere to the following</p>
 <div class="math notranslate nohighlight">
 \[ p(y) = p(z) \lvert \dfrac{dz}{dy} \rvert\]</div>
 <p>If z has a uniform distribution this becomes</p>
