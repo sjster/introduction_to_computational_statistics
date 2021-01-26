@@ -533,11 +533,11 @@ In most practical scenarios, the distributions are complex enough that it is dif
 </div>
 <div class="section" id="rejection-sampling">
 <h2>Rejection Sampling<a class="headerlink" href="#rejection-sampling" title="Permalink to this headline">¶</a></h2>
-<p>Rejection sampling is more sophisticated than the techniques listed above. It generates approximately the correct distribution, and rejection sampling is used to correct the errors introduced by the approximation resulting in the correct distribution. Rejection sampling is based on the following principles. Suppose that we want to sample from a distribution p(z).</p>
+<p>Rejection sampling is more sophisticated than the techniques listed above. It generates approximately the correct distribution, and rejection sampling is used to correct the errors introduced by the approximation resulting in the correct distribution. Rejection sampling is based on the following principles. Suppose that we want to sample from a distribution with density p(z).</p>
 <ol class="simple">
-<li><p>A probability density called the proposal density ‘q(z)’. This density is selected such that it is easier to sample than the original distribution p(z).</p></li>
+<li><p>A probability density called the proposal density ‘q(z)’. This density is selected such that it is easier to sample than the original distribution density p(z).</p></li>
 <li><p>p(z) is difficult to sample from but we can evaluate it up to a certain proportionality constant.</p></li>
-<li><p>A constant ‘k’ such that \(k q(z) &gt;= p(z)\) for all values of z. This forms an envelope around p(z) denoted by Q(z, i.e. \(Q(z) = kq(z)\)</p></li>
+<li><p>A constant ‘k’ such that \(k q(z) &gt;= p(z)\) for all values of ‘z’. This forms an envelope around p(z) denoted by Q(z, i.e. \(Q(z) = kq(z)\)</p></li>
 </ol>
 <p><img alt="Sampling" src="../_images/sampling_distribution.png" /></p>
 <p>Given the above densities, we use the following steps</p>
@@ -550,7 +550,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <p>The samples are accepted with probability \(\dfrac{p(z)}{k q(z)}\). For effective rejection sampling, we want the number of samples that are rejected to a minimum. This is possible only when the envelope distribution is close to the desired distribution. It is also inefficient to use in high dimensional spaces for the following reasons</p>
 <ul class="simple">
 <li><p>The ideal value of k in a ‘D’ dimensional space is given by \( (\dfrac{\sigma_q}{\sigma_p})^D\) where \(\sigma\) is the variance of either distribution.</p></li>
-<li><p>The acceptance ratio for two normalized distributions \(p(x)\) and \(q(x)\) is simply \(1/k\)</p></li>
+<li><p>The acceptance ratio for two normalized distributions with densities\(p(x)\) and \(q(x)\) is simply \(1/k\)</p></li>
 <li><p>This acceptance ratio now scales as the ratio \( (\dfrac{\sigma_p}{\sigma_q})^D\). If \( \sigma_q\) is greater than \( \sigma_p\), for D = 1000 the acceptance ratio is close to 1/20000</p></li>
 <li><p>In practical scenarios where the distributions are multimodal, this effect is exacerbated.</p></li>
 </ul>
