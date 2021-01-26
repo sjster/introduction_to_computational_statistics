@@ -418,7 +418,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <p>The steps required to generate the new distribution from an existing distribution is shown below.</p>
 <div class="section" id="derivation">
 <h3>Derivation<a class="headerlink" href="#derivation" title="Permalink to this headline">¶</a></h3>
-<p>If ‘y’ is a function of z, where</p>
+<p>If ‘y’ is a function of ‘z’, where</p>
 <ul class="simple">
 <li><p>the PDF of y is given by p(y) and</p></li>
 <li><p>the PDF of z is given by p(z)</p></li>
@@ -466,7 +466,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <p>Taking the logarithm on both sides of the equation</p>
 <div class="math notranslate nohighlight">
 \[ y = -log(1 - z) / \lambda \]</div>
-<p>Now if you sample from z and plug those values into the equation above, you get values of y which will have the desired distribution.</p>
+<p>Now if you sample from ‘z’ and plug those values into the equation above, you get values of ‘y’ which will have the desired distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -479,17 +479,18 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <span class="n">X</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">U</span><span class="p">)</span><span class="o">/</span><span class="n">lam</span> <span class="c1">#transformations</span>
 <span class="n">hist</span><span class="p">,</span> <span class="n">bin_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#histogram of the transformed variables</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bin_edges</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">hist</span><span class="p">)</span> <span class="c1">#ideally should center the hist values to be the average of bin edges</span>
-
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribution generated using an Inverse Transform&quot;</span><span class="p">)</span>
 <span class="c1"># Get analytical PDF</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">Y</span> <span class="o">=</span> <span class="n">expon</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">lam</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Analytical form of the desired Exponential distribution&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f936132bee0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Analytical form of the desired Exponential distribution&#39;)
 </pre></div>
 </div>
 <img alt="../_images/Sampling_4_1.png" src="../_images/Sampling_4_1.png" />
