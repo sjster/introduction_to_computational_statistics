@@ -557,12 +557,15 @@ In most practical scenarios, the distributions are complex enough that it is dif
 </div>
 <div class="section" id="importance-sampling">
 <h2>Importance Sampling<a class="headerlink" href="#importance-sampling" title="Permalink to this headline">¶</a></h2>
-<p>Importance sampling is useful for computing terms such as the expectations of a function \(f(x)\) with distribution \(p(x)\). Ideally, we want to sample in space where the product \(f(x) p(x)\) is high since the expected value is computed as</p>
+<p>Importance sampling is useful for computing terms such as the expectation of a function \(f(x)\) with distribution \(p(x)\). Ideally, we want to sample in space where the product \(f(x) p(x)\) is high since the expected value is computed for a discrete distribution as</p>
 <div class="math notranslate nohighlight">
 \[E[f] = \sum_i p(x_i) f(x_i)\]</div>
-<p>Importance sampling is also based on the idea of using another proposal distribution that is easier to sample from compared to the original distribution p(x).</p>
-<p>$<span class="math notranslate nohighlight">\(E[f] = \int p(x) f(x) dx = \int \dfrac{p(x)}{q(x)} q(x) f(x) dx = \dfrac{1}{L} \sum_l \dfrac{p(x)}{q(x)} f(x) \)</span>$ where samples are drawn from q(x) instead of the difficult-to-sample-from distribution p(x).</p>
-<p>The \(\dfrac{p(x)}{q(x)}\) is known as the importance weights and correct the bias resulting from sampling from the wrong distribution. Unlike rejection sampling, all samples are retained. Similar to rejection sampling, the envelope disribution should be close to the desired distribution for efficient sampling.</p>
+<p>Or, for a continuous distribution as</p>
+<div class="math notranslate nohighlight">
+\[E[f] = \int p(x) f(x) dx \]</div>
+<p>Importance sampling is also based on the idea of using another proposal distribution that is easier to sample from, compared to the original distribution \(p(x)\).</p>
+<p>$<span class="math notranslate nohighlight">\(E[f] = \int p(x) f(x) dx = \int \dfrac{p(x)}{q(x)} q(x) f(x) dx \approx \dfrac{1}{L} \sum_l^{drawn\;from\;Q(x)} \dfrac{p(x)}{q(x)} f(x) \)</span>$ where samples are drawn from q(x) instead of the difficult-to-sample-from distribution p(x).</p>
+<p>The term \(\dfrac{p(x)}{q(x)}\) is known as the ‘importance weights’, and correct the bias resulting from sampling from the wrong distribution. Unlike rejection sampling, all samples are retained. Similar to rejection sampling, the envelope disribution should be close to the desired distribution for efficient sampling.</p>
 </div>
 <div class="section" id="id1">
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
