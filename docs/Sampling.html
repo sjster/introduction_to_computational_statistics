@@ -425,25 +425,25 @@ In most practical scenarios, the distributions are complex enough that it is dif
 </ul>
 <div class="math notranslate nohighlight">
 \[y = f(z)\]</div>
-<p><em><strong>We want to determine the function f(z) such that the distribution of values y formed by the transformation \( y = f(z)\) is our desired distribution.</strong></em></p>
-<p>The distribution of y will adhere to the following</p>
+<p><em><strong>We want to determine the function f(z) such that the distribution of values ‘y’ formed by the transformation \( y = f(z)\) is our desired distribution.</strong></em></p>
+<p>The distribution of ‘y’ will adhere to the following</p>
 <div class="math notranslate nohighlight">
 \[ p(y) = p(z) \lvert \dfrac{dz}{dy} \rvert\]</div>
-<p>If z has a uniform distribution this becomes</p>
+<p>If ‘z’ has a uniform distribution this becomes</p>
 <div class="math notranslate nohighlight">
 \[p(y) = \lvert \dfrac{dz}{dy} \rvert\]</div>
 <p>Integrating both sides, we get</p>
 <div class="math notranslate nohighlight">
 \[z = \int^y_{-\infty} p(y) dy = h(y)\]</div>
-<p>If you look at the integral, it is simply the CDF of y, i.e. h(y) is the CDF of y. If we apply the inverse of the CDF function, i.e. \(h^{-1}\), on both sides we get</p>
+<p>If you look at the integral, it is simply the CDF of ‘y’, i.e. h(y) is the CDF of ‘y’. If we apply the inverse of the CDF function, i.e. \(h^{-1}\), on both sides we get</p>
 <p><span class="math notranslate nohighlight">\(y = h^{-1} (z)\)</span></p>
-<p>The purpose of this transformation is to express ‘y’ as a function of ‘z’. If we sample from the z distribution, transform the values with the inverse of the CDF of the desired distribution (y), we get the values for y which will have the desired distribution</p>
+<p>The purpose of this transformation is to express ‘y’ as a function of ‘z’. If we sample from the ‘z’ distribution, transform the values with the inverse of the CDF of the desired distribution (y), we get the values for ‘y’ which will have the desired distribution</p>
 </div>
 <div class="section" id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
 <ol>
 <li><p>Calculate the inverse of the CDF of the desired distribution, given by \(F^{-1}\)</p></li>
-<li><p>Sample from z which is U[0,1]</p></li>
+<li><p>Sample from ‘z’ which is U[0,1]</p></li>
 <li><p>Use the sampled values from (2) as input to the inverse of the CDF <span class="math notranslate nohighlight">\(F^{-1}\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[Y \sim F^{-1} (U)\]</div>
