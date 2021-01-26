@@ -547,10 +547,10 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <li><p>If \(u_0 &gt; p(z_0)\), the sample is rejected otherwise save \(u_0\). By doing so, anything that falls under \(p(z)\) is saved and has a uniform distribution thereby obtaining the distribution of \(p(z)\)</p></li>
 <li><p>Continue with (1) until sufficient samples have been drawn</p></li>
 </ol>
-<p>The samples are accepted with probability \(\dfrac{p(z)}{k q(z)}\). For effective rejection sampling, we want the number of samples that are rejected to a minimum. This is possible only when the envelope distribution is close to the desired distribution. It is also inefficient to use in high dimensional spaces for the following reasons</p>
+<p>The samples are accepted with probability \(\dfrac{p(z)}{k q(z)}\). For effective rejection sampling, we want the number of samples that are rejected to be minimal. This is possible only when the envelope distribution is close to the desired distribution. It is also inefficient to use in high dimensional spaces for the following reasons</p>
 <ul class="simple">
 <li><p>The ideal value of k in a ‘D’ dimensional space is given by \( (\dfrac{\sigma_q}{\sigma_p})^D\) where \(\sigma\) is the variance of either distribution.</p></li>
-<li><p>The acceptance ratio for two normalized distributions with densities\(p(x)\) and \(q(x)\) is simply \(1/k\)</p></li>
+<li><p>The acceptance ratio for two normalized distributions with densities \(p(x)\) and \(q(x)\) is simply \(1/k\)</p></li>
 <li><p>This acceptance ratio now scales as the ratio \( (\dfrac{\sigma_p}{\sigma_q})^D\). If \( \sigma_q\) is greater than \( \sigma_p\), for D = 1000 the acceptance ratio is close to 1/20000</p></li>
 <li><p>In practical scenarios where the distributions are multimodal, this effect is exacerbated.</p></li>
 </ul>
