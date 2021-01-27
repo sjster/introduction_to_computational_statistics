@@ -18,7 +18,7 @@ The notebooks can be downloaded from each course page by clicking the tab on the
 
 ## Databricks Community Edition
 
-Databricks offers a [Community Edition](https://community.cloud.databricks.com/login.html) of their Data Science ecosystem for running experiments and notebooks. You can sign up for a free account and start running the notebooks for the course. The advantages for using Databricks over other Data Science ecosystems:
+Databricks offers a [Community Edition](https://community.cloud.databricks.com/login.html) of their Data Science ecosystem for running experiments in notebooks. You can sign up for a free account and start running the notebooks for the course. The advantages for using Databricks over other Data Science ecosystems:
 
 * Integration with MLflow for experiment management
 * Integration with Git for version control of your notebooks
