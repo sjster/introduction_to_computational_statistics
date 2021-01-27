@@ -7,7 +7,7 @@ The notebooks can be downloaded from each course page by clicking the tab on the
 
 ## Databricks Community Edition
 
-Databricks offers a [Community Edition](https://community.cloud.databricks.com/login.html) of their Data Science ecosystem for running experiments and notebooks. You can sign up for a free account and start running the notebooks for the course. The advantages for using Databricks over other Data Science ecosystems:
+Databricks offers a [Community Edition](https://community.cloud.databricks.com/login.html) of their Data Science ecosystem for running experiments in notebooks. You can sign up for a free account and start running the notebooks for the course. The advantages for using Databricks over other Data Science ecosystems:
 
 * Integration with MLflow for experiment management
 * Integration with Git for version control of your notebooks
@@ -23,11 +23,7 @@ One you are on a course page that has a Jupyter Notebook, click on the tab locat
 ## Anaconda
 
 The preferred Python distribution is
-[Anaconda](https://www.anaconda.com/what-is-anaconda/).
-
-Anaconda is a cross-platform distribution that has a fairly comprehensive set of packages 
-
-Anaconda comes with a  package management system to organize
+[Anaconda](https://www.anaconda.com/what-is-anaconda/). Anaconda is a cross-platform distribution that has a fairly comprehensive set of packages. Anaconda comes with a  package management system called `conda` to organize
 your environment.
 
 
@@ -40,18 +36,15 @@ You can use the `conda` command to create and manage your environments. Please r
 
 ## Jupyter Notebooks
 
-[Jupyter](http://jupyter.org/) notebooks are one of the many possible
-ways to interact with Python and the scientific libraries.
+[Jupyter](http://jupyter.org/) notebooks offer an integrated and intuitive enviroment for rapid prototyping, teaching and presenting Data Science and Scientific Computing applications written in Python, R and Julia (although there is growing suport for additional languages such as C++).
 
-They use a *browser-based* interface to Python with
+It uses a *browser-based* interface with the following capabilities (not comprehensive)
 
 -   The ability to write and execute Python commands.
 -   Formatted output in the browser, including tables, figures,
     animation, etc.
 -   The option to mix in formatted text and mathematical expressions.
 
-Because of these features, Jupyter is now a major player in the
-scientific computing ecosystem.
 
 {numref}`Figure %s <jp_demo>` shows the execution of some code (borrowed from
 [here](http://matplotlib.org/examples/pylab_examples/hexbin_demo.html))
@@ -63,14 +56,6 @@ in a Jupyter notebook
 
 A Jupyter notebook viewed in the browser
 ```
-
-While Jupyter isn\'t the only way to code in Python, it\'s great for
-when you wish to
-
--   get started
--   test new ideas or interact with small pieces of code
--   share scientific ideas with students or colleagues
-
 
 ### Starting the Jupyter Notebook
 
