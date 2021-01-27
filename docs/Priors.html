@@ -406,8 +406,11 @@
 <li><p>noninformative</p></li>
 <li><p>informative</p></li>
 </ul>
-<p>The priors can also be <strong>proper</strong>, ie conform to the rules of probability and integrate to 1, or <strong>improper</strong>.  As an example, consider the uniform distribution as a prior to the mean in a normal distribution, we want to apply equal weights to all possiblle values of <span class="math notranslate nohighlight">\(\mu\)</span>.  However, <span class="math notranslate nohighlight">\(\mu \in -\infty,\infty]\)</span> and our uniform prior must span the same range. Jeffrey’s prior is another example of an (often) improper prior discussed below.</p>
+<p>The priors can also be <strong>proper</strong>, ie conform to the rules of probability and integrate to 1, or <strong>improper</strong>.  As an example, consider the uniform distribution as a prior to the mean in a normal distribution, we want to apply equal weights to all possiblle values of <span class="math notranslate nohighlight">\(\mu\)</span>.  However, <span class="math notranslate nohighlight">\(\mu \in [-\infty,\infty]\)</span> and our uniform prior must span the same range. Jeffrey’s prior is another example of an (often) improper prior discussed below.</p>
 <p>The form of the prior is also a choice.  Convenient choices of priors can lead to closed form solutions for the posterior.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 <div class="section" id="conjugate-priors">
 <h3>Conjugate priors<a class="headerlink" href="#conjugate-priors" title="Permalink to this headline">¶</a></h3>
 <p>Conjugate priors are priors that induce a known distribution in the posterior.  When computing the posterior probability, if we have a justifiable reason for using pairing the likelihood which a conjugate prior, we will find the posterior probabality is a known distribution.  For example, consider</p>
@@ -424,13 +427,19 @@ Poisson - Gamma<br />
 Normal (known <span class="math notranslate nohighlight">\(\sigma^2\)</span>) - Normal<br />
 Normal (known <span class="math notranslate nohighlight">\(\mu\)</span>) - inverse-gamma<br />
 Multivariate normal (known <span class="math notranslate nohighlight">\(\Sigma\)</span>) - inverse-Wishart</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 <div class="section" id="noninformative-priors">
 <h3>Noninformative priors<a class="headerlink" href="#noninformative-priors" title="Permalink to this headline">¶</a></h3>
 <p>Noninformative priors are priors that suggest ignorance as to the parameters.  These are sometimes called vague or diffuse priors.  The priors generally cover the region of the parameter space relatively smoothly.  Common noninformative priors include <span class="math notranslate nohighlight">\(unif(-1000,1000)\)</span>, <span class="math notranslate nohighlight">\(N(0,10,000)\)</span>.  Note that seeminly vague priors can actually be strongly informative.  Consider the case of modeling a binary model for y following a Bernoulli distribution.  A common modeling technique would be to transform the problem using the logit function.  For instance:</p>
-<p><span class="math notranslate nohighlight">\(y ~ Bern(p)\)</span><br />
+<p><span class="math notranslate nohighlight">\(y \sim Bern(p)\)</span><br />
 <span class="math notranslate nohighlight">\(p=logit^{-1}(\beta_0 + \beta_1)\)</span></p>
 <p>Placing priors <span class="math notranslate nohighlight">\([\beta_0,\beta_1] \sim N(0,100)\)</span> places undue weight on 0 through the transform while using a weakly informative prior <span class="math notranslate nohighlight">\([\beta_0,\beta_1] \sim N(0,2^2)\)</span> gives a more diffuse effect on the parameter posterior.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 <div class="section" id="jeffrey-s-non-informative-prior">
 <h3>Jeffrey’s non-informative prior<a class="headerlink" href="#jeffrey-s-non-informative-prior" title="Permalink to this headline">¶</a></h3>
@@ -443,6 +452,9 @@ Multivariate normal (known <span class="math notranslate nohighlight">\(\Sigma\)
 <p><span class="math notranslate nohighlight">\(I_n(\beta) = \frac{n\alpha}{\beta^2}\)</span> leading to the Jeffrey’s prior for <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
 <p><span class="math notranslate nohighlight">\(p(\beta) \propto \sqrt{\frac{n\alpha}{\beta^2}} \propto 1\)</span></p>
 <p>Note that Jeffrey’s priors are not guaranteed to be proper.  Perhaps most importantly, Jeffrey’s priors are stable under reparameterization.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 <div class="section" id="informative-priors">
 <h3>Informative priors<a class="headerlink" href="#informative-priors" title="Permalink to this headline">¶</a></h3>
@@ -483,6 +495,9 @@ Multivariate normal (known <span class="math notranslate nohighlight">\(\Sigma\)
 <span class="math notranslate nohighlight">\(mode(x) = \frac{a-1}{(a+b-2)} = 0.77\)</span><br />
 <span class="math notranslate nohighlight">\(Var(x) = \frac{ab}{(a+b)^2(a+b+1)} = 0.05\)</span></p>
 <p>Tuning the prior to include slightly more confidence in the prior information may suggest a beta(16,6) which reduces the variance to 0.028.  These priors are vague in that the mass of the prior is still diffuse allowing the data to drive the posterior through the likelihood.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 </div>
 <div class="section" id="senstivity-analysis-of-priors">
@@ -490,10 +505,16 @@ Multivariate normal (known <span class="math notranslate nohighlight">\(\Sigma\)
 <p>The general approach to using priors in models is to start with some justification for a prior, run the analysis, then come up with competing priors and reexamine the conclusions under the alternative priors.  The results of the final model and the analysis of the sensitivity of the analysis to the choice of prior are written up as a package.</p>
 <p>For a discussion of steps and methods to use in a sensitivity analysis, see:
 Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, Aki Vehtari, and Donald Rubin.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 <div class="section" id="likelihood-prior">
 <h2>Likelihood * prior<a class="headerlink" href="#likelihood-prior" title="Permalink to this headline">¶</a></h2>
 <p>What we have been talking about is priors and thier influence on the likelihood in development of the posterior.  A few examples should help.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 <div class="section" id="example-binomial-beta">
 <h3>Example binomial-beta<a class="headerlink" href="#example-binomial-beta" title="Permalink to this headline">¶</a></h3>
 <p>Let us first consider the coin toss experiment above, as a reminder, we are given a presumable unfair coin with p(heads)=0.75.  Let us collect new data and analyze the posterior.  First, we are going to collect a series of tosses, so the likelihood is best given by a binomial distribution.  Examining the likelihood from the perspective of the parameter, <span class="math notranslate nohighlight">\(\theta\)</span>, we note both that the functional form of the likelihood appears to be that of a beta and the support of a beta, [0,1], vs the valid values of <span class="math notranslate nohighlight">\(\theta\)</span> match.</p>
@@ -600,6 +621,9 @@ Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, A
 <img alt="../_images/Priors_6_0.png" src="../_images/Priors_6_0.png" />
 </div>
 </div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
 </div>
 </div>
 <div class="section" id="ungraded-evaluation-15-min">
