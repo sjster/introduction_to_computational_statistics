@@ -2,6 +2,7 @@
 - file: docs/index
 - part:  Getting started
   chapters:
+    - file: docs/About.ipynb
     - file: docs/getting_started
     - file: docs/Databricks.ipynb
 - part: Introduction to Bayesian Statistics
