@@ -8,10 +8,10 @@
 - part: Introduction to Bayesian Statistics
   chapters:
     - file: docs/Production/Fundamentals-1-UNgraded.ipynb
-    - file: docs/CentralTendency.ipynb
-    - file: docs/ParameterEstimation.ipynb
-    - file: docs/Bayes.ipynb
-    - file: docs/Decisions.ipynb
+    - file: docs/Production/Fundamentals-2-UNgraded.ipynb
+    - file: docs/Production/Fundamentals-3-UNgraded.ipynb
+    - file: docs/Production/Fundamentals-4-UNgraded.ipynb
+    - file: docs/Production/Fundamentals-5-UNgraded.ipynb
     - file: docs/Priors.ipynb
     - file: docs/Intro.ipynb
     - file: docs/Distributions.ipynb
