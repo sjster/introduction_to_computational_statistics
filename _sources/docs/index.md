@@ -14,6 +14,8 @@ With this goal in mind, the content is divided into the following three main sec
 *  Introduction to Monte Carlo Methods
 *  PyMC3 for Bayesian Modeling and Inference
 
+Please read the section titled 'The What, Why and Whom...'
+
 ```{note}
 This draws a lot of inspiration from some brilliant people in this field and I will list those names here as this work is being developed.
 ```
