@@ -7,7 +7,7 @@
     - file: docs/Databricks.ipynb
 - part: Introduction to Bayesian Statistics
   chapters:
-    - file: docs/Foundations.ipynb
+    - file: docs/Production/Fundamentals-1-UNgraded.ipynb
     - file: docs/CentralTendency.ipynb
     - file: docs/ParameterEstimation.ipynb
     - file: docs/Bayes.ipynb

@@ -42,13 +42,3 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: mini_book/_build/html
 
-    - name: Push directory to another repository
-      uses: cpina/github-action-push-to-another-repository@v1.2
-      env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      with:
-          source-directory: 'mini_book/_build/'
-          destination-github-username: 'sjster'
-          destination-repository-name: 'introduction_to_computational_statistics_pymc3'
-          user-email: sjster@gmail.com
-
