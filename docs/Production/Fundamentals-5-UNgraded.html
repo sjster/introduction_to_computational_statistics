@@ -6,46 +6,46 @@
     <meta charset="utf-8" />
     <title>Inference and Decisions &#8212; Introduction to Computational Statistics with PyMC3</title>
     
-  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
   <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
   <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -54,11 +54,9 @@
         const thebe_selector_input = "pre,.cell_input div.highlight"
         const thebe_selector_output = ".output,.cell_output"
     </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Priors" href="Priors.html" />
-    <link rel="prev" title="Introduction to the Bayes Theorem" href="Bayes.html" />
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -75,15 +73,15 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../index.html">
+<a class="navbar-brand text-wrap" href="../../index.html">
   
-  <img src="../_static/logo_large.png" class="logo" alt="logo">
+  <img src="../../_static/logo_large.png" class="logo" alt="logo">
   
   
   <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
   
 </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form>
@@ -95,17 +93,17 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="About.html">
+  <a class="reference internal" href="../About.html">
    The What, Why and Whom…
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="getting_started.html">
+  <a class="reference internal" href="../getting_started.html">
    Setting up Your Python Environment
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Databricks.html">
+  <a class="reference internal" href="../Databricks.html">
    Introduction to the Databricks Environment
   </a>
  </li>
@@ -115,49 +113,49 @@
   Introduction to Bayesian Statistics
  </span>
 </p>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="Foundations.html">
+  <a class="reference internal" href="../Foundations.html">
    Foundations of Probability
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="CentralTendency.html">
+  <a class="reference internal" href="../CentralTendency.html">
    Distributions, Central Tendency, and Shape Parameters
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ParameterEstimation.html">
+  <a class="reference internal" href="../ParameterEstimation.html">
    Parameter Estimation
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Bayes.html">
+  <a class="reference internal" href="../Bayes.html">
    Introduction to the Bayes Theorem
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Decisions.html">
    Inference and Decisions
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Priors.html">
+  <a class="reference internal" href="../Priors.html">
    Priors
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Intro.html">
+  <a class="reference internal" href="../Intro.html">
    Bayesian vs. Frequentist Statistics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Distributions.html">
+  <a class="reference internal" href="../Distributions.html">
    Introduction to Common Distributions
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Sampling.html">
+  <a class="reference internal" href="../Sampling.html">
    Sampling Strategies
   </a>
  </li>
@@ -169,12 +167,12 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="BayesianInference.html">
+  <a class="reference internal" href="../BayesianInference.html">
    Topics in Model Performance
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="MonteCarlo.html">
+  <a class="reference internal" href="../MonteCarlo.html">
    Introduction to Monte Carlo Methods
   </a>
  </li>
@@ -186,17 +184,17 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="PyMC3.html">
+  <a class="reference internal" href="../PyMC3.html">
    Introduction to PyMC3
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Reparameterization.html">
+  <a class="reference internal" href="../Reparameterization.html">
    Reparameterization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Covid_modeling.html">
+  <a class="reference internal" href="../Covid_modeling.html">
    Covid Modeling with PyMC3
   </a>
  </li>
@@ -240,7 +238,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/docs/Decisions.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/Fundamentals-5-UNgraded.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -265,17 +263,17 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Decisions.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Fundamentals-5-UNgraded.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
+                    src="../../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Decisions.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Fundamentals-5-UNgraded.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
+                    src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
         
         <button type="button" class="btn btn-secondary topbarbtn"
@@ -498,7 +496,7 @@
 [0.4, 0.65]
 </pre></div>
 </div>
-<img alt="../_images/Decisions_2_1.png" src="../_images/Decisions_2_1.png" />
+<img alt="../../_images/Fundamentals-5-UNgraded_2_1.png" src="../../_images/Fundamentals-5-UNgraded_2_1.png" />
 </div>
 </div>
 <p>Knowing we are going to make mistakes, we introduce the idea of a loss function.  Loss functions (also called cost functions or as a positive, a utility functions), is a function that we create that captures the goal of minimizing errors but allows for differences in magnetude for consequences of the mistakes.  The goal is now to minimize the average loss:</p>
@@ -648,7 +646,7 @@ P(not B) = Probability of Negative Prediction (NP)</p>
 <h3>1. Categorical cross entropy can be used when multiple classes are to be differentiated.  For each sample, you expect the output of the algorithm to give<a class="headerlink" href="#categorical-cross-entropy-can-be-used-when-multiple-classes-are-to-be-differentiated-for-each-sample-you-expect-the-output-of-the-algorithm-to-give" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. A single probability giving the probability of being correct  
 
-b. 4 probabilities representing the probability of assignment to each class (C)  
+b. 4 probabilities representing the probability of assignment to each class  
 </pre></div>
 </div>
 </div>
@@ -656,13 +654,13 @@ b. 4 probabilities representing the probability of assignment to each class (C)
 <h3>2.  The loss in for a correct assignment in a binary trial is always 0<a class="headerlink" href="#the-loss-in-for-a-correct-assignment-in-a-binary-trial-is-always-0" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. true  
 
-b. false (C)
+b. false
 </pre></div>
 </div>
 </div>
 <div class="section" id="you-are-building-a-classifier-to-classify-dogs-vs-cats-where-dogs-1-your-algorithm-is-presented-with-the-following-set-of-images-1-0-1-0-1-0-0-1-1-1-and-gives-the-following-predictions-1-0-0-0-1-1-1-0-0-1-with-respect-to-classifying-dogs-the-sensitivity-is">
 <h3>3. You are building a classifier to classify dogs vs cats.  Where dogs =1, your algorithm is presented with the following set of images {1 0 1 0 1 0 0 1 1 1} and gives the following predictions {1 0 0 0 1 1 1 0 0 1}.  With respect to classifying dogs, the sensitivity is:<a class="headerlink" href="#you-are-building-a-classifier-to-classify-dogs-vs-cats-where-dogs-1-your-algorithm-is-presented-with-the-following-set-of-images-1-0-1-0-1-0-0-1-1-1-and-gives-the-following-predictions-1-0-0-0-1-1-1-0-0-1-with-respect-to-classifying-dogs-the-sensitivity-is" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. 0.5  (C)  
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. 0.5    
 
 b. 0.83 
 
@@ -678,7 +676,7 @@ b. false positives
 
 c. false negatives  
 
-d. true negatives  (C)  
+d. true negatives    
 </pre></div>
 </div>
 </div>
@@ -688,7 +686,7 @@ d. true negatives  (C)
 
 b. false negatives are more problematic than false positives  
 
-c both false positives and false negatives are equally problematic  (C)  
+c both false positives and false negatives are equally problematic    
 </pre></div>
 </div>
 </div>
@@ -696,7 +694,7 @@ c both false positives and false negatives are equally problematic  (C)
 <h3>6. In your spam classifier, you choose to weight the choice as spam or not differently, you should<a class="headerlink" href="#in-your-spam-classifier-you-choose-to-weight-the-choice-as-spam-or-not-differently-you-should" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. choose a penalized regression to dampen the weights 
 
-b. choose a custom categorical loss function to allow setting importance of decisions  (C)  
+b. choose a custom categorical loss function to allow setting importance of decisions    
 </pre></div>
 </div>
 </div>
@@ -705,11 +703,11 @@ b. choose a custom categorical loss function to allow setting importance of deci
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>Cost functions are measures of fit.</p>
-<p>a. true (C)</p>
+<p>a. true</p>
 <p>b. false</p>
 </li>
 <li><p>Cost functions are only useful in categorical decision settings.</p>
-<p>a. false (C)</p>
+<p>a. false</p>
 <p>b. true</p>
 </li>
 <li><p>The following is a valid example of a cost function:</p>
@@ -721,7 +719,7 @@ b. choose a custom categorical loss function to allow setting importance of deci
      100, \text{for predict disease, actual no disease} \\
  \end{cases}
  \)</span></p>
-<p>b. (C)</p>
+<p>b.</p>
 <p><span class="math notranslate nohighlight">\(L(\theta,a) = 
  \begin{cases}
      0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
@@ -737,7 +735,7 @@ b. choose a custom categorical loss function to allow setting importance of deci
 [0.45,0.10,0.20,0.25],
 [0.01,0.01,0.01,0.96]])</p>
 <p>a. A,B,C,B</p>
-<p>b. D,B,D,A,D (C)</p>
+<p>b. D,B,D,A,D</p>
 <p>c. D,B,C,E</p>
 </li>
 </ol>
@@ -757,7 +755,7 @@ b. choose a custom categorical loss function to allow setting importance of deci
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./docs"
+            path: "./docs/Production"
         },
         predefinedOutput: true
     }
@@ -772,8 +770,6 @@ b. choose a custom categorical loss function to allow setting importance of deci
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Bayes.html" title="previous page">Introduction to the Bayes Theorem</a>
-    <a class='right-next' id="next-link" href="Priors.html" title="next page">Priors</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
@@ -793,7 +789,7 @@ b. choose a custom categorical loss function to allow setting importance of deci
     </div>
 
     
-  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     

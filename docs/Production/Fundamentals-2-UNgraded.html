@@ -6,46 +6,46 @@
     <meta charset="utf-8" />
     <title>Distributions, Central Tendency, and Shape Parameters &#8212; Introduction to Computational Statistics with PyMC3</title>
     
-  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
   <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
   <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -54,11 +54,9 @@
         const thebe_selector_input = "pre,.cell_input div.highlight"
         const thebe_selector_output = ".output,.cell_output"
     </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Parameter Estimation" href="ParameterEstimation.html" />
-    <link rel="prev" title="Foundations of Probability" href="Foundations.html" />
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -75,15 +73,15 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../index.html">
+<a class="navbar-brand text-wrap" href="../../index.html">
   
-  <img src="../_static/logo_large.png" class="logo" alt="logo">
+  <img src="../../_static/logo_large.png" class="logo" alt="logo">
   
   
   <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
   
 </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form>
@@ -95,17 +93,17 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="About.html">
+  <a class="reference internal" href="../About.html">
    The What, Why and Whom…
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="getting_started.html">
+  <a class="reference internal" href="../getting_started.html">
    Setting up Your Python Environment
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Databricks.html">
+  <a class="reference internal" href="../Databricks.html">
    Introduction to the Databricks Environment
   </a>
  </li>
@@ -115,49 +113,49 @@
   Introduction to Bayesian Statistics
  </span>
 </p>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="Foundations.html">
+  <a class="reference internal" href="../Foundations.html">
    Foundations of Probability
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../CentralTendency.html">
    Distributions, Central Tendency, and Shape Parameters
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="ParameterEstimation.html">
+  <a class="reference internal" href="../ParameterEstimation.html">
    Parameter Estimation
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Bayes.html">
+  <a class="reference internal" href="../Bayes.html">
    Introduction to the Bayes Theorem
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Decisions.html">
+  <a class="reference internal" href="../Decisions.html">
    Inference and Decisions
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Priors.html">
+  <a class="reference internal" href="../Priors.html">
    Priors
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Intro.html">
+  <a class="reference internal" href="../Intro.html">
    Bayesian vs. Frequentist Statistics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Distributions.html">
+  <a class="reference internal" href="../Distributions.html">
    Introduction to Common Distributions
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Sampling.html">
+  <a class="reference internal" href="../Sampling.html">
    Sampling Strategies
   </a>
  </li>
@@ -169,12 +167,12 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="BayesianInference.html">
+  <a class="reference internal" href="../BayesianInference.html">
    Topics in Model Performance
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="MonteCarlo.html">
+  <a class="reference internal" href="../MonteCarlo.html">
    Introduction to Monte Carlo Methods
   </a>
  </li>
@@ -186,17 +184,17 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="PyMC3.html">
+  <a class="reference internal" href="../PyMC3.html">
    Introduction to PyMC3
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Reparameterization.html">
+  <a class="reference internal" href="../Reparameterization.html">
    Reparameterization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Covid_modeling.html">
+  <a class="reference internal" href="../Covid_modeling.html">
    Covid Modeling with PyMC3
   </a>
  </li>
@@ -240,7 +238,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/docs/CentralTendency.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/Fundamentals-2-UNgraded.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -265,17 +263,17 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/CentralTendency.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Fundamentals-2-UNgraded.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
+                    src="../../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/CentralTendency.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Fundamentals-2-UNgraded.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
+                    src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
         
         <button type="button" class="btn btn-secondary topbarbtn"
@@ -507,7 +505,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/CentralTendency_4_0.png" src="../_images/CentralTendency_4_0.png" />
+<img alt="../../_images/Fundamentals-2-UNgraded_4_0.png" src="../../_images/Fundamentals-2-UNgraded_4_0.png" />
 </div>
 </div>
 </div>
@@ -611,17 +609,17 @@
 <p><span class="math notranslate nohighlight">\(X\sim exp(\lambda)\)</span></p>
 <p>pdf: <span class="math notranslate nohighlight">\(f(x|\lambda) = \lambda e^{-\lambda x}, x,\lambda \in \mathbb{R}_+,\mathbb{R}&gt;0\)</span></p>
 <p>Find the cdf of X via integration.</p>
-<p>a. <span class="math notranslate nohighlight">\(1-e^{-\lambda}\)</span> (C)</p>
-<p>b. <span class="math notranslate nohighlight">\(1+e^{-\lambda}\)</span></p>
+<p>a. <span class="math notranslate nohighlight">\(1-e^{-\lambda}x\)</span></p>
+<p>b. <span class="math notranslate nohighlight">\(1+e^{-\lambda}x\)</span></p>
 </li>
 <li><p>Find the expection of a function</p>
 <p>Assuming <span class="math notranslate nohighlight">\(X \sim exp(\lambda)\)</span>, find the expection of <span class="math notranslate nohighlight">\(g(x)=x^2\)</span>.</p>
 <p>a. <span class="math notranslate nohighlight">\(\frac{1}{\lambda^2}\)</span></p>
-<p>b. <span class="math notranslate nohighlight">\(\frac{2}{\lambda^2}\)</span> (C)</p>
+<p>b. <span class="math notranslate nohighlight">\(\frac{2}{\lambda^2}\)</span></p>
 </li>
 <li><p>Correlation of X and Y equals 0.  Are X and Y independent?</p>
 <p>a. yes</p>
-<p>b. can’t tell (C)</p>
+<p>b. can’t tell</p>
 </li>
 </ol>
 </div>
@@ -630,17 +628,17 @@
 <ol>
 <li><p>Are X and Y independent?</p>
 <p><span class="math notranslate nohighlight">\(f(x,y) = \frac{1}{57}xy^6e^{-y-x},x&gt;0,y&gt;0\)</span></p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>The marginal distribution of X</p>
 <p><span class="math notranslate nohighlight">\(f(x,y) = 4xy; x,y \in [0,1]\)</span></p>
-<p>a. A function of x (C)</p>
+<p>a. A function of x</p>
 <p>b. A function of y</p>
 </li>
 <li><p>Find the marginal distribution of x in <span class="math notranslate nohighlight">\(f(x,y)\)</span> from the last problem.</p>
-<p>a. 2x  (c)</p>
-<p>b. 2y</p>
+<p>a. 4x</p>
+<p>b. 4y</p>
 </li>
 </ol>
 </div>
@@ -659,7 +657,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./docs"
+            path: "./docs/Production"
         },
         predefinedOutput: true
     }
@@ -674,8 +672,6 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Foundations.html" title="previous page">Foundations of Probability</a>
-    <a class='right-next' id="next-link" href="ParameterEstimation.html" title="next page">Parameter Estimation</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
@@ -695,7 +691,7 @@
     </div>
 
     
-  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     
