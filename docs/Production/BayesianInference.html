@@ -418,19 +418,25 @@
 </ul>
 <div class="section" id="r-2-and-explained-variance">
 <h2><span class="math notranslate nohighlight">\(R^2\)</span> and Explained Variance<a class="headerlink" href="#r-2-and-explained-variance" title="Permalink to this headline">¶</a></h2>
-<p>If we observe data given by <span class="math notranslate nohighlight">\(y_i\)</span> such that the fitted model predicts <span class="math notranslate nohighlight">\(f_i\)</span> for each point i, we can write <span class="math notranslate nohighlight">\(y_{mean}\)</span> as</p>
-<p><span class="math notranslate nohighlight">\(y_{mean} = \dfrac{1}{n} \sum_i y_i\)</span></p>
+<p>If we observe data given by \(y_i\) such that the fitted model predicts \(f_i\) for each point i, we can write \(y_{mean}\) as</p>
+<div class="math notranslate nohighlight">
+\[y_{mean} = \dfrac{1}{n} \sum_i y_i\]</div>
 <p>Total sum of squares, which is proportional to the variance of the data, is</p>
-<p><span class="math notranslate nohighlight">\(SS_{tot} = \sum_i (y_i - y_{mean})^2\)</span></p>
+<div class="math notranslate nohighlight">
+\[SS_{tot} = \sum_i (y_i - y_{mean})^2\]</div>
 <p>The residual sum of squares (also called the error) is defined as</p>
-<p><span class="math notranslate nohighlight">\(SS_{res} = \sum_i (y_i - f_i)^2\)</span></p>
-<p><span class="math notranslate nohighlight">\(R^2\)</span> is defined as</p>
-<p><span class="math notranslate nohighlight">\(R^2 = 1 - \dfrac{SS_{res}}{SS_{tot}}\)</span></p>
-<p><span class="math notranslate nohighlight">\(R^2\)</span> is 1 for a model that perfectly fits the observed data, i.e. <span class="math notranslate nohighlight">\(f_i\)</span> = <span class="math notranslate nohighlight">\(y_i\)</span> for all i. If the model predicts <span class="math notranslate nohighlight">\(y_{mean}\)</span> always then <span class="math notranslate nohighlight">\(SS_{res} = SS_{tot}\)</span> and <span class="math notranslate nohighlight">\(R^2 = 0\)</span>, this indicates a baseline model to which all other models can be compared. Any model that performs worse than this will have a negative <span class="math notranslate nohighlight">\(R^2\)</span> score.</p>
-<p>The term <span class="math notranslate nohighlight">\(\dfrac{SS_{res}}{SS_{tot}}\)</span> is also called Unexplained Variance. Therefore</p>
-<p><span class="math notranslate nohighlight">\(R^2 = 1 - Unexplained Variance\)</span></p>
+<div class="math notranslate nohighlight">
+\[SS_{res} = \sum_i (y_i - f_i)^2\]</div>
+<p>((R^2)) is defined as</p>
+<div class="math notranslate nohighlight">
+\[R^2 = 1 - \dfrac{SS_{res}}{SS_{tot}}\]</div>
+<p>\(R^2\) is 1 for a model that perfectly fits the observed data, i.e. <span class="math notranslate nohighlight">\(f_i\)</span> = <span class="math notranslate nohighlight">\(y_i\)</span> for all i. If the model predicts \(y_{mean}\) always then \(SS_{res} = SS_{tot}\) and \(R^2 = 0\), this indicates a baseline model to which all other models can be compared. Any model that performs worse than this will have a negative \(R^2\) score.</p>
+<p>The term \(\dfrac{SS_{res}}{SS_{tot}}\) is also called Unexplained Variance. Therefore</p>
+<div class="math notranslate nohighlight">
+\[R^2 = 1 - Unexplained Variance\]</div>
 <p>or</p>
-<p><span class="math notranslate nohighlight">\(R^2 = Explained Variance\)</span></p>
+<div class="math notranslate nohighlight">
+\[R^2 = Explained Variance\]</div>
 </div>
 <div class="section" id="underfitting-vs-overfitting">
 <h2>Underfitting vs. Overfitting<a class="headerlink" href="#underfitting-vs-overfitting" title="Permalink to this headline">¶</a></h2>
