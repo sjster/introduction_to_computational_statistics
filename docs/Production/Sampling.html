@@ -6,46 +6,46 @@
     <meta charset="utf-8" />
     <title>Sampling Algorithms &#8212; Introduction to Computational Statistics with PyMC3</title>
     
-  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
     
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     
       
   <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
   <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
-    <script src="../_static/togglebutton.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="../../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
@@ -54,9 +54,11 @@
         const thebe_selector_input = "pre,.cell_input div.highlight"
         const thebe_selector_output = ".output,.cell_output"
     </script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Topics in Model Performance" href="../BayesianInference.html" />
+    <link rel="prev" title="Introduction to Common Distributions" href="Distributions.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -73,15 +75,15 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../index.html">
+<a class="navbar-brand text-wrap" href="../../index.html">
   
-  <img src="../_static/logo_large.png" class="logo" alt="logo">
+  <img src="../../_static/logo_large.png" class="logo" alt="logo">
   
   
   <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
   
 </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form>
@@ -93,17 +95,17 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="About.html">
+  <a class="reference internal" href="../About.html">
    The What, Why and Whom…
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="getting_started.html">
+  <a class="reference internal" href="../getting_started.html">
    Setting up Your Python Environment
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Databricks.html">
+  <a class="reference internal" href="../Databricks.html">
    Introduction to the Databricks Environment
   </a>
  </li>
@@ -113,49 +115,49 @@
   Introduction to Bayesian Statistics
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="Production/Fundamentals-1-UNgraded.html">
+  <a class="reference internal" href="Fundamentals-1-UNgraded.html">
    Foundations of Probability
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Production/Fundamentals-2-UNgraded.html">
+  <a class="reference internal" href="Fundamentals-2-UNgraded.html">
    Distributions, Central Tendency, and Shape Parameters
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Production/Fundamentals-3-UNgraded.html">
+  <a class="reference internal" href="Fundamentals-3-UNgraded.html">
    Parameter Estimation
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Production/Fundamentals-4-UNgraded.html">
+  <a class="reference internal" href="Fundamentals-4-UNgraded.html">
    Introduction to the Bayes Theorem
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Production/Fundamentals-5-UNgraded.html">
+  <a class="reference internal" href="Fundamentals-5-UNgraded.html">
    Inference and Decisions
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Priors.html">
+  <a class="reference internal" href="../Priors.html">
    Priors
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Production/Intro.html">
+  <a class="reference internal" href="Intro.html">
    Bayesian vs. Frequentist Statistics
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Production/Distributions.html">
+  <a class="reference internal" href="Distributions.html">
    Introduction to Common Distributions
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Production/Sampling.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Sampling Algorithms
   </a>
  </li>
@@ -167,12 +169,12 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="BayesianInference.html">
+  <a class="reference internal" href="../BayesianInference.html">
    Topics in Model Performance
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="MonteCarlo.html">
+  <a class="reference internal" href="../MonteCarlo.html">
    Introduction to Monte Carlo Methods
   </a>
  </li>
@@ -184,17 +186,17 @@
 </p>
 <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="PyMC3.html">
+  <a class="reference internal" href="../PyMC3.html">
    Introduction to PyMC3
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Reparameterization.html">
+  <a class="reference internal" href="../Reparameterization.html">
    Reparameterization
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="Covid_modeling.html">
+  <a class="reference internal" href="../Covid_modeling.html">
    Covid Modeling with PyMC3
   </a>
  </li>
@@ -238,7 +240,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/docs/Sampling.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/Sampling.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -263,17 +265,17 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Sampling.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Sampling.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
+                    src="../../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Sampling.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Sampling.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
+                    src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
         
         <button type="button" class="btn btn-secondary topbarbtn"
@@ -405,7 +407,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <div class="section" id="arbitrary-non-uniform-discrete-distributions">
 <h3>Arbitrary (Non-uniform) Discrete Distributions<a class="headerlink" href="#arbitrary-non-uniform-discrete-distributions" title="Permalink to this headline">¶</a></h3>
 <p>To generate an arbitrary distribution, we can use the continuous uniform distribution and sample from it followed by a transform such that we get our desired distribution. In the figure below, we have divided the uniform continuous distribution U[0,1] into ‘n’ sections with uneven lengths, given by \(p_1, p_2, p_3…p_n\) (here n = 5) such that \(\sum p_i = 1\)</p>
-<p><img alt="Interval Transformation" src="../_images/transformation.png" /></p>
+<p><img alt="Interval Transformation" src="docs/Production/transformation.png" /></p>
 <p>If we want to sample from a arbitrary discrete set \(A = {a_1, a_2…a_n}\), with probabilities given by \(p_1, p_2, p_3…p_n\) all we have to do is sample from the uniform continuous distribution U[0,1] since the interval \(i\) will be picked with probability \(p_i\) corresponding to the set element \(a_i\).</p>
 </div>
 </div>
@@ -496,8 +498,8 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Analytical form of the desired Exponential distribution&#39;)
 </pre></div>
 </div>
-<img alt="../_images/Sampling_4_11.png" src="../_images/Sampling_4_11.png" />
-<img alt="../_images/Sampling_4_21.png" src="../_images/Sampling_4_21.png" />
+<img alt="../../_images/Sampling_4_1.png" src="../../_images/Sampling_4_1.png" />
+<img alt="../../_images/Sampling_4_2.png" src="../../_images/Sampling_4_2.png" />
 </div>
 </div>
 </div>
@@ -513,24 +515,24 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>Most real distributions are difficult to sample from with uniform sampling</p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>Uniform sampling is inefficient as the number of dimensions grow</p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>In high-dimensional spaces, most of the mass in the probability density is concentrated in a small region</p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>Ideally we want to sample from regions where the function f(x) and the probability density p(x) is high</p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>The Inverse Transform Method uses</p>
 <p>a. The inverse of the PDF to generate our desired distribution</p>
-<p>a. the inverse of the CDF to generate our desired distribution (C)</p>
+<p>a. the inverse of the CDF to generate our desired distribution</p>
 </li>
 </ol>
 </div>
@@ -542,7 +544,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <li><p>\(p(z)\) is difficult to sample from but we can evaluate it up to a certain proportionality constant.</p></li>
 <li><p>A constant ‘k’ such that \(k q(z) &gt;= p(z)\) for all values of ‘z’. This forms an envelope around p(z) denoted by \(kq(z)\)</p></li>
 </ol>
-<p><img alt="Sampling" src="../_images/sampling_distribution1.png" /></p>
+<p><img alt="Sampling" src="../../_images/sampling_distribution.png" /></p>
 <p>Given the above densities, we use the following steps</p>
 <ol class="simple">
 <li><p>Draw \(z_0\) from \(q(z)\) and compute \(k q(z_0)\)</p></li>
@@ -574,24 +576,24 @@ In most practical scenarios, the distributions are complex enough that it is dif
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>The rejection process in rejection sampling corrects the errors introduced by the approximation</p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>The proposal density is easier to sample than the desired distribution</p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>In rejection sampling, the proposal density ‘envelopes’ the desired distribution</p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>Importance sampling can be used to compute the expectation of a function f(x)</p>
-<p>a. True (C)</p>
+<p>a. True</p>
 <p>b. False</p>
 </li>
 <li><p>In importance sampling</p>
 <p>a. Some samples are retained</p>
-<p>b. All samples are retained (C)</p>
+<p>b. All samples are retained</p>
 </li>
 </ol>
 </div>
@@ -610,7 +612,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./docs"
+            path: "./docs/Production"
         },
         predefinedOutput: true
     }
@@ -625,6 +627,8 @@ In most practical scenarios, the distributions are complex enough that it is dif
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="Distributions.html" title="previous page">Introduction to Common Distributions</a>
+    <a class='right-next' id="next-link" href="../BayesianInference.html" title="next page">Topics in Model Performance</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
@@ -644,7 +648,7 @@ In most practical scenarios, the distributions are complex enough that it is dif
     </div>
 
     
-  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
 
 
     
