@@ -1,18 +1,20 @@
 # Computational Statistics for Bayesian Inference with PyMC3 
 
 
-This series of notebooks and material is being put together by Dr.Srijith Rajamohan with the introductory lectures on the foundations of Probability and the Bayes Theorem being offered by Dr. Robert Settlage. The purpose of this series is to teach the basics of Bayesian statistics for the purpose of performing Inference. This is not intended to be a comprehensive course that teaches the basics of statistics and probability nor does it cover Frequentist statistical techniques based on the Null Hypothesis Significance Testing (NHST). What it does cover is:
+This series of notebooks and material is being put together by Dr. Srijith Rajamohan with the introductory lectures on the foundations of Probability and the Bayes Theorem being offered by Dr. Robert Settlage. The purpose of this series is to teach the basics of Bayesian statistics for the purpose of performing Inference. This is not intended to be a comprehensive course that teaches the basics of statistics and probability nor does it cover Frequentist statistical techniques based on the Null Hypothesis Significance Testing (NHST). What it does cover is:
 
 * The basics of Bayesian probability
 * Understanding Bayesian inference and how it works
 * The bare-minimum set of tools and a body of knowledge required to perform Bayesian inference in Python, i.e. the PyData stack of NumPy, Pandas, Scipy, Matplotlib, Seaborn and Plot.ly
 * A scalable Python-based framework for performing Bayesian inference, i.e. PyMC3
 
-With this goal in mind, the content is divided into the following three main sections.
+With this goal in mind, the content is divided into the following three main sections (courses).
 
 *  Introduction to Bayesian Statistics 
 *  Introduction to Monte Carlo Methods
 *  PyMC3 for Bayesian Modeling and Inference
+
+Please read the section titled 'The What, Why and Whom...'.
 
 ```{note}
 This draws a lot of inspiration from some brilliant people in this field and I will list those names here as this work is being developed.
