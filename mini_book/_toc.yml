@@ -12,7 +12,7 @@
     - file: docs/Production/Fundamentals-3-UNgraded.ipynb
     - file: docs/Production/Fundamentals-4-UNgraded.ipynb
     - file: docs/Production/Fundamentals-5-UNgraded.ipynb
-    - file: docs/Priors.ipynb
+    - file: docs/Production/Priors-UNgraded.ipynb
     - file: docs/Production/Intro.ipynb
     - file: docs/Production/Distributions.ipynb
     - file: docs/Production/Sampling.ipynb
