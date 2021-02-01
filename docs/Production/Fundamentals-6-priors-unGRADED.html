@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Bayesian vs. Frequentist Statistics" href="Intro.html" />
+    <link rel="prev" title="Inference and Decisions" href="Fundamentals-5b-decision_loss-unGRADED.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -113,7 +115,7 @@
   Introduction to Bayesian Statistics
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="Fundamentals-1-belief-probability-unGRADED.html">
    Foundations of Probability
@@ -194,8 +196,8 @@
    Inference and Decisions
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Fundamentals-6-priors-unGRADED.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Priors
   </a>
  </li>
@@ -293,7 +295,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/docs/Production/Priors-UNgraded.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/Fundamentals-6-priors-unGRADED.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -318,7 +320,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Priors-UNgraded.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Fundamentals-6-priors-unGRADED.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -326,7 +328,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Priors-UNgraded.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Fundamentals-6-priors-unGRADED.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -433,11 +435,14 @@
   <div class="section" id="priors">
 <h1>Priors<a class="headerlink" href="#priors" title="Permalink to this headline">¶</a></h1>
 <p>Bayes’ Rule gives us a method to update our beleifs based on prior knowledge.  In words, this looks like:</p>
-<p><span class="math notranslate nohighlight">\(posterior = \frac{likelihood \ast prior}{marginal}\)</span></p>
+<div class="math notranslate nohighlight">
+\[posterior = \frac{likelihood \ast prior}{marginal}\]</div>
 <p>Which can also be stated as:</p>
-<p><span class="math notranslate nohighlight">\(posterior = \frac{likelihood \ast prior}{evidence}\)</span></p>
-<p>Or, being explicit about data <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> and parameters <span class="math notranslate nohighlight">\(\theta\)</span>, we might write it as:</p>
-<p><span class="math notranslate nohighlight">\(p(\theta|\mathcal{D}) = \frac{p(\mathcal{D}|\theta) \ast p(\theta)}{p(\mathcal{D})}\)</span></p>
+<div class="math notranslate nohighlight">
+\[posterior = \frac{likelihood \ast prior}{evidence}\]</div>
+<p>Or, being explicit about data \(\mathcal{D}\) and parameters \(\theta\), we might write it as:</p>
+<div class="math notranslate nohighlight">
+\[p(\theta|\mathcal{D}) = \frac{p(\mathcal{D}|\theta) \ast p(\theta)}{p(\mathcal{D})}\]</div>
 <p>This is a change in frame of reference with respect to variable data and fixed parameters which is the hallmark of Bayesian thinking.  After you observe the data, it is fixed.  This session we will talk about priors, how to think about the prior and what influence it has on the posterior.</p>
 <p>General references:</p>
 <ul class="simple">
@@ -464,7 +469,7 @@
 <li><p>noninformative</p></li>
 <li><p>informative</p></li>
 </ul>
-<p>The priors can also be <strong>proper</strong>, ie conform to the rules of probability and integrate to 1, or <strong>improper</strong>.  As an example, consider the uniform distribution as a prior to the mean in a normal distribution, we want to apply equal weights to all possiblle values of <span class="math notranslate nohighlight">\(\mu\)</span>.  However, <span class="math notranslate nohighlight">\(\mu \in [-\infty,\infty]\)</span> and our uniform prior must span the same range. Jeffrey’s prior is another example of an (often) improper prior discussed below.</p>
+<p>The priors can also be <strong>proper</strong>, ie conform to the rules of probability and integrate to 1, or <strong>improper</strong>.  As an example, consider the uniform distribution as a prior to the mean in a normal distribution, we want to apply equal weights to all possiblle values of \(\mu\).  However, \(\mu \in [-\infty,\infty]\) and our uniform prior must span the same range. Jeffrey’s prior is another example of an (often) improper prior discussed below.</p>
 <p>The form of the prior is also a choice.  Convenient choices of priors can lead to closed form solutions for the posterior.</p>
 <br>
 <br>
@@ -472,19 +477,21 @@
 <div class="section" id="conjugate-priors">
 <h3>Conjugate priors<a class="headerlink" href="#conjugate-priors" title="Permalink to this headline">¶</a></h3>
 <p>Conjugate priors are priors that induce a known distribution in the posterior.  When computing the posterior probability, if we have a justifiable reason for using pairing the likelihood which a conjugate prior, we will find the posterior probabality is a known distribution.  For example, consider</p>
-<p><span class="math notranslate nohighlight">\(X \sim Bern(\theta)\)</span></p>
+<div class="math notranslate nohighlight">
+\[X \sim Bern(\theta)\]</div>
 <p>The likelihood takes the form:</p>
-<p><span class="math notranslate nohighlight">\(f(x|\theta) = \prod_{i=1}^n \theta^{x_i}(1-\theta)^{1-x_i} = \theta^{k}(1-\theta)^{n-k}\)</span>, where <span class="math notranslate nohighlight">\(k=\sum x_i\)</span>,shifting our focus from x, to <span class="math notranslate nohighlight">\(\theta\)</span>, if <span class="math notranslate nohighlight">\(\theta\)</span> were the random variable, it appears to have the functional kernel of the distribution of a beta.  If we assume the prior take the form of a beta distribution (dropping all the constants):</p>
-<p><span class="math notranslate nohighlight">\(f(x|\theta) \ast p(\theta) \propto \theta^{k}(1-\theta)^{n-k} \ast \theta^{\alpha-1}(1-\theta)^{\beta-1} = \theta^{\alpha+k-1}(1-\theta)^{\beta+n-k-1}\)</span></p>
-<p>Which we recognize as <span class="math notranslate nohighlight">\(Beta(\alpha+k,\beta+n-k)\)</span> in <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
+<p>\(f(x|\theta) = \prod_{i=1}^n \theta^{x_i}(1-\theta)^{1-x_i} = \theta^{k}(1-\theta)^{n-k}\), where \(k=\sum x_i\),shifting our focus from x, to \(\theta\), if \(\theta\) were the random variable, it appears to have the functional kernel of the distribution of a beta.  If we assume the prior take the form of a beta distribution (dropping all the constants):</p>
+<div class="math notranslate nohighlight">
+\[f(x|\theta) \ast p(\theta) \propto \theta^{k}(1-\theta)^{n-k} \ast \theta^{\alpha-1}(1-\theta)^{\beta-1} = \theta^{\alpha+k-1}(1-\theta)^{\beta+n-k-1}\]</div>
+<p>Which we recognize as \(Beta(\alpha+k,\beta+n-k)\) in \(\theta\).</p>
 <p>IF, we are modelling a Bernoulli process and use a prior with a Beta distribution, our posterior has a known distribution with parameters as shown.</p>
 <p>Common conjugate priors by likelihood type:<br />
 likelihood - prior<br />
 Binomial - beta<br />
 Poisson - Gamma<br />
-Normal (known <span class="math notranslate nohighlight">\(\sigma^2\)</span>) - Normal<br />
-Normal (known <span class="math notranslate nohighlight">\(\mu\)</span>) - inverse-gamma<br />
-Multivariate normal (known <span class="math notranslate nohighlight">\(\Sigma\)</span>) - inverse-Wishart</p>
+Normal (known \(\sigma^2\)) - Normal<br />
+Normal (known \(\mu\)) - inverse-gamma<br />
+Multivariate normal (known \(\Sigma\)) - inverse-Wishart</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr>
@@ -492,9 +499,11 @@ Multivariate normal (known <span class="math notranslate nohighlight">\(\Sigma\)
 <div class="section" id="noninformative-priors">
 <h3>Noninformative priors<a class="headerlink" href="#noninformative-priors" title="Permalink to this headline">¶</a></h3>
 <p>Noninformative priors are priors that suggest ignorance as to the parameters.  These are sometimes called vague or diffuse priors.  The priors generally cover the region of the parameter space relatively smoothly.  Common noninformative priors include <span class="math notranslate nohighlight">\(unif(-1000,1000)\)</span>, <span class="math notranslate nohighlight">\(N(0,10,000)\)</span>.  Note that seeminly vague priors can actually be strongly informative.  Consider the case of modeling a binary model for y following a Bernoulli distribution.  A common modeling technique would be to transform the problem using the logit function.  For instance:</p>
-<p><span class="math notranslate nohighlight">\(y \sim Bern(p)\)</span><br />
-<span class="math notranslate nohighlight">\(p=logit^{-1}(\beta_0 + \beta_1)\)</span></p>
-<p>Placing priors <span class="math notranslate nohighlight">\([\beta_0,\beta_1] \sim N(0,100)\)</span> places undue weight on 0 through the transform while using a weakly informative prior <span class="math notranslate nohighlight">\([\beta_0,\beta_1] \sim N(0,2^2)\)</span> gives a more diffuse effect on the parameter posterior.</p>
+<div class="math notranslate nohighlight">
+\[y \sim Bern(p)\]</div>
+<div class="math notranslate nohighlight">
+\[p=logit^{-1}(\beta_0 + \beta_1)\]</div>
+<p>Placing priors \([\beta_0,\beta_1] \sim N(0,100)\) places undue weight on 0 through the transform while using a weakly informative prior \([\beta_0,\beta_1] \sim N(0,2^2)\) gives a more diffuse effect on the parameter posterior.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr>
@@ -502,13 +511,15 @@ Multivariate normal (known <span class="math notranslate nohighlight">\(\Sigma\)
 <div class="section" id="jeffrey-s-non-informative-prior">
 <h3>Jeffrey’s non-informative prior<a class="headerlink" href="#jeffrey-s-non-informative-prior" title="Permalink to this headline">¶</a></h3>
 <p>The Jeffrey’s prior is a non-informative prior that is derived from the Fisher information.  This prior is non-informative in that we do not specify prior information, but it is informative in that we use the data to information to shape the prior.  Specifically, the Fisher’s information tells us how much information about <span class="math notranslate nohighlight">\(\theta\)</span> is included in the data.  Formally, the Jeffrey’s prior is derived by:</p>
-<p><span class="math notranslate nohighlight">\(p(\theta) \propto \sqrt{I_n(\theta)}\)</span>, where</p>
-<p><span class="math notranslate nohighlight">\(I_n(\theta) = E_{\theta}\big\{\big(\frac{\partial ln f(\theta)}{\partial \theta}\big)\big\} = -E_{\theta}\big\{\big(\frac{\partial^2 ln L(\theta)}{\partial \theta^2}\big)\big\}\)</span></p>
+<p>\(p(\theta) \propto \sqrt{I_n(\theta)}\), where</p>
+<div class="math notranslate nohighlight">
+\[I_n(\theta) = E_{\theta}\big\{\big(\frac{\partial ln f(\theta)}{\partial \theta}\big)\big\} = -E_{\theta}\big\{\big(\frac{\partial^2 ln L(\theta)}{\partial \theta^2}\big)\big\}\]</div>
 <p>This is a <span class="math notranslate nohighlight">\(pxp\)</span> matrix of partial derivatives when there are p parameters.</p>
 <p>Working through an example, let</p>
-<p><span class="math notranslate nohighlight">\(X \sim gamma(\alpha,\beta)\)</span>, assuming <span class="math notranslate nohighlight">\(\alpha\)</span> is known and <span class="math notranslate nohighlight">\(\beta\)</span> is unknown.  Through the likelihood, one can work out the Fisher’s information to be</p>
-<p><span class="math notranslate nohighlight">\(I_n(\beta) = \frac{n\alpha}{\beta^2}\)</span> leading to the Jeffrey’s prior for <span class="math notranslate nohighlight">\(\beta\)</span>:</p>
-<p><span class="math notranslate nohighlight">\(p(\beta) \propto \sqrt{\frac{n\alpha}{\beta^2}} \propto 1\)</span></p>
+<p>\(X \sim gamma(\alpha,\beta)\), assuming \(\alpha\) is known and \(\beta\) is unknown.  Through the likelihood, one can work out the Fisher’s information to be</p>
+<p>\(I_n(\beta) = \frac{n\alpha}{\beta^2}\) leading to the Jeffrey’s prior for \(\beta\):</p>
+<div class="math notranslate nohighlight">
+\[p(\beta) \propto \sqrt{\frac{n\alpha}{\beta^2}} \propto 1\]</div>
 <p>Note that Jeffrey’s priors are not guaranteed to be proper.  Perhaps most importantly, Jeffrey’s priors are stable under reparameterization.</p>
 <br>
 <br>
@@ -542,16 +553,19 @@ Multivariate normal (known <span class="math notranslate nohighlight">\(\Sigma\)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Priors-UNgraded_2_0.png" src="../../_images/Priors-UNgraded_2_0.png" />
+<img alt="../../_images/Fundamentals-6-priors-unGRADED_2_0.png" src="../../_images/Fundamentals-6-priors-unGRADED_2_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="weakly-informative-or-vague-priors">
 <h3>Weakly informative or vague priors<a class="headerlink" href="#weakly-informative-or-vague-priors" title="Permalink to this headline">¶</a></h3>
 <p>In the plots above, we see that we can tune our prior belief using the mean or even mode to center our beleif and variance as a measure of our strength of belief.  For the beta,(6.9,3) this may look like:</p>
-<p><span class="math notranslate nohighlight">\(E[x] = \frac{a}{a+b} = 0.70\)</span><br />
-<span class="math notranslate nohighlight">\(mode(x) = \frac{a-1}{(a+b-2)} = 0.77\)</span><br />
-<span class="math notranslate nohighlight">\(Var(x) = \frac{ab}{(a+b)^2(a+b+1)} = 0.05\)</span></p>
+<div class="math notranslate nohighlight">
+\[E[x] = \frac{a}{a+b} = 0.70\]</div>
+<div class="math notranslate nohighlight">
+\[mode(x) = \frac{a-1}{(a+b-2)} = 0.77\]</div>
+<div class="math notranslate nohighlight">
+\[Var(x) = \frac{ab}{(a+b)^2(a+b+1)} = 0.05\]</div>
 <p>Tuning the prior to include slightly more confidence in the prior information may suggest a beta(16,6) which reduces the variance to 0.028.  These priors are vague in that the mass of the prior is still diffuse allowing the data to drive the posterior through the likelihood.</p>
 <br>
 <br>
@@ -575,11 +589,13 @@ Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, A
 <hr style="border:2px solid blue"> </hr>
 <div class="section" id="example-binomial-beta">
 <h3>Example binomial-beta<a class="headerlink" href="#example-binomial-beta" title="Permalink to this headline">¶</a></h3>
-<p>Let us first consider the coin toss experiment above, as a reminder, we are given a presumable unfair coin with p(heads)=0.75.  Let us collect new data and analyze the posterior.  First, we are going to collect a series of tosses, so the likelihood is best given by a binomial distribution.  Examining the likelihood from the perspective of the parameter, <span class="math notranslate nohighlight">\(\theta\)</span>, we note both that the functional form of the likelihood appears to be that of a beta and the support of a beta, [0,1], vs the valid values of <span class="math notranslate nohighlight">\(\theta\)</span> match.</p>
-<p><span class="math notranslate nohighlight">\(p(\theta|x) \propto f(x|\theta) \ast p(\theta) \propto \prod_i \big [ \theta^{x_i} (1-\theta)^{n-x_i} \big ] \ast \big [\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{\alpha-1}(1-\theta)^{\beta-1} \big ]\)</span></p>
+<p>Let us first consider the coin toss experiment above, as a reminder, we are given a presumable unfair coin with p(heads)=0.75.  Let us collect new data and analyze the posterior.  First, we are going to collect a series of tosses, so the likelihood is best given by a binomial distribution.  Examining the likelihood from the perspective of the parameter, \(\theta\), we note both that the functional form of the likelihood appears to be that of a beta and the support of a beta, [0,1], vs the valid values of \(\theta\) match.</p>
+<div class="math notranslate nohighlight">
+\[p(\theta|x) \propto f(x|\theta) \ast p(\theta) \propto \prod_i \big [ \theta^{x_i} (1-\theta)^{n-x_i} \big ] \ast \big [\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{\alpha-1}(1-\theta)^{\beta-1} \big ]\]</div>
 <p>Simplifying a bit, we get:</p>
-<p><span class="math notranslate nohighlight">\(p(\theta|x) \propto \theta^{\alpha+n\bar{x}-1} (1-\theta)^{\beta+n-n\bar{x}-1}\)</span></p>
-<p>Following along the discussion above, we note that the things we have that are tunable (hyperparameters), are <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.  Here, we are using the value of <span class="math notranslate nohighlight">\(\theta\)</span>, but do to what extent do we believe the friend who gave us the coin and the tip?  Let us simulate three scenarios: a) we don’t believe the friend at all, b) we give some credience to the friend and c) we are strong in our trust.  We will represent these scenarios using beta(1,1), beta(6.9,3),beta(16,6).  Note that we know what the final distribution is, it is a beta(<span class="math notranslate nohighlight">\(\alpha+n\bar{x}\)</span>, <span class="math notranslate nohighlight">\(\beta+n-n\bar{x}\)</span>).  We could simply compute the mean, variance etc.  Instead, let’s visuallize the outcomes.  Assume first, we tossed 10 coins and observed 7 heads.</p>
+<div class="math notranslate nohighlight">
+\[p(\theta|x) \propto \theta^{\alpha+n\bar{x}-1} (1-\theta)^{\beta+n-n\bar{x}-1}\]</div>
+<p>Following along the discussion above, we note that the things we have that are tunable (hyperparameters), are \(\alpha\) and \(\beta\).  Here, we are using the value of \(\theta\), but do to what extent do we believe the friend who gave us the coin and the tip?  Let us simulate three scenarios: a) we don’t believe the friend at all, b) we give some credience to the friend and c) we are strong in our trust.  We will represent these scenarios using beta(1,1), beta(6.9,3),beta(16,6).  Note that we know what the final distribution is, it is a beta(\(\alpha+n\bar{x}\), \(\beta+n-n\bar{x}\)).  We could simply compute the mean, variance etc.  Instead, let’s visuallize the outcomes.  Assume first, we tossed 10 coins and observed 7 heads.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### assume the coin is as advertized, could have drew from rbinom(p=0.75)</span>
@@ -609,7 +625,7 @@ Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, A
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Priors-UNgraded_4_0.png" src="../../_images/Priors-UNgraded_4_0.png" />
+<img alt="../../_images/Fundamentals-6-priors-unGRADED_4_0.png" src="../../_images/Fundamentals-6-priors-unGRADED_4_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -641,7 +657,7 @@ Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, A
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Priors-UNgraded_5_0.png" src="../../_images/Priors-UNgraded_5_0.png" />
+<img alt="../../_images/Fundamentals-6-priors-unGRADED_5_0.png" src="../../_images/Fundamentals-6-priors-unGRADED_5_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -676,7 +692,7 @@ Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, A
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Priors-UNgraded_6_0.png" src="../../_images/Priors-UNgraded_6_0.png" />
+<img alt="../../_images/Fundamentals-6-priors-unGRADED_6_0.png" src="../../_images/Fundamentals-6-priors-unGRADED_6_0.png" />
 </div>
 </div>
 <br>
@@ -688,28 +704,26 @@ Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, A
 <h2>UNGRADED EVALUATION (15 min)<a class="headerlink" href="#ungraded-evaluation-15-min" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
 <h3>1.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Given a <span class="math notranslate nohighlight">\(y \sim Poisson(\lambda)\)</span> and <span class="math notranslate nohighlight">\(p(\lambda) \sim gamma(a,b)\)</span>, what is the mean of the posterior? <span class="math notranslate nohighlight">\(\bar{y}\)</span> = mean</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a- a + n$\bar{y}$   
-b- a + $\bar{y}$
-</pre></div>
-</div>
+<p>Given a \(y \sim Poisson(\lambda)\) and \(p(\lambda) \sim gamma(a,b)\), what is the mean of the posterior? \(\bar{y}\) = mean</p>
+<p>a- a + n\(\bar{y}\)<br />
+b- a + \(\bar{y}\)</p>
 </div>
 <div class="section" id="id2">
 <h3>2.<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>You are given a data set containing the average weight of male flies and decide to model the average weight via a normal distribution.  You don’t know what to expect in terms of mean, but expect a previous study of female flies to be informative about the variance (<span class="math notranslate nohighlight">\(\sigma_f^2\)</span>).  Using conjugates, your model will be (likelihood <span class="math notranslate nohighlight">\(\ast\)</span> prior):</p>
-<p>a- <span class="math notranslate nohighlight">\(N(\mu,\sigma^2) \ast N(\mu_0,\sigma_f^2)\)</span><br />
-b- <span class="math notranslate nohighlight">\(N(\mu,\sigma_f^2) \ast N(\mu_0,\sigma_0^2)\)</span><br />
-c- <span class="math notranslate nohighlight">\(N(\mu,\sigma^2) \ast N(\mu,\sigma_0^2)\)</span></p>
+<p>a- \(N(\mu,\sigma^2) \ast N(\mu_0,\sigma_f^2)\)<br />
+b- \(N(\mu,\sigma_f^2) \ast N(\mu_0,\sigma_0^2)\)<br />
+c- \(N(\mu,\sigma^2) \ast N(\mu,\sigma_0^2)\)</p>
 </div>
 </div>
 <div class="section" id="graded-evaluation-30-mins">
 <h2>GRADED EVALUATION (30 mins)<a class="headerlink" href="#graded-evaluation-30-mins" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
-<li><p>For a variable <span class="math notranslate nohighlight">\(X \sim N(\mu,\sigma^2)\)</span> where <span class="math notranslate nohighlight">\(\sigma^2\)</span> is fixed and known, find the Jeffrey’s prior. Is it proper?</p></li>
+<li><p>For a variable \(X \sim N(\mu,\sigma^2)) where \(\sigma^2\) is fixed and known, find the Jeffrey’s prior. Is it proper?</p></li>
 </ol>
-<p>a- <span class="math notranslate nohighlight">\(p(\mu) \propto \sqrt{\frac{1}{\sigma^2}} \propto 1\)</span> ; proper</p>
-<p>b- <span class="math notranslate nohighlight">\(p(\mu) \propto \sqrt{\frac{1}{\sigma^2}} \propto 1\)</span> ; improper</p>
-<p>c- <span class="math notranslate nohighlight">\(p(\mu) \propto \sqrt{\frac{1}{\sigma^2}} \propto \frac{1}{\sigma^2}\)</span> ; proper</p>
+<p>a- \(p(\mu) \propto \sqrt{\frac{1}{\sigma^2}} \propto 1\) ; proper</p>
+<p>b- \(p(\mu) \propto \sqrt{\frac{1}{\sigma^2}} \propto 1\) ; improper</p>
+<p>c- \(p(\mu) \propto \sqrt{\frac{1}{\sigma^2}} \propto \frac{1}{\sigma^2}\) ; proper</p>
 <ol class="simple">
 <li><p>We are studing a Bernoulli process for which we have no prior information.  We decide to use a non-informative prior such as the beta(1,1).  Because the prior is flat [0,1], this prior will have no effect on the posterior.</p></li>
 </ol>
@@ -724,8 +738,8 @@ c- uniform; due to the parameter of the exponential being a proportion</p>
 <ol class="simple">
 <li><p>Given a prior having mean 10 and data having mean 5, we should expect the posterior mean to lie</p></li>
 </ol>
-<p>a- to the right of 5<br />
-b- to the left of 10<br />
+<p>a- to the left of 5<br />
+b- to the right of 10<br />
 c- between 5 and 10</p>
 </div>
 </div>
@@ -758,6 +772,8 @@ c- between 5 and 10</p>
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="Fundamentals-5b-decision_loss-unGRADED.html" title="previous page">Inference and Decisions</a>
+    <a class='right-next' id="next-link" href="Intro.html" title="next page">Bayesian vs. Frequentist Statistics</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
