@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Chance regularities &#8212; Introduction to Computational Statistics with PyMC3</title>
+    <title>Manipulating Probability &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -123,57 +123,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Chance regularities
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#probability-space-and-probability">
-   Probability Space and Probability
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#addition-rules">
-   Addition rules
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#multiplication-rules">
-   Multiplication rules
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#conditional-independent-disjoint-exchangeable">
-   Conditional, Independent, disjoint, exchangeable
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#factoring-joint-probabilities">
-   Factoring joint probabilities
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#random-variable">
-   Random variable
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#random-sample-experiment-trial">
-   Random sample, experiment, trial
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#data-generating-mechanism">
-   Data generating mechanism
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#ungraded-evaluation-20-min">
-   UNGRADED EVALUATION (20 min)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#graded-evaluation-15-mins">
-   GRADED EVALUATION (15 mins)
+   Manipulating Probability
   </a>
  </li>
  <li class="toctree-l1">
@@ -350,101 +300,101 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chance-regularities">
    Chance regularities
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#probability-space-and-probability">
    Probability Space and Probability
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#addition-rules">
    Addition rules
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#multiplication-rules">
    Multiplication rules
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#conditional-independent-disjoint-exchangeable">
    Conditional, Independent, disjoint, exchangeable
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#factoring-joint-probabilities">
    Factoring joint probabilities
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#random-variable">
    Random variable
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#random-sample-experiment-trial">
    Random sample, experiment, trial
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#random-experiment">
      Random experiment
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#random-sample">
      Random sample
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#trial">
      Trial
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#data-generating-mechanism">
    Data generating mechanism
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#ungraded-evaluation-20-min">
    UNGRADED EVALUATION (20 min)
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id1">
      1.
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id2">
      2.
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id3">
      3.
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id4">
      4.
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#id5">
      5.
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
    GRADED EVALUATION (15 mins)
   </a>
@@ -460,12 +410,14 @@
         
               <div>
                 
-  <div class="section" id="chance-regularities">
-<h1>Chance regularities<a class="headerlink" href="#chance-regularities" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="manipulating-probability">
+<h1>Manipulating Probability<a class="headerlink" href="#manipulating-probability" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="chance-regularities">
+<h2>Chance regularities<a class="headerlink" href="#chance-regularities" title="Permalink to this headline">¶</a></h2>
 <p>The processes we are interested in are non-deterministic (exhibits chance) where patterns reveal themselves (show regularities) after collecting lots of data.  Arguably, modern statistics started with quantifying betting odds in dice games such as the sum of spots (for example, see <a class="reference external" href="http://jse.amstat.org/v11n2/feldman.html">Feldman and Morgan</a> for a discussion of HOG).  To illustrate this, consider a game of dice where we throw 2 dice and sum the dots.  Let’s simulate this in python and look at the data.</p>
 </div>
 <div class="section" id="probability-space-and-probability">
-<h1>Probability Space and Probability<a class="headerlink" href="#probability-space-and-probability" title="Permalink to this headline">¶</a></h1>
+<h2>Probability Space and Probability<a class="headerlink" href="#probability-space-and-probability" title="Permalink to this headline">¶</a></h2>
 <p>Armed with some definitions of outcomes and events, we are finally ready to talk about probability.</p>
 <p>A probability space is a combination of a sample space, event space, and probability function.  The probability function is a real-valued function mapping events to the interval [0,1].  The probability function adheres to the Axioms of Probability (Kolmogorov Axioms).  These are summarized as:</p>
 <ol>
@@ -489,7 +441,7 @@
 <hr style="border:2px solid blue"> </hr><p>Now that we know what probability is, we need some rules to manipulate it.</p>
 </div>
 <div class="section" id="addition-rules">
-<h1>Addition rules<a class="headerlink" href="#addition-rules" title="Permalink to this headline">¶</a></h1>
+<h2>Addition rules<a class="headerlink" href="#addition-rules" title="Permalink to this headline">¶</a></h2>
 <p>Addition rules deal with unions (\(\bigcup\)) of events.  These can be thought of OR probabilities.</p>
 <p>(union = \(\bigcup\) - non-repeating superset, intersection = \(\bigcap\) - common elements)</p>
 <div class="math notranslate nohighlight">
@@ -505,7 +457,7 @@
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="multiplication-rules">
-<h1>Multiplication rules<a class="headerlink" href="#multiplication-rules" title="Permalink to this headline">¶</a></h1>
+<h2>Multiplication rules<a class="headerlink" href="#multiplication-rules" title="Permalink to this headline">¶</a></h2>
 <p>Multiplication rules deal with intersections (\(\bigcup\)) of events.  These can be thought of AND probabilities.</p>
 <p>(union = \(\bigcup\) - non-repeating superset, intersection = \(\bigcap\) - common elements)</p>
 <p>Dependent<br />
@@ -518,7 +470,7 @@ $<span class="math notranslate nohighlight">\(P(E_1 \cap E_2) = 0\)</span>$</p>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="conditional-independent-disjoint-exchangeable">
-<h1>Conditional, Independent, disjoint, exchangeable<a class="headerlink" href="#conditional-independent-disjoint-exchangeable" title="Permalink to this headline">¶</a></h1>
+<h2>Conditional, Independent, disjoint, exchangeable<a class="headerlink" href="#conditional-independent-disjoint-exchangeable" title="Permalink to this headline">¶</a></h2>
 <p>Conditional<br />
 $$P(A|B) = \frac{P(A,B)}{P(B)}</p>
 <p>NOTE: P(A \(\cap\) B) is read as probability of A and B and is also written as the joint probability P(A,B)</p>
@@ -532,7 +484,7 @@ $<span class="math notranslate nohighlight">\(P(A \text{ then } B) = P(B \text{ 
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="factoring-joint-probabilities">
-<h1>Factoring joint probabilities<a class="headerlink" href="#factoring-joint-probabilities" title="Permalink to this headline">¶</a></h1>
+<h2>Factoring joint probabilities<a class="headerlink" href="#factoring-joint-probabilities" title="Permalink to this headline">¶</a></h2>
 <p>Given a joint probability, we often need to simplify to get to some tractable or known distribution.  We can do this via the rules given above and the chain rule.</p>
 <p>P(A,B) = P(A|B) <span class="math notranslate nohighlight">\(\ast\)</span> P(B)</p>
 <p>P(A,B,C) = P(A|B,C) <span class="math notranslate nohighlight">\(\ast\)</span> P(B,C) = P(A|B,C) <span class="math notranslate nohighlight">\(\ast\)</span> P(B|C) <span class="math notranslate nohighlight">\(\ast\)</span> P(C)</p>
@@ -540,7 +492,7 @@ $<span class="math notranslate nohighlight">\(P(A \text{ then } B) = P(B \text{ 
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="random-variable">
-<h1>Random variable<a class="headerlink" href="#random-variable" title="Permalink to this headline">¶</a></h1>
+<h2>Random variable<a class="headerlink" href="#random-variable" title="Permalink to this headline">¶</a></h2>
 <p>Random variables are (often) real-valued functions mapping outcomes to a measureable space.  In set notation, this looks like:</p>
 <div class="math notranslate nohighlight">
 \[X: \Omega \to \mathbb{R}\]</div>
@@ -551,20 +503,20 @@ $<span class="math notranslate nohighlight">\(P(A \text{ then } B) = P(B \text{ 
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="random-sample-experiment-trial">
-<h1>Random sample, experiment, trial<a class="headerlink" href="#random-sample-experiment-trial" title="Permalink to this headline">¶</a></h1>
+<h2>Random sample, experiment, trial<a class="headerlink" href="#random-sample-experiment-trial" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="random-experiment">
-<h2>Random experiment<a class="headerlink" href="#random-experiment" title="Permalink to this headline">¶</a></h2>
+<h3>Random experiment<a class="headerlink" href="#random-experiment" title="Permalink to this headline">¶</a></h3>
 <p>A <em>random experiment</em> is an activity with an observable result.  Prior to conducting the experiment, we are uncertain as to the outcome.</p>
 <p>Experiment – flip a coin, record the face that lands up</p>
 <p>We know the outcome space: {H,T}, however, we are not certain which result will occur prior to the experiment.</p>
 </div>
 <div class="section" id="random-sample">
-<h2>Random sample<a class="headerlink" href="#random-sample" title="Permalink to this headline">¶</a></h2>
+<h3>Random sample<a class="headerlink" href="#random-sample" title="Permalink to this headline">¶</a></h3>
 <p>A <em>random sample</em> is an unbiased realization of outcomes.</p>
 <p>Randomly draw 5 numbers from a bag containing cards numbered 1-10, with replacement.</p>
 </div>
 <div class="section" id="trial">
-<h2>Trial<a class="headerlink" href="#trial" title="Permalink to this headline">¶</a></h2>
+<h3>Trial<a class="headerlink" href="#trial" title="Permalink to this headline">¶</a></h3>
 <p>Trial = 1 or more experiments</p>
 <p>In the figure and table below, we are plotting and tabulating the results from the roll of two dice.  We did not define the experiment up front, but will do so now for clarity.</p>
 <p>Experiment = throw a pair of dice 1 time, record the total dots face up
@@ -628,46 +580,46 @@ Random sample = we have 500 realizations of two dice being thrown</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Fundamentals-2-manipulating-probability-unGRADED_10_0.png" src="../../_images/Fundamentals-2-manipulating-probability-unGRADED_10_0.png" />
+<img alt="../../_images/Fundamentals-2-manipulating-probability-unGRADED_11_0.png" src="../../_images/Fundamentals-2-manipulating-probability-unGRADED_11_0.png" />
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="data-generating-mechanism">
-<h1>Data generating mechanism<a class="headerlink" href="#data-generating-mechanism" title="Permalink to this headline">¶</a></h1>
+<h2>Data generating mechanism<a class="headerlink" href="#data-generating-mechanism" title="Permalink to this headline">¶</a></h2>
 <p>This is the actual process we are trying to model.  In the case of the dice, it was the throwing and counting of dots where we are lookign to learn (and use) a statistical model of outcome probabilities.  In a count toss experiment, it is the binary outcome of heads or tails.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="ungraded-evaluation-20-min">
-<h1>UNGRADED EVALUATION (20 min)<a class="headerlink" href="#ungraded-evaluation-20-min" title="Permalink to this headline">¶</a></h1>
+<h2>UNGRADED EVALUATION (20 min)<a class="headerlink" href="#ungraded-evaluation-20-min" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
-<h2>1.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h3>1.<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <p>You are back to the dice games.  The game is toss a pair of die and count the spots, 3 or less wins.  You toss the first die, observe a 1.  As you toss the second die, you wonder, are the two die rolls dependent or independent?</p>
 <p>a- dependent<br />
 b- independent</p>
 </div>
 <div class="section" id="id2">
-<h2>2.<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h3>2.<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>You are playing a game tossing two coins.  The possible outcomes are {(HH),(TT),(HT),(TH)}.  After observing a (HH), you want to bet on receiving a (HH) in a second trial.  These events are:</p>
 <p>a- mutually exclusive<br />
 b- dependent<br />
 c- independent</p>
 </div>
 <div class="section" id="id3">
-<h2>3.<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h3>3.<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <p>Suppose we have two independent events, A and B.  We want to know the probability of thier joint occurance.  This will be given as:</p>
 <p>a- P(A) + P(B)<br />
 b- P(A) * P(B)</p>
 </div>
 <div class="section" id="id4">
-<h2>4.<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<h3>4.<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>Consider the lst question where the events are now mutually exclusive.</p>
 <p>a- 0<br />
 b- P(A) + P(B)</p>
 </div>
 <div class="section" id="id5">
-<h2>5.<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h3>5.<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>We have three events.  We don’t know the full joint probability, but we do know the forms of the conditional and marginal probabilities.  We can factor the joint into conditional and marginal probabilities to arrive at a joint probability statement.  Which of the following statements are true?</p>
 <p>a- P(A,B,C) = P(A|B|C)<br />
 b- P(A,B,C) = P(A)* P(B,C)<br />
@@ -679,7 +631,7 @@ e- P(A,B,C) = P(C|B,A) * P(A,B)</p>
 <hr style="border:2px solid blue"> </hr></div>
 </div>
 <div class="section" id="graded-evaluation-15-mins">
-<h1>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h1>
+<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>Two events are independent.  The joint probability of these two events occurring is:</p>
 <p>a. P(A,B) = P(A) * P(B)</p>
@@ -711,6 +663,7 @@ b. A real valued funtion mapping occurance of events to the real interval [0,1]<
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
+</div>
 
     <script type="text/x-thebe-config">
     {
