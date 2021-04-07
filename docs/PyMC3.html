@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction to PyMC3 &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,15 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -55,9 +52,12 @@
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Reparameterization" href="Reparameterization.html" />
+    <link rel="next" title="Centered vs. Non-centered Parameterization" href="Reparameterization.html" />
     <link rel="prev" title="Introduction to Monte Carlo Methods" href="MonteCarlo.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -197,7 +197,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Reparameterization.html">
-   Reparameterization
+   Centered vs. Non-centered Parameterization
   </a>
  </li>
  <li class="toctree-l1">
@@ -222,21 +222,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -254,16 +254,16 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -290,19 +290,30 @@
     </div>
 </div>
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i>
+            Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#prerequisite-course-2">
+   Prerequisite - Course 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#attribution">
    Attribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview-of-probabilistic-programming">
+   Overview of Probabilistic Programming
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -333,8 +344,30 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-the-data">
+     Generate the Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-setup-in-pymc3">
+     Model Setup in PyMC3
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#plate-notation">
+       Plate Notation
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#map-estimate">
      MAP Estimate
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inference-in-pymc3">
+     Inference in PyMC3
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -355,10 +388,30 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hdi-hpd-and-rope">
-     HDI, HPD and ROPE
+    <a class="reference internal nav-link" href="#hpd-credible-interval-hdi-and-rope">
+     HPD, Credible Interval, HDI and ROPE
     </a>
     <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#what-is-it-used-for">
+       What is it used for?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#hpd-and-credible-interval">
+       HPD and Credible Interval
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#hdi">
+       HDI
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#rope">
+       ROPE
+      </a>
+     </li>
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#credible-intervals-vs-confidence-intervals">
        Credible intervals vs. Confidence Intervals
@@ -460,13 +513,18 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#we-sample-from-the-posterior">
-     We sample from the posterior
+    <a class="reference internal nav-link" href="#visualize-the-uncertainty">
+     Visualize the Uncertainty
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior-sampling">
+     Posterior Sampling
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#mean-center-the-data">
-     Mean center the data
+     Mean-center the Data
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
@@ -480,6 +538,11 @@
       </a>
      </li>
     </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#standardize-the-data">
+     Standardize the data
+    </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#mean-centered-broader-sampling-space">
@@ -646,8 +709,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#expected-value-of-tau">
-     Expected Value of  \(\tau\)
+    <a class="reference internal nav-link" href="#expected-value-of-cases">
+     Expected Value of Cases
     </a>
    </li>
   </ul>
@@ -690,8 +753,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#diagnostic-statistics">
-     Diagnostic statistics
+    <a class="reference internal nav-link" href="#rhat">
+     Rhat
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -737,7 +800,7 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#rhat">
+    <a class="reference internal nav-link" href="#id5">
      Rhat
     </a>
    </li>
@@ -806,6 +869,7 @@
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -815,25 +879,37 @@
                 
   <div class="section" id="introduction-to-pymc3">
 <h1>Introduction to PyMC3<a class="headerlink" href="#introduction-to-pymc3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prerequisite-course-2">
+<h2>Prerequisite - Course 2<a class="headerlink" href="#prerequisite-course-2" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="attribution">
 <h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
 <p>It is important to acknowledge the authors who have put together fantastic resources that have allowed me to make this notebook possible.</p>
 <ol class="simple">
-<li><p>A lot of the examples here are taken from the book ‘Introduction to statistical modeling and probabilistic programming using PyMC3 and ArviZ’, Second Edition by Osvaldo Martin</p></li>
+<li><p><em>The majority of the the examples here are taken from the book ‘Introduction to statistical modeling and probabilistic programming using PyMC3 and ArviZ’, Second Edition by Osvaldo Martin</em></p></li>
 <li><p><span class="xref myst">PyMC3 website</span></p></li>
 <li><p>Bayesian Methods for Hackers by Davidson-Pilon Cameron</p></li>
 <li><p>Doing Bayesian Data Analysis by John Kruschke</p></li>
 </ol>
 </div>
+<div class="section" id="overview-of-probabilistic-programming">
+<h2>Overview of Probabilistic Programming<a class="headerlink" href="#overview-of-probabilistic-programming" title="Permalink to this headline">¶</a></h2>
+<p>An overview of probabilistic frameworks is given in this <a class="reference external" href="https://eigenfoo.xyz/prob-prog-frameworks/">post</a>  by George Ho, one of the developers of PyMC3. He outlines the components needed for a probabilistic framework in this figure</p>
+<img src="https://eigenfoo.xyz/assets/images/prob-prog-flowchart.png" width="400">
+<p><br></br></p>
+<center>Figure from George Ho's post 'Anatomy of a Probabilistic Programming Framework"</center>
+</div>
 <div class="section" id="what-is-pymc3">
 <h2>What is PyMC3?<a class="headerlink" href="#what-is-pymc3" title="Permalink to this headline">¶</a></h2>
-<p>PyMC3 is a probabilistic programming framework for performing Bayesian modeling and visualization. It uses Theano as a backend. It has algorithms to perform Monte Carlo simulation as well as Variational Inference.</p>
-<p>It can be used to infer values of parameters of model equations that we are unsure about by utilizing the observed data. A good example is given here <a class="reference external" href="https://docs.pymc.io/notebooks/ODE_API_introduction.html">https://docs.pymc.io/notebooks/ODE_API_introduction.html</a>. We are trying to estimate the parameters of air resistance from the Ordinary Differential Equation (ODE) of freefall. We have an understanding of the physics behind freefall as represented by the ODE and we have observed/measured some variables but we don’t know what the parameter of air resistance is here. We can use PyMC3 to perform inference and give us a distribution of potential values of air resistance. A key point to note here is that the more information we have regarding other variables, the more certainty we have in our desired variable (air resistance). Suppose we are unsure about the gravitational constant used in the ODE (implemented by specifying a prior distribution as opposed to a constant value of 9.8), we get more uncertainty in the air resistance variable as well.</p>
-<p>We will look at an example of Linear Regression to illustrate the fundamental features of PyMC3.</p>
+<p>PyMC3 is a probabilistic programming framework for performing Bayesian modeling and visualization. It uses Theano as a backend. It has algorithms to perform Monte Carlo simulation as well as Variational Inference. It also has a diagnostic visualization tool called ArViz.</p>
+<p>It can be used to infer values of parameters of models that we are unsure about by utilizing the observed data. A good example is given here <a class="reference external" href="https://docs.pymc.io/notebooks/ODE_API_introduction.html">https://docs.pymc.io/notebooks/ODE_API_introduction.html</a>.</p>
+<div class="math notranslate nohighlight">
+\[ \dfrac{dy}{dt} = m g - \gamma y\]</div>
+<p>We are trying to estimate the parameters of air resistance (\(\gamma\)) from the Ordinary Differential Equation (ODE) of freefall. We have an understanding of the physics behind freefall as represented by the ODE and we have observed/measured some of the variables such as mass (m), position (y) and velocity (\(\dfrac{dy}{dt}\)) but we don’t know what the parameter of air resistance is here. We can use PyMC3 to perform inference and give us a distribution of potential values of air resistance. A key point to note here is that the more information we have regarding other variables, the more certainty we have in our desired variable (air resistance). Suppose we are unsure about the gravitational constant (g) used in the ODE (implemented by specifying a prior distribution as opposed to a constant value of 9.8), we get more uncertainty in the air resistance variable as well.</p>
 </div>
 <div class="section" id="general-structure-of-pymc3">
 <h2>General Structure of PyMC3<a class="headerlink" href="#general-structure-of-pymc3" title="Permalink to this headline">¶</a></h2>
-<p>It consists of phenomena represented by equations made up of Random Variables and Deterministic variables. The random variables can be divided into Observed variables and Unobserved variables. The observed variables are those for which we have data and the unobserved variables are those for which we have specify a prior distribution.</p>
+<p>It consists of phenomena represented by equations made up of random variables and deterministic variables. The random variables can be divided into observed variables and unobserved variables. The observed variables are those for which we have data and the unobserved variables are those for which we have to specify a prior distribution.</p>
 <div class="section" id="observed-variables">
 <h3>Observed Variables<a class="headerlink" href="#observed-variables" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
@@ -847,10 +923,14 @@
     <span class="n">x</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>We will look at an example of Linear Regression to illustrate the fundamental features of PyMC3.</p>
 </div>
 </div>
 <div class="section" id="an-example-with-linear-regression">
 <h2>An example with Linear Regression<a class="headerlink" href="#an-example-with-linear-regression" title="Permalink to this headline">¶</a></h2>
+<p>The example below illustrates linear regression with a single output variable and two input variables.</p>
+<div class="math notranslate nohighlight">
+\[ y = \alpha + \beta_1 x_1 +  \beta_2 x_2 + \sigma_{error} \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span>
@@ -859,11 +939,13 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;3.9.3&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;3.10.0&#39;
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="generate-the-data">
+<h3>Generate the Data<a class="headerlink" href="#generate-the-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -900,13 +982,15 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
-<span class="kn">from</span> <span class="nn">pymc3.backends</span> <span class="kn">import</span> <span class="n">SQLite</span>
 <span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">Normal</span><span class="p">,</span> <span class="n">HalfNormal</span>
 <span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">find_MAP</span>
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="model-setup-in-pymc3">
+<h3>Model Setup in PyMC3<a class="headerlink" href="#model-setup-in-pymc3" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basic_model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">()</span>
@@ -932,11 +1016,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_4_0.svg" src="../_images/PyMC3_4_0.svg" /></div>
+<img alt="../_images/PyMC3_6_0.svg" src="../_images/PyMC3_6_0.svg" /></div>
 </div>
-<p><strong>Plate notation</strong></p>
+<div class="section" id="plate-notation">
+<h4>Plate Notation<a class="headerlink" href="#plate-notation" title="Permalink to this headline">¶</a></h4>
 <p>A way to graphically represent variables and their interactions in a probabilistic framework.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Plate_notation">Wikipedia Plate Notation</a></p>
+</div>
+</div>
 <div class="section" id="map-estimate">
 <h3>MAP Estimate<a class="headerlink" href="#map-estimate" title="Permalink to this headline">¶</a></h3>
 <p>PyMC3 computes the MAP estimate using numerical optimization, by default using the BFGS algorithm. These provide a point estimate which may not be accurate if the mode does not appropriately represent the distribution.</p>
@@ -960,8 +1047,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="distribution-information-through-traceplots">
-<h3>Distribution Information through Traceplots<a class="headerlink" href="#distribution-information-through-traceplots" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="inference-in-pymc3">
+<h3>Inference in PyMC3<a class="headerlink" href="#inference-in-pymc3" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pymc3</span> <span class="kn">import</span> <span class="n">NUTS</span><span class="p">,</span> <span class="n">sample</span>
@@ -986,10 +1073,24 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>logp = -165.87:   5%|▍         | 230/5000 [00:00&lt;00:00, 6435.38it/s] 
-</pre></div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='230' class='' max='5000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  4.60% [230/5000 00:00<00:00 logp = -165.87]
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Optimization terminated successfully.
          Current function value: 163.261934
          Iterations: 5
          Function evaluations: 230
@@ -997,7 +1098,26 @@
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [sigma, beta, alpha]
-Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:16&lt;00:00, 606.36draws/s]
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:26<00:00 Sampling 4 chains, 0 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 46 seconds.
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
@@ -1010,6 +1130,9 @@ The number of effective samples is smaller than 25% for some parameters.
 <li><p>NUTS</p></li>
 </ul>
 <p>PyMC3 can automatically determine the most appropriate algorithm to use here, so it is best to use the default option.</p>
+</div>
+<div class="section" id="distribution-information-through-traceplots">
+<h3>Distribution Information through Traceplots<a class="headerlink" href="#distribution-information-through-traceplots" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span>
@@ -1046,7 +1169,7 @@ The number of effective samples is smaller than 25% for some parameters.
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_13_1.png" src="../_images/PyMC3_13_1.png" />
+<img alt="../_images/PyMC3_15_1.png" src="../_images/PyMC3_15_1.png" />
 </div>
 </div>
 <p>We will look at the summary of the sampling process. The columns will be explained as we progress through this course.</p>
@@ -1315,7 +1438,7 @@ The acceptance probability does not match the target. It is 0.882730362833375, b
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_18_3.png" src="../_images/PyMC3_18_3.png" />
+<img alt="../_images/PyMC3_20_3.png" src="../_images/PyMC3_20_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1330,7 +1453,7 @@ The acceptance probability does not match the target. It is 0.882730362833375, b
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_19_0.png" src="../_images/PyMC3_19_0.png" />
+<img alt="../_images/PyMC3_21_0.png" src="../_images/PyMC3_21_0.png" />
 </div>
 </div>
 </div>
@@ -1347,12 +1470,31 @@ The acceptance probability does not match the target. It is 0.882730362833375, b
 <p>b. False</p>
 </li>
 </ol>
-<div class="section" id="hdi-hpd-and-rope">
-<h3>HDI, HPD and ROPE<a class="headerlink" href="#hdi-hpd-and-rope" title="Permalink to this headline">¶</a></h3>
-<p>HDI, HPD and ROPE are essentially used for making decisions from the posterior distribution.
-We will plot the posterior of the beta distribution with the set parameters and a credible interval for the Highest-Posterior Density (HPD) which is the interval that has the given probability indicated by the HPD. What is the probability of getting a value given by x? We can’t really calculate this exactly but we can compute this probability within a range given by x + <span class="math notranslate nohighlight">\(\Delta\)</span>x, x - <span class="math notranslate nohighlight">\(\Delta\)</span>x. A related term is the Highest Density Interval (HDI) which is a more general term that can apply for any distribution such as a prior. In other words a posterior’s HDI is called the HPD.</p>
-<p>As an example, if we suspect that the dice used at a casino is loaded, we can infer the probability of getting the value 3 from the six possible outcomes. Ideally, this should be 1/6 = 0.16666. If this happens to fall in the HPD, we can assume that the dice is fair however it may be that the distribution may be biased to one side or the other.</p>
-<p>Sometimes, instead of looking at the probability that x = 0.16666, we look at the probability that it falls within the range 0.12 and 0.20 called the Region of Practical Equivalence or ROPE. This implies that, based on our subjective opinion, getting a value between 0.12 and 0.20 is practically equivalent to getting a 0.16666 or that we can assume that the dice is fair given any value within this range. ROPE allows us to make inferences about an event. After computing the posterior our ROPE given by 0.12 and 0.20 can either overlap with the HPD from the posterior density of getting a 3</p>
+<div class="section" id="hpd-credible-interval-hdi-and-rope">
+<h3>HPD, Credible Interval, HDI and ROPE<a class="headerlink" href="#hpd-credible-interval-hdi-and-rope" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="what-is-it-used-for">
+<h4>What is it used for?<a class="headerlink" href="#what-is-it-used-for" title="Permalink to this headline">¶</a></h4>
+<p>HDI, HPD and ROPE are essentially used for making decisions from the posterior distribution.</p>
+</div>
+<div class="section" id="hpd-and-credible-interval">
+<h4>HPD and Credible Interval<a class="headerlink" href="#hpd-and-credible-interval" title="Permalink to this headline">¶</a></h4>
+<p>For example, if we plot the posterior of a beta distribution with some parameters, the credible interval for the Highest Posterior Density (HPD) is the <strong>shortest</strong> interval that has the given probability indicated by the HPD. This interval is also called the HPD interval. As the name indicates, this involves regions of the highest posterior probability density. For unimodal distributions, this includes the mode.</p>
+<p><img alt="HPD" src="../_images/HPDI_1.png" /></p>
+<center>x% HPD interval</center>
+<p><img alt="HPD" src="../_images/HPDI_2.png" /></p>
+<center>x% HPD interval</center>
+</div>
+<div class="section" id="hdi">
+<h4>HDI<a class="headerlink" href="#hdi" title="Permalink to this headline">¶</a></h4>
+<p>A related term is the Highest Density Interval (HDI) which is a more general term that can apply for any distribution such as a prior and not just the posterior. In other words a posterior’s HDI is called the HPD interval.</p>
+<p>As an example, if we suspect that the dice used at a casino is loaded, we can infer the probability of getting the value 3 from the six possible outcomes. Ideally, this should be 1/6 = 0.16666. If this happens to fall in the HPD interval, we can assume that the dice is fair however it may be that the distribution may be biased to one side or the other.</p>
+</div>
+<div class="section" id="rope">
+<h4>ROPE<a class="headerlink" href="#rope" title="Permalink to this headline">¶</a></h4>
+<p>What is the probability of getting a value given by x? We can’t really calculate this exactly but we can compute this probability within a range given by x + <span class="math notranslate nohighlight">\(\Delta\)</span>x, x - <span class="math notranslate nohighlight">\(\Delta\)</span>x.</p>
+<p><img alt="HPD" src="../_images/HPD.png" /></p>
+<center><i>Probability of getting values less than x, and a range of values around x</i></center>
+<p>Sometimes, instead of looking at the probability that x = 0.16666, we look at the probability that it falls within the range 0.12 and 0.20. This range is called the Region of Practical Equivalence or ROPE. This implies that, based on our subjective opinion, getting a value between 0.12 and 0.20 is practically equivalent to getting a 0.16666. Hence, we can assume that the dice is fair given any value within this range. ROPE allows us to make decisions about an event from an inferred posterior distribution. After computing the posterior, the ROPE given by 0.12 and 0.20 can either overlap with the HPD (of getting a 3)</p>
 <ul class="simple">
 <li><p>completely</p></li>
 <li><p>not overlap at all</p></li>
@@ -1360,14 +1502,15 @@ We will plot the posterior of the beta distribution with the set parameters and 
 </ul>
 <p>Complete overlap suggests that our computed probability coincides with what we would expect from a fair dice. If it does not overlap, it is not a fair dice and a partial overlap indicates that we cannot be certain that is either fair or unfair.</p>
 <p>In short, we define a ROPE based on our subject matter expertise and compare it to the HPD to make a decision from the posterior distribution.</p>
+</div>
 <div class="section" id="credible-intervals-vs-confidence-intervals">
 <h4>Credible intervals vs. Confidence Intervals<a class="headerlink" href="#credible-intervals-vs-confidence-intervals" title="Permalink to this headline">¶</a></h4>
-<p>This deserves special mention particularly due to the subtle differences stemming from the Bayesian (credible intervals) vs. Frequentist (confidence intervals) approaches involved. Bayesian’s consider the parameters to be a distribution and that there is no true parameter however Frequentists assume that there exists a true parameter.</p>
+<p>This deserves special mention particularly due to the subtle differences stemming from the Bayesian (credible intervals) vs. Frequentist (confidence intervals) approaches involved. Bayesians consider the parameters to be a distribution, and for them there is no true parameter. However, Frequentists fundamentally assume that there exists a true parameter.</p>
 <ul class="simple">
 <li><p>Confidence intervals quantify our confidence that the true parameter exists in this interval. It is a statement about the interval.</p></li>
 <li><p>Credible intervals quantify our uncertainty about the parameters since there are no true parameters in a Bayesian setting. It is a statement about the probability of the parameter.</p></li>
 </ul>
-<p>For e.g. if we are trying to estimate the R0 for COVID-19, one could say that we have a 95% confidence interval of the true R0 being between 2.0 and 3.2. In a Bayesian setting, the 95% credible interval of (2,3.2) implies that we are 95% certain that</p>
+<p>For e.g. if we are trying to estimate the R0 for COVID-19, one could say that we have a 95% confidence interval of the true R0 being between 2.0 and 3.2. In a Bayesian setting, the 95% credible interval of (2, 3.2) implies that 95% of the possible R0 values fall between 2.0 and 3.2.</p>
 <p>We will see how we can visualize the following using ArViz</p>
 <ul class="simple">
 <li><p>HDI (Black lines)</p></li>
@@ -1397,7 +1540,7 @@ We will plot the posterior of the beta distribution with the set parameters and 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&lt;AxesSubplot:title={&#39;center&#39;:&#39;θ&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_22_1.png" src="../_images/PyMC3_22_1.png" />
+<img alt="../_images/PyMC3_24_1.png" src="../_images/PyMC3_24_1.png" />
 </div>
 </div>
 <p>Another way to do this is by plotting a reference value on the posterior. Below, a reference value of 0.48 is used and it can be seen that 45.2% of the posterior is below this value while 54.8% of the posterior is above this value. If we were estimating our parameter to have a value of 0.48, this suggests a good fit but with a slight right bias or in other words that the parameter is likely to have a value greater than 0.48.</p>
@@ -1420,7 +1563,7 @@ We will plot the posterior of the beta distribution with the set parameters and 
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&lt;AxesSubplot:title={&#39;center&#39;:&#39;θ&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_24_1.png" src="../_images/PyMC3_24_1.png" />
+<img alt="../_images/PyMC3_26_1.png" src="../_images/PyMC3_26_1.png" />
 </div>
 </div>
 </div>
@@ -1456,13 +1599,18 @@ We will plot the posterior of the beta distribution with the set parameters and 
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="modeling-with-a-gaussian-distribution">
 <h2>Modeling with a Gaussian Distribution<a class="headerlink" href="#modeling-with-a-gaussian-distribution" title="Permalink to this headline">¶</a></h2>
-<p>Gaussians (Normal distributions) are normally used to approximate a lot of practical data distributions. One reason for this is the Central Limit Theorem, which states:</p>
-<p><strong>The distribution of the sample means will be a normal distribution</strong></p>
+<p>Gaussians (Normal distributions) are normally used to approximate a lot of practical data distributions. Some of the reasons for this are:</p>
+<ul>
+<li><p>The Central Limit Theorem, which states:</p>
+<p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">distribution</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">sample</span> <span class="pre">means</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">a</span> <span class="pre">normal</span> <span class="pre">distribution</span></code></p>
 <p><a class="reference external" href="https://statisticsbyjim.com/basics/central-limit-theorem/">Intuitive explanation of the Central Limit Theorem</a></p>
-<p>which implies that if we take the mean of the sample means, we should get the true population mean. There is also a more subtle reason for adopting the Gaussian distribution to represent a lot of phenomena; a lot of them are a result of averages of varying factors.</p>
-<p>The other reason is the mathematical tractability of the distribution, it is easy to compute in closed form. While not every distribution can be approximated with a single Gaussian distribution, we can use a mixture of Gaussians to represent other multi-modal distributions.</p>
+<p>which implies that if we take the mean of the sample means, we should get the true population mean.</p>
+</li>
+<li><p>A more subtle reason for adopting the Gaussian distribution to represent a lot of phenomena is the fact that a lot of these phenomena themselves are a result of averages of varying factors.</p></li>
+<li><p>Mathematical tractability of the distribution - it is easy to compute in closed form. While not every distribution can be approximated with a single Gaussian distribution, we can use a mixture of Gaussians to represent other multi-modal distributions.</p></li>
+</ul>
 <p>The probability density for a Normal distribution in a single dimension is given by:</p>
-<p><span class="math notranslate nohighlight">\(P(x) = \dfrac{1}{\sigma \sqrt{2 \pi}} e^{-(x - \mu)^2 / 2 \sigma^2}\)</span></p>
+<p><span class="math notranslate nohighlight">\(p(x) = \dfrac{1}{\sigma \sqrt{2 \pi}} e^{-(x - \mu)^2 / 2 \sigma^2}\)</span></p>
 <p>where <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation. In higher dimensions, we have a vector of means and a covariance matrix.</p>
 <div class="section" id="example-with-pymc3">
 <h3>Example with PyMC3<a class="headerlink" href="#example-with-pymc3" title="Permalink to this headline">¶</a></h3>
@@ -1471,8 +1619,8 @@ the data distribution. It looks somewhat like a Gaussian so maybe we can start
 there. We have two parameters to infer, that is the mean and the standard deviation.
 We can estimate a prior for the mean by looking at the density and putting
 some bounds using a uniform prior. The standard deviation is however chosen to
-have a mean-centered half-normal prior - half-normal since the standard deviation
-cannot be negative. We can provide a hyperparameter for this by inspecting the
+have a mean-centered half-normal prior (half-normal since the standard deviation
+cannot be negative). We can provide a hyperparameter for this by inspecting the
 density again. These values decide how well we converge to a solution so good
 values are essential for good results.</p>
 <div class="cell docutils container">
@@ -1488,7 +1636,7 @@ values are essential for good results.</p>
  &lt;a list of 1 Text major ticklabel objects&gt;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_27_1.png" src="../_images/PyMC3_27_1.png" />
+<img alt="../_images/PyMC3_29_1.png" src="../_images/PyMC3_29_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1536,7 +1684,7 @@ NUTS: [σ, μ]
 Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000 [00:03&lt;00:00, 1602.44draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_29_1.svg" src="../_images/PyMC3_29_1.svg" /><img alt="../_images/PyMC3_29_2.png" src="../_images/PyMC3_29_2.png" />
+<img alt="../_images/PyMC3_31_1.svg" src="../_images/PyMC3_31_1.svg" /><img alt="../_images/PyMC3_31_2.png" src="../_images/PyMC3_31_2.png" />
 </div>
 </div>
 <br>
@@ -1726,7 +1874,7 @@ FILE
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fc327ebad90&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_34_1.png" src="../_images/PyMC3_34_1.png" />
+<img alt="../_images/PyMC3_36_1.png" src="../_images/PyMC3_36_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1803,13 +1951,7 @@ FILE
 </div>
 <div class="section" id="posterior-predictive-check">
 <h3>Posterior Predictive Check<a class="headerlink" href="#posterior-predictive-check" title="Permalink to this headline">¶</a></h3>
-<p>We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that of the data from this posterior. You are returned a dictionary for each of the observed variables in the model. You can also plot the distribution of these samples by passing this variable ‘y_pred_g’ as shown below. Setting <code class="docutils literal notranslate"><span class="pre">mean=True</span></code> in the call to <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> computes the mean distribution of the 100 sampled distributions and plots it as well.</p>
-<p>Two things can be noted here:</p>
-<ul class="simple">
-<li><p>The mean distribution of the samples from the posterior predictive distribution is close to the distribution of the observed data but the mean of this mean distribution is slightly shifted to the right.</p></li>
-<li><p>Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.</p></li>
-</ul>
-<p>Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how to use a Student’s t-distribution for that.</p>
+<p>We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that of the data from this posterior. You are returned a dictionary for each of the observed variables in the model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model_g</span><span class="p">)</span>
@@ -1850,6 +1992,7 @@ FILE
 </div>
 </div>
 </div>
+<p>You can also plot the distribution of these samples by passing this variable ‘y_pred_g’ as shown below. Setting <code class="docutils literal notranslate"><span class="pre">mean=True</span></code> in the call to <code class="docutils literal notranslate"><span class="pre">plot_ppc</span></code> computes the mean distribution of the 100 sampled distributions and plots it as well.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_ppc</span> <span class="o">=</span> <span class="n">az</span><span class="o">.</span><span class="n">from_pymc3</span><span class="p">(</span><span class="n">trace</span><span class="o">=</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">posterior_predictive</span><span class="o">=</span><span class="n">y_pred_g</span><span class="p">)</span>
@@ -1865,9 +2008,15 @@ FILE
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc327c15d30&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_39_2.png" src="../_images/PyMC3_39_2.png" />
+<img alt="../_images/PyMC3_42_2.png" src="../_images/PyMC3_42_2.png" />
 </div>
 </div>
+<p>Two things can be noted here:</p>
+<ul class="simple">
+<li><p>The mean distribution of the samples from the posterior predictive distribution is close to the distribution of the observed data but the mean of this mean distribution is slightly shifted to the right.</p></li>
+<li><p>Also, the variance of the samples; whether we can say qualitatively that this is acceptable or not depends on the problem. In general, the more representative data points available to us, the lower the variance.</p></li>
+</ul>
+<p>Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how to use a Student’s t-distribution for that.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr>
@@ -1876,12 +2025,15 @@ FILE
 <div class="section" id="robust-models-with-a-student-s-t-distribution">
 <h2>Robust Models with a Student’s t-Distribution<a class="headerlink" href="#robust-models-with-a-student-s-t-distribution" title="Permalink to this headline">¶</a></h2>
 <p>As mentioned in the previous section, one of the issues with assuming a Gaussian distribution is the assumption of finite variance. When you have observed data that lies outside this ‘boundary’, a Gaussian distribution is not a good fit and PyMC3, and other MCMC-based tools will be unable to reconcile these differences appropriately.</p>
-<p>The probability density function is given by:</p>
-<p><span class="math notranslate nohighlight">\(P(t) = \dfrac{\gamma ((v+1) / 2)}{\sqrt{v \pi} \gamma (v/2)} (1 + \dfrac{t^2}{v})^{-(v+1)/2}\)</span></p>
-<p>μ corresponds to the mean of the distribution</p>
-<p>σ is the scale and corresponds roughly to the standard deviation</p>
-<p>ν is the degrees of freedom and takes values between 0 and <span class="math notranslate nohighlight">\(\infty\)</span>. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the t-distribution used to model this would have degrees of freedom set to 9. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinity corresponds to a Normal distribution.</p>
-<p>The mean of the distribution is 0 and the variance is given by ν/(ν - 2).</p>
+<p>This distribution is parameterized by the following:</p>
+<ul class="simple">
+<li><p>μ corresponds to the mean of the distribution</p></li>
+<li><p>σ is the scale and corresponds roughly to the standard deviation</p></li>
+<li><p>ν is the degrees of freedom and takes values between 0 and <span class="math notranslate nohighlight">\(\infty\)</span>. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the t-distribution used to model this would have degrees of freedom set to 7. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinity corresponds to a Normal distribution.</p></li>
+</ul>
+<p>The probability density function for a zero-centered Student’s t-distribution with scale set to one is given by:</p>
+<p><span class="math notranslate nohighlight">\(p(t) = \dfrac{\gamma ((v+1) / 2)}{\sqrt{v \pi} \gamma (v/2)} (1 + \dfrac{t^2}{v})^{-(v+1)/2}\)</span></p>
+<p>In this case, the mean of the distribution is 0 and the variance is given by ν/(ν - 2).</p>
 <p>Now let us model the same problem with this distribution instead of a Normal.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1905,7 +2057,7 @@ NUTS: [ν, σ, μ]
 Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000 [00:04&lt;00:00, 1461.34draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_41_1.svg" src="../_images/PyMC3_41_1.svg" /><img alt="../_images/PyMC3_41_2.png" src="../_images/PyMC3_41_2.png" />
+<img alt="../_images/PyMC3_45_1.svg" src="../_images/PyMC3_45_1.svg" /><img alt="../_images/PyMC3_45_2.png" src="../_images/PyMC3_45_2.png" />
 </div>
 </div>
 <p>Using a student’s t-distribution we notice that the outliers are captured more accurately now and the model fits better.</p>
@@ -1930,7 +2082,7 @@ arviz.data.io_pymc3 - WARNING - posterior predictive shape not compatible with n
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40.0, 70.0)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_43_2.png" src="../_images/PyMC3_43_2.png" />
+<img alt="../_images/PyMC3_47_2.png" src="../_images/PyMC3_47_2.png" />
 </div>
 </div>
 </div>
@@ -1943,12 +2095,12 @@ arviz.data.io_pymc3 - WARNING - posterior predictive shape not compatible with n
 </div>
 <div class="section" id="hierarchical-models-or-multilevel-models">
 <h2>Hierarchical Models or Multilevel Models<a class="headerlink" href="#hierarchical-models-or-multilevel-models" title="Permalink to this headline">¶</a></h2>
-<p>Suppose we want to perform an analysis of water quality in a state and we divide this state into districts with information available from each district, there are two options to do this.</p>
+<p>Suppose we want to perform an analysis of water quality in a state and information is available from each district in the state. There are two ways to model this now:</p>
 <ul class="simple">
 <li><p>We can study each district separately, however we lose information especially if there is insufficient data for some districts. But we get a more detailed model per district.</p></li>
 <li><p>The second option is to combine all the data and estimate the water quality of the state as a whole, i.e. a pooled model. We have more data but we lose granular information about each district.</p></li>
 </ul>
-<p>The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the parameter priors to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts and as a result sharing information between all the groups in the data.</p>
+<p>The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the prior parameters (or hyperparameters) to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts, and as a result information is shared between all the groups in the data.</p>
 <div class="section" id="problem-statement">
 <h3>Problem Statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
 <p>We measure the water samples for three districts, and we collect 30 samples for each district. The data is simply a binary value that indicates whether the water is contaminated or not. We count the number of samples that have contamination below the acceptable levels. We generate three arrays:</p>
@@ -1965,7 +2117,7 @@ arviz.data.io_pymc3 - WARNING - posterior predictive shape not compatible with n
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span> <span class="c1"># Total number of samples collected</span>
 <span class="n">G_samples</span> <span class="o">=</span> <span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">18</span><span class="p">]</span> <span class="c1"># Number of samples with water contamination </span>
                          <span class="c1"># below accepted levels</span>
-<span class="c1"># Create an id for each of the 30 + 30 + 30 samples - 0,1,2 to indicate that they</span>
+<span class="c1"># Create an ID for each of the 30 + 30 + 30 samples - 0,1,2 to indicate that they</span>
 <span class="c1"># belong to different groups</span>
 <span class="n">group_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">N_samples</span><span class="p">)),</span> <span class="n">N_samples</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1977,7 +2129,8 @@ arviz.data.io_pymc3 - WARNING - posterior predictive shape not compatible with n
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group_idx</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ID per sample</span>
+<span class="n">group_idx</span>
 </pre></div>
 </div>
 </div>
@@ -2095,15 +2248,20 @@ arviz.data.io_pymc3 - WARNING - posterior predictive shape not compatible with n
 </div>
 <div class="section" id="the-sampling-model">
 <h3>The Sampling Model<a class="headerlink" href="#the-sampling-model" title="Permalink to this headline">¶</a></h3>
-<p>The scenario presented here is essentially a binary classification problem that can be modeled using a Bernoulli distribution. The parameter of the Bernoulli distribution is a vector corresponding to each group (\(\theta_1, \theta_2, \theta_3\)) and indicates the probability of getting a good sample (in each group). Since this is a hierarchical model, each group shares information and a result the parameter of Group 1 can be influenced by the samples in Group 2 and 3. This is what makes hierarchical modeling so powerful.</p>
-<p>The process of generating our samples looks like the following. If we start from the last equation and work our way up, we can see that <span class="math notranslate nohighlight">\(\theta_i\)</span> and <span class="math notranslate nohighlight">\(y_i\)</span> are similar to a pooled model except that the <em>Beta</em> prior takes parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> instead of constant values. These parameters now have hyperpriors applied to them using the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <em>k</em> which are assumed to be distributed using a <em>Beta</em> distribution and a half-Normal distribution respectively. Note that <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are indirectly computed from the terms \(\mu\) and <em>k</em> here. \(\mu\) affects the mean of the Beta distribution and increasing <em>k</em> makes the Beta distribution mor concentrated. This parameterization is more efficient than the direct parameterization in terms of <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\beta_i\)</span>.</p>
-<p><span class="math notranslate nohighlight">\( \mu \sim Beta(\alpha_p, \beta_p)  \\
-  k \sim | Normal(0,\sigma_k) | \\
-  \alpha =  \mu * k \\
-  \beta = (1 - \mu) * k \\
-  \theta_i \sim Beta(\alpha, \beta) \\
-  y_i \sim Bern(\theta_i)
-\)</span></p>
+<p>The scenario presented here is essentially a binary classification problem that can be modeled using a Bernoulli distribution. The parameter of the Bernoulli distribution is a vector corresponding to each group (\(\theta_1, \theta_2, \theta_3\)) and indicates the probability of getting a good sample (in each group). Since this is a hierarchical model, each group shares information and as a result the parameter of Group 1 can be influenced by the samples in Group 2 and 3. This is what makes hierarchical modeling so powerful.</p>
+<p>The process of generating our samples looks like the following. If we start from the last equation and work our way up, we can see that <span class="math notranslate nohighlight">\(\theta_i\)</span> and <span class="math notranslate nohighlight">\(y_i\)</span> are similar to a pooled model except that the beta prior takes parameters <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> instead of constant values. These parameters now have hyperpriors applied to them using the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <em>k</em> which are assumed to be distributed using a beta distribution and a half-Normal distribution respectively. Note that <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are indirectly computed from the terms \(\mu\) and <em>k</em> here. \(\mu\) affects the mean of the beta distribution and increasing <em>k</em> makes the beta distribution more concentrated. This parameterization is more efficient than the direct parameterization in terms of <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\beta_i\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[ \mu \sim Beta(\alpha_p, \beta_p)  \]</div>
+<div class="math notranslate nohighlight">
+\[ k \sim | Normal(0,\sigma_k) | \]</div>
+<div class="math notranslate nohighlight">
+\[  \alpha =  \mu * k \]</div>
+<div class="math notranslate nohighlight">
+\[  \beta = (1 - \mu) * k \]</div>
+<div class="math notranslate nohighlight">
+\[  \theta_i \sim Beta(\alpha, \beta) \]</div>
+<div class="math notranslate nohighlight">
+\[  y_i \sim Bern(\theta_i) \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_hyperprior_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">N_samples</span><span class="p">,</span> <span class="n">group_idx</span><span class="p">):</span>
@@ -2151,14 +2309,19 @@ beta     5097.0    4733.0    1.0
 θ[2]     6413.0    5425.0    1.0  
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_50_2.svg" src="../_images/PyMC3_50_2.svg" /><img alt="../_images/PyMC3_50_3.png" src="../_images/PyMC3_50_3.png" />
+<img alt="../_images/PyMC3_54_2.svg" src="../_images/PyMC3_54_2.svg" /><img alt="../_images/PyMC3_54_3.png" src="../_images/PyMC3_54_3.png" />
 </div>
 </div>
 </div>
 <div class="section" id="shrinkage">
 <h3>Shrinkage<a class="headerlink" href="#shrinkage" title="Permalink to this headline">¶</a></h3>
-<p>Shrinkage refers to the phenomenon of sharing information among the groups through the use of hyperpriors. Hierarchical models can therefore be considered partially pooled models since information is shared among the groups so we move away from extremes, which is great if we have outliers (or poor quality data) in our data groups. This is particularly useful if  we do not have a lot of data. Here, the groups are neither independent nor do we clump all the data together without accounting for the differences in the groups. This can</p>
-<p>We can look at three cases below as examples to illustrate what happens here. We keep the total number of samples and the groups the same as before, however we vary the number of good samples in each group. When there are significant differences in the number of good sample between groups, the behavior is different from what we see with an independent model, averages win and extreme values are avoided.</p>
+<p>Shrinkage refers to the phenomenon of sharing information among the groups through the use of hyperpriors. Hierarchical models can therefore be considered partially pooled models since information is shared among the groups so we move away from extreme values for the inferred parameters. This is good for two scenarios:</p>
+<ul class="simple">
+<li><p>If we have outliers (or poor quality data) in our data groups.</p></li>
+<li><p>If we do not have a lot of data.</p></li>
+</ul>
+<p>In hierarchical models, the groups are neither independent (unpooled) nor do we clump all the data together (pooled) without accounting for the differences in the groups.</p>
+<p>We can look at three cases below as examples to illustrate the benefits of a hierarchical model. We keep the total number of samples and groups the same as before, however we vary the number of good samples in each group. When there are significant differences in the number of good samples within the groups, the behavior is different from what we see in an independent model. Averages win and extreme values are avoided.</p>
 <p>The values of G_samples are changed to have the following values</p>
 <ol class="simple">
 <li><p>[5,5,5]</p></li>
@@ -2236,7 +2399,7 @@ NUTS: [θ, κ, μ]
                 \text{μ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{κ_log__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{θ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{μ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=1.0,~\mathit{beta}=1.0)\\\text{κ} &amp;\sim &amp; \text{HalfNormal}(\mathit{sigma}=10.0)\\\text{θ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=f(\text{μ},~\text{κ}),~\mathit{beta}=f(f(\text{μ}),~\text{κ}))\\\text{y} &amp;\sim &amp; \text{Bernoulli}(\mathit{p}=f(\text{θ},~array))
                 \end{array}
                 \end{split}\]</div>
-<img alt="../_images/PyMC3_52_5.png" src="../_images/PyMC3_52_5.png" />
+<img alt="../_images/PyMC3_56_5.png" src="../_images/PyMC3_56_5.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2308,7 +2471,7 @@ NUTS: [θ, κ, μ]
                 \text{μ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{κ_log__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{θ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{μ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=1.0,~\mathit{beta}=1.0)\\\text{κ} &amp;\sim &amp; \text{HalfNormal}(\mathit{sigma}=10.0)\\\text{θ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=f(\text{μ},~\text{κ}),~\mathit{beta}=f(f(\text{μ}),~\text{κ}))\\\text{y} &amp;\sim &amp; \text{Bernoulli}(\mathit{p}=f(\text{θ},~array))
                 \end{array}
                 \end{split}\]</div>
-<img alt="../_images/PyMC3_53_5.png" src="../_images/PyMC3_53_5.png" />
+<img alt="../_images/PyMC3_57_5.png" src="../_images/PyMC3_57_5.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2381,7 +2544,7 @@ There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
                 \text{μ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{κ_log__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{θ_logodds__} &amp;\sim &amp; \text{TransformedDistribution}()\\\text{μ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=1.0,~\mathit{beta}=1.0)\\\text{κ} &amp;\sim &amp; \text{HalfNormal}(\mathit{sigma}=10.0)\\\text{θ} &amp;\sim &amp; \text{Beta}(\mathit{alpha}=f(\text{μ},~\text{κ}),~\mathit{beta}=f(f(\text{μ}),~\text{κ}))\\\text{y} &amp;\sim &amp; \text{Bernoulli}(\mathit{p}=f(\text{θ},~array))
                 \end{array}
                 \end{split}\]</div>
-<img alt="../_images/PyMC3_54_5.png" src="../_images/PyMC3_54_5.png" />
+<img alt="../_images/PyMC3_58_5.png" src="../_images/PyMC3_58_5.png" />
 </div>
 </div>
 </div>
@@ -2424,17 +2587,27 @@ There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
 </div>
 <div class="section" id="linear-regression-again">
 <h2>Linear Regression Again!<a class="headerlink" href="#linear-regression-again" title="Permalink to this headline">¶</a></h2>
-<p>Let us generate some data and plot it along with its density.</p>
+<p>Let us generate some data for linear regression and plot it along with its density.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Parameters</span>
 <span class="n">alpha_real</span> <span class="o">=</span> <span class="mf">2.5</span>
 <span class="n">beta_real</span> <span class="o">=</span> <span class="mf">0.9</span>
 <span class="n">eps_real</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># Input data drawn from a Normal distribution</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="c1"># Output generated from the input and the parameters</span>
 <span class="n">y_real</span> <span class="o">=</span> <span class="n">alpha_real</span> <span class="o">+</span> <span class="n">beta_real</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="c1"># Add random noise to y</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">y_real</span> <span class="o">+</span> <span class="n">eps_real</span>
+
+<span class="c1"># Plot the data</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;C0.&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
@@ -2442,12 +2615,13 @@ There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_real</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
 <span class="n">az</span><span class="o">.</span><span class="n">plot_kde</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;p(y)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_57_0.png" src="../_images/PyMC3_57_0.png" />
+<img alt="../_images/PyMC3_61_0.png" src="../_images/PyMC3_61_0.png" />
 </div>
 </div>
 <div class="section" id="inference-of-parameters-in-linear-regression">
@@ -2459,12 +2633,12 @@ There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
 <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model_g</span><span class="p">:</span>
     <span class="n">α</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># Try changing this to a half normal, half cauchy has fatter tails</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">α</span> <span class="o">+</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
     <span class="n">trace_g</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
     
-<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="s1">&#39;ϵ&#39;</span><span class="p">])</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="s1">&#39;ϵ&#39;</span><span class="p">])</span> <span class="c1"># if you have a lot of variables, explicitly specify</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -2474,13 +2648,32 @@ There was 1 divergence after tuning. Increase `target_accept` or reparameterize.
 Initializing NUTS using jitter+adapt_diag...
 Multiprocess sampling (4 chains in 4 jobs)
 NUTS: [ϵ, β, α]
-Sampling 4 chains, 0 divergences: 100%|██████████| 12000/12000 [00:12&lt;00:00, 941.87draws/s] 
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [12000/12000 00:14<00:00 Sampling 4 chains, 0 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 33 seconds.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_59_2.png" src="../_images/PyMC3_59_2.png" />
+<img alt="../_images/PyMC3_63_4.png" src="../_images/PyMC3_63_4.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
@@ -2491,15 +2684,38 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 <h3>Parameter Correlations<a class="headerlink" href="#parameter-correlations" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">],</span> <span class="n">plot_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pairplot</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">,</span> <span class="s1">&#39;β&#39;</span><span class="p">],</span> <span class="n">plot_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span> <span class="c1"># Notice the diagonal shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;α&#39;, ylabel=&#39;β&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/PyMC3_65_1.png" src="../_images/PyMC3_65_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="visualize-the-uncertainty">
+<h3>Visualize the Uncertainty<a class="headerlink" href="#visualize-the-uncertainty" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="c1"># Plot the true values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;C0.&#39;</span><span class="p">)</span> 
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;C0.&#39;</span><span class="p">)</span> <span class="c1"># Plot the true values</span>
-<span class="n">alpha_m</span> <span class="o">=</span> <span class="n">trace_g</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="c1"># Mean of the inferred values</span>
-<span class="n">beta_m</span> <span class="o">=</span> <span class="n">trace_g</span><span class="p">[</span><span class="s1">&#39;β&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  <span class="c1"># Mean of the inferred values</span>
+<span class="c1"># Get the mean inferred values</span>
+<span class="n">alpha_m</span> <span class="o">=</span> <span class="n">trace_g</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> 
+<span class="n">beta_m</span> <span class="o">=</span> <span class="n">trace_g</span><span class="p">[</span><span class="s1">&#39;β&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>  
+
+<span class="c1"># Plot all draws to show the variance of the regression lines</span>
 <span class="n">draws</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_g</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">]),</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">trace_g</span><span class="p">[</span><span class="s1">&#39;α&#39;</span><span class="p">][</span><span class="n">draws</span><span class="p">]</span> <span class="o">+</span> <span class="n">trace_g</span><span class="p">[</span><span class="s1">&#39;β&#39;</span><span class="p">][</span><span class="n">draws</span><span class="p">]</span><span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Plot the mean regression line</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha_m</span> <span class="o">+</span> <span class="n">beta_m</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;y = </span><span class="si">{</span><span class="n">alpha_m</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> + </span><span class="si">{</span><span class="n">beta_m</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> * x&#39;</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
@@ -2507,68 +2723,92 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fc30cd4fbb0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fbd6b3a2d00&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_61_1.png" src="../_images/PyMC3_61_1.png" />
-<img alt="../_images/PyMC3_61_2.png" src="../_images/PyMC3_61_2.png" />
+<img alt="../_images/PyMC3_67_1.png" src="../_images/PyMC3_67_1.png" />
 </div>
 </div>
 </div>
-<div class="section" id="we-sample-from-the-posterior">
-<h3>We sample from the posterior<a class="headerlink" href="#we-sample-from-the-posterior" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="posterior-sampling">
+<h3>Posterior Sampling<a class="headerlink" href="#posterior-sampling" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ppc</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">trace_g</span><span class="p">,</span>
                                      <span class="n">samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span>
                                      <span class="n">model</span><span class="o">=</span><span class="n">model_g</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span> <span class="c1"># Plot the true y values</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha_m</span> <span class="o">+</span> <span class="n">beta_m</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span> <span class="c1"># Plot the mean</span>
+
+<span class="c1"># Plot the posterior predicted samples, i.e. these are samples of predicted y for each original x in our data</span>
 <span class="n">az</span><span class="o">.</span><span class="n">plot_hpd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ppc</span><span class="p">[</span><span class="s1">&#39;y_pred&#39;</span><span class="p">],</span> <span class="n">credible_interval</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot the true y values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span> 
+
+<span class="c1"># Plot the mean regression line - from cell above</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha_m</span> <span class="o">+</span> <span class="n">beta_m</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 2000/2000 [00:01&lt;00:00, 1279.16it/s]
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='2000' class='' max='2000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [2000/2000 00:01<00:00]
+</div>
+</div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fbd6bcf63d0&gt;]
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fc30bc97af0&gt;
-</pre></div>
-</div>
-<img alt="../_images/PyMC3_63_2.png" src="../_images/PyMC3_63_2.png" />
+<img alt="../_images/PyMC3_69_2.png" src="../_images/PyMC3_69_2.png" />
 </div>
 </div>
 </div>
 <div class="section" id="mean-center-the-data">
-<h3>Mean center the data<a class="headerlink" href="#mean-center-the-data" title="Permalink to this headline">¶</a></h3>
-<p>Looking at the plot of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, one can notice the high degree of correlation between these two variables. This results in a parameter posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independent variables.</p>
-<p><span class="math notranslate nohighlight">\(\tilde{x} = x - \bar{x}\)</span></p>
-<p>The advantage of this is twofold</p>
+<h3>Mean-center the Data<a class="headerlink" href="#mean-center-the-data" title="Permalink to this headline">¶</a></h3>
+<p>Looking at the pairplot of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>, one can notice the high degree of correlation between these two variables as indicated by the narrow joint density. This results in a parameter posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independent variables. If \(\bar{x}\) is the mean of the data x then</p>
+<div class="math notranslate nohighlight">
+\[\tilde{x} = x - \bar{x}\]</div>
+<p>The advantage of this is twofold:</p>
 <ol class="simple">
 <li><p>The pivot point is the intercept when the slope changes</p></li>
 <li><p>The parameter posterior space is more circular</p></li>
 </ol>
 <div class="section" id="transformation">
 <h4>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h4>
-<p>In order to center the data</p>
+<p>In order to center the data, the original equation for linear regression given by</p>
 <div class="math notranslate nohighlight">
-\[y = \alpha - \beta x\]</div>
-<p>can be reformulated as</p>
+\[y = \alpha + \beta x\]</div>
+<p>has to be equivalent to the equation for the centered data</p>
 <div class="math notranslate nohighlight">
-\[y = \alpha - \tilde{\beta}(x - \bar{x}) = \alpha + \tilde{\beta} \bar{x} - \tilde{\beta} x\]</div>
-<div class="math notranslate nohighlight">
-\[y = \tilde{\alpha} - \tilde{\beta} x\]</div>
+\[y = \tilde{\alpha} + \tilde{\beta}(x - \bar{x}) = \tilde{\alpha} - \tilde{\beta} \bar{x} + \tilde{\beta} x\]</div>
 </div>
 <div class="section" id="recovering-the-data">
 <h4>Recovering the data<a class="headerlink" href="#recovering-the-data" title="Permalink to this headline">¶</a></h4>
-<p>This implies that the original alpha can now be recovered using the formula</p>
+<p>This implies that we can recover the original intercept \(\alpha\) as</p>
 <div class="math notranslate nohighlight">
-\[\alpha = \tilde{\alpha} - \tilde{\beta} \bar{x}\]</div>
+\[ \alpha = \tilde{\alpha} - \tilde{\beta} \bar{x}\]</div>
+<p>and \(\beta\) as</p>
+<div class="math notranslate nohighlight">
+\[ \beta = \tilde{\beta} \]</div>
+</div>
+</div>
+<div class="section" id="standardize-the-data">
+<h3>Standardize the data<a class="headerlink" href="#standardize-the-data" title="Permalink to this headline">¶</a></h3>
 <p>You can also standardize the data by mean centering and dividing by the standard deviation</p>
 <div class="math notranslate nohighlight">
 \[\tilde{x} = (x - \bar{x}) / \sigma_x\]</div>
-</div>
 </div>
 <div class="section" id="mean-centered-broader-sampling-space">
 <h3>Mean Centered - Broader Sampling Space<a class="headerlink" href="#mean-centered-broader-sampling-space" title="Permalink to this headline">¶</a></h3>
@@ -2603,11 +2843,11 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fc2f92fda90&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_66_2.png" src="../_images/PyMC3_66_2.png" />
+<img alt="../_images/PyMC3_72_2.png" src="../_images/PyMC3_72_2.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_66_4.png" src="../_images/PyMC3_66_4.png" />
+<img alt="../_images/PyMC3_72_4.png" src="../_images/PyMC3_72_4.png" />
 </div>
 </div>
 </div>
@@ -2615,7 +2855,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 <div class="section" id="robust-linear-regression">
 <h2>Robust Linear Regression<a class="headerlink" href="#robust-linear-regression" title="Permalink to this headline">¶</a></h2>
 <p>We fitted our model parameters by assuming the data likelihood was a Normal distribution, however as we saw earlier this assumption suffers from not doing well with outliers. Our solution to this problem is the same, use a Student’s t-distribution for the likelihood.</p>
-<p>Here we look at the <a class="reference external" href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe’s quartet</a>, which is a set of 4 data sets. They have similar statistical properties even though they look very different and were used to illustrate the effect of outliers. Our intended goal is the same, how to model data with outliers and the sensitivity of the model to these outliers.</p>
+<p>Here we look at the <a class="reference external" href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe’s quartet</a>, which is a set of 4 data sets. They have similar statistical properties even though they look very different and were used to illustrate the need to visualize the data along with the effect of outliers. Our intended goal is the same, to model data with outliers and assess the sensitivity of the model to these outliers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -2934,20 +3174,33 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 <span class="n">y_3</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s1">&#39;IV&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of x values in all groups -- &quot;</span><span class="p">,</span><span class="n">x_0</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_2</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">x_3</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of y values in all groups -- &quot;</span><span class="p">,</span><span class="n">y_0</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y_1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y_2</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y_3</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of x values in all groups -- &quot;</span><span class="p">,</span><span class="n">x_0</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">x_1</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">x_2</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">x_3</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean of y values in all groups -- &quot;</span><span class="p">,</span><span class="n">y_0</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">y_1</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">y_2</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="n">y_3</span><span class="o">.</span><span class="n">var</span><span class="p">())</span>
+
 <span class="n">ax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_0</span><span class="p">,</span> <span class="n">y_0</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x_0</span><span class="p">,</span> <span class="n">y_0</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Group I&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span> <span class="n">y_1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span> <span class="n">y_1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Group II&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
 <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_2</span><span class="p">,</span> <span class="n">y_2</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x_2</span><span class="p">,</span> <span class="n">y_2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Group III&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
 <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_3</span><span class="p">,</span> <span class="n">y_3</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x_3</span><span class="p">,</span> <span class="n">y_3</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Group IV&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
@@ -2955,10 +3208,16 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean of x values in all groups --  9.0 9.0 9.0 9.0
+Mean of y values in all groups --  7.500909090909093 7.50090909090909 7.5 7.500909090909091
+Mean of x values in all groups --  10.0 10.0 10.0 10.0
+Mean of y values in all groups --  3.7520628099173554 3.752390082644628 3.747836363636364 3.7484082644628103
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;y&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_70_1.png" src="../_images/PyMC3_70_1.png" />
+<img alt="../_images/PyMC3_76_2.png" src="../_images/PyMC3_76_2.png" />
 </div>
 </div>
 </div>
@@ -2983,7 +3242,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_72_0.png" src="../_images/PyMC3_72_0.png" />
+<img alt="../_images/PyMC3_78_0.png" src="../_images/PyMC3_78_0.png" />
 </div>
 </div>
 </div>
@@ -2996,7 +3255,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
     <span class="n">β</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;β&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ϵ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;ϵ&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">ν_</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s1">&#39;ν_&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">29</span><span class="p">)</span>
-    <span class="n">ν</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;ν&#39;</span><span class="p">,</span> <span class="n">ν_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ν</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;ν&#39;</span><span class="p">,</span> <span class="n">ν_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># shifting the exponential to avoid values close to 0</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">StudentT</span><span class="p">(</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">α</span> <span class="o">+</span> <span class="n">β</span> <span class="o">*</span> <span class="n">x_2</span><span class="p">,</span>
                          <span class="n">sd</span><span class="o">=</span><span class="n">ϵ</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">ν</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y_2</span><span class="p">)</span>
     <span class="n">trace_t</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
@@ -3023,15 +3282,15 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_74_1.svg" src="../_images/PyMC3_74_1.svg" /><img alt="../_images/PyMC3_74_2.png" src="../_images/PyMC3_74_2.png" />
+<img alt="../_images/PyMC3_80_1.svg" src="../_images/PyMC3_80_1.svg" /><img alt="../_images/PyMC3_80_2.png" src="../_images/PyMC3_80_2.png" />
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="hierarchical-linear-regression">
 <h2>Hierarchical Linear Regression<a class="headerlink" href="#hierarchical-linear-regression" title="Permalink to this headline">¶</a></h2>
-<p>We want to use the same hierarchical or multilevel modeling technique for linear regression problems. As mentioned above, this is particularly useful when presented with imbalanced subgroups of sparse data. In this example, we create 8 subgroups with 7 of them having 20 data points and the last one having a single data point.</p>
-<p>The data for the 8 groups are generated from a Normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from the Normal and Beta distributions.</p>
+<p>We want to use the same hierarchical or multilevel modeling technique that we discussed earlier, for linear regression problems as well. As mentioned above, this is particularly useful when presented with imbalanced subgroups of sparse data. In this example, we create data with 8 subgroups. In this data, 7 of the subgroups have 20 data points and the last one has a single data point.</p>
+<p>The data for all the 8 groups are generated from a normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from the normal and beta distributions.</p>
 <div class="section" id="data-generation">
 <h3>Data Generation<a class="headerlink" href="#data-generation" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
@@ -3071,7 +3330,7 @@ The number of effective samples is smaller than 25% for some parameters.
  3.77821034 4.38172358]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_76_1.png" src="../_images/PyMC3_76_1.png" />
+<img alt="../_images/PyMC3_82_1.png" src="../_images/PyMC3_82_1.png" />
 </div>
 </div>
 </div>
@@ -3112,11 +3371,11 @@ NUTS: [ν, ϵ, β, α_tmp]
 Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:17&lt;00:00, 584.40draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_78_1.svg" src="../_images/PyMC3_78_1.svg" /><img alt="../_images/PyMC3_78_2.png" src="../_images/PyMC3_78_2.png" />
+<img alt="../_images/PyMC3_84_1.svg" src="../_images/PyMC3_84_1.svg" /><img alt="../_images/PyMC3_84_2.png" src="../_images/PyMC3_84_2.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_78_4.png" src="../_images/PyMC3_78_4.png" />
+<img alt="../_images/PyMC3_84_4.png" src="../_images/PyMC3_84_4.png" />
 </div>
 </div>
 </div>
@@ -3187,8 +3446,8 @@ The acceptance probability does not match the target. It is 0.9761114878843552, 
 The number of effective samples is smaller than 10% for some parameters.
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_80_1.svg" src="../_images/PyMC3_80_1.svg" /><img alt="../_images/PyMC3_80_2.png" src="../_images/PyMC3_80_2.png" />
-<img alt="../_images/PyMC3_80_3.png" src="../_images/PyMC3_80_3.png" />
+<img alt="../_images/PyMC3_86_1.svg" src="../_images/PyMC3_86_1.svg" /><img alt="../_images/PyMC3_86_2.png" src="../_images/PyMC3_86_2.png" />
+<img alt="../_images/PyMC3_86_3.png" src="../_images/PyMC3_86_3.png" />
 </div>
 </div>
 <br>
@@ -3223,8 +3482,8 @@ The number of effective samples is smaller than 10% for some parameters.
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;y&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_82_1.png" src="../_images/PyMC3_82_1.png" />
-<img alt="../_images/PyMC3_82_2.png" src="../_images/PyMC3_82_2.png" />
+<img alt="../_images/PyMC3_88_1.png" src="../_images/PyMC3_88_1.png" />
+<img alt="../_images/PyMC3_88_2.png" src="../_images/PyMC3_88_2.png" />
 </div>
 </div>
 </div>
@@ -3261,7 +3520,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 16000/160
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc300ba97f0&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_84_2.png" src="../_images/PyMC3_84_2.png" />
+<img alt="../_images/PyMC3_90_2.png" src="../_images/PyMC3_90_2.png" />
 </div>
 </div>
 </div>
@@ -3298,7 +3557,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc2fd471e80&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_86_2.png" src="../_images/PyMC3_86_2.png" />
+<img alt="../_images/PyMC3_92_2.png" src="../_images/PyMC3_92_2.png" />
 </div>
 </div>
 <br>
@@ -3348,7 +3607,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_88_0.png" src="../_images/PyMC3_88_0.png" />
+<img alt="../_images/PyMC3_94_0.png" src="../_images/PyMC3_94_0.png" />
 </div>
 </div>
 </div>
@@ -3491,7 +3750,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_91_0.svg" src="../_images/PyMC3_91_0.svg" /></div>
+<img alt="../_images/PyMC3_97_0.svg" src="../_images/PyMC3_97_0.svg" /></div>
 </div>
 <br>
 <br>
@@ -3525,7 +3784,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;logistic(x)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_94_1.png" src="../_images/PyMC3_94_1.png" />
+<img alt="../_images/PyMC3_100_1.png" src="../_images/PyMC3_100_1.png" />
 </div>
 </div>
 </div>
@@ -3569,13 +3828,13 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 12000/120
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_96_0.png" src="../_images/PyMC3_96_0.png" />
-<img alt="../_images/PyMC3_96_1.png" src="../_images/PyMC3_96_1.png" />
+<img alt="../_images/PyMC3_102_0.png" src="../_images/PyMC3_102_0.png" />
+<img alt="../_images/PyMC3_102_1.png" src="../_images/PyMC3_102_1.png" />
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 432x288 with 0 Axes&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_96_3.png" src="../_images/PyMC3_96_3.png" />
-<img alt="../_images/PyMC3_96_4.png" src="../_images/PyMC3_96_4.png" />
+<img alt="../_images/PyMC3_102_3.png" src="../_images/PyMC3_102_3.png" />
+<img alt="../_images/PyMC3_102_4.png" src="../_images/PyMC3_102_4.png" />
 </div>
 </div>
 <p>You would notice that some of the variables have a high degree of correlation from the correlation plot. One approach is to eliminate one of the correlated variables. The second option is to mean-center and use a weakly-informative prior such as a Students t-distribution for all variables that are not binary. The scale parameter can be adjusted for the range of expected values for these variables and the normality parameter is recommended to be between 3 and 7. (Source: Andrew Gelman and the Stan team)</p>
@@ -3634,7 +3893,7 @@ NUTS: [β, α]
 Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000 [00:03&lt;00:00, 1717.46draws/s]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_101_1.svg" src="../_images/PyMC3_101_1.svg" /></div>
+<img alt="../_images/PyMC3_107_1.svg" src="../_images/PyMC3_107_1.svg" /></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3776,7 +4035,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
   Text(0, 0, &#39;7.5&#39;)])
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_104_1.png" src="../_images/PyMC3_104_1.png" />
+<img alt="../_images/PyMC3_110_1.png" src="../_images/PyMC3_110_1.png" />
 </div>
 </div>
 </div>
@@ -3804,7 +4063,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 6000/6000
 <p>This gives us a decision boundary, assuming y = 0.5 is a reasonable boundary, of</p>
 <div class="math notranslate nohighlight">
 \[x_2 = -\dfrac{\alpha}{\beta_2} - \dfrac{\beta_1}{\beta_2} x_1\]</div>
-<p>Unlike the previous equation, this one represents a line for the variables \(x_1\) and \(x_2\) which separates the two-dimensional space occupied by \(x_1\) and \(x_2\). For higher dimensions, this boundary decision will be a hyperplane of dimension ‘n-1’ for a feature space of dimension ‘n’.</p>
+<p>Unlike the previous equation, this one represents a line for the variables \(x_1\) and \(x_2\) which separates the two-dimensional space occupied by \(x_1\) and \(x_2\). For higher dimensions, this decision boundary will be a hyperplane of dimension ‘n-1’ for a feature space of dimension ‘n’.</p>
 </div>
 <div class="section" id="id4">
 <h3>Inference<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
@@ -3851,7 +4110,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;sepal width (cm)&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_110_1.png" src="../_images/PyMC3_110_1.png" />
+<img alt="../_images/PyMC3_116_1.png" src="../_images/PyMC3_116_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3861,7 +4120,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/PyMC3_111_0.svg" src="../_images/PyMC3_111_0.svg" /></div>
+<img alt="../_images/PyMC3_117_0.svg" src="../_images/PyMC3_117_0.svg" /></div>
 </div>
 </div>
 </div>
@@ -3872,7 +4131,7 @@ Sampling 4 chains, 0 divergences: 100%|██████████| 10000/100
 \[ softmax(x_i) = \dfrac{\exp(x_i)}{\sum_k \exp(x_k)} \]</div>
 <p>Earlier, we also used a Bernoulli distribution as the likelihood for our <span class="math notranslate nohighlight">\(\theta\)</span> parameter, however now we sample from a categorical distribution.</p>
 <div class="math notranslate nohighlight">
-\[\theta = logistic(\alpha + \beta x)\]</div>
+\[\theta = softmax(\alpha + \beta x)\]</div>
 <div class="math notranslate nohighlight">
 \[y \sim Categorical(\theta)\]</div>
 <div class="section" id="logistic-regression-for-a-multiclass-problem">
@@ -3957,7 +4216,7 @@ There were 3 divergences after tuning. Increase `target_accept` or reparameteriz
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_114_4.png" src="../_images/PyMC3_114_4.png" />
+<img alt="../_images/PyMC3_120_4.png" src="../_images/PyMC3_120_4.png" />
 </div>
 </div>
 <br>
@@ -4041,28 +4300,51 @@ There were 3 divergences after tuning. Increase `target_accept` or reparameteriz
 CompoundStep
 &gt;NUTS: [lambda_2, lambda_1]
 &gt;Metropolis: [tau]
-Sampling 10 chains, 0 divergences: 100%|██████████| 55000/55000 [00:14&lt;00:00, 3720.80draws/s]
+</pre></div>
+</div>
+<div class="output text_html">
+<div>
+    <style>
+        /* Turns off some styling */
+        progress {
+            /* gets rid of default border in Firefox and Opera. */
+            border: none;
+            /* Needs to be in here for Safari polyfill so background images work as expected. */
+            background-size: auto;
+        }
+        .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+            background: #F44336;
+        }
+    </style>
+  <progress value='60000' class='' max='60000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [60000/60000 00:11<00:00 Sampling 10 chains, 0 divergences]
+</div>
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 10 chains for 1_000 tune and 5_000 draw iterations (10_000 + 50_000 draws total) took 32 seconds.
 The number of effective samples is smaller than 25% for some parameters.
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e6bff1f0&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e6c459a0&gt;],
-       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e40450d0&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e6c80fd0&gt;],
-       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e37d5670&gt;,
-        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7fd1e6806490&gt;]],
-      dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;tau&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;tau&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_1&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_1&#39;}&gt;],
+       [&lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;,
+        &lt;AxesSubplot:title={&#39;center&#39;:&#39;lambda_2&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_116_2.png" src="../_images/PyMC3_116_2.png" />
-<img alt="../_images/PyMC3_116_3.png" src="../_images/PyMC3_116_3.png" />
+<img alt="../_images/PyMC3_122_4.png" src="../_images/PyMC3_122_4.png" />
+<img alt="../_images/PyMC3_122_5.png" src="../_images/PyMC3_122_5.png" />
 </div>
 </div>
 </div>
 <div class="section" id="visualize-tau">
 <h3>Visualize \(\tau\)<a class="headerlink" href="#visualize-tau" title="Permalink to this headline">¶</a></h3>
 <p>We can use the ECDF (Empirical Cumulative Distribution Function) to visualize the distribution of \(\tau\). The ECDF helps to visualize the distribution by plotting the CDF as opposed to the binning techniques used by a histogram. It also helps us to identify what values in the data are beneath a certain probability.</p>
-<p>It is expected that the rate parameter will be \(\lambda_1\) initially for a time till the day where the value of \(\tau\) has some probability mass ‘x’ when it switches to rate parameter \(\lambda_2\) with this probability mass ‘x’, whereas probability that this day could have the rate parameter \(\lambda_1\) will be ‘1 - x’. You could do this for all the days.</p>
+<p>A reasonable scenario looks like the following:</p>
+<ol class="simple">
+<li><p>Starting from day 1 till day ‘d’, it is expected that the rate parameter will be \(\lambda_1\), i.e with probability 100%.</p></li>
+<li><p>On day ‘d’, it is possible that the rate is \(\lambda_1\) with probability ‘x’ which implies that the rate could be \(\lambda_2\) with probability ‘1 - x’. So this means that  the distribution of \(\tau\) has some probability mass on day ‘d’ indicating that the rate parameter switches to \(\lambda_2\) on this day.</p></li>
+<li><p>For days after day ‘d’, the rate is \(\lambda_2\) with probability 100%.</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.distributions.empirical_distribution</span> <span class="kn">import</span> <span class="n">ECDF</span>
@@ -4076,16 +4358,16 @@ The number of effective samples is smaller than 25% for some parameters.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tau is  [70 69 69 ... 69 69 70]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tau is  [70 70 70 ... 70 70 70]
 Length of tau 50000
-Lambda 1 is  [7.51185013 7.91206181 8.09581346 ... 7.73812503 8.78132404 7.65830744]
+Lambda 1 is  [7.69250846 7.19839796 7.10817603 ... 6.85540056 6.94550251 8.0374546 ]
 Length of Lambda 1  50000
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd1e61eeb80&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc0cc308760&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_118_2.png" src="../_images/PyMC3_118_2.png" />
+<img alt="../_images/PyMC3_124_2.png" src="../_images/PyMC3_124_2.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4165,12 +4447,12 @@ Day 63, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000
 Day 64, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
 Day 65, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
 Day 66, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
-Day 67, the probability of rate being lambda_1 is 1.000000 and lambda_2 is 0.000000 
-Day 68, the probability of rate being lambda_1 is 0.999980 and lambda_2 is 0.000020 
-Day 69, the probability of rate being lambda_1 is 0.505640 and lambda_2 is 0.494360 
-Day 70, the probability of rate being lambda_1 is 0.020120 and lambda_2 is 0.979880 
-Day 71, the probability of rate being lambda_1 is 0.000180 and lambda_2 is 0.999820 
-Day 72, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
+Day 67, the probability of rate being lambda_1 is 0.999040 and lambda_2 is 0.000960 
+Day 68, the probability of rate being lambda_1 is 0.995160 and lambda_2 is 0.004840 
+Day 69, the probability of rate being lambda_1 is 0.939800 and lambda_2 is 0.060200 
+Day 70, the probability of rate being lambda_1 is 0.018220 and lambda_2 is 0.981780 
+Day 71, the probability of rate being lambda_1 is 0.004240 and lambda_2 is 0.995760 
+Day 72, the probability of rate being lambda_1 is 0.000060 and lambda_2 is 0.999940 
 Day 73, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
 Day 74, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
 Day 75, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.000000 
@@ -4243,13 +4525,13 @@ Day 139, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.00
 </div>
 </div>
 </div>
-<div class="section" id="expected-value-of-tau">
-<h3>Expected Value of  \(\tau\)<a class="headerlink" href="#expected-value-of-tau" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="expected-value-of-cases">
+<h3>Expected Value of Cases<a class="headerlink" href="#expected-value-of-cases" title="Permalink to this headline">¶</a></h3>
 <p>For each draw of <span class="math notranslate nohighlight">\(\tau\)</span>, there is a draw of <span class="math notranslate nohighlight">\(\lambda_1\)</span> and <span class="math notranslate nohighlight">\(\lambda_2\)</span>. We can use the principles of Monte Carlo approximation to compute the expected value of COVID-19 cases on any day.</p>
-<p>Expected value for day = <span class="math notranslate nohighlight">\( \dfrac{1}{N} \sum_{0}^{num\_samples}\)</span> Lambda_draw ;  day &gt; Tau_draw ? lambda_2_draw : lambda_1_draw</p>
+<p>Expected value for day = <span class="math notranslate nohighlight">\( \dfrac{1}{N} \sum_{0}^{nsamples}\)</span> Lambda_draw ;  day &gt; Tau_draw ? lambda_2_draw : lambda_1_draw</p>
 <ul class="simple">
 <li><p>Draws are in combinations of \((\lambda_1, \lambda_2, \tau)\), we want to average out the \(\lambda\) value based on the proportion of \(\lambda\) suggestions as indicated by the samples</p></li>
-<li><p>For days 0,…67 we see that the probability of \(\lambda_1\) is 1 whereas the probability of \(\lambda_2\) is 0. So the expected value is just the average of all the \(\lambda_1\) samples.</p></li>
+<li><p>For days 0,…68 we see that the probability of \(\lambda_1\) is 1 whereas the probability of \(\lambda_2\) is 0. So the expected value is just the average of all the \(\lambda_1\) samples.</p></li>
 <li><p>Similarly, for days from 72,… the probability of \(\lambda_2\) is 1 and the probability of \(\lambda_1\) is 0. So the expected value of \(\lambda\) is just the average of all the \(\lambda_2\) samples.</p></li>
 <li><p>For days in between - let us assume for day 69, we have 10% of the samples indicating that \(\tau\) is 70 while 90% indicate that \(\tau\) is 69.</p></li>
 <li><p>If \(\tau\) is 70, that means that day 69 has rate \(\lambda_1\) but if \(\tau\) is 69 that implies that day 69 has rate \(\lambda_2\).</p></li>
@@ -4338,7 +4620,7 @@ Day 139, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.00
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff4bef53c70&gt;]
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_123_1.png" src="../_images/PyMC3_123_1.png" />
+<img alt="../_images/PyMC3_129_1.png" src="../_images/PyMC3_129_1.png" />
 </div>
 </div>
 </div>
@@ -4432,34 +4714,35 @@ Day 139, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.00
 </div>
 <div class="section" id="hamiltonian-monte-carlo-hmc-algorithm">
 <h4>Hamiltonian Monte Carlo (HMC) algorithm<a class="headerlink" href="#hamiltonian-monte-carlo-hmc-algorithm" title="Permalink to this headline">¶</a></h4>
-<p>The HMC algorithm is based on the solution of differential equations known as Hamilton’s equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational process.</p>
-<p>To get a sense of the intuition behind HMC, it is based on the notion of conservation of energy. When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy and when it is closer to the center of the probability mass will have high kinetic energy but low potential energy.</p>
-<p>The step size, in HMC, corresponds to the covariance of the momentum distribution that is sampled. Smaller step sizes move slowly in the manifold however larger step sizes can result in integration errors. There is a Metropolis step at the end of the HMC algorithm and and as a result the corresponding target acceptance rates of 65% in PyMC3.</p>
+<p>The HMC algorithm is based on the solution of differential equations known as Hamilton’s equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational effort in this process.</p>
+<p>To get a sense of the intuition behind HMC, it is based on the notion of conservation of energy. When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy and when it is closer to the center of the probability mass, it will have high kinetic energy but low potential energy.</p>
+<p>The step size, in HMC, corresponds to the covariance of the momentum distribution that is sampled. Smaller step sizes move slowly in the manifold, however larger step sizes can result in integration errors. There is a Metropolis step at the end of the HMC algorithm and the  target acceptance rates of 65% in PyMC3 corresponds to this Metropolis step.</p>
 </div>
 </div>
 <div class="section" id="mixing">
 <h3>Mixing<a class="headerlink" href="#mixing" title="Permalink to this headline">¶</a></h3>
-<p>Mixing refers to how well the sampler covers the ‘support’ of the posterior distribution or rather how well it covers the entire distribution. Poor convergence is often a result of poor mixing. This can happen due the choice of</p>
+<p>Mixing refers to how well the sampler covers the ‘support’ of the posterior distribution or rather how well it covers the entire distribution. Poor convergence is often a result of poor mixing. This can happen due to the choice of</p>
 <ol class="simple">
-<li><p>inappropriate proposal distribution for Metropolis</p></li>
-<li><p>if we have too many correlated variables</p></li>
+<li><p>The choice of an inappropriate proposal distribution for Metropolis</p></li>
+<li><p>If we have too many correlated variables</p></li>
 </ol>
 <p>The underlying cause for this can be</p>
 <ol class="simple">
-<li><p>too large a step size to be able to escape a region of high curvature</p></li>
-<li><p>multimodal distributions</p></li>
+<li><p>Too large a step size</p></li>
+<li><p>Not running the sampler long enough</p></li>
+<li><p>Multimodal distributions</p></li>
 </ol>
 </div>
-<div class="section" id="diagnostic-statistics">
-<h3>Diagnostic statistics<a class="headerlink" href="#diagnostic-statistics" title="Permalink to this headline">¶</a></h3>
-<p>We can compute a metric called Rhat (also called the potential scale reduction factor) that measures the variance between the chains with the variance within the chains. It is calculated as the standard deviation using the samples from all the chains (all samples appended together from each chain) over the  RMS of the within-chain standard deviations of all the chains. Poorly mixed samples will have greater variance in the accumulated samples (numerator) compared to the variance in the individual chains. It was empirically accepted that Rhat values below 1.1 are considered acceptable while those above it are indications of a lack of convergence in the chains. Gelman et al. (2013) introduced a split Rhat that compares the first half with the second half of the samples from each chain to improve upon the regular Rhat. Arviz implements a split Rhat as can be seen from <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.rhat.html">Arviz Rhat</a>, along with an improved rank-based Rhat
+<div class="section" id="rhat">
+<h3>Rhat<a class="headerlink" href="#rhat" title="Permalink to this headline">¶</a></h3>
+<p>We can compute a metric called Rhat (also called the potential scale reduction factor) that measures the ratio of the variance between the chains to the variance within the chains. It is calculated as the ratio of the standard deviation using the samples from all the chains (all samples appended together from each chain) over the  RMS of the within-chain standard deviations of all the chains. Poorly mixed samples will have greater variance in the accumulated samples (numerator) compared to the variance in the individual chains. It was empirically determined that Rhat values below 1.1 are considered acceptable while those above it are indications of a lack of convergence in the chains. Gelman et al. (2013) introduced a split Rhat that compares the first half with the second half of the samples from each chain to improve upon the regular Rhat. Arviz implements a split Rhat as can be seen from <a class="reference external" href="https://arviz-devs.github.io/arviz/generated/arviz.rhat.html">Arviz Rhat</a>. There is also an improved rank-based Rhat
 <a class="reference external" href="https://arxiv.org/pdf/1903.08008.pdf">Improved Rhat</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">az.rhat(trace,</span> <span class="pre">method='split')</span></code></p>
 </div>
 <div class="section" id="centered-vs-non-centered-parameterization">
 <h3>Centered vs. Non-centered Parameterization<a class="headerlink" href="#centered-vs-non-centered-parameterization" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="https://twiecki.io/blog/2017/02/08/bayesian-hierchical-non-centered/">T Wiecki on Reparametrization</a></p>
-<p>When there is insufficient data in a hierarchical model, the variables being inferred ends up having correlation effects, thereby making it difficult to sample. One obvious solution is to obtain more data, but when this isnt’ possible we resort to reparameterization by creating a non-centered model from the centered model.</p>
+<p>When there is insufficient data in a hierarchical model, the variables being inferred ends up having correlation effects, thereby making it difficult to sample. One obvious solution is to obtain more data, but when this isn’t possible we resort to reparameterization by creating a non-centered model from the centered model.</p>
 <p>This is a centered parameterization for <span class="math notranslate nohighlight">\(\beta\)</span> since it is centered around <span class="math notranslate nohighlight">\(\mu\)</span></p>
 <div class="math notranslate nohighlight">
 \[\beta \sim Normal(\mu, \sigma)\]</div>
@@ -4469,7 +4752,7 @@ Day 139, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.00
 \[\beta_{unit} \sim Normal(0,1)\]</div>
 <div class="math notranslate nohighlight">
 \[\beta = \mu + \sigma \beta_{unit}\]</div>
-<p>This works because we are effectively reducing the dependence of \(\alpha\) and \(\beta\), or making them less correlated, making them easier to sample in a non-centered model. The effect is a joint posterior space that is more rounded.</p>
+<p>This works because we are effectively reducing the dependence of \(\mu\) and \(\sigma\), or making them less correlated, making them easier to sample in a non-centered model. The effect is a joint posterior space that is more rounded.</p>
 </div>
 <div class="section" id="convergence">
 <h3>Convergence<a class="headerlink" href="#convergence" title="Permalink to this headline">¶</a></h3>
@@ -4702,7 +4985,7 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_127_3.png" src="../_images/PyMC3_127_3.png" />
+</div></div><img alt="../_images/PyMC3_133_3.png" src="../_images/PyMC3_133_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -4913,7 +5196,7 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_128_3.png" src="../_images/PyMC3_128_3.png" />
+</div></div><img alt="../_images/PyMC3_134_3.png" src="../_images/PyMC3_134_3.png" />
 </div>
 </div>
 <ol class="simple">
@@ -4954,7 +5237,7 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_130_2.png" src="../_images/PyMC3_130_2.png" />
+<img alt="../_images/PyMC3_136_2.png" src="../_images/PyMC3_136_2.png" />
 </div>
 </div>
 </div>
@@ -4986,7 +5269,7 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_132_2.png" src="../_images/PyMC3_132_2.png" />
+<img alt="../_images/PyMC3_138_2.png" src="../_images/PyMC3_138_2.png" />
 </div>
 </div>
 <p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
@@ -5049,8 +5332,8 @@ Number of divergences 126 and percent 6.300000
       dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_136_2.png" src="../_images/PyMC3_136_2.png" />
-<img alt="../_images/PyMC3_136_3.png" src="../_images/PyMC3_136_3.png" />
+<img alt="../_images/PyMC3_142_2.png" src="../_images/PyMC3_142_2.png" />
+<img alt="../_images/PyMC3_142_3.png" src="../_images/PyMC3_142_3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5070,8 +5353,8 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_137_2.png" src="../_images/PyMC3_137_2.png" />
-<img alt="../_images/PyMC3_137_3.png" src="../_images/PyMC3_137_3.png" />
+<img alt="../_images/PyMC3_143_2.png" src="../_images/PyMC3_143_2.png" />
+<img alt="../_images/PyMC3_143_3.png" src="../_images/PyMC3_143_3.png" />
 </div>
 </div>
 <p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
@@ -5100,7 +5383,7 @@ Number of divergences 126 and percent 6.300000
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_139_2.png" src="../_images/PyMC3_139_2.png" />
+<img alt="../_images/PyMC3_145_2.png" src="../_images/PyMC3_145_2.png" />
 </div>
 </div>
 </div>
@@ -5168,12 +5451,12 @@ There were 26 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_142_4.png" src="../_images/PyMC3_142_4.png" />
+<img alt="../_images/PyMC3_148_4.png" src="../_images/PyMC3_148_4.png" />
 </div>
 </div>
 <div class="section" id="diagnostics">
 <h3>Diagnostics<a class="headerlink" href="#diagnostics" title="Permalink to this headline">¶</a></h3>
-<p>All diagnostics in PyMC3 is now in Arviz starting with version 3.9 of PyMC3. Summary is a good place to start</p>
+<p>All diagnostics in PyMC3 are now in Arviz starting with version 3.9 of PyMC3. The ‘summary’ method is a good place to start.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
@@ -5373,8 +5656,8 @@ There were 26 divergences after tuning. Increase `target_accept` or reparameteri
 </div></div></div>
 </div>
 </div>
-<div class="section" id="rhat">
-<h3>Rhat<a class="headerlink" href="#rhat" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id5">
+<h3>Rhat<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">rhat</span><span class="p">(</span><span class="n">trace_s</span><span class="p">)</span>
@@ -5864,7 +6147,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 </div>
 <div class="section" id="trace-energy">
 <h3>Trace Energy<a class="headerlink" href="#trace-energy" title="Permalink to this headline">¶</a></h3>
-<p>Ideally, you want your enerygy and the transition energy to be similar. If your transition energy is too narrow, it could imply that your sampler does not have enough energy to sample the entire posterior space and the sampled results may not appropriately represent the posterior well (biased estimate)</p>
+<p>Ideally, you want the energy of your trace and the transition energy to be similar. If your transition energy is too narrow, it could imply that your sampler does not have enough energy to sample the entire posterior space and the sampled results may not appropriately represent the posterior well (biased estimate).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">trace_s</span><span class="o">.</span><span class="n">energy</span><span class="p">)</span>
@@ -5878,7 +6161,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fbd6516b340&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_151_1.png" src="../_images/PyMC3_151_1.png" />
+<img alt="../_images/PyMC3_157_1.png" src="../_images/PyMC3_157_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5893,7 +6176,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_152_1.png" src="../_images/PyMC3_152_1.png" />
+<img alt="../_images/PyMC3_158_1.png" src="../_images/PyMC3_158_1.png" />
 </div>
 </div>
 <p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
@@ -5907,7 +6190,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_154_1.png" src="../_images/PyMC3_154_1.png" />
+<img alt="../_images/PyMC3_160_1.png" src="../_images/PyMC3_160_1.png" />
 </div>
 </div>
 </div>
@@ -5924,7 +6207,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_156_1.png" src="../_images/PyMC3_156_1.png" />
+<img alt="../_images/PyMC3_162_1.png" src="../_images/PyMC3_162_1.png" />
 </div>
 </div>
 </div>
@@ -6251,25 +6534,25 @@ NUTS: [β, α]
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_164_4.png" src="../_images/PyMC3_164_4.png" />
+<img alt="../_images/PyMC3_170_4.png" src="../_images/PyMC3_170_4.png" />
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="diagnosing-mcmc-using-pymc3">
 <h2>Diagnosing MCMC using PyMC3<a class="headerlink" href="#diagnosing-mcmc-using-pymc3" title="Permalink to this headline">¶</a></h2>
-<p>It is a good idea to inspect the quality of the solutions obtained. It is possible once obtains suboptimal samples resulting in biased estimates or the sampling is slow. There are two broad categories of tests, a visual inspection and a quantitative assessment. Several things that can be done if one suspects issues.</p>
+<p>It is a good idea to inspect the quality of the solutions obtained. It is possible that one obtains suboptimal samples resulting in biased estimates, or the sampling is slow. There are two broad categories of tests, a visual inspection and a quantitative assessment. There are a few things that can be done if one suspects sampling issues.</p>
 <ol>
-<li><p>More samples, it is possible that there aren’t samples to come up with an appropriate posterior</p></li>
+<li><p>More samples, it is possible that there aren’t sufficient samples to come up with an appropriate posterior.</p></li>
 <li><p>Use burn-in, this is removing a certain number of samples from the beginning while PyMC3 is figuring out the step size. This is set to 500 by default. With tuning it is not necessary to explicitly get rid of samples from the beginning.</p></li>
 <li><p>Increase the number of samples used for tuning.</p></li>
-<li><p>Increase the target_accept parameter as
-<code class="docutils literal notranslate"><span class="pre">pm.sample(5000,</span> <span class="pre">chains=2,</span> <span class="pre">target_accept=0.95)</span></code></p>
+<li><p>Increase the target_accept parameter as</p>
+<p><code class="docutils literal notranslate"><span class="pre">pm.sample(5000,</span> <span class="pre">chains=2,</span> <span class="pre">target_accept=0.95)</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">pm.sample(5000,</span> <span class="pre">chains=2,</span> <span class="pre">nuts_kwargs=dict(target_accept=0.95))</span></code></p>
-<p>Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process so that we get the desired acceptance probability as indicated by the value to target_accept. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. Smaller step sizes lead to larger acceptance rates and larger step sizes lead to smaller acceptance rates. If the current acceptance rate is smaller than the target acceptance rate, the step size is reduced to increase the current acceptance rates (See the section on tuning).</p>
+<p>Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process so that we get the desired acceptance probability as indicated by the value of target_accept. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. Smaller step sizes lead to larger acceptance rates and larger step sizes lead to smaller acceptance rates. If the current acceptance rate is smaller than the target acceptance rate, the step size is reduced to increase the current acceptance rates.</p>
 </li>
-<li><p>Reparameterize the model so that the model while remaining the same, is expressed differently so that is easier to explore the space and find solutions.</p></li>
-<li><p>Modify the data representation - mean centering and standardizing the data are two standard techniques that can be applied here. Note that (5) refers to model transformation while this is specifically modifying the data.</p></li>
+<li><p>Reparameterize the model so that the model, while remaining the same, is expressed differently so that is easier for the sampler to explore the distribution space.</p></li>
+<li><p>Modify the data representation - mean centering and standardizing the data are two standard techniques that can be applied here. Note that (5) refers to model transformation while this is data transformation.</p></li>
 </ol>
 <div class="section" id="debugging-pymc3">
 <h3>Debugging PyMC3<a class="headerlink" href="#debugging-pymc3" title="Permalink to this headline">¶</a></h3>
@@ -11664,15 +11947,15 @@ dl.xr-attrs {
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
     <a class='left-prev' id="prev-link" href="MonteCarlo.html" title="previous page">Introduction to Monte Carlo Methods</a>
-    <a class='right-next' id="next-link" href="Reparameterization.html" title="next page">Reparameterization</a>
+    <a class='right-next' id="next-link" href="Reparameterization.html" title="next page">Centered vs. Non-centered Parameterization</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">

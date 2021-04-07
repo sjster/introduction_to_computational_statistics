@@ -1,10 +1,11 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Reparameterization &#8212; Introduction to Computational Statistics with PyMC3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Centered vs. Non-centered Parameterization &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,15 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -55,6 +52,9 @@
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Covid Modeling with PyMC3" href="Covid_modeling.html" />
@@ -197,7 +197,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Reparameterization
+   Centered vs. Non-centered Parameterization
   </a>
  </li>
  <li class="toctree-l1">
@@ -222,21 +222,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -254,16 +254,16 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -290,19 +290,30 @@
     </div>
 </div>
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i>
+            Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#traceplot">
-   Traceplot
+  <a class="reference internal nav-link" href="#centered-model">
+   Centered Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-centered-model">
+   Non-centered Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#convergence">
+   Convergence
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -331,8 +342,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#parallel-plots">
-     Parallel Plots
+    <a class="reference internal nav-link" href="#parallel-coordinates">
+     Parallel Coordinates
     </a>
    </li>
   </ul>
@@ -346,6 +357,7 @@
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -353,8 +365,12 @@
         
               <div>
                 
-  <div class="section" id="reparameterization">
-<h1>Reparameterization<a class="headerlink" href="#reparameterization" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="centered-vs-non-centered-parameterization">
+<h1>Centered vs. Non-centered Parameterization<a class="headerlink" href="#centered-vs-non-centered-parameterization" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://twiecki.io/blog/2017/02/08/bayesian-hierchical-non-centered/">T Wiecki on Reparametrization</a></p>
+<p>When there is insufficient data in a hierarchical model, the variables being inferred end up having correlation effects, thereby making it difficult to sample. One obvious solution is to obtain more data, but when this isn’t possible we resort to reparameterization by creating a non-centered model from the centered model.</p>
+<div class="section" id="centered-model">
+<h2>Centered Model<a class="headerlink" href="#centered-model" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight">
 \[ \mu \sim Normal (0,1)\]</div>
 <div class="math notranslate nohighlight">
@@ -362,7 +378,9 @@
 <div class="math notranslate nohighlight">
 \[y_i \sim Normal(\mu, \sigma)\]</div>
 <p>And we try to fit the two parameters for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> directly here.</p>
-<p>However, the following is a non-centered parameterization since it is scaled from a unit Normal and shifted</p>
+</div>
+<div class="section" id="non-centered-model">
+<h2>Non-centered Model<a class="headerlink" href="#non-centered-model" title="Permalink to this headline">¶</a></h2>
 <div class="math notranslate nohighlight">
 \[ \mu \sim Normal (0,1)\]</div>
 <div class="math notranslate nohighlight">
@@ -430,7 +448,7 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sigma_samples</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sc</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;true $\sigma$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\sigma$ samples&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;y samples&quot;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -535,7 +553,7 @@ NUTS: [y, sigma, mu]
   <progress value='33000' class='' max='33000' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [33000/33000 00:08<00:00 Sampling 3 chains, 7,311 divergences]
 </div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 3 chains for 1_000 tune and 10_000 draw iterations (3_000 + 30_000 draws total) took 16 seconds.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 3 chains for 1_000 tune and 10_000 draw iterations (3_000 + 30_000 draws total) took 15 seconds.
 There were 2027 divergences after tuning. Increase `target_accept` or reparameterize.
 The acceptance probability does not match the target. It is 0.6613714331625662, but should be close to 0.8. Try to increase the number of tuning steps.
 There were 1543 divergences after tuning. Increase `target_accept` or reparameterize.
@@ -572,7 +590,7 @@ NUTS: [yt, sigma, mu]
   <progress value='33000' class='' max='33000' style='width:300px; height:20px; vertical-align: middle;'></progress>
   100.00% [33000/33000 00:06<00:00 Sampling 3 chains, 157 divergences]
 </div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 3 chains for 1_000 tune and 10_000 draw iterations (3_000 + 30_000 draws total) took 12 seconds.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 3 chains for 1_000 tune and 10_000 draw iterations (3_000 + 30_000 draws total) took 13 seconds.
 There were 9 divergences after tuning. Increase `target_accept` or reparameterize.
 There were 69 divergences after tuning. Increase `target_accept` or reparameterize.
 There were 79 divergences after tuning. Increase `target_accept` or reparameterize.
@@ -594,8 +612,9 @@ There were 79 divergences after tuning. Increase `target_accept` or reparameteri
 <img alt="../_images/Reparameterization_2_0.png" src="../_images/Reparameterization_2_0.png" />
 </div>
 </div>
-<div class="section" id="traceplot">
-<h2>Traceplot<a class="headerlink" href="#traceplot" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="convergence">
+<h2>Convergence<a class="headerlink" href="#convergence" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
@@ -810,16 +829,15 @@ There were 79 divergences after tuning. Increase `target_accept` or reparameteri
 </div>
 </div>
 <ol class="simple">
-<li><p>The KDE has more agreement for the non-centered model(ncm) compared to the centered model (cm) for the different chains.</p></li>
-<li><p>There are more divergences for cm compared to the ncm as can be seen from the vertical bars in the trace plot.</p></li>
-<li><p>In general, ncm mixes better than cm - ncm looks like evenly mixed while cm looks patchy in certain regions.</p></li>
-<li><p>It is possible to see flat lines in the trace, a flat indicates that the same sample value is being used because all new proposed samples are being rejected, in other words the sampler is samping slowly and not getting to a different space in the manifold. The only fix here is to sample for longer periods of time, however we are assuming we can get more unbiased samples if we let it run for longer.</p></li>
+<li><p>The posterior densities have more agreement for the non-centered model(ncm) compared to the centered model (cm), for the different chains.</p></li>
+<li><p>There are more divergences for centered model compared to the non-centered model as can be seen from the vertical bars in the trace plot.</p></li>
+<li><p>In general, the non-centered model mixes better than the centered model - non-centered model looks fairly evenly mixed while centered model looks patchy in certain regions.</p></li>
+<li><p>It is possible to see flat lines in the trace for a centered model, a flat line indicates that the same sample value is being used because all new proposed samples are being rejected, in other words the sampler is sampling slowly and not getting to a different space in the manifold. The only fix here is to sample for longer periods of time, however we are assuming that we can get more unbiased samples if we let it run longer.</p></li>
 </ol>
 </div>
 <div class="section" id="forest-plot">
 <h2>Forest Plot<a class="headerlink" href="#forest-plot" title="Permalink to this headline">¶</a></h2>
-<p>We plot the densities of both the cm and the ncm models, notice the differences in effective sample sizes for
-the cm (very low).</p>
+<p>We plot the densities of both the cm and the ncm models, notice the differences in effective sample sizes for the centered model (very low).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
@@ -842,26 +860,32 @@ the cm (very low).</p>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&lt;AxesSubplot:&gt;, &lt;AxesSubplot:title={&#39;center&#39;:&#39;ess&#39;}&gt;,
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/Reparameterization_7_1.png" src="../_images/Reparameterization_7_1.png" />
+<img alt="../_images/Reparameterization_7_2.png" src="../_images/Reparameterization_7_2.png" />
 </div>
 </div>
 </div>
 <div class="section" id="autocorrelation-and-effective-sample-sizes">
 <h2>Autocorrelation and effective sample sizes<a class="headerlink" href="#autocorrelation-and-effective-sample-sizes" title="Permalink to this headline">¶</a></h2>
 <p>Ideally, we would like to have zero correlation in the samples that are drawn. Correlated samples violate our condition of independence and can give us biased posterior estimates of our posterior distribution.
-Thinning or pruning refers to the process of dropping every nth sample from a chain. This is to minimize the number of correlated samples that might be drawn, especially if the proposal distribution is narrow. The autocorrelation plot computes the correlation of a sequence with itself but shifted by n, for each n on the x axis the corresponding value of autocorrelation is plotted on the y axis.</p>
+Thinning or pruning refers to the process of dropping every nth sample from a chain. This is to minimize the number of correlated samples that might be drawn, especially if the proposal distribution is narrow. The autocorrelation plot computes the correlation of a sequence with itself but shifted by n; for each n on the x axis the corresponding value of autocorrelation is plotted on the y axis.</p>
 <p><code class="docutils literal notranslate"><span class="pre">az.plot_autocorr(trace,</span> <span class="pre">var_names=[&quot;a&quot;,</span> <span class="pre">&quot;b&quot;])</span></code></p>
-<p>Techniques like Metropolis-Hastings are susceptible to having auto-correlated samples. We plot the autcorrelation here for the cm and the ncm models. The cm models have samples that have a high degree of autocorrelation while the ncm models does not.</p>
+<p>Techniques like Metropolis-Hastings are susceptible to having auto-correlated samples. We plot the autocorrelation here for the cm and the ncm models. The cm models have samples that have a high degree of autocorrelation while the ncm models does not.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
 <span class="n">az</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">az</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sigma - centered model&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sigma - non-centered model&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -872,42 +896,40 @@ Thinning or pruning refers to the process of dropping every nth sample from a ch
   warnings.warn(
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&lt;AxesSubplot:title={&#39;center&#39;:&#39;sigma\n0&#39;}&gt;,
-       &lt;AxesSubplot:title={&#39;center&#39;:&#39;sigma\n1&#39;}&gt;,
-       &lt;AxesSubplot:title={&#39;center&#39;:&#39;sigma\n2&#39;}&gt;], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Sigma - non-centered model&#39;)
 </pre></div>
 </div>
 <img alt="../_images/Reparameterization_9_2.png" src="../_images/Reparameterization_9_2.png" />
 </div>
 </div>
-<p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
-<p><code class="docutils literal notranslate"><span class="pre">az.efective_n(trace_s)</span></code></p>
+<p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed when a summary of the trace is printed out, however it can also be explicitly computed using</p>
+<p><code class="docutils literal notranslate"><span class="pre">az.effective_n(trace_s)</span></code></p>
 <p>PyMC3 will throw a warning if the number of effective samples is less than 200 (200 is heuristically determined to provide a good approximation for the mean of a distribution). Unless you want to sample from the tails of a distribution (rare events), 1000 to 2000 samples should provide a good approximation for a distribution.</p>
 </div>
 <div class="section" id="monte-carlo-error">
 <h2>Monte Carlo error<a class="headerlink" href="#monte-carlo-error" title="Permalink to this headline">¶</a></h2>
-<p>The Monte Carlo error is a measure of the error of our sampler which stems from the fact that not all samples that we have drawn are independent. This error is defined by dividing a trace into n blocks. We then compute the mean of these blocks and calculate the error as the standard deviation of these means over the square root of the number of blocks.</p>
+<p>The Monte Carlo error is a measure of the error of our sampler which stems from the fact that not all samples that we have drawn are independent. This error is defined by dividing a trace into ‘n’ blocks. We then compute the mean of these blocks and calculate the error as the standard deviation of these means over the square root of the number of blocks.</p>
 <p><span class="math notranslate nohighlight">\(mc_{error} = \sigma(\mu(block_i)) / \sqrt(n)\)</span></p>
 </div>
 <div class="section" id="divergence">
 <h2>Divergence<a class="headerlink" href="#divergence" title="Permalink to this headline">¶</a></h2>
-<p>Divergences happen in regions of high curvature or high gradientt in the manifold. When PyMC3 detects a divergence it abandons that chain and as a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.</p>
+<p>Divergences happen in regions of high curvature or high gradient in the manifold. When PyMC3 detects a divergence it abandons that chain, and as a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.</p>
 <p>In some cases, PyMC3 can indicate falsely that some samples are divergences, this is due to the heuristics used to identify divergences. Concentration of samples in a region is an indication that these are not divergences.</p>
-<p>We visualize this for the cm and ncm models with pairplots of the variables. You can see how the cm models have difficulty sampling at the edge of the funnel shaped two-dimensional manifold formed by the pairplot. This is a result of the sharp discontinuity where the sampler is having difficulty sampling.</p>
+<p>We visualize this for the cm and ncm models with pairplots of the variables. You can see how the cm models have difficulty sampling at the edge of the funnel shaped two-dimensional manifold formed by the pairplot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences in cm model, </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences in cm model, </span><span class="si">%d</span><span class="s2"> and </span><span class="si">%lf</span><span class="s2"> percent &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences in ncm model, </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences in ncm model, </span><span class="si">%d</span><span class="s2"> and </span><span class="si">%lf</span><span class="s2"> percent &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of divergences in cm model, 7311 and percent 73.110000 
-Number of divergences in ncm model, 157 and percent 1.570000 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of divergences in cm model, 7311 and 73.110000 percent 
+Number of divergences in ncm model, 157 and 1.570000 percent 
 </pre></div>
 </div>
 </div>
@@ -961,9 +983,9 @@ Number of divergences in ncm model, 157 and percent 1.570000
 </div>
 </div>
 </div>
-<div class="section" id="parallel-plots">
-<h3>Parallel Plots<a class="headerlink" href="#parallel-plots" title="Permalink to this headline">¶</a></h3>
-<p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
+<div class="section" id="parallel-coordinates">
+<h3>Parallel Coordinates<a class="headerlink" href="#parallel-coordinates" title="Permalink to this headline">¶</a></h3>
+<p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of difficulty sampling and hence divergences. This behavior can be observed in the centered model around 0 while the non-centered model has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. Apart from reformulating the problem, there are two ways to avoid the problem of divergences.</p>
 <ol class="simple">
 <li><p>Increase the tuning samples</p></li>
 <li><p>Increase ‘target_accept’</p></li>
@@ -982,6 +1004,8 @@ Number of divergences in ncm model, 157 and percent 1.570000
 </div>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
@@ -1021,15 +1045,15 @@ Number of divergences in ncm model, 157 and percent 1.570000
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
     <a class='left-prev' id="prev-link" href="PyMC3.html" title="previous page">Introduction to PyMC3</a>
     <a class='right-next' id="next-link" href="Covid_modeling.html" title="next page">Covid Modeling with PyMC3</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">

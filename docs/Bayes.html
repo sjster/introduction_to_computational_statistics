@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction to the Bayes Theorem &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,15 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -55,6 +52,9 @@
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 
@@ -195,7 +195,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Reparameterization.html">
-   Reparameterization
+   Centered vs. Non-centered Parameterization
   </a>
  </li>
  <li class="toctree-l1">
@@ -220,21 +220,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -252,16 +252,16 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -288,13 +288,14 @@
     </div>
 </div>
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i>
+            Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
@@ -366,6 +367,7 @@
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -451,7 +453,7 @@
 <h2>UNGRADED EVALUATION (20 min)<a class="headerlink" href="#ungraded-evaluation-20-min" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="conditional-probabilities-are-best-described-as">
 <h3>1. Conditional probabilities are best described as<a class="headerlink" href="#conditional-probabilities-are-best-described-as" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. a joint probability where we have narrowed our focus to a fixed value(or set of values) for one of the random variables  (C)   
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. a joint probability where we have narrowed our focus to a fixed value(or set of values) for one of the random variables
 
 b. a joint probability where we have integrated out the effect of one of the variables
 </pre></div>
@@ -462,7 +464,7 @@ b. a joint probability where we have integrated out the effect of one of the var
 <p>Cancer prevalance = 0.02%<br />
 Test sensitivity = 85%<br />
 Test specificity = 95%</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. 0.33%  (C)  
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. 0.33%
 
 b. 85%  
 </pre></div>
@@ -474,7 +476,7 @@ b. 85%
 
 b. P(hypothesis) = 1
 
-c. P(data|hypothesis) = likelihood  (C)   
+c. P(data|hypothesis) = likelihood
 
 d. P(hypothesis|data) = likelihood
 </pre></div>
@@ -486,11 +488,11 @@ d. P(hypothesis|data) = likelihood
 <ol>
 <li><p>A car repair shop receives a car with reports of strange noises coming from the engine.  The shop knows 90% of the cars that come in for “noises” have a loose fan belt while the other 10% have a loose muffler.  A common description, 95%, of cars having loose mufflers is they rattle.  Less commonly, 8%, fan belt issues can also sound like a rattle.  The car owner is describing the strange noise as a rattle.  What is the probability the car has a loose muffler?</p>
 <p>a. 78%</p>
-<p>b. 57% (B)</p>
+<p>b. 57%</p>
 <p>c. 95%</p>
 </li>
 <li><p>It is estimated that 80% of emails are spam.  You have developed a new algorithm to detect spam.  Your spam software can detect 99% of spam emails but has a false positive rate of 5%.  Your company receives 1000 emails in a day, how many emails will be incorrectly marked as spam?</p>
-<p>a. 10 (C)</p>
+<p>a. 10</p>
 <p>b. 20</p>
 <p>c. 5</p>
 <p>d. 200</p>
@@ -498,7 +500,7 @@ d. P(hypothesis|data) = likelihood
 </li>
 <li><p>You have developed a new algorithm for detecting fraud.  It has a sensitivity of 90% with a specificity of 95%.  Choose the correct statement:</p>
 <p>a. true positive rate = 90%, true negative rate = 5%</p>
-<p>b. true positive rate = 90%, true negative rate = 95% (C)</p>
+<p>b. true positive rate = 90%, true negative rate = 95%</p>
 </li>
 </ol>
 </div>
@@ -526,13 +528,13 @@ d. P(hypothesis|data) = likelihood
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">

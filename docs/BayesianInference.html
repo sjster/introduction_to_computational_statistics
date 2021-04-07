@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Topics in Model Performance &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,15 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -55,6 +52,9 @@
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introduction to Monte Carlo Methods" href="MonteCarlo.html" />
@@ -197,7 +197,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Reparameterization.html">
-   Reparameterization
+   Centered vs. Non-centered Parameterization
   </a>
  </li>
  <li class="toctree-l1">
@@ -222,21 +222,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -254,16 +254,16 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -290,16 +290,22 @@
     </div>
 </div>
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i>
+            Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#underfitting-vs-overfitting">
+   Underfitting vs. Overfitting
+  </a>
+ </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#r-2-and-explained-variance">
    <span class="math notranslate nohighlight">
@@ -307,11 +313,28 @@
    </span>
    and Explained Variance
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#underfitting-vs-overfitting">
-   Underfitting vs. Overfitting
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-does-it-do">
+     What does it do?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#derivation">
+     Derivation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#how-do-we-interpret-this">
+     How do we interpret this?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#explained-variance">
+     Explained Variance
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#measures-for-predictive-performance">
@@ -320,7 +343,7 @@
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#cross-validation">
-     1. Cross-validation
+     1. Cross-Validation
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -332,6 +355,33 @@
     <a class="reference internal nav-link" href="#log-likelihood-and-deviance">
      Log-likelihood and Deviance
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#log-likelihood-log-predictive-density">
+       Log-likelihood (Log predictive density)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#deviance">
+       Deviance
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#why-use-the-deviance-over-the-log-likelihood">
+       Why use the Deviance over the Log-likelihood?
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-note-on-mle">
+       A Note on MLE
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#posterior-predictive-distribution-to-estimate-predictive-accuracy">
+     Posterior Predictive Distribution to Estimate Predictive Accuracy
+    </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#akaike-information-criterion-aic">
@@ -339,8 +389,30 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-information-criterion-bic">
+     Bayesian Information Criterion (BIC)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#deviance-information-criterion-dic">
+     Deviance Information Criterion (DIC)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#widely-applicable-information-criterion-waic">
      Widely Applicable Information Criterion (WAIC)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#log-pointwise-predictive-density-lppd">
+       Log pointwise predictive density (lppd)
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-qualitative-discussion">
+     A Qualitative Discussion
     </a>
    </li>
   </ul>
@@ -358,8 +430,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ungraded-evaluation-30mins">
-   UNGRADED EVALUATION (30mins)
+  <a class="reference internal nav-link" href="#ungraded-evaluation-15-mins">
+   UNGRADED EVALUATION (15 mins)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -392,16 +464,6 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#stationary-distributions">
-   Stationary distributions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ergodicity">
-   Ergodicity
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#graded-evaluation-30-mins">
    GRADED EVALUATION (30 mins)
   </a>
@@ -410,6 +472,7 @@
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -423,38 +486,70 @@
 <ul class="simple">
 <li><p>Bayesian Analysis with Python: Introduction to Statistical Modeling and Probabilistic Programming with PyMC3 and ArViz, 2nd Edition</p></li>
 </ul>
+<p>You may have heard the saying</p>
+<p><code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">models</span> <span class="pre">are</span> <span class="pre">wrong,</span> <span class="pre">but</span> <span class="pre">some</span> <span class="pre">are</span> <span class="pre">useful</span></code></p>
+<p>This aphorism is attributed to the British statistician George E.P. Box. The implication of this is that models are supposed to represent reality but they rarely do in full fidelity. However, some models can provide useful insight while others add little value to what we already know, or worse provide us misleading information.</p>
+<p>So how do we determine if our model can be trusted? In Machine Learning, we resort to Cross-Validation to provide us with a sense of certainty about a model’s ability to generalize to unseen data. Let us look at some other measures with roots in information theory to assess the predictive ability of our models.</p>
+<div class="section" id="underfitting-vs-overfitting">
+<h2>Underfitting vs. Overfitting<a class="headerlink" href="#underfitting-vs-overfitting" title="Permalink to this headline">¶</a></h2>
+<p>Most folks have by now heard of underfitting and overfitting a model. Simpler models should be preferred but not at the cost of accuracy. An overfit model, on the other hand, may not generalize well on new data. We can measure how well a model fits the data using the <span class="math notranslate nohighlight">\(R^2\)</span> metric which measures the proportion of explained variance.</p>
+<p>If we use the example of linear regression and start with a first order polynomial regression to explain the data, we may find that the data may not be adequately captured. This is referred to as underfitting. We may have to incrementally increase the complexity of the model by increasing the order of the polynomial. Past a certain point, however, the model starts overfitting to the data. What this means is that the model simply used its representational power to memorize the data and will perform poorly on new data that is fed into the model (\(R^2\) too high).</p>
+<p>We want a model that has found that balance between being underfit and overfit, this trade-off is often referred to as the bias-variance trade-off. Bias is the error in the data resulting from its inability to accomodate the data. The model does not have the representational power to capture all the variations and patterns in the data. Variance is the error resulting from the sensitivity of the model to the data, which usually results from too complex of a model. Regularization is often used for this reason to reduce the complexity in a regression model (or neural network) by minimizing the number of coefficients.</p>
+<p><img alt="Underfitting vs. Overfitting (from AWS)" src="https://docs.aws.amazon.com/machine-learning/latest/dg/images/mlconcepts_image5.png" /></p>
+<center>Underfitting vs Overfitting (from AWS  docs)</center>
+</div>
 <div class="section" id="r-2-and-explained-variance">
 <h2><span class="math notranslate nohighlight">\(R^2\)</span> and Explained Variance<a class="headerlink" href="#r-2-and-explained-variance" title="Permalink to this headline">¶</a></h2>
-<p>If we observe data given by <span class="math notranslate nohighlight">\(y_i\)</span> such that the fitted model predicts <span class="math notranslate nohighlight">\(f_i\)</span> for each point i, we can write <span class="math notranslate nohighlight">\(y_{mean}\)</span> as</p>
-<p><span class="math notranslate nohighlight">\(y_{mean} = \dfrac{1}{n} \sum_i y_i\)</span></p>
-<p>Total sum of squares, which is proportional to the variance of the data, is</p>
-<p><span class="math notranslate nohighlight">\(SS_{tot} = \sum_i (y_i - y_{mean})^2\)</span></p>
-<p>The residual sum of squares (also called the error) is defined as</p>
-<p><span class="math notranslate nohighlight">\(SS_{res} = \sum_i (y_i - f_i)^2\)</span></p>
-<p><span class="math notranslate nohighlight">\(R^2\)</span> is defined as</p>
-<p><span class="math notranslate nohighlight">\(R^2 = 1 - \dfrac{SS_{res}}{SS_{tot}}\)</span></p>
-<p><span class="math notranslate nohighlight">\(R^2\)</span> is 1 for a model that perfectly fits the observed data, i.e. <span class="math notranslate nohighlight">\(f_i\)</span> = <span class="math notranslate nohighlight">\(y_i\)</span> for all i. If the model predicts <span class="math notranslate nohighlight">\(y_{mean}\)</span> always then <span class="math notranslate nohighlight">\(SS_{res} = SS_{tot}\)</span> and <span class="math notranslate nohighlight">\(R^2 = 0\)</span>, this indicates a baseline model to which all other models can be compared. Any model that performs worse than this will have a negative <span class="math notranslate nohighlight">\(R^2\)</span> score.</p>
+<div class="section" id="what-does-it-do">
+<h3>What does it do?<a class="headerlink" href="#what-does-it-do" title="Permalink to this headline">¶</a></h3>
+<p><span class="math notranslate nohighlight">\(R^2\)</span> is a goodness-of-fit measure that tells you how well the data fits the model that we created. More pedantically, it explains the proportion of variance in the outcomes that the independent variables explain.</p>
+</div>
+<div class="section" id="derivation">
+<h3>Derivation<a class="headerlink" href="#derivation" title="Permalink to this headline">¶</a></h3>
+<p>If we observe data given by <span class="math notranslate nohighlight">\(y_i\)</span> such that the fitted model predicts <span class="math notranslate nohighlight">\(f_i\)</span> for each point i, we can write the mean of all the observed data, given by \(y_{mean}\) as</p>
+<div class="math notranslate nohighlight">
+\[y_{mean} = \dfrac{1}{n} \sum_i y_i\]</div>
+<ul class="simple">
+<li><p>Total sum of squares, which is proportional to the variance of the data, is</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[SS_{tot} = \sum_i (y_i - y_{mean})^2\]</div>
+<ul class="simple">
+<li><p>The residual sum of squares (also called the error) is defined as</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[SS_{res} = \sum_i (y_i - f_i)^2\]</div>
+<ul class="simple">
+<li><p>Now, \(R^2\) is defined as</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[R^2 = 1 - \dfrac{SS_{res}}{SS_{tot}}\]</div>
+</div>
+<div class="section" id="how-do-we-interpret-this">
+<h3>How do we interpret this?<a class="headerlink" href="#how-do-we-interpret-this" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>\(R^2\) is 1 for a model that perfectly fits the observed data, i.e. \(f_i = y_i\) for all i.</p></li>
+<li><p>If the model predicts \(y_{mean}\) always then \(SS_{res} = SS_{tot}\) and \(R^2 = 0\), this indicates a baseline model to which all other models can be compared.</p></li>
+<li><p>Any model that performs worse than the baseline model will have a negative <span class="math notranslate nohighlight">\(R^2\)</span> score.</p></li>
+</ul>
+</div>
+<div class="section" id="explained-variance">
+<h3>Explained Variance<a class="headerlink" href="#explained-variance" title="Permalink to this headline">¶</a></h3>
 <p>The term <span class="math notranslate nohighlight">\(\dfrac{SS_{res}}{SS_{tot}}\)</span> is also called Unexplained Variance. Therefore</p>
 <p><span class="math notranslate nohighlight">\(R^2 = 1 - Unexplained Variance\)</span></p>
 <p>or</p>
 <p><span class="math notranslate nohighlight">\(R^2 = Explained Variance\)</span></p>
 </div>
-<div class="section" id="underfitting-vs-overfitting">
-<h2>Underfitting vs. Overfitting<a class="headerlink" href="#underfitting-vs-overfitting" title="Permalink to this headline">¶</a></h2>
-<p>Most folks have by now heard of underfitting and overfitting a model. Simpler models should be preferred but not at the cost of accuracy. An overfit model, on the other hand, may not generalize well on new data. We can measure how well a model fits the data using the <span class="math notranslate nohighlight">\(R^2\)</span> metric which measures the proportion of explained variance.</p>
-<p>If we use the example of linear regression and start with a first order regression to explain the data, we may find that the data may not be adequately captured. We may have to incrementally increase the complexity of the model by increasing the order of the polynomial. Past a certain point, however, the model starts overfitting to the data. What this means is that the model simply used its representational power to memorize the data and will perform poorly on new data that is fed into the model.</p>
-<p>We want a model that has found that balance between being underfit and overfit, this trade-off is often referred to as the bias-variance trade-off. Bias is the error in the data resulting from its inability to accomodate the data. The model does not have the representational power to capture all the variations and patterns in the data. Variance is the error resulting from the sensitivity of the model to the data which usually results a complex model. Regularization is often used for this reason to reduce the complexity in a regression (or neural network) by minimizing the number of coefficients.</p>
-<p><img alt="Underfitting vs. Overfitting (from AWS)" src="https://docs.aws.amazon.com/machine-learning/latest/dg/images/mlconcepts_image5.png" /></p>
-<center>Underfitting vs Overfitting (from AWS  docs)</center></div>
+</div>
 <div class="section" id="measures-for-predictive-performance">
 <h2>Measures for Predictive Performance<a class="headerlink" href="#measures-for-predictive-performance" title="Permalink to this headline">¶</a></h2>
 <p>Accuracy of the model can be measured by the following methods:</p>
 <div class="section" id="cross-validation">
-<h3>1. Cross-validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
-<p>Here we divide the data into non-overlapping subsets and perform training and validation on the different subsets. Depending on how we perform this cross-validation, it can be called K-fold cross-validation or leave-one-out cross-validation (LOOCV). In K-fold cross validation we divide the data into ‘K’ folds or subsets, perform training of the model on k-1 folds while the model performance is assessed on the 1 fold that was left. We iteratively select each fold to be the test fold while the others become the training folds.</p>
+<h3>1. Cross-Validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
+<p>Here we divide the data into non-overlapping subsets and perform training and validation on the different subsets. Depending on how we perform this Cross-Validation, it can be called K-fold Cross-Validation or leave-one-out Cross-Validation (LOOCV). In <strong>K-fold Cross-Validation</strong> we divide the data into ‘K’ folds or subsets, perform training of the model on k-1 folds while the model performance is assessed on the 1 fold that was left. We iteratively select each fold to be the test fold while the others become the training folds.</p>
 <p><img alt="Image from the scikit-learn page for K-fold cross validation" src="https://scikit-learn.org/stable/_images/grid_search_cross_validation.png" /></p>
-<center>K-fold Cross-validation from the scikit-learn page</center>
-<p>If the number of folds is equal to the number of data points, we have leave-one-out cross-validation.</p>
+<center><i>K-fold Cross-Validation from the scikit-learn page</i></center>
+<p>If the number of folds is equal to the number of data points, we have <strong>Leave-One-Out Cross-Validation</strong>.</p>
 </div>
 <div class="section" id="information-criteria">
 <h3>2. Information criteria<a class="headerlink" href="#information-criteria" title="Permalink to this headline">¶</a></h3>
@@ -462,13 +557,24 @@
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.casact.org/education/rpm/2016/presentations/PM-LM-4-Tevet.pdf">Predictive metrics presentation from Liberty Mutual</a></p></li>
 </ul>
-<p>A number of ideas that are firmly rooted in Information theory help us to quantify how well a model performs.</p>
+<p>A number of ideas that are firmly rooted in information theory help us to quantify how well a model performs.</p>
 <ol class="simple">
-<li><p>Log-likelihood and deviance</p></li>
+<li><p>Log-likelihood (Log predictive density) and deviance</p></li>
 <li><p>Akaike Information Criterion (AIC)</p></li>
 <li><p>Widely Applicable Information Criterion (WAIC)</p></li>
+<li><p>Deviance Information Criterion (DIC)</p></li>
 <li><p>Bayesian Information Criterion (BIC)</p></li>
 </ol>
+<p>For (2) to (5),</p>
+<ul>
+<li><p>They take the form of the equation with two terms given by</p>
+<div class="math notranslate nohighlight">
+\[metric = model\;fit + penalization\]</div>
+</li>
+<li><p>The model fit is measured using the log likelihood of the data given model parameters (could be a pointwise estimate, or could use the full posterior distribution)</p></li>
+<li><p>Lower values imply a better fit</p></li>
+</ul>
+<p>AIC, BIC and DIC use the joint probability of the data, whereas WAIC computes the pointwise probability of the data. In the following, we assume the model parameters are independent, thereby the joint probability is the same as the product of the pointwise estimates.</p>
 </div>
 <div class="section" id="log-likelihood-and-deviance">
 <h3>Log-likelihood and Deviance<a class="headerlink" href="#log-likelihood-and-deviance" title="Permalink to this headline">¶</a></h3>
@@ -477,20 +583,72 @@
 <li><p><a class="reference external" href="https://www.erudit.org/en/journals/mee/2015-v37-n3-mee02497/1036328ar/">Cousineau, Denis et Teresa A. Allan. “Likelihood and its use in Parameter Estimation and Model Comparison.” Mesure et évaluation en éducation, volume 37, number 3, 2015, p. 63–98. https://doi.org/10.7202/1036328ar</a></p></li>
 </ul>
 <p>These terms are used to measure the error in our model with regards to the data that the model is trying to fit. Most folks are familiar with the Mean Squared Error (MSE) given by</p>
-<p>MSE = <span class="math notranslate nohighlight">\(\sum_1^n (y_{true} - y_{predicted})^2 / n\)</span></p>
-<p>While this is a perfectly acceptably way of measuring error, another way to measure the performance of a model is using the log-likelihood function.</p>
-<p><strong>Log-likelihood</strong> = <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta)\)</span></p>
-<p>If the likelihood function is a Normal, the log-likelihood is proportional to the MSE. Deviance is simply -2 times the log-likelihood</p>
-<p><strong>Deviance</strong> = -2 <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta)\)</span></p>
-<p>Note that the likelihood function <span class="math notranslate nohighlight">\(p(y_i | \theta)\)</span> takes values from 0 for no fit to 1 for a perfectly fit model. This results in the log-likelihood function taking values from <span class="math notranslate nohighlight">\(- \infty\)</span> to 0. Multiplying the log-likelihood function by -2 results in a number that is interpretable similar to the MSE. Poorly fit models have large positive values while a perfectly fit model has a value of 0. This is primary reason for using deviance as opposed to the log-likelihood. Complex models will have lower deviance values on training set (in-sample data), and this needs to be penalized when comparing models. This is related to overfitting and bias that we talked about earlier.</p>
-<p>Maximum Likelihood Estimation (MLE) is based on the notion of estimating the parameters <span class="math notranslate nohighlight">\(\theta\)</span> that maximize the the probability <span class="math notranslate nohighlight">\(\sum_1^n p(y_i | \theta)\)</span>. While there are other methods to do the same, with a large enough sample size MLE is the most efficient estimator for the distribution parameter <span class="math notranslate nohighlight">\(\theta\)</span>. Also, as sample size increases the estimater parameter tends to the true parameter and the error becomes normally distributed.</p>
+<div class="math notranslate nohighlight">
+\[MSE = \sum_1^n (y_{true} - y_{predicted})^2 / n\]</div>
+<div class="section" id="log-likelihood-log-predictive-density">
+<h4>Log-likelihood (Log predictive density)<a class="headerlink" href="#log-likelihood-log-predictive-density" title="Permalink to this headline">¶</a></h4>
+<p>While this is a perfectly acceptably way of measuring error especially if the likelihood is a normal distribution, a more theoretically justified way to measure the performance of a model is using the log-likelihood function.</p>
+<div class="math notranslate nohighlight">
+\[Loglikelihood = \sum_1^n log p(y_i | \theta)\]</div>
+<p>If the likelihood function is a Normal, the log-likelihood is proportional to the MSE.</p>
+</div>
+<div class="section" id="deviance">
+<h4>Deviance<a class="headerlink" href="#deviance" title="Permalink to this headline">¶</a></h4>
+<p>Deviance is two times the log-likelihood of the model subtracted from the log-likelihood of a saturated model. A saturated model is one that has overfitted to the point that it fits the observed data perfectly. It can be rewritten to emphasize that the range of values are now from 0 to \(\infty\).</p>
+<div class="math notranslate nohighlight">
+\[Deviance = -2 \sum_1^n ( log p(y_i | \theta) - log p(y_i | \theta_s) \]</div>
+</div>
+<div class="section" id="why-use-the-deviance-over-the-log-likelihood">
+<h4>Why use the Deviance over the Log-likelihood?<a class="headerlink" href="#why-use-the-deviance-over-the-log-likelihood" title="Permalink to this headline">¶</a></h4>
+<p>Note that the likelihood function <span class="math notranslate nohighlight">\(p(y_i | \theta)\)</span> takes values from 0 for no fit to 1 for a perfectly fit model. This results in the log-likelihood function taking values from <span class="math notranslate nohighlight">\(- \infty\)</span> to 0. Multiplying the log-likelihood function by -2 results in a number that is interpretable similar to the MSE.</p>
+<ul class="simple">
+<li><p>Poorly fit models have large positive values</p></li>
+<li><p>A perfectly fit model has a value of 0.</p></li>
+</ul>
+<p>Complex models will have lower deviance values on the training set (in-sample data), and this needs to be penalized when comparing models. This is related to model overfitting that we talked about earlier.</p>
+</div>
+<div class="section" id="a-note-on-mle">
+<h4>A Note on MLE<a class="headerlink" href="#a-note-on-mle" title="Permalink to this headline">¶</a></h4>
+<p>Maximum Likelihood Estimation (MLE) is based on the notion of estimating the parameters <span class="math notranslate nohighlight">\(\theta\)</span> that maximize the the probability <span class="math notranslate nohighlight">\(\sum_1^n p(y_i | \theta)\)</span>. While there are other methods to do the same, with a large enough sample size MLE is the most efficient estimator for the distribution parameter <span class="math notranslate nohighlight">\(\theta\)</span>. Also, as sample size increases the estimated parameter tends to the true parameter and the error becomes normally distributed.</p>
 <p>A disadvantage of the MLE arises when you have non-regular distributions, i.e. distributions whose parameters are constrained by the observed values. For such distributions, a maximum likelihood may not exist. Similar problems can occur in cases where multiple maxima exist.</p>
+</div>
+</div>
+<div class="section" id="posterior-predictive-distribution-to-estimate-predictive-accuracy">
+<h3>Posterior Predictive Distribution to Estimate Predictive Accuracy<a class="headerlink" href="#posterior-predictive-distribution-to-estimate-predictive-accuracy" title="Permalink to this headline">¶</a></h3>
+<p>This also sets the stage to be more Bayesian by utilizing the <strong>posterior predictive distribution</strong>. This allows us to measure the model’s probability of generating the new data i.e. \(p(y_{new} | y)\). This can be interpreted as asking “What is the probability of seeing the new out-of-sample-data, given the model that was trained on the in-sample data?”. The predictive accuracy can be written as</p>
+<div class="math notranslate nohighlight">
+\[accuracy = p(y_{new} | y) = \int p(y_{new} | \theta) p(\theta | y) d \theta\]</div>
+<p>where \(p(\theta | y)\) is the posterior distribution for \(\theta\) and we integrate over the entire distribution of \(\theta\). Now this is simply the expectation of \(p(y_{new} | \theta)\) over the posterior distribution of \(\theta\). In simple terms, it is the average of all the probabilities of seeing \(y_{new}\) calculated over all possible values of \(\theta\).</p>
+<div class="math notranslate nohighlight">
+\[accuracy = E [ p(y_{new} | \theta) ]\]</div>
+<p>This has the following steps</p>
+<ol class="simple">
+<li><p>Draw a \(\theta_i\) from the posterior distribution for \(\theta\)</p></li>
+<li><p>Given the value of \(\theta_i\) how likely are you to see \(y_{new}\), or compute \(p(y_{new} | \theta_i)\)</p></li>
+<li><p>Repeat (1) and (2) several times to compute the expectation of \(p(y_{new} | \theta)\)</p></li>
+</ol>
+<p>This is also computed using the log frequently as</p>
+<div class="math notranslate nohighlight">
+\[accuracy = log( E [ p(y_{new} | \theta) ])\]</div>
 </div>
 <div class="section" id="akaike-information-criterion-aic">
 <h3>Akaike Information Criterion (AIC)<a class="headerlink" href="#akaike-information-criterion-aic" title="Permalink to this headline">¶</a></h3>
-<p>The AIC is defined as</p>
-<p>AIC = -2 <span class="math notranslate nohighlight">\(\sum_1^n log p(y_i | \theta_{mle}) + 2 n_{parameters}\)</span></p>
-<p>Here <span class="math notranslate nohighlight">\(n_{parameters}\)</span> refers to the number of parameters in the model and <span class="math notranslate nohighlight">\(\theta_{mle}\)</span> is the MLE estimate of <span class="math notranslate nohighlight">\(\theta\)</span>. We want a model with a lower AIC and the second term is intended to penalize complex models by increasing the value of AIC. This can be seen as metric more suited for a non-Bayesian approach since it does not take into account any information regarding the uncertainty of the parameter.</p>
+<p>The AIC is derived from the world of Frequentist statistics and does not use the posterior distribution. Therefore, instead of integrating over the posterior, it uses the MLE estimate for \(\theta\). The term \(E [ p(y_{new} | \theta) ]\) is now replaced with \(p(y_{new} | \theta_{mle})\).</p>
+<div class="math notranslate nohighlight">
+\[AIC = -2 \sum_{i=1}^n log p(y_i | \theta_{mle}) + 2 n_{parameters}\]</div>
+<p>Here \(n_{parameters}\) refers to the number of parameters in the model and \(\theta_{mle}\) is the MLE estimate of \(\theta\). We want a model with a lower AIC and the second term is intended to penalize complex models by increasing the value of AIC. Since this does not use the posterior distribution, it does not take into account any information regarding the uncertainty of the parameter.</p>
+</div>
+<div class="section" id="bayesian-information-criterion-bic">
+<h3>Bayesian Information Criterion (BIC)<a class="headerlink" href="#bayesian-information-criterion-bic" title="Permalink to this headline">¶</a></h3>
+<p>The BIC is very similar to the AIC (and in fact not very Bayesian at all). The first term is identical to that in the AIC, however the bias correction term now incorporates the number of samples as well.</p>
+<div class="math notranslate nohighlight">
+\[BIC = -2 \sum_{i=1}^n log p(y_i | \theta_{mle}) + n_{parameters} \; log \; n_{samples}\]</div>
+</div>
+<div class="section" id="deviance-information-criterion-dic">
+<h3>Deviance Information Criterion (DIC)<a class="headerlink" href="#deviance-information-criterion-dic" title="Permalink to this headline">¶</a></h3>
+<p>The DIC is a more Bayesian alternative that uses the posterior mean point estimate \(\theta_{Bayes}\) instead of the MLE estimate. Here \(\theta_{Bayes}\) is the expected value of \(\theta\).</p>
+<div class="math notranslate nohighlight">
+\[DIC = -2 \sum_{i=1}^n log p(y_i | \theta_{Bayes}) + 2 var_{posterior} \; log p(y_i | \theta )\]</div>
 </div>
 <div class="section" id="widely-applicable-information-criterion-waic">
 <h3>Widely Applicable Information Criterion (WAIC)<a class="headerlink" href="#widely-applicable-information-criterion-waic" title="Permalink to this headline">¶</a></h3>
@@ -498,20 +656,43 @@
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.stat.columbia.edu/~gelman/research/published/waic_understand3.pdf">WAIC by Gelman</a></p></li>
 </ul>
-<p>The Widely Applicable Information Criterion or WAIC is the Bayesian extension to the AIC. Before we explain the WAIC, a related concept is the log pointwise predicted density (lppd)</p>
+<p>The Widely Applicable Information Criterion or WAIC is a Bayesian extension to the AIC. The derivation for the log pointwise predictive density is similar to what we covered above, but is replicated here to keep it consistent with the paper referenced.</p>
+<div class="section" id="log-pointwise-predictive-density-lppd">
+<h4>Log pointwise predictive density (lppd)<a class="headerlink" href="#log-pointwise-predictive-density-lppd" title="Permalink to this headline">¶</a></h4>
 <p>The predicted value of a new data point <span class="math notranslate nohighlight">\(y_{new}\)</span> can be defined</p>
-<p><span class="math notranslate nohighlight">\(p_{post}(y_{new}) = \int p(y_{new} | \theta) p_{post}(\theta) d \theta \)</span></p>
+<div class="math notranslate nohighlight">
+\[p_{post}(y_{new}) = \int p(y_{new} | \theta) p_{post}(\theta) d \theta \]</div>
 <p>If we take the log of both sides we get</p>
-<p><span class="math notranslate nohighlight">\(log p_{post}(y_{new}) = log \int p(y_{new} | \theta) p_{post}(\theta) d \theta \)</span></p>
-<p>where <span class="math notranslate nohighlight">\(p_{post}(\theta)\)</span> is the posterior distribution of <span class="math notranslate nohighlight">\(\theta\)</span> obtained by training our model. This is the predictive fit of the new point. If we have a number of new points i=1,…n we can write the following for the log pointwise predictive density for a model using the new data</p>
-<p>lppd = log <span class="math notranslate nohighlight">\(\prod_i p_{post} (y_{new_i}) = \sum_i \int log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta\)</span></p>
-<p>In practice, the inner integral over <span class="math notranslate nohighlight">\(\theta\)</span> is computed using an average over possible values of <span class="math notranslate nohighlight">\(\theta\)</span> (sampled).</p>
-<p><span class="math notranslate nohighlight">\(\sum_i \int log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta = \sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S}) \)</span></p>
-<p>Now suppose we don’t have a holdout set <span class="math notranslate nohighlight">\(y_{new}\)</span> and we compute the llpd over our training set, that is not a good measure for future performance of the model. So the WAIC adds a term to correct for this overestimated performance.</p>
-<p>2 * <span class="math notranslate nohighlight">\(\sum_i Var_{s} ( log p(y_{new_i} | \theta_{S}) )\)</span></p>
-<p>WAIC is now defined as the sum of the tow terms above</p>
-<p>WAIC = <span class="math notranslate nohighlight">\(-2 \sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S}) +  2 \sum_i Var_{s} ( log p(y_{new_i} | \theta_{S}) )\)</span></p>
-<p>The second term can be seen as a type of penalization intended to reduce the number of parameters since more model parameters imply larger spread or variance of the posterior.</p>
+<div class="math notranslate nohighlight">
+\[log p_{post}(y_{new}) = log \int p(y_{new} | \theta) p_{post}(\theta) d \theta\]</div>
+<p>where \(p_{post}(\theta)\) is the posterior distribution of \(\theta\) obtained by training our model. This is the predictive fit of the new point. If we have a number of new data points i=1,…n we can write the following for the log pointwise predictive density for a model using the new data</p>
+<div class="math notranslate nohighlight">
+\[lppd = log \prod_i p_{post} (y_{new_i}) = \sum_i \int log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta\]</div>
+<ul class="simple">
+<li><p>In practice, the inner integral over \(\theta\) is computed using an average over possible values of \(\theta\) (sampled) denoted as \(\theta_S\).</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\sum_i \int log p(y_{new_i} | \theta ) p_{post} (\theta) d \theta = \sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S})\]</div>
+<ul class="simple">
+<li><p>Now suppose we don’t have a holdout set <span class="math notranslate nohighlight">\(y_{new}\)</span> and we compute the lppd over our training set, that is not a good measure for future performance of the model. So the WAIC adds a term to correct for this overestimated performance. This correction measures the variance of the log-likelihood for each element of y computed over the different samples of \(\theta_S\). This correction can be seen as a type of penalization intended to reduce the number of parameters since more model parameters imply larger spread or variance of the posterior.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[2 \cdot \sum_i Var_{s} ( log p(y_{new_i} | \theta_{S}) )\]</div>
+<ul class="simple">
+<li><p>WAIC is now defined as the sum of the two terms above</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[WAIC = -2 \sum_i log \dfrac{1}{S} \sum_S p(y_{new_i} | \theta_{S}) +  2 \sum_i Var_{s} ( log p(y_{new_i} | \theta_{S}) )\]</div>
+</div>
+</div>
+<div class="section" id="a-qualitative-discussion">
+<h3>A Qualitative Discussion<a class="headerlink" href="#a-qualitative-discussion" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The AIC may not work as well for more complex models since this just uses the number of parameters to penalize the model</p></li>
+<li><p>It is worth emphasizing here that all the metrics/methods above, with the exception of Cross-Validation (with a test set) use in-sample data to assess out-of-sample performance. This is analogous to using the training set instead of a test set to evaluate the model performance in Machine Learning. However, unlike what is normally performed in Machine Learning, we apply a bias correction to correct for the error introduced by estimating the performance on the in-sample data. However, Cross Validation eliminates the need for this error correction altogether if a test set is used.</p></li>
+<li><p>AIC and DIC are easier to compute but they are not fully Bayesian unlike the WAIC. However, the WAIC is more computationally intensive to calculate.</p></li>
+<li><p>Cross-Validation can be made Bayesian by computing the log posterior density. However, this becomes quite expensive to compute compared to the other techniques.</p></li>
+</ul>
 </div>
 </div>
 <div class="section" id="entropy-and-kl-divergence">
@@ -523,10 +704,11 @@
 <p>I am using summation in the examples below assuming discrete distributions. This can be replaced by the integral for continuous distributions.</p>
 <div class="section" id="entropy">
 <h3>Entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h3>
-<p>Entropy is a measure of information uncertainty and it is computed as</p>
-<p><span class="math notranslate nohighlight">\(H(p) = - \sum_i \: p_i log \:  p_i \)</span></p>
-<p>where a larger value of entropy indicates higher uncertainty. Geometrically, we can visualize this as the distribution having a larger spread. While is easy to equate this with variance, there are examples such as a Bimodal Gaussian distribution where increasing the variance does not increase the entropy. Entropy is a measure of the mass of probability density around a point whereas variance measures how far the probability mass extends from the mean. It is possibile to have two narrow modes that are far apart which would indicate a high variance but low entropy due to the relative certainty of the values (around the narrow modes).</p>
-<p>Entropy is a useful way to define priors since a prior with high entropy can be used as an uninformative prior. Given certain constraints the following can be used as priors.</p>
+<p>If there is a random discrete variable ‘x’ with a probability distribution given by P(x), the entropy of the random variable ‘x’ is a measure of information uncertainty, which can be computed as</p>
+<div class="math notranslate nohighlight">
+\[H(x) = - \sum_x \: p(x) log \:  p(x) \]</div>
+<p>where a larger value of entropy indicates higher uncertainty. Geometrically, we can visualize this as the distribution having a larger spread. While is easy to equate this with variance, there are examples such as a Bimodal Gaussian distribution where increasing the variance does not increase the entropy. Entropy is a measure of the mass of probability density around a point whereas variance measures how far the probability mass extends from the mean. It is possible to have two narrow modes that are far apart which would indicate a high variance but low entropy due to the relative certainty of the values (around the narrow modes).</p>
+<p>Entropy is a useful way to define priors since a prior with high entropy can be used as an uninformative prior. Given certain constraints on the parameter values, the following can be used as priors for those parameters.</p>
 <ol class="simple">
 <li><p>No constraints - Uniform distribution</p></li>
 <li><p>Positive mean with regions of high density - Exponential distribution</p></li>
@@ -566,26 +748,34 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7feaca12ceb0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fb442937df0&gt;
 </pre></div>
 </div>
-<img alt="../_images/BayesianInference_4_1.svg" src="../_images/BayesianInference_4_1.svg" /></div>
+<img alt="../_images/BayesianInference_6_1.png" src="../_images/BayesianInference_6_1.png" />
 </div>
 </div>
 </div>
-<div class="section" id="ungraded-evaluation-30mins">
-<h2>UNGRADED EVALUATION (30mins)<a class="headerlink" href="#ungraded-evaluation-30mins" title="Permalink to this headline">¶</a></h2>
-<p>Try the above with different distributions and parameters</p>
+</div>
+<div class="section" id="ungraded-evaluation-15-mins">
+<h2>UNGRADED EVALUATION (15 mins)<a class="headerlink" href="#ungraded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
+<p>Try the above with different parameters for</p>
+<ol class="simple">
+<li><p>The Binomial distribution</p></li>
+<li><p>The Poisson distribution</p></li>
+</ol>
 <div class="section" id="kl-divergence">
 <h3>KL Divergence<a class="headerlink" href="#kl-divergence" title="Permalink to this headline">¶</a></h3>
 <p>KL Divergence is similar to the concept of entropy except that it is used to compare the similarity and closeness of two distributions. It is defined for two discrete distributions as</p>
-<p><span class="math notranslate nohighlight">\(KL(p||q) = \sum_i p_i \: log \dfrac{p_i}{q_i}\)</span></p>
-<p>The value of the KL Divergence varies from 0 for identical distributions to infinity depending on the dissimilarity between the distributions. It is important to understand that this is not a distance metric since it is not symmetric since</p>
-<p><span class="math notranslate nohighlight">\(KL(q||p) = \sum_i q_i \: log \dfrac{q_i}{p_i}\)</span></p>
+<div class="math notranslate nohighlight">
+\[KL(p||q) = \sum_x p(x) \: log \dfrac{p(x)}{q(x)}\]</div>
+<p>The value of the KL Divergence varies from 0 for identical distributions to infinity depending on the dissimilarity between the distributions. It is important to understand that this is not a distance metric as it is not symmetric, since</p>
+<div class="math notranslate nohighlight">
+\[KL(q||p) = \sum_x q(x) \: log \dfrac{q(x)}{p(x)}\]</div>
 <p>The Jensen Shannon Divergence is the symmetric version of the KL Divergence</p>
 <p>The KL Divergence <span class="math notranslate nohighlight">\(KL(p||q)\)</span> can be seen as the difference of two entropies</p>
-<p><span class="math notranslate nohighlight">\(KL(p||q) = \sum_i p_i \: log p_i - \sum_i p_i \: log q_i\)</span></p>
-<p>where the first term is the entropy of p and the second term is the cross-entropy between p and q.</p>
+<div class="math notranslate nohighlight">
+\[KL(p||q) = \sum_x p(x) \: log p(x) - \sum_x p(x) \: log q(x)\]</div>
+<p>where the first term is the entropy of ‘p’ and the second term is the cross-entropy between ‘p’ and ‘q’.</p>
 <p>The KL Divergence is commonly used in Machine Learning to learn a distribution. If the true distribution was available, the proposed distribution can be optimized to make it as close to the true distribution as possible.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -619,33 +809,23 @@ KL Divergence between the true distribution and the q2 distribution  1.276465607
 </div>
 <div class="section" id="model-averaging">
 <h2>Model Averaging<a class="headerlink" href="#model-averaging" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes, model selection may not the most appropriate solution for our problem, e.g. when none of the individual models provide satisfactory performance. Or, as mentioned below when we want to utilize the variance associated with the different models as a measure of uncertainty. In these cases we may want to resort to model averaging.</p>
 <div class="section" id="pseudo-bayesian-modeling-averaging">
 <h3>Pseudo Bayesian Modeling Averaging<a class="headerlink" href="#pseudo-bayesian-modeling-averaging" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://www.stat.columbia.edu/~gelman/research/published/stacking_paper_discussion_rejoinder.pdf">Using Stacking to Average Bayesian Predictive Distributions</a></p>
-<p>When there are several models that one can chose from, it is tempting to pick the one with the best performance (depending on how we defone performance). However, in doing so we are ignoring the uncertainty information provided by the other models. One way to mitigate this uncertainty is by performing model averaging. The meta-model obtained by using a weighted average of all the models can be used to make predictions. One way that this averaging is done is by computing the weights similar to using a softmax formula</p>
-<p><span class="math notranslate nohighlight">\(w_i = \dfrac{e^{-dE_i / 2}}{\sum_j e^{-dE_j / 2}}\)</span></p>
-<p>where <span class="math notranslate nohighlight">\(dE_i\)</span> is the difference in the WAIC value of the i’th model compared to the model with the lowest WAIC.</p>
-<p>Any Information Criterion metric can be used in this equation such as AIC. Averagin the models using the weights computed this way is called pseudo Bayesian Modeling Averaging.</p>
+<p>When there are several models that one can chose from, it is tempting to pick the one with the best performance (depending on how we define performance). However, in doing so we are ignoring the uncertainty information provided by the other models. One way to mitigate this uncertainty is by performing model averaging. The meta-model obtained by using a weighted average of all the models can be used to make predictions. One way that this averaging is done is by computing the weights similar to using a softmax formula</p>
+<div class="math notranslate nohighlight">
+\[w_i = \dfrac{e^{-dE_i / 2}}{\sum_j e^{-dE_j / 2}}\]</div>
+<p>where \(dE_i\) is the difference in the WAIC value of the i’th model compared to the model with the lowest WAIC.</p>
+<p>Any Information Criterion metric can be used in this equation such as the AIC. Averaging the models using the weights computed this way is called pseudo Bayesian Modeling Averaging.</p>
 </div>
 <div class="section" id="stacking">
 <h3>Stacking<a class="headerlink" href="#stacking" title="Permalink to this headline">¶</a></h3>
 <p>Another technique that was proposed recently is the stacking of predictive distributions. The idea behind this is to combine models such that you minimize the divergence between the weighted metamodel and the true model. When a logarithmic score is used, similar to a KL Divergence, the following equation can be used</p>
-<p><span class="math notranslate nohighlight">\(max_w \dfrac{1}{n} \sum_i^{n} log \sum_k w_k p(y_i | y_{-i}, M_k)\)</span></p>
-<p>where n is the number of data points and <span class="math notranslate nohighlight">\(M_k\)</span> is the k’th model and <span class="math notranslate nohighlight">\(w_k\)</span> is the weight applied to the k’th model. <span class="math notranslate nohighlight">\(y_{-i}\)</span> is every element in y except <span class="math notranslate nohighlight">\(y_i\)</span>. The term <span class="math notranslate nohighlight">\(p(y_i | y_{-i}, M_k)\)</span> corresponds to the predictive probability density using a Leave-One-Out cross validation procedure. The goal is to select the combination of weights that maximizes the probability of seeing <span class="math notranslate nohighlight">\(y_i\)</span>, thereby giving us the ideal metamodel that minimizes the divergence to our best of our knowledge based on the data available. Note here that argmax is computed over ‘w’ as opposed to ‘n’ as it listed in some resources.</p>
+<div class="math notranslate nohighlight">
+\[model = max_w \dfrac{1}{n} \sum_i^{n} log \sum_k w_k p(y_i | y_{-i}, M_k)\]</div>
+<p>where n is the number of data points and \(M_k\) is the k’th model and \(w_k\) is the weight applied to the k’th model. \(y_{-i}\) is every element in y except \(y_i\). The term \(p(y_i | y_{-i}, M_k)\) corresponds to the predictive probability density using a Leave-One-Out Cross-Validation (LOOCV) procedure. The goal is to select the combination of weights that maximizes the probability of seeing \(y_i\), thereby giving us the ideal metamodel that minimizes the divergence, to the best of our knowledge, based on the data available. Note here that argmax is computed over ‘w’ as opposed to ‘n’ as it listed in some resources.</p>
 </div>
-</div>
-<div class="section" id="stationary-distributions">
-<h2>Stationary distributions<a class="headerlink" href="#stationary-distributions" title="Permalink to this headline">¶</a></h2>
-<p><em>Reference</em> <a class="reference external" href="https://www.youtube.com/watch?v=aIdTGKjQWjA">Youtube</a></p>
-<p>Stationary distributions simply mean that the probability of the distribution at a time t+1 is the same as that at time t. Ergodic distributions are therefore stationary.</p>
-</div>
-<div class="section" id="ergodicity">
-<h2>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h2>
-<p>Ergodicity is a critical property for a Markov Chain which combine the properties of a state being recurrent and aperiodic. Recurrent implies that, in a transition, a given state will return to itself. An aperiodic state returns to itself in a number of steps 1,2,3…. <span class="math notranslate nohighlight">\(\infty\)</span>. The implications of ergodicity are</p>
-<ol class="simple">
-<li><p>If we sample a space long enough we will cover almost every point in that space (theoretically).</p></li>
-<li><p>If we obtain a statistic from a sequence such as the mean, this statistic should be the same if we recompute it using a different sequence drawn from the same set of events. The implication here is that there is only one distribution unlike a non-stationary distribution which has an infinite set of PDFs.</p></li>
-</ol>
 </div>
 <div class="section" id="graded-evaluation-30-mins">
 <h2>GRADED EVALUATION (30 mins)<a class="headerlink" href="#graded-evaluation-30-mins" title="Permalink to this headline">¶</a></h2>
@@ -715,15 +895,15 @@ KL Divergence between the true distribution and the q2 distribution  1.276465607
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
     <a class='left-prev' id="prev-link" href="Production/Sampling.html" title="previous page">Sampling Algorithms</a>
     <a class='right-next' id="next-link" href="MonteCarlo.html" title="next page">Introduction to Monte Carlo Methods</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">

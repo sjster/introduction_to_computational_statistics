@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inference and Decisions &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,15 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe,.cell"
@@ -55,6 +52,9 @@
         const thebe_selector_output = ".output,.cell_output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 
@@ -195,7 +195,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Reparameterization.html">
-   Reparameterization
+   Centered vs. Non-centered Parameterization
   </a>
  </li>
  <li class="toctree-l1">
@@ -220,21 +220,21 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
@@ -252,16 +252,16 @@
     </div>
 </div>
 
-        <!-- Source interaction buttons -->
+            <!-- Source interaction buttons -->
 
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
 
-        <!-- Launch buttons -->
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -288,13 +288,14 @@
     </div>
 </div>
 
-    </div>
+        </div>
 
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
         <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
+            <i class="fas fa-list"></i>
+            Contents
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
@@ -373,8 +374,13 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-loss-in-for-a-correct-assignment-in-a-binary-trial-is-always-0">
-     2.  The loss in for a correct assignment in a binary trial is always 0
+    <a class="reference internal nav-link" href="#mean-squared-error-is-an-example-of">
+     2. Mean squared error is an example of
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-entropy-loss-gives-a-penalty-to-incorrectly-classified-samples-and-rewards-correct-classification">
+     3. Cross entropy loss gives a penalty to incorrectly classified samples and rewards correct classification.
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -408,6 +414,7 @@
 
         </nav>
         
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -431,11 +438,12 @@
 <h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
 <p>In the last section, we gave an example taking of a test for determining status of disease.  We took the test and discovered a positive result which led to a probability that we are truly infected given the postivite test of 79%.  The odds are, we have the disease.  Are we sure enough that we will seek appropriate treatment or perhaps we want a second opinion?  Is there a second test?  Do we simply take two tests and combine the results?  When we build a computational model, we repeatedly ask this question and have to make a decision, do we continue in the current direction or go from whence we came. The consequences of making a wrong choice are often not symmetric.  Our overall goal is to simply be right, but understanding consequence discrepancies may suggest wrong answers are not all the same.  In this example we may choose to weigh a wrong answer differently in one direction than another.</p>
 <p>Restating this in terms of probability, for a binary decision, our goal is:</p>
-<p><span class="math notranslate nohighlight">\(\text{argmin } p(mistake) = \sum_{i=1}^k p(x_{k \notin j},C_k)\)</span> where j/k are class labels.</p>
+<p>\(\text{argmin } p(mistake) = \sum_{i=1}^k p(x_{k \notin j},C_k)\) where j/k are class labels.</p>
 <div class="section" id="rejection-regions-or-decision-boundaries">
 <h3>Rejection regions or decision boundaries<a class="headerlink" href="#rejection-regions-or-decision-boundaries" title="Permalink to this headline">¶</a></h3>
 <p>In our decision, we may choose a region for inclusion in one class or another, for instance, we may decide the optimal boundary in our disease classification is at <span class="math notranslate nohighlight">\(p(disease|+test)&gt;75%\)</span>.  Note that the decision boundary should parition the space.  Written with a decision boundary,</p>
-<p><span class="math notranslate nohighlight">\(\text{argmin } p(mistake) = \int_{\mathbb{R_1}} p(x,C_2) dx + \int_{\mathbb{R_2}} p(x,C_1) dx\)</span></p>
+<div class="math notranslate nohighlight">
+\[\text{argmin } p(mistake) = \int_{\mathbb{R_1}} p(x,C_2) dx + \int_{\mathbb{R_2}} p(x,C_1) dx\]</div>
 <p>Returning to the coin toss experiment, after we perform the experiment many times, we can arrange the data and find the regions to the right/left that give the desired partions between ‘fair’ and ‘biased’ based on our tolerance for error.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -498,14 +506,15 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bounds are:
-[0.4, 0.65]
+[0.35, 0.6]
 </pre></div>
 </div>
 <img alt="../_images/Decisions_2_1.png" src="../_images/Decisions_2_1.png" />
 </div>
 </div>
 <p>Knowing we are going to make mistakes, we introduce the idea of a loss function.  Loss functions (also called cost functions or as a positive, a utility functions), is a function that we create that captures the goal of minimizing errors but allows for differences in magnetude for consequences of the mistakes.  The goal is now to minimize the average loss:</p>
-<p><span class="math notranslate nohighlight">\(E[loss] = \sum_k \sum_j \int_{\mathbb{R_j}} L_{kj}p(x,C_k) dx\)</span></p>
+<div class="math notranslate nohighlight">
+\[E[loss] = \sum_k \sum_j \int_{\mathbb{R_j}} L_{kj}p(x,C_k) dx\]</div>
 </div>
 <div class="section" id="loss-functions">
 <h3>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h3>
@@ -513,20 +522,22 @@
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{matrix} &amp; \text{disease} &amp; \text{no disease} \\ \text{disease} &amp; 0 &amp; 100 \\\text{no disease} &amp; 1 &amp; 0 \end{matrix}\end{split}\]</div>
 <p>Here we are assigning zero loss for correct responses, 1 loss for cases where we predict “no disease” but the true state is “disease” and finally, 100 loss for cases of incorrectly predicting “disease”.  The loss function here is implicitly penalizing false positives more than false negatives (see Confusion Matrix at end).</p>
-<p><span class="math notranslate nohighlight">\(L(\theta,a) = 
+<div class="math notranslate nohighlight">
+\[\begin{split}L(\theta,a) = 
 \begin{cases}
     0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
     1, \text{for predict no disease, actual disease} \\
     100, \text{for predict disease, actual no disease} \\
 \end{cases}
-\)</span></p>
+\end{split}\]</div>
 </div>
 <div class="section" id="cross-entropy-loss">
 <h3>Cross Entropy Loss<a class="headerlink" href="#cross-entropy-loss" title="Permalink to this headline">¶</a></h3>
 <p>Any loss function which is the negative log likelihood between the empirical distribution of the data and the probability distribution of the model is a cross entropy loss.</p>
 <p>Often, when one talks about cross entropy loss, the meaning is for binary classification.  In fact, cross entropy loss, also called log loss, is the go-to function for binary classification tasks.  It is the log likelihood for a Bernoulli trial.</p>
-<p><span class="math notranslate nohighlight">\(-y_i ln(\hat{\theta}_i) - (1-y_i) ln (1-\hat{\theta}_i)\)</span></p>
-<p>Cross entropy loss is nice in that it penalizes heavily for very wrong results.  In this case, the true labels are the <span class="math notranslate nohighlight">\(y_i\)</span>’s while our predictions are the associated probabilities (<span class="math notranslate nohighlight">\(\hat{\theta}_i\)</span>’s). Note, there is no ‘reward’ in cross entropy loss, the best you can do is 0 when the output is correct.</p>
+<div class="math notranslate nohighlight">
+\[-y_i ln(\hat{\theta}_i) - (1-y_i) ln (1-\hat{\theta}_i)\]</div>
+<p>Cross entropy loss is nice in that it penalizes heavily for very wrong results.  In this case, the true labels are the \(y_i\)’s while our predictions are the associated probabilities (\(\hat{\theta}_i\)’s). Note, there is no ‘reward’ in cross entropy loss, the best you can do is 0 when the output is correct.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -565,15 +576,19 @@ Total cross entropy loss is: 0.8438820897043499
 </div>
 <div class="section" id="categorical-cross-entropy-loss">
 <h3>Categorical cross entropy loss<a class="headerlink" href="#categorical-cross-entropy-loss" title="Permalink to this headline">¶</a></h3>
-<p><span class="math notranslate nohighlight">\(\text{CE loss }= - \sum_{i=1}^I \sum_{k=1}^K \mathbb{1}_{y_i = k}log p(y_i = k | x_i,\theta)\)</span></p>
-<p>This looks completely different, but understanding the terms will quickly lead to a familiar setup.  The CE loss is a sum of the probabilities assigned to the predicted class.  The <span class="math notranslate nohighlight">\(\mathbb{1}\)</span> is an idicator function determining which class is the correct class while the <span class="math notranslate nohighlight">\(p(y_i = k | x_i,\theta)\)</span> is the likelihood of the correct class given the data.  In the case of two categories, this reduces to the cross entropy case above.</p>
+<div class="math notranslate nohighlight">
+\[\text{CE loss }= - \sum_{i=1}^I \sum_{k=1}^K \mathbb{1}_{y_i = k}log p(y_i = k | x_i,\theta)\]</div>
+<p>This looks completely different, but understanding the terms will quickly lead to a familiar setup.  The CE loss is a sum of the probabilities assigned to the predicted class.  The \(\mathbb{1}\) is an idicator function determining which class is the correct class while the \(p(y_i = k | x_i,\theta)\) is the likelihood of the correct class given the data.  In the case of two categories, this reduces to the cross entropy case above.</p>
 </div>
 <div class="section" id="other-classification-loss-functions">
 <h3>Other classification loss functions<a class="headerlink" href="#other-classification-loss-functions" title="Permalink to this headline">¶</a></h3>
 <p><strong>Focal loss</strong> is a modified loss attempting to highlight the loss from incorrectly classified samples vs those that are classified correctly, but perhaps with less than perfect probability.</p>
-<p><span class="math notranslate nohighlight">\(FL = - \sum_{i=1}^{C=2}(1-\hat{\theta}_i)^\gamma t_i log(\hat{\theta}_i)\)</span>, where <span class="math notranslate nohighlight">\((1-\hat{\theta}_i)^\gamma\)</span> modulates the loss.  As the probability of the assignment goes towards 1 for correct responses, the contribution to the loss goes to 0 more quickly.</p>
+<div class="math notranslate nohighlight">
+\[FL = - \sum_{i=1}^{C=2}(1-\hat{\theta}_i)^\gamma t_i log(\hat{\theta}_i)$, where $(1-\hat{\theta}_i)^\gamma\]</div>
+<p>modulates the loss.  As the probability of the assignment goes towards 1 for correct responses, the contribution to the loss goes to 0 more quickly.</p>
 <p><strong>Hinge loss</strong> is a maximum margin classifier.  Basically, this loss aims to make the classification more of a sure event.  The score of a correct assignment should exceed the sum of scores of incorrect assignments by some margin.</p>
-<p><span class="math notranslate nohighlight">\(HL = \sum_{j \ne y_i} max(0,s_j-s_{y_i}+1)\)</span></p>
+<div class="math notranslate nohighlight">
+\[HL = \sum_{j \ne y_i} max(0,s_j-s_{y_i}+1)\]</div>
 </div>
 <div class="section" id="continuous-response">
 <h3>Continuous response<a class="headerlink" href="#continuous-response" title="Permalink to this headline">¶</a></h3>
@@ -581,24 +596,26 @@ Total cross entropy loss is: 0.8438820897043499
 <div class="section" id="mean-squared-error">
 <h4>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h4>
 <p>Mean squared error, MSE, is defined as</p>
-<p><span class="math notranslate nohighlight">\(MSE = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y_i})^2\)</span></p>
+<div class="math notranslate nohighlight">
+\[MSE = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y_i})^2\]</div>
 <p>This has a number of nice features as a loss function including penalizing based on distance from the prediction and mathmatical properties such as that it is differentiable and there is always a single solution.  MSE is sensitive to outliers, ie it is not robust to outliers.</p>
 </div>
 <div class="section" id="mean-absolute-error">
 <h4>Mean absolute error<a class="headerlink" href="#mean-absolute-error" title="Permalink to this headline">¶</a></h4>
 <p>Mean absolute error, MAE, is defined as</p>
-<p><span class="math notranslate nohighlight">\(MAE = \frac{1}{N} \sum_{i=1}^N |y_i - \hat{y_i}|\)</span></p>
+<div class="math notranslate nohighlight">
+\[MAE = \frac{1}{N} \sum_{i=1}^N |y_i - \hat{y_i}|\]</div>
 <p>Like MSE, MAE returns the average of the magnetude of errors, but needs computational tools to deal with the lack of a differential.  MAE is less sensitive to ouliers than MSE, however, there is no guarantee of a unique solution.</p>
 </div>
 <div class="section" id="l1-and-l2-loss">
 <h4>L1 and L2 loss<a class="headerlink" href="#l1-and-l2-loss" title="Permalink to this headline">¶</a></h4>
-<p>L1 loss is sum of absolute differences, also called the method of Least Absolute Deviations (LAD).  <span class="math notranslate nohighlight">\(L_1 = N \ast MAE\)</span>.</p>
-<p>L2 loss is <span class="math notranslate nohighlight">\(N \ast MSE\)</span> also called least squares error, or LSE.</p>
+<p>L1 loss is sum of absolute differences, also called the method of Least Absolute Deviations (LAD).  \(L_1 = N \ast MAE\).</p>
+<p>L2 loss is \(N \ast MSE\) also called least squares error, or LSE.</p>
 </div>
 <div class="section" id="regularization">
 <h4>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h4>
 <p>Regularization is a technique to prevent overfitting throug addition of penatly term to the sum of the regression coefficents.  For instance:</p>
-<p><span class="math notranslate nohighlight">\(argmin LSE + \lambda \sum_{i=1}^k|w_i|\)</span>, where the <span class="math notranslate nohighlight">\(w_i\)</span> are the weights being learned.</p>
+<p>\(argmin LSE + \lambda \sum_{i=1}^k|w_i|\), where the \(w_i\) are the weights being learned.</p>
 <p>The above woulld be an L1 regularization on least squares (LASSO).  There are other variations including L2 regularization (ridge regression) where the penalty is on the squared weights, elastic net (both L1 and L2 regularization), etc.</p>
 </div>
 </div>
@@ -634,12 +651,14 @@ False Negative Rate (FNR): FN/(FN+TP)</p>
 P(not A) = Probability of Negative Class (NC)<br />
 P(B) = Probability of Positive Prediction (PP)<br />
 P(not B) = Probability of Negative Prediction (NP)</p>
-<p><span class="math notranslate nohighlight">\(P(A|B) = \frac{P(B|A)*P(A)}{P(B)} = \frac{TPR*PC}{TPR*PC + FPR*NC}\)</span></p>
+<div class="math notranslate nohighlight">
+\[P(A|B) = \frac{P(B|A)*P(A)}{P(B)} = \frac{TPR*PC}{TPR*PC + FPR*NC}\]</div>
 <p>Precision also called the Positive Predictive Value.<br />
-<span class="math notranslate nohighlight">\(precision = PPV = \frac{TP}{TP+FP} = \frac{TPR*PC}{PP}\)</span></p>
+$<span class="math notranslate nohighlight">\(precision = PPV = \frac{TP}{TP+FP} = \frac{TPR*PC}{PP}\)</span>$</p>
 <p>Recall is also known as the sensitivity.<br />
-<span class="math notranslate nohighlight">\(recall = \frac{TP}{TP+FN}\)</span></p>
-<p><span class="math notranslate nohighlight">\(F_1 score = \frac{precision*recall}{precision+recall}\)</span></p>
+$<span class="math notranslate nohighlight">\(recall = \frac{TP}{TP+FN}\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[F_1 score = \frac{precision*recall}{precision+recall}\]</div>
 <p>Type 1 error = false positive</p>
 <p>Type 2 error = false negative</p>
 <br>
@@ -651,21 +670,28 @@ P(not B) = Probability of Negative Prediction (NP)</p>
 <h3>1. Categorical cross entropy can be used when multiple classes are to be differentiated.  For each sample, you expect the output of the algorithm to give<a class="headerlink" href="#categorical-cross-entropy-can-be-used-when-multiple-classes-are-to-be-differentiated-for-each-sample-you-expect-the-output-of-the-algorithm-to-give" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. A single probability giving the probability of being correct  
 
-b. 4 probabilities representing the probability of assignment to each class (C)  
+b. Multiple probabilities representing the probability of assignment to each class    
 </pre></div>
 </div>
 </div>
-<div class="section" id="the-loss-in-for-a-correct-assignment-in-a-binary-trial-is-always-0">
-<h3>2.  The loss in for a correct assignment in a binary trial is always 0<a class="headerlink" href="#the-loss-in-for-a-correct-assignment-in-a-binary-trial-is-always-0" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. true  
+<div class="section" id="mean-squared-error-is-an-example-of">
+<h3>2. Mean squared error is an example of<a class="headerlink" href="#mean-squared-error-is-an-example-of" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. A continuous loss function penalizing wrong answers by the squared distance between true and predicted repsonse.     
 
-b. false (C)
+b. A mathmatical construct representing the mean number of responses incorrectly predicted in a classification problem.
+</pre></div>
+</div>
+</div>
+<div class="section" id="cross-entropy-loss-gives-a-penalty-to-incorrectly-classified-samples-and-rewards-correct-classification">
+<h3>3. Cross entropy loss gives a penalty to incorrectly classified samples and rewards correct classification.<a class="headerlink" href="#cross-entropy-loss-gives-a-penalty-to-incorrectly-classified-samples-and-rewards-correct-classification" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. false    
+b. true
 </pre></div>
 </div>
 </div>
 <div class="section" id="you-are-building-a-classifier-to-classify-dogs-vs-cats-where-dogs-1-your-algorithm-is-presented-with-the-following-set-of-images-1-0-1-0-1-0-0-1-1-1-and-gives-the-following-predictions-1-0-0-0-1-1-1-0-0-1-with-respect-to-classifying-dogs-the-sensitivity-is">
 <h3>3. You are building a classifier to classify dogs vs cats.  Where dogs =1, your algorithm is presented with the following set of images {1 0 1 0 1 0 0 1 1 1} and gives the following predictions {1 0 0 0 1 1 1 0 0 1}.  With respect to classifying dogs, the sensitivity is:<a class="headerlink" href="#you-are-building-a-classifier-to-classify-dogs-vs-cats-where-dogs-1-your-algorithm-is-presented-with-the-following-set-of-images-1-0-1-0-1-0-0-1-1-1-and-gives-the-following-predictions-1-0-0-0-1-1-1-0-0-1-with-respect-to-classifying-dogs-the-sensitivity-is" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. 0.5  (C)  
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. 0.5     
 
 b. 0.83 
 
@@ -681,7 +707,7 @@ b. false positives
 
 c. false negatives  
 
-d. true negatives  (C)  
+d. true negatives     
 </pre></div>
 </div>
 </div>
@@ -691,7 +717,7 @@ d. true negatives  (C)
 
 b. false negatives are more problematic than false positives  
 
-c both false positives and false negatives are equally problematic  (C)  
+c both false positives and false negatives are equally problematic     
 </pre></div>
 </div>
 </div>
@@ -699,7 +725,7 @@ c both false positives and false negatives are equally problematic  (C)
 <h3>6. In your spam classifier, you choose to weight the choice as spam or not differently, you should<a class="headerlink" href="#in-your-spam-classifier-you-choose-to-weight-the-choice-as-spam-or-not-differently-you-should" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>a. choose a penalized regression to dampen the weights 
 
-b. choose a custom categorical loss function to allow setting importance of decisions  (C)  
+b. choose a custom categorical loss function to allow setting importance of decisions      
 </pre></div>
 </div>
 </div>
@@ -708,30 +734,32 @@ b. choose a custom categorical loss function to allow setting importance of deci
 <h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>Cost functions are measures of fit.</p>
-<p>a. true (C)</p>
+<p>a. true</p>
 <p>b. false</p>
 </li>
 <li><p>Cost functions are only useful in categorical decision settings.</p>
-<p>a. false (C)</p>
+<p>a. false</p>
 <p>b. true</p>
 </li>
 <li><p>The following is a valid example of a cost function:</p>
 <p>a.</p>
-<p><span class="math notranslate nohighlight">\(L(\theta,a) = 
- \begin{cases}
-     0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
-     1, \text{for predict no disease, actual no disease} \\
-     100, \text{for predict disease, actual no disease} \\
- \end{cases}
- \)</span></p>
-<p>b. (C)</p>
-<p><span class="math notranslate nohighlight">\(L(\theta,a) = 
- \begin{cases}
-     0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
-     1, \text{for predict no disease, actual disease} \\
-     100, \text{for predict disease, actual no disease} \\
- \end{cases}
- \)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L(\theta,a) = 
+    \begin{cases}
+        0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
+        1, \text{for predict no disease, actual no disease} \\
+        100, \text{for predict disease, actual no disease} \\
+    \end{cases}
+    \end{split}\]</div>
+<p>b.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L(\theta,a) = 
+    \begin{cases}
+        0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
+        1, \text{for predict no disease, actual disease} \\
+        100, \text{for predict disease, actual no disease} \\
+    \end{cases}
+    \end{split}\]</div>
 </li>
 <li><p>In a recent study, you created a cost function for classification of 4 classes.  Following training, you obtained the following resuls.  What are the predictions for the samples in terms of thier class?</p>
 <p>predictions = np.array([[0.25,0.25,0.20,0.30],
@@ -740,7 +768,7 @@ b. choose a custom categorical loss function to allow setting importance of deci
 [0.45,0.10,0.20,0.25],
 [0.01,0.01,0.01,0.96]])</p>
 <p>a. A,B,C,B</p>
-<p>b. D,B,D,A,D (C)</p>
+<p>b. D,B,D,A,D</p>
 <p>c. D,B,C,E</p>
 </li>
 </ol>
@@ -769,13 +797,13 @@ b. choose a custom categorical loss function to allow setting importance of deci
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">
