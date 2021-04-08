@@ -14,7 +14,8 @@ kernelspec:
 # Setting up Your Python Environment
 
 There are a few ways you can set up your Python environment for the notebooks that are going to be used for the courses here.
-The notebooks can be downloaded from each course page by clicking the tab on the top right corner and selecting '.ipynb'.
+
+**The notebooks can be downloaded from each course page by clicking the tab on the top right corner and selecting '.ipynb'.**
 
 ## Databricks Community Edition
 

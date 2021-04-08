@@ -1,11 +1,13 @@
 ## Introduction to PyMC3
 
+### Prerequisite - Course 2
+
 ### Attribution
 
 It is important to acknowledge the authors who have put together fantastic resources that have allowed me to make this notebook possible. 
 
 
-1. A lot of the examples here are taken from the book 'Introduction to statistical modeling and probabilistic programming using PyMC3 and ArviZ', Second Edition by Osvaldo Martin
+1. *The majority of the the examples here are taken from the book 'Introduction to statistical modeling and probabilistic programming using PyMC3 and ArviZ', Second Edition by Osvaldo Martin*
 
 2. [PyMC3 website](docs.pymc.io)
 
@@ -13,17 +15,30 @@ It is important to acknowledge the authors who have put together fantastic resou
 
 4. Doing Bayesian Data Analysis by John Kruschke
 
+### Overview of Probabilistic Programming 
+
+An overview of probabilistic frameworks is given in this [post](https://eigenfoo.xyz/prob-prog-frameworks/)  by George Ho, one of the developers of PyMC3. He outlines the components needed for a probabilistic framework in this figure 
+
+<img src="https://eigenfoo.xyz/assets/images/prob-prog-flowchart.png" width="400">
+
+<br></br>
+<center>Figure from George Ho's post 'Anatomy of a Probabilistic Programming Framework"</center>
+
+
+
 ### What is PyMC3?
 
-PyMC3 is a probabilistic programming framework for performing Bayesian modeling and visualization. It uses Theano as a backend. It has algorithms to perform Monte Carlo simulation as well as Variational Inference. 
+PyMC3 is a probabilistic programming framework for performing Bayesian modeling and visualization. It uses Theano as a backend. It has algorithms to perform Monte Carlo simulation as well as Variational Inference. It also has a diagnostic visualization tool called ArViz.
 
-It can be used to infer values of parameters of model equations that we are unsure about by utilizing the observed data. A good example is given here [https://docs.pymc.io/notebooks/ODE_API_introduction.html](https://docs.pymc.io/notebooks/ODE_API_introduction.html). We are trying to estimate the parameters of air resistance from the Ordinary Differential Equation (ODE) of freefall. We have an understanding of the physics behind freefall as represented by the ODE and we have observed/measured some variables but we don't know what the parameter of air resistance is here. We can use PyMC3 to perform inference and give us a distribution of potential values of air resistance. A key point to note here is that the more information we have regarding other variables, the more certainty we have in our desired variable (air resistance). Suppose we are unsure about the gravitational constant used in the ODE (implemented by specifying a prior distribution as opposed to a constant value of 9.8), we get more uncertainty in the air resistance variable as well.
+It can be used to infer values of parameters of models that we are unsure about by utilizing the observed data. A good example is given here [https://docs.pymc.io/notebooks/ODE_API_introduction.html](https://docs.pymc.io/notebooks/ODE_API_introduction.html). 
 
-We will look at an example of Linear Regression to illustrate the fundamental features of PyMC3.
+$$ \dfrac{dy}{dt} = m g - \gamma y$$
+We are trying to estimate the parameters of air resistance (\\(\gamma\\)) from the Ordinary Differential Equation (ODE) of freefall. We have an understanding of the physics behind freefall as represented by the ODE and we have observed/measured some of the variables such as mass (m), position (y) and velocity (\\(\dfrac{dy}{dt}\\)) but we don't know what the parameter of air resistance is here. We can use PyMC3 to perform inference and give us a distribution of potential values of air resistance. A key point to note here is that the more information we have regarding other variables, the more certainty we have in our desired variable (air resistance). Suppose we are unsure about the gravitational constant (g) used in the ODE (implemented by specifying a prior distribution as opposed to a constant value of 9.8), we get more uncertainty in the air resistance variable as well.
+
 
 ### General Structure of PyMC3
 
-It consists of phenomena represented by equations made up of Random Variables and Deterministic variables. The random variables can be divided into Observed variables and Unobserved variables. The observed variables are those for which we have data and the unobserved variables are those for which we have specify a prior distribution.
+It consists of phenomena represented by equations made up of random variables and deterministic variables. The random variables can be divided into observed variables and unobserved variables. The observed variables are those for which we have data and the unobserved variables are those for which we have to specify a prior distribution.
 
 #### Observed Variables
 
@@ -39,11 +54,18 @@ with pm.Model():
     x = pm.Normal('x', mu=0, sd=1)
 ```
 
+We will look at an example of Linear Regression to illustrate the fundamental features of PyMC3.
 
 ### An example with Linear Regression
 
+The example below illustrates linear regression with a single output variable and two input variables.
+
+$$ y = \alpha + \beta_1 x_1 +  \beta_2 x_2 + \sigma_{error} $$
+
 import pymc3
 pymc3.__version__
+
+#### Generate the Data
 
 %matplotlib inline
 import arviz as az
@@ -74,9 +96,10 @@ X2 = np.linspace(0,.2, size)
 Y = alpha + beta[0]*X1 + beta[1]*X2 + np.random.randn(size)*sigma
 
 import pymc3 as pm
-from pymc3.backends import SQLite
 from pymc3 import Model, Normal, HalfNormal
 from pymc3 import find_MAP
+
+#### Model Setup in PyMC3
 
 basic_model = Model()
 
@@ -98,7 +121,7 @@ with basic_model:
 
 pm.model_to_graphviz(basic_model)
 
-**Plate notation**
+##### Plate Notation
 
 A way to graphically represent variables and their interactions in a probabilistic framework.
 
@@ -111,7 +134,7 @@ PyMC3 computes the MAP estimate using numerical optimization, by default using t
 map_estimate = find_MAP(model=basic_model, maxeval=10000)
 map_estimate
 
-#### Distribution Information through Traceplots
+#### Inference in PyMC3
 
 from pymc3 import NUTS, sample
 from scipy import optimize
@@ -134,6 +157,8 @@ You can also pass a parameter to step that indicates the type of sampling algori
 * NUTS
 
 PyMC3 can automatically determine the most appropriate algorithm to use here, so it is best to use the default option.
+
+#### Distribution Information through Traceplots
 
 trace['alpha']
 
@@ -191,23 +216,52 @@ except:
    
    b. Variational Inference
    
-   c. Both (C)
+   c. Both
    
    
 2. We can mix Deterministic and Probabilistic variables in PyMC3
 
-   a. True (C)
+   a. True
    
    b. False
 
-#### HDI, HPD and ROPE
+#### HPD, Credible Interval, HDI and ROPE
+
+##### What is it used for?
 
 HDI, HPD and ROPE are essentially used for making decisions from the posterior distribution.
-We will plot the posterior of the beta distribution with the set parameters and a credible interval for the Highest-Posterior Density (HPD) which is the interval that has the given probability indicated by the HPD. What is the probability of getting a value given by x? We can't really calculate this exactly but we can compute this probability within a range given by x + $\Delta$x, x - $\Delta$x. A related term is the Highest Density Interval (HDI) which is a more general term that can apply for any distribution such as a prior. In other words a posterior's HDI is called the HPD. 
 
-As an example, if we suspect that the dice used at a casino is loaded, we can infer the probability of getting the value 3 from the six possible outcomes. Ideally, this should be 1/6 = 0.16666. If this happens to fall in the HPD, we can assume that the dice is fair however it may be that the distribution may be biased to one side or the other.  
+##### HPD and Credible Interval
 
-Sometimes, instead of looking at the probability that x = 0.16666, we look at the probability that it falls within the range 0.12 and 0.20 called the Region of Practical Equivalence or ROPE. This implies that, based on our subjective opinion, getting a value between 0.12 and 0.20 is practically equivalent to getting a 0.16666 or that we can assume that the dice is fair given any value within this range. ROPE allows us to make inferences about an event. After computing the posterior our ROPE given by 0.12 and 0.20 can either overlap with the HPD from the posterior density of getting a 3 
+For example, if we plot the posterior of a beta distribution with some parameters, the credible interval for the Highest Posterior Density (HPD) is the **shortest** interval that has the given probability indicated by the HPD. This interval is also called the HPD interval. As the name indicates, this involves regions of the highest posterior probability density. For unimodal distributions, this includes the mode.
+
+
+![HPD](images/HPDI_1.png)
+
+<center>x% HPD interval</center>
+
+![HPD](images/HPDI_2.png)
+
+<center>x% HPD interval</center>
+
+
+##### HDI
+
+A related term is the Highest Density Interval (HDI) which is a more general term that can apply for any distribution such as a prior and not just the posterior. In other words a posterior's HDI is called the HPD interval. 
+
+As an example, if we suspect that the dice used at a casino is loaded, we can infer the probability of getting the value 3 from the six possible outcomes. Ideally, this should be 1/6 = 0.16666. If this happens to fall in the HPD interval, we can assume that the dice is fair however it may be that the distribution may be biased to one side or the other.  
+
+
+##### ROPE
+
+What is the probability of getting a value given by x? We can't really calculate this exactly but we can compute this probability within a range given by x + $\Delta$x, x - $\Delta$x. 
+
+![HPD](images/HPD.png)
+
+<center><i>Probability of getting values less than x, and a range of values around x</i></center>
+
+
+Sometimes, instead of looking at the probability that x = 0.16666, we look at the probability that it falls within the range 0.12 and 0.20. This range is called the Region of Practical Equivalence or ROPE. This implies that, based on our subjective opinion, getting a value between 0.12 and 0.20 is practically equivalent to getting a 0.16666. Hence, we can assume that the dice is fair given any value within this range. ROPE allows us to make decisions about an event from an inferred posterior distribution. After computing the posterior, the ROPE given by 0.12 and 0.20 can either overlap with the HPD (of getting a 3)  
 
 * completely
 * not overlap at all 
@@ -219,11 +273,12 @@ In short, we define a ROPE based on our subject matter expertise and compare it 
 
 ##### Credible intervals vs. Confidence Intervals
 
-This deserves special mention particularly due to the subtle differences stemming from the Bayesian (credible intervals) vs. Frequentist (confidence intervals) approaches involved. Bayesian's consider the parameters to be a distribution and that there is no true parameter however Frequentists assume that there exists a true parameter. 
-* Confidence intervals quantify our confidence that the true parameter exists in this interval. It is a statement about the interval. 
+This deserves special mention particularly due to the subtle differences stemming from the Bayesian (credible intervals) vs. Frequentist (confidence intervals) approaches involved. Bayesians consider the parameters to be a distribution, and for them there is no true parameter. However, Frequentists fundamentally assume that there exists a true parameter. 
+
+* Confidence intervals quantify our confidence that the true parameter exists in this interval. It is a statement about the interval.
 * Credible intervals quantify our uncertainty about the parameters since there are no true parameters in a Bayesian setting. It is a statement about the probability of the parameter.
 
-For e.g. if we are trying to estimate the R0 for COVID-19, one could say that we have a 95% confidence interval of the true R0 being between 2.0 and 3.2. In a Bayesian setting, the 95% credible interval of (2,3.2) implies that we are 95% certain that 
+For e.g. if we are trying to estimate the R0 for COVID-19, one could say that we have a 95% confidence interval of the true R0 being between 2.0 and 3.2. In a Bayesian setting, the 95% credible interval of (2, 3.2) implies that 95% of the possible R0 values fall between 2.0 and 3.2.
 
 We will see how we can visualize the following using ArViz
 
@@ -259,17 +314,17 @@ except:
                       hdi_prob = 0.85,                            # credible_interval is deprecated, use hdi_prob
                       ref_val=0.48)
 
-### Graded Evaluation (15 min)
+### GRADED EVALUATION (15 min)
 
 1. HDI and HPD are the same
 
    a. True
    
-   b. False (C)
+   b. False
    
 2. HPD is used for making decisions from the posterior distribution
 
-   a. True (C)
+   a. True
    
    b. False 
    
@@ -281,7 +336,7 @@ except:
    
 4. In order to confirm our hypothesis that we have the right estimate for our parameter, we want our ROPE and the HPD to have
 
-   a. complete overlap (C)
+   a. complete overlap
    
    b. partial overlap
    
@@ -289,7 +344,7 @@ except:
    
 5. A reference value can be used to indicate tge direction of bias in our posterior dsitribution
 
-   a. True (C)
+   a. True
    
    b. False
    
@@ -299,19 +354,23 @@ except:
 
 ### Modeling with a Gaussian Distribution
 
-Gaussians (Normal distributions) are normally used to approximate a lot of practical data distributions. One reason for this is the Central Limit Theorem, which states: 
+Gaussians (Normal distributions) are normally used to approximate a lot of practical data distributions. Some of the reasons for this are: 
 
-**The distribution of the sample means will be a normal distribution**
+* The Central Limit Theorem, which states: 
 
-[Intuitive explanation of the Central Limit Theorem](https://statisticsbyjim.com/basics/central-limit-theorem/)
+   ```The distribution of the sample means will be a normal distribution```
 
-which implies that if we take the mean of the sample means, we should get the true population mean. There is also a more subtle reason for adopting the Gaussian distribution to represent a lot of phenomena; a lot of them are a result of averages of varying factors. 
+   [Intuitive explanation of the Central Limit Theorem](https://statisticsbyjim.com/basics/central-limit-theorem/)
 
-The other reason is the mathematical tractability of the distribution, it is easy to compute in closed form. While not every distribution can be approximated with a single Gaussian distribution, we can use a mixture of Gaussians to represent other multi-modal distributions.
+   which implies that if we take the mean of the sample means, we should get the true population mean. 
+
+* A more subtle reason for adopting the Gaussian distribution to represent a lot of phenomena is the fact that a lot of these phenomena themselves are a result of averages of varying factors. 
+
+* Mathematical tractability of the distribution - it is easy to compute in closed form. While not every distribution can be approximated with a single Gaussian distribution, we can use a mixture of Gaussians to represent other multi-modal distributions.
 
 The probability density for a Normal distribution in a single dimension is given by:
 
-$P(x) = \dfrac{1}{\sigma \sqrt{2 \pi}} e^{-(x - \mu)^2 / 2 \sigma^2}$
+$p(x) = \dfrac{1}{\sigma \sqrt{2 \pi}} e^{-(x - \mu)^2 / 2 \sigma^2}$
 
 where $\mu$ is the mean and $\sigma$ is the standard deviation. In higher dimensions, we have a vector of means and a covariance matrix. 
 
@@ -322,8 +381,8 @@ the data distribution. It looks somewhat like a Gaussian so maybe we can start
 there. We have two parameters to infer, that is the mean and the standard deviation. 
 We can estimate a prior for the mean by looking at the density and putting 
 some bounds using a uniform prior. The standard deviation is however chosen to 
-have a mean-centered half-normal prior - half-normal since the standard deviation 
-cannot be negative. We can provide a hyperparameter for this by inspecting the
+have a mean-centered half-normal prior (half-normal since the standard deviation 
+cannot be negative). We can provide a hyperparameter for this by inspecting the
 density again. These values decide how well we converge to a solution so good 
 values are essential for good results. 
 
@@ -380,7 +439,18 @@ az.summary(trace_g)
 
 #### Posterior Predictive Check
 
-We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that of the data from this posterior. You are returned a dictionary for each of the observed variables in the model. You can also plot the distribution of these samples by passing this variable 'y_pred_g' as shown below. Setting `mean=True` in the call to `plot_ppc` computes the mean distribution of the 100 sampled distributions and plots it as well.
+We can draw samples from the inferred posterior distribution to check to see how they line up with the observed values. Below, we draw 100 samples of length corresponding to that of the data from this posterior. You are returned a dictionary for each of the observed variables in the model. 
+
+y_pred_g = pm.sample_posterior_predictive(trace_g, 100, model_g)
+print("Shape of the sampled variable y and data ",np.shape(y_pred_g['y']), len(data))
+
+y_pred_g['y'][0]
+
+You can also plot the distribution of these samples by passing this variable 'y_pred_g' as shown below. Setting `mean=True` in the call to `plot_ppc` computes the mean distribution of the 100 sampled distributions and plots it as well.
+
+data_ppc = az.from_pymc3(trace=trace_g, posterior_predictive=y_pred_g)
+ax = az.plot_ppc(data_ppc, figsize=(12, 6), mean=True)
+ax[0].legend(fontsize=15)
 
 Two things can be noted here:
 
@@ -390,15 +460,6 @@ Two things can be noted here:
 
 Another thing to note here is that we modeled this problem using a Gaussian distribution, however we have some outliers that need to be accounted for which we cannot do well with a Gaussian distribution. We will see below how to use a Student's t-distribution for that.
 
-y_pred_g = pm.sample_posterior_predictive(trace_g, 100, model_g)
-print("Shape of the sampled variable y and data ",np.shape(y_pred_g['y']), len(data))
-
-y_pred_g['y'][0]
-
-data_ppc = az.from_pymc3(trace=trace_g, posterior_predictive=y_pred_g)
-ax = az.plot_ppc(data_ppc, figsize=(12, 6), mean=True)
-ax[0].legend(fontsize=15)
-
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr>
@@ -407,17 +468,19 @@ ax[0].legend(fontsize=15)
 
 As mentioned in the previous section, one of the issues with assuming a Gaussian distribution is the assumption of finite variance. When you have observed data that lies outside this 'boundary', a Gaussian distribution is not a good fit and PyMC3, and other MCMC-based tools will be unable to reconcile these differences appropriately.
 
-The probability density function is given by:
+This distribution is parameterized by the following:
 
-$P(t) = \dfrac{\gamma ((v+1) / 2)}{\sqrt{v \pi} \gamma (v/2)} (1 + \dfrac{t^2}{v})^{-(v+1)/2}$
-
-μ corresponds to the mean of the distribution
+* μ corresponds to the mean of the distribution
     
-σ is the scale and corresponds roughly to the standard deviation
+* σ is the scale and corresponds roughly to the standard deviation
 
-ν is the degrees of freedom and takes values between 0 and $\infty$. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the t-distribution used to model this would have degrees of freedom set to 9. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinity corresponds to a Normal distribution. 
+* ν is the degrees of freedom and takes values between 0 and $\infty$. The degrees of freedom corresponds to the number of independent observations minus 1. When the sample size is 8, the t-distribution used to model this would have degrees of freedom set to 7. A value of 1 corresponds to the Cauchy distribution and indicates heavy tails, while infinity corresponds to a Normal distribution. 
 
-The mean of the distribution is 0 and the variance is given by ν/(ν - 2).
+The probability density function for a zero-centered Student's t-distribution with scale set to one is given by:
+
+$p(t) = \dfrac{\gamma ((v+1) / 2)}{\sqrt{v \pi} \gamma (v/2)} (1 + \dfrac{t^2}{v})^{-(v+1)/2}$
+
+In this case, the mean of the distribution is 0 and the variance is given by ν/(ν - 2).
 
 Now let us model the same problem with this distribution instead of a Normal.
 
@@ -453,13 +516,13 @@ https://docs.pymc.io/notebooks/BEST.html
 
 ### Hierarchical Models or Multilevel Models
 
-Suppose we want to perform an analysis of water quality in a state and we divide this state into districts with information available from each district, there are two options to do this. 
+Suppose we want to perform an analysis of water quality in a state and information is available from each district in the state. There are two ways to model this now: 
 
 * We can study each district separately, however we lose information especially if there is insufficient data for some districts. But we get a more detailed model per district.
 
 * The second option is to combine all the data and estimate the water quality of the state as a whole, i.e. a pooled model. We have more data but we lose granular information about each district.
 
-The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the parameter priors to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts and as a result sharing information between all the groups in the data.
+The hierarchical model combines both of these options, by sharing information between the districts using hyperpriors that are priors over the parameter priors. In other words, instead of setting the prior parameters (or hyperparameters) to a constant value, we draw it from another prior distribution called the hyperprior. This hyperprior is shared among all the districts, and as a result information is shared between all the groups in the data.
 
 #### Problem Statement
 
@@ -474,7 +537,7 @@ We measure the water samples for three districts, and we collect 30 samples for 
 N_samples = [30, 30, 30] # Total number of samples collected
 G_samples = [18, 18, 18] # Number of samples with water contamination 
                          # below accepted levels
-# Create an id for each of the 30 + 30 + 30 samples - 0,1,2 to indicate that they
+# Create an ID for each of the 30 + 30 + 30 samples - 0,1,2 to indicate that they
 # belong to different groups
 group_idx = np.repeat(np.arange(len(N_samples)), N_samples)
 data = []
@@ -482,24 +545,25 @@ for i in range(0, len(N_samples)):
     data.extend(np.repeat([1, 0], [G_samples[i], N_samples[i]-G_samples[i]]))
 
 
+# ID per sample
 group_idx
 
 data
 
 #### The Sampling Model
 
-The scenario presented here is essentially a binary classification problem that can be modeled using a Bernoulli distribution. The parameter of the Bernoulli distribution is a vector corresponding to each group (\\(\theta_1, \theta_2, \theta_3\\)) and indicates the probability of getting a good sample (in each group). Since this is a hierarchical model, each group shares information and a result the parameter of Group 1 can be influenced by the samples in Group 2 and 3. This is what makes hierarchical modeling so powerful. 
+The scenario presented here is essentially a binary classification problem that can be modeled using a Bernoulli distribution. The parameter of the Bernoulli distribution is a vector corresponding to each group (\\(\theta_1, \theta_2, \theta_3\\)) and indicates the probability of getting a good sample (in each group). Since this is a hierarchical model, each group shares information and as a result the parameter of Group 1 can be influenced by the samples in Group 2 and 3. This is what makes hierarchical modeling so powerful. 
 
-The process of generating our samples looks like the following. If we start from the last equation and work our way up, we can see that $\theta_i$ and $y_i$ are similar to a pooled model except that the *Beta* prior takes parameters $\alpha$ and $\beta$ instead of constant values. These parameters now have hyperpriors applied to them using the parameters $\mu$ and *k* which are assumed to be distributed using a *Beta* distribution and a half-Normal distribution respectively. Note that $\alpha$ and $\beta$ are indirectly computed from the terms \\(\mu\\) and *k* here. \\(\mu\\) affects the mean of the Beta distribution and increasing *k* makes the Beta distribution mor concentrated. This parameterization is more efficient than the direct parameterization in terms of $\alpha_i$ and $\beta_i$.
+The process of generating our samples looks like the following. If we start from the last equation and work our way up, we can see that $\theta_i$ and $y_i$ are similar to a pooled model except that the beta prior takes parameters $\alpha$ and $\beta$ instead of constant values. These parameters now have hyperpriors applied to them using the parameters $\mu$ and *k* which are assumed to be distributed using a beta distribution and a half-Normal distribution respectively. Note that $\alpha$ and $\beta$ are indirectly computed from the terms \\(\mu\\) and *k* here. \\(\mu\\) affects the mean of the beta distribution and increasing *k* makes the beta distribution more concentrated. This parameterization is more efficient than the direct parameterization in terms of $\alpha_i$ and $\beta_i$.
 
 
-$ \mu \sim Beta(\alpha_p, \beta_p)  \\
-  k \sim | Normal(0,\sigma_k) | \\
-  \alpha =  \mu * k \\
-  \beta = (1 - \mu) * k \\
-  \theta_i \sim Beta(\alpha, \beta) \\
-  y_i \sim Bern(\theta_i)
-$
+$$ \mu \sim Beta(\alpha_p, \beta_p)  $$
+$$ k \sim | Normal(0,\sigma_k) | $$
+$$  \alpha =  \mu * k $$
+$$  \beta = (1 - \mu) * k $$
+$$  \theta_i \sim Beta(\alpha, \beta) $$
+$$  y_i \sim Bern(\theta_i) $$
+
 
 
 
@@ -521,9 +585,14 @@ pm.model_to_graphviz(model)
 
 #### Shrinkage
 
-Shrinkage refers to the phenomenon of sharing information among the groups through the use of hyperpriors. Hierarchical models can therefore be considered partially pooled models since information is shared among the groups so we move away from extremes, which is great if we have outliers (or poor quality data) in our data groups. This is particularly useful if  we do not have a lot of data. Here, the groups are neither independent nor do we clump all the data together without accounting for the differences in the groups. This can 
+Shrinkage refers to the phenomenon of sharing information among the groups through the use of hyperpriors. Hierarchical models can therefore be considered partially pooled models since information is shared among the groups so we move away from extreme values for the inferred parameters. This is good for two scenarios:
 
-We can look at three cases below as examples to illustrate what happens here. We keep the total number of samples and the groups the same as before, however we vary the number of good samples in each group. When there are significant differences in the number of good sample between groups, the behavior is different from what we see with an independent model, averages win and extreme values are avoided.
+* If we have outliers (or poor quality data) in our data groups. 
+* If we do not have a lot of data. 
+
+In hierarchical models, the groups are neither independent (unpooled) nor do we clump all the data together (pooled) without accounting for the differences in the groups. 
+
+We can look at three cases below as examples to illustrate the benefits of a hierarchical model. We keep the total number of samples and groups the same as before, however we vary the number of good samples in each group. When there are significant differences in the number of good samples within the groups, the behavior is different from what we see in an independent model. Averages win and extreme values are avoided.
 
 The values of G_samples are changed to have the following values
 
@@ -577,14 +646,14 @@ get_hyperprior_model(data, N_samples, group_idx)
 
 1. According to the Central Limit Theorem, the mean of the sample means tends to the true population mean as the number of samples increase
 
-    a. True (C)
+    a. True
 
     b. False
     
     
 2. Many real-world phenomena are averages of various factors, hence it is reasonable to use a Gaussian distribution to model them
 
-    a. True (C)
+    a. True
     
     b. False 
     
@@ -593,12 +662,12 @@ get_hyperprior_model(data, N_samples, group_idx)
 
     a. Normal
     
-    b. Half-normal (C)
+    b. Half-normal
     
     
 4. Posterior predictive checks can be used to verify that the inferred distribution is similar to the observed data
 
-    a. True (C)
+    a. True
     
     b. False
     
@@ -607,19 +676,19 @@ get_hyperprior_model(data, N_samples, group_idx)
 
     a. Gaussian distribution
     
-    b. Student's t-distribution (C)
+    b. Student's t-distribution
     
     
 6. Hierarchical models are beneficial in modeling data from groups where there might be limited data in certain groups
 
-    a. True (C)
+    a. True
     
     b. False
     
   
 7. Hierarchical models share information through hyperpriors
 
-    a. True (C)
+    a. True
     
     b. False
 
@@ -630,16 +699,26 @@ get_hyperprior_model(data, N_samples, group_idx)
 
 ### Linear Regression Again!
 
-Let us generate some data and plot it along with its density.
+Let us generate some data for linear regression and plot it along with its density. 
 
 np.random.seed(1)
 N = 100
+
+# Parameters
 alpha_real = 2.5
 beta_real = 0.9
 eps_real = np.random.normal(0, 0.5, size=N)
+
+# Input data drawn from a Normal distribution
 x = np.random.normal(10, 1, N)
+
+# Output generated from the input and the parameters
 y_real = alpha_real + beta_real * x
+
+# Add random noise to y
 y = y_real + eps_real
+
+# Plot the data
 _, ax = plt.subplots(1,2, figsize=(8, 4))
 ax[0].plot(x, y, 'C0.')
 ax[0].set_xlabel('x')
@@ -647,6 +726,7 @@ ax[0].set_ylabel('y', rotation=0)
 ax[0].plot(x, y_real, 'k')
 az.plot_kde(y, ax=ax[1])
 ax[1].set_xlabel('y')
+ax[1].set_ylabel('p(y)')
 plt.tight_layout()
 
 
@@ -657,67 +737,91 @@ import pymc3 as pm
 with pm.Model() as model_g:
     α = pm.Normal('α', mu=0, sd=10)
     β = pm.Normal('β', mu=0, sd=1)
-    ϵ = pm.HalfCauchy('ϵ', 5)
+    ϵ = pm.HalfCauchy('ϵ', 5) # Try changing this to a half normal, half cauchy has fatter tails
     μ = pm.Deterministic('μ', α + β * x)
     y_pred = pm.Normal('y_pred', mu=μ, sd=ϵ, observed=y)
     trace_g = pm.sample(2000, tune=1000)
     
-az.plot_trace(trace_g, var_names=['α', 'β', 'ϵ'])
+az.plot_trace(trace_g, var_names=['α', 'β', 'ϵ']) # if you have a lot of variables, explicitly specify
 plt.figure()
 
 
 #### Parameter Correlations
 
-az.plot_pair(trace_g, var_names=['α', 'β'], plot_kwargs={'alpha': 0.1})
+# Pairplot
+az.plot_pair(trace_g, var_names=['α', 'β'], plot_kwargs={'alpha': 0.1}) # Notice the diagonal shape
+
+#### Visualize the Uncertainty
 
 plt.figure()
-plt.plot(x, y, 'C0.') # Plot the true values
-alpha_m = trace_g['α'].mean() # Mean of the inferred values
-beta_m = trace_g['β'].mean()  # Mean of the inferred values
+# Plot the true values
+plt.plot(x, y, 'C0.') 
+
+# Get the mean inferred values
+alpha_m = trace_g['α'].mean() 
+beta_m = trace_g['β'].mean()  
+
+# Plot all draws to show the variance of the regression lines
 draws = range(0, len(trace_g['α']), 10)
 plt.plot(x, trace_g['α'][draws] + trace_g['β'][draws]* x[:, np.newaxis], c='lightblue', alpha=0.5)
+
+# Plot the mean regression line
 plt.plot(x, alpha_m + beta_m * x, c='teal', label=f'y = {alpha_m:.2f} + {beta_m:.2f} * x')
+
 plt.xlabel('x')
 plt.ylabel('y', rotation=0)
 plt.legend()
 
-#### We sample from the posterior
+####  Posterior Sampling
 
 ppc = pm.sample_posterior_predictive(trace_g,
                                      samples=2000,
                                      model=model_g)
 
-plt.plot(x, y, 'b.') # Plot the true y values
-plt.plot(x, alpha_m + beta_m * x, c='teal') # Plot the mean
+
+# Plot the posterior predicted samples, i.e. these are samples of predicted y for each original x in our data
 az.plot_hpd(x, ppc['y_pred'], credible_interval=0.5, color='lightblue')
 
-#### Mean center the data
+# Plot the true y values
+plt.plot(x, y, 'b.') 
 
-Looking at the plot of $\alpha$ and $\beta$, one can notice the high degree of correlation between these two variables. This results in a parameter posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independent variables.
+# Plot the mean regression line - from cell above
+plt.plot(x, alpha_m + beta_m * x, c='teal') 
 
-$\tilde{x} = x - \bar{x}$
+#### Mean-center the Data
 
-The advantage of this is twofold
+Looking at the pairplot of $\alpha$ and $\beta$, one can notice the high degree of correlation between these two variables as indicated by the narrow joint density. This results in a parameter posterior space that is diagonally shaped, which is problematic for many samplers such as the Metropolis-Hastings MCMC sampler. One recommended approach to minimize this correlation is to center the independent variables. If \\(\bar{x}\\) is the mean of the data x then
+
+$$\tilde{x} = x - \bar{x}$$
+
+The advantage of this is twofold:
 
 1. The pivot point is the intercept when the slope changes
 2. The parameter posterior space is more circular
 
 ##### Transformation
 
-In order to center the data
+In order to center the data, the original equation for linear regression given by
 
-$$y = \alpha - \beta x$$
-can be reformulated as 
+$$y = \alpha + \beta x$$
 
-$$y = \alpha - \tilde{\beta}(x - \bar{x}) = \alpha + \tilde{\beta} \bar{x} - \tilde{\beta} x$$
+has to be equivalent to the equation for the centered data
 
-$$y = \tilde{\alpha} - \tilde{\beta} x$$
+$$y = \tilde{\alpha} + \tilde{\beta}(x - \bar{x}) = \tilde{\alpha} - \tilde{\beta} \bar{x} + \tilde{\beta} x$$
+
 
 ##### Recovering the data
 
-This implies that the original alpha can now be recovered using the formula
+This implies that we can recover the original intercept \\(\alpha\\) as
 
-$$\alpha = \tilde{\alpha} - \tilde{\beta} \bar{x}$$
+$$ \alpha = \tilde{\alpha} - \tilde{\beta} \bar{x}$$
+
+and \\(\beta\\) as
+
+$$ \beta = \tilde{\beta} $$
+
+
+#### Standardize the data
 
 You can also standardize the data by mean centering and dividing by the standard deviation
 
@@ -745,7 +849,7 @@ az.plot_pair(trace_g, var_names=['α', 'β'], plot_kwargs={'alpha': 0.1})
 
 We fitted our model parameters by assuming the data likelihood was a Normal distribution, however as we saw earlier this assumption suffers from not doing well with outliers. Our solution to this problem is the same, use a Student's t-distribution for the likelihood.
 
-Here we look at the [Anscombe's quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet), which is a set of 4 data sets. They have similar statistical properties even though they look very different and were used to illustrate the effect of outliers. Our intended goal is the same, how to model data with outliers and the sensitivity of the model to these outliers.
+Here we look at the [Anscombe's quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet), which is a set of 4 data sets. They have similar statistical properties even though they look very different and were used to illustrate the need to visualize the data along with the effect of outliers. Our intended goal is the same, to model data with outliers and assess the sensitivity of the model to these outliers.
 
 import seaborn as sns
 from scipy import stats
@@ -766,20 +870,33 @@ x_3 = df[df.dataset == 'IV']['x'].values
 y_3 = df[df.dataset == 'IV']['y'].values
 _, ax = plt.subplots(2, 2, figsize=(12,8), sharex=True, sharey=True)
 
+
+print("Mean of x values in all groups -- ",x_0.mean(), x_1.mean(), x_2.mean(), x_3.mean())
+print("Mean of y values in all groups -- ",y_0.mean(), y_1.mean(), y_2.mean(), y_3.mean())
+print("Mean of x values in all groups -- ",x_0.var(), x_1.var(), x_2.var(), x_3.var())
+print("Mean of y values in all groups -- ",y_0.var(), y_1.var(), y_2.var(), y_3.var())
+
 ax = np.ravel(ax)
 ax[0].scatter(x_0, y_0)
+sns.regplot(x_0, y_0, ax=ax[0])
 ax[0].set_title('Group I')
 ax[0].set_xlabel('x')
 ax[0].set_ylabel('y', rotation=0, labelpad=15)
+
 ax[1].scatter(x_1, y_1)
+sns.regplot(x_1, y_1, ax=ax[1])
 ax[1].set_title('Group II')
 ax[1].set_xlabel('x')
 ax[1].set_ylabel('y', rotation=0, labelpad=15)
+
 ax[2].scatter(x_2, y_2)
+sns.regplot(x_2, y_2, ax=ax[2])
 ax[2].set_title('Group III')
 ax[2].set_xlabel('x')
 ax[2].set_ylabel('y', rotation=0, labelpad=15)
+
 ax[3].scatter(x_3, y_3)
+sns.regplot(x_3, y_3, ax=ax[3])
 ax[3].set_title('Group IV')
 ax[3].set_xlabel('x')
 ax[3].set_ylabel('y', rotation=0, labelpad=15)
@@ -807,7 +924,7 @@ with pm.Model() as model_t:
     β = pm.Normal('β', mu=0, sd=1)
     ϵ = pm.HalfNormal('ϵ', 5)
     ν_ = pm.Exponential('ν_', 1/29)
-    ν = pm.Deterministic('ν', ν_ + 1)
+    ν = pm.Deterministic('ν', ν_ + 1) # shifting the exponential to avoid values close to 0
     y_pred = pm.StudentT('y_pred', mu=α + β * x_2,
                          sd=ϵ, nu=ν, observed=y_2)
     trace_t = pm.sample(2000)
@@ -825,9 +942,9 @@ pm.model_to_graphviz(model_t)
 
 ### Hierarchical Linear Regression
 
-We want to use the same hierarchical or multilevel modeling technique for linear regression problems. As mentioned above, this is particularly useful when presented with imbalanced subgroups of sparse data. In this example, we create 8 subgroups with 7 of them having 20 data points and the last one having a single data point. 
+We want to use the same hierarchical or multilevel modeling technique that we discussed earlier, for linear regression problems as well. As mentioned above, this is particularly useful when presented with imbalanced subgroups of sparse data. In this example, we create data with 8 subgroups. In this data, 7 of the subgroups have 20 data points and the last one has a single data point. 
 
-The data for the 8 groups are generated from a Normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from the Normal and Beta distributions.
+The data for all the 8 groups are generated from a normal distribution of mean 10 and a standard deviation of 1. The parameters for the linear model are generated from the normal and beta distributions.
 
 #### Data Generation
 
@@ -1216,7 +1333,7 @@ This gives us a decision boundary, assuming y = 0.5 is a reasonable boundary, of
 
 $$x_2 = -\dfrac{\alpha}{\beta_2} - \dfrac{\beta_1}{\beta_2} x_1$$
 
-Unlike the previous equation, this one represents a line for the variables \\(x_1\\) and \\(x_2\\) which separates the two-dimensional space occupied by \\(x_1\\) and \\(x_2\\). For higher dimensions, this boundary decision will be a hyperplane of dimension 'n-1' for a feature space of dimension 'n'.
+Unlike the previous equation, this one represents a line for the variables \\(x_1\\) and \\(x_2\\) which separates the two-dimensional space occupied by \\(x_1\\) and \\(x_2\\). For higher dimensions, this decision boundary will be a hyperplane of dimension 'n-1' for a feature space of dimension 'n'.
 
 #### Inference
 
@@ -1252,7 +1369,7 @@ $$ softmax(x_i) = \dfrac{\exp(x_i)}{\sum_k \exp(x_k)} $$
 
 Earlier, we also used a Bernoulli distribution as the likelihood for our $\theta$ parameter, however now we sample from a categorical distribution.
 
-$$\theta = logistic(\alpha + \beta x)$$
+$$\theta = softmax(\alpha + \beta x)$$
 
 $$y \sim Categorical(\theta)$$
 
@@ -1379,7 +1496,11 @@ az.plot_trace(trace)
 
 We can use the ECDF (Empirical Cumulative Distribution Function) to visualize the distribution of \\(\tau\\). The ECDF helps to visualize the distribution by plotting the CDF as opposed to the binning techniques used by a histogram. It also helps us to identify what values in the data are beneath a certain probability.
 
-It is expected that the rate parameter will be \\(\lambda_1\\) initially for a time till the day where the value of \\(\tau\\) has some probability mass 'x' when it switches to rate parameter \\(\lambda_2\\) with this probability mass 'x', whereas probability that this day could have the rate parameter \\(\lambda_1\\) will be '1 - x'. You could do this for all the days.
+A reasonable scenario looks like the following:
+
+1. Starting from day 1 till day 'd', it is expected that the rate parameter will be \\(\lambda_1\\), i.e with probability 100%. 
+2. On day 'd', it is possible that the rate is \\(\lambda_1\\) with probability 'x' which implies that the rate could be \\(\lambda_2\\) with probability '1 - x'. So this means that  the distribution of \\(\tau\\) has some probability mass on day 'd' indicating that the rate parameter switches to \\(\lambda_2\\) on this day. 
+3. For days after day 'd', the rate is \\(\lambda_2\\) with probability 100%.
 
 from statsmodels.distributions.empirical_distribution import ECDF
 print('Tau is ',trace['tau'])
@@ -1394,15 +1515,15 @@ for elem in idx:
     prob_lambda_1 = 1.0 - prob_lambda_2
     print("Day %d, the probability of rate being lambda_1 is %lf and lambda_2 is %lf "%(elem, prob_lambda_1, prob_lambda_2))
 
-#### Expected Value of  \\(\tau\\)
+#### Expected Value of Cases
 
 For each draw of $\tau$, there is a draw of $\lambda_1$ and $\lambda_2$. We can use the principles of Monte Carlo approximation to compute the expected value of COVID-19 cases on any day. 
 
-Expected value for day = $ \dfrac{1}{N} \sum_{0}^{num\_samples}$ Lambda_draw ;  day > Tau_draw ? lambda_2_draw : lambda_1_draw
+Expected value for day = $ \dfrac{1}{N} \sum_{0}^{nsamples}$ Lambda_draw ;  day > Tau_draw ? lambda_2_draw : lambda_1_draw
 
 * Draws are in combinations of \\((\lambda_1, \lambda_2, \tau)\\), we want to average out the \\(\lambda\\) value based on the proportion of \\(\lambda\\) suggestions as indicated by the samples
 
-* For days 0,...67 we see that the probability of \\(\lambda_1\\) is 1 whereas the probability of \\(\lambda_2\\) is 0. So the expected value is just the average of all the \\(\lambda_1\\) samples.
+* For days 0,...68 we see that the probability of \\(\lambda_1\\) is 1 whereas the probability of \\(\lambda_2\\) is 0. So the expected value is just the average of all the \\(\lambda_1\\) samples.
 
 * Similarly, for days from 72,... the probability of \\(\lambda_2\\) is 1 and the probability of \\(\lambda_1\\) is 0. So the expected value of \\(\lambda\\) is just the average of all the \\(\lambda_2\\) samples.
 
@@ -1444,14 +1565,14 @@ plt.plot(np.arange(n_counts), expected_values, color='g', lw='4')
 
 1. Mean-centering the data helps MCMC Sampling by
 
-    a. Reducing the correlation between the variables (C)
+    a. Reducing the correlation between the variables
     
     b. Reducing the variance of the variables 
     
     
 2. Hierarchical Linear Regression is beneficial when pooling data results in vital group information being lost
 
-    a. True (C)
+    a. True
     
     b. False 
     
@@ -1460,7 +1581,7 @@ plt.plot(np.arange(n_counts), expected_values, color='g', lw='4')
 
     a. Hierarchical model
     
-    b. Non-hierarchical model (C)
+    b. Non-hierarchical model
     
 
 ```
@@ -1478,7 +1599,7 @@ plt.plot(np.arange(n_counts), expected_values, color='g', lw='4')
   
 4. Non-hierarchical Linear Regression with groups of sparse data can result in
 
-    a. very large credible intervals (C)
+    a. very large credible intervals
     
     b. very small credible intervals
     
@@ -1501,12 +1622,12 @@ plt.plot(np.arange(n_counts), expected_values, color='g', lw='4')
 
     a. Multiple dependent or target variables
     
-    b. Multiple independent or predictor variables (C)
+    b. Multiple independent or predictor variables
     
     
 8. PyMC3 allows you to model multiple predictor variables uing the shape parameter in a distribution without having to create multiple parameters explicitly
 
-    a. True (C)
+    a. True
     
     b. False
     
@@ -1515,19 +1636,19 @@ plt.plot(np.arange(n_counts), expected_values, color='g', lw='4')
 
     a. Logit function
     
-    b. Identity function (C)
+    b. Identity function
    
    
 10. Multiclass classification uses the
 
     a. Sigmoid function 
     
-    b. Softmax function (C)
+    b. Softmax function
     
     
 11. A binary classification problem uses the Bernoulli distribution to model the target, the multiclass classification uses
 
-    a. Categorical distribution (C)
+    a. Categorical distribution
     
     b. Poisson distribution
 
@@ -1567,26 +1688,29 @@ The larger this value, the larger the space from where new samples can be drawn.
 
 ##### Hamiltonian Monte Carlo (HMC) algorithm
 
-The HMC algorithm is based on the solution of differential equations known as Hamilton's equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational process.
+The HMC algorithm is based on the solution of differential equations known as Hamilton's equations. These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by a position and momentum at that position. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational effort in this process.
 
-To get a sense of the intuition behind HMC, it is based on the notion of conservation of energy. When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy and when it is closer to the center of the probability mass will have high kinetic energy but low potential energy.
+To get a sense of the intuition behind HMC, it is based on the notion of conservation of energy. When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy and when it is closer to the center of the probability mass, it will have high kinetic energy but low potential energy.
 
-The step size, in HMC, corresponds to the covariance of the momentum distribution that is sampled. Smaller step sizes move slowly in the manifold however larger step sizes can result in integration errors. There is a Metropolis step at the end of the HMC algorithm and and as a result the corresponding target acceptance rates of 65% in PyMC3.
+The step size, in HMC, corresponds to the covariance of the momentum distribution that is sampled. Smaller step sizes move slowly in the manifold, however larger step sizes can result in integration errors. There is a Metropolis step at the end of the HMC algorithm and the  target acceptance rates of 65% in PyMC3 corresponds to this Metropolis step.
 
 #### Mixing 
 
-Mixing refers to how well the sampler covers the 'support' of the posterior distribution or rather how well it covers the entire distribution. Poor convergence is often a result of poor mixing. This can happen due the choice of 
-1. inappropriate proposal distribution for Metropolis 
-2. if we have too many correlated variables
+Mixing refers to how well the sampler covers the 'support' of the posterior distribution or rather how well it covers the entire distribution. Poor convergence is often a result of poor mixing. This can happen due to the choice of 
+
+1. The choice of an inappropriate proposal distribution for Metropolis 
+2. If we have too many correlated variables
 
 The underlying cause for this can be
-1. too large a step size to be able to escape a region of high curvature
-2. multimodal distributions 
+
+1. Too large a step size
+2. Not running the sampler long enough
+3. Multimodal distributions 
 
 
-#### Diagnostic statistics
+#### Rhat
 
-We can compute a metric called Rhat (also called the potential scale reduction factor) that measures the variance between the chains with the variance within the chains. It is calculated as the standard deviation using the samples from all the chains (all samples appended together from each chain) over the  RMS of the within-chain standard deviations of all the chains. Poorly mixed samples will have greater variance in the accumulated samples (numerator) compared to the variance in the individual chains. It was empirically accepted that Rhat values below 1.1 are considered acceptable while those above it are indications of a lack of convergence in the chains. Gelman et al. (2013) introduced a split Rhat that compares the first half with the second half of the samples from each chain to improve upon the regular Rhat. Arviz implements a split Rhat as can be seen from [Arviz Rhat](https://arviz-devs.github.io/arviz/generated/arviz.rhat.html), along with an improved rank-based Rhat
+We can compute a metric called Rhat (also called the potential scale reduction factor) that measures the ratio of the variance between the chains to the variance within the chains. It is calculated as the ratio of the standard deviation using the samples from all the chains (all samples appended together from each chain) over the  RMS of the within-chain standard deviations of all the chains. Poorly mixed samples will have greater variance in the accumulated samples (numerator) compared to the variance in the individual chains. It was empirically determined that Rhat values below 1.1 are considered acceptable while those above it are indications of a lack of convergence in the chains. Gelman et al. (2013) introduced a split Rhat that compares the first half with the second half of the samples from each chain to improve upon the regular Rhat. Arviz implements a split Rhat as can be seen from [Arviz Rhat](https://arviz-devs.github.io/arviz/generated/arviz.rhat.html). There is also an improved rank-based Rhat
 [Improved Rhat](https://arxiv.org/pdf/1903.08008.pdf).
 
 `az.rhat(trace, method='split')`
@@ -1595,7 +1719,7 @@ We can compute a metric called Rhat (also called the potential scale reduction f
 
 [T Wiecki on Reparametrization](https://twiecki.io/blog/2017/02/08/bayesian-hierchical-non-centered/)
 
-When there is insufficient data in a hierarchical model, the variables being inferred ends up having correlation effects, thereby making it difficult to sample. One obvious solution is to obtain more data, but when this isnt' possible we resort to reparameterization by creating a non-centered model from the centered model. 
+When there is insufficient data in a hierarchical model, the variables being inferred ends up having correlation effects, thereby making it difficult to sample. One obvious solution is to obtain more data, but when this isn't possible we resort to reparameterization by creating a non-centered model from the centered model. 
 
 This is a centered parameterization for $\beta$ since it is centered around $\mu$
 
@@ -1609,7 +1733,7 @@ $$\beta_{unit} \sim Normal(0,1)$$
 
 $$\beta = \mu + \sigma \beta_{unit}$$
 
-This works because we are effectively reducing the dependence of \\(\alpha\\) and \\(\beta\\), or making them less correlated, making them easier to sample in a non-centered model. The effect is a joint posterior space that is more rounded.
+This works because we are effectively reducing the dependence of \\(\mu\\) and \\(\sigma\\), or making them less correlated, making them easier to sample in a non-centered model. The effect is a joint posterior space that is more rounded.
 
 #### Convergence
 
@@ -1754,7 +1878,7 @@ f'{np.sum(y_s == np.argmax(y_pred, axis=1)) / len(y_s):.2f}'
 
 #### Diagnostics
 
-All diagnostics in PyMC3 is now in Arviz starting with version 3.9 of PyMC3. Summary is a good place to start
+All diagnostics in PyMC3 are now in Arviz starting with version 3.9 of PyMC3. The 'summary' method is a good place to start.
 
 az.summary(trace_s)
 
@@ -1784,7 +1908,7 @@ print("Best step size determined from tuning ",trace_s.step_size_bar)
 
 #### Trace Energy
 
-Ideally, you want your enerygy and the transition energy to be similar. If your transition energy is too narrow, it could imply that your sampler does not have enough energy to sample the entire posterior space and the sampled results may not appropriately represent the posterior well (biased estimate)
+Ideally, you want the energy of your trace and the transition energy to be similar. If your transition energy is too narrow, it could imply that your sampler does not have enough energy to sample the entire posterior space and the sampled results may not appropriately represent the posterior well (biased estimate).
 
 energy_diff = np.diff(trace_s.energy)
 sns.distplot(trace_s.energy - trace_s.energy.mean(), label="Energy of trace")
@@ -1862,20 +1986,21 @@ az.plot_trace(trace_sf, var_names=['α'])
 
 ### Diagnosing MCMC using PyMC3
 
-It is a good idea to inspect the quality of the solutions obtained. It is possible once obtains suboptimal samples resulting in biased estimates or the sampling is slow. There are two broad categories of tests, a visual inspection and a quantitative assessment. Several things that can be done if one suspects issues.
+It is a good idea to inspect the quality of the solutions obtained. It is possible that one obtains suboptimal samples resulting in biased estimates, or the sampling is slow. There are two broad categories of tests, a visual inspection and a quantitative assessment. There are a few things that can be done if one suspects sampling issues.
 
-1. More samples, it is possible that there aren't samples to come up with an appropriate posterior
+1. More samples, it is possible that there aren't sufficient samples to come up with an appropriate posterior.
 2. Use burn-in, this is removing a certain number of samples from the beginning while PyMC3 is figuring out the step size. This is set to 500 by default. With tuning it is not necessary to explicitly get rid of samples from the beginning.
 3. Increase the number of samples used for tuning.
 4. Increase the target_accept parameter as 
+
     `pm.sample(5000, chains=2, target_accept=0.95)`
     
     `pm.sample(5000, chains=2, nuts_kwargs=dict(target_accept=0.95))`
     
-    Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process so that we get the desired acceptance probability as indicated by the value to target_accept. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. Smaller step sizes lead to larger acceptance rates and larger step sizes lead to smaller acceptance rates. If the current acceptance rate is smaller than the target acceptance rate, the step size is reduced to increase the current acceptance rates (See the section on tuning).
+    Target_accept is the acceptance probability of the samples. This has the effect of varying the step size in the MCMC process so that we get the desired acceptance probability as indicated by the value of target_accept. It is a good idea to take smaller steps especially during Hamiltonian Monte Carlo so as to explore regions of high curvature better. Smaller step sizes lead to larger acceptance rates and larger step sizes lead to smaller acceptance rates. If the current acceptance rate is smaller than the target acceptance rate, the step size is reduced to increase the current acceptance rates.
     
-5. Reparameterize the model so that the model while remaining the same, is expressed differently so that is easier to explore the space and find solutions.
-6. Modify the data representation - mean centering and standardizing the data are two standard techniques that can be applied here. Note that (5) refers to model transformation while this is specifically modifying the data.
+5. Reparameterize the model so that the model, while remaining the same, is expressed differently so that is easier for the sampler to explore the distribution space.
+6. Modify the data representation - mean centering and standardizing the data are two standard techniques that can be applied here. Note that (5) refers to model transformation while this is data transformation.
 
 #### Debugging PyMC3
 
@@ -1924,21 +2049,21 @@ sp500
 
 1. For Metropolis-Hastings algorithms, an acceptance rate of 23.4 was shown to be ideal
 
-    a. True (C)
+    a. True
     
     b. False
     
 
 2. A high acceptance rate (>90%) is an indication that the sampler is not exploring the space very well
 
-    a. True (C)
+    a. True
     
     b. False
     
     
 3. A low acceptance rate is an indication that 
 
-    a. An incorrect proposal distribution is being used (C)
+    a. An incorrect proposal distribution is being used
     
     b. The variance of the proposal distribution is too low
     
@@ -1947,33 +2072,33 @@ sp500
 
     a. 75%
     
-    b. 85% (C)
+    b. 85%
     
     
 5. If you have convergence issues, it is better to
 
     a. Try increasing the total number of samples drawn
     
-    b. Try increasing the number of tuning samples (C)
+    b. Try increasing the number of tuning samples
     
     
 6. A step size that is too large can result in 
 
     a. Large sample values
     
-    b. Invalid sample values (C)
+    b. Invalid sample values
     
     
 7. Large step sizes in Hamiltonian Monte Carlo can result in 
 
-    a. Integration errors (C)
+    a. Integration errors
     
     b. Out-of-bounds errors
     
     
 8. Mixing in MCMC refers to
 
-    a. How well the sampling covers the entire distribution space (C)
+    a. How well the sampling covers the entire distribution space
     
     b. The similarity of the sample values
     
@@ -1982,26 +2107,26 @@ sp500
 
     a. the variance between the chains
     
-    b. the ratio of the variance between the chains to the variance within the chains (C)
+    b. the ratio of the variance between the chains to the variance within the chains
     
     
 10. Rhat values below 1.1 indicate convergence while those above do not
 
-    a. True (C)
+    a. True
     
     b. False
     
     
 11. Thinning or pruning refers to dropping every n'th sample to avoid correlated samples
 
-    a. True (C)
+    a. True 
     
     b. False
     
     
 12. Divergences happen in regions of high curvature or sharp gradients in the sampling manifold
 
-    a. True (C)
+    a. True
     
     b. False
 
