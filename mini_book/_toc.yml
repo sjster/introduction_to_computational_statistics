@@ -7,13 +7,13 @@
     - file: docs/Databricks.ipynb
 - part: Introduction to Bayesian Statistics
   chapters:
-    - file: docs/Production/Fundamentals-1-belief-probability-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-2-manipulating-probability-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-3-distributions-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-4-MoM-MLE-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-5a-Bayes_intro-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-5b-decision_loss-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-6-priors-unGRADED.ipynb
+    - file: docs/Production/Fundamentals-lecture1-belief-and-probability-unGRADED
+    - file: docs/Production/Fundamentals-lecture2-manipulating-probability-unGRADED.ipynb
+    - file: docs/Production/Fundamentals-lecture3-intro-distributions-unGRADED.ipynb
+    - file: docs/Production/Fundamentals-lecture4-MoM-MLE-unGRADED.ipynb
+    - file: docs/Production/Fundamentals-lecture5a-Basics-of-Bayes-unGRADED.ipynb
+    - file: docs/Production/Fundamentals-lecture5b-inference-decisions-unGRADED.ipynb
+    - file: docs/Production/Fundamentals-lecture6-priors-unGRADED.ipynb
     - file: docs/Production/Intro.ipynb
     - file: docs/Production/Distributions.ipynb
     - file: docs/Production/Sampling.ipynb
