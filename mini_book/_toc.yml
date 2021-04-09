@@ -25,5 +25,6 @@
   chapters:
     - file: docs/PyMC3.ipynb
     - file: docs/Reparameterization.ipynb
+    - file: docs/Covid_modeling_problem.ipynb
     - file: docs/Covid_modeling.ipynb
 
