@@ -147,16 +147,6 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="#classification">
-   Classification
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#confusion-matrix">
-   Confusion matrix
-  </a>
- </li>
- <li class="toctree-l1">
   <a class="reference internal" href="Fundamentals-lecture6-priors-unGRADED.html">
    Priors
   </a>
@@ -311,57 +301,52 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Inference and Decisions
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#classification">
    Classification
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#loss-functions">
      Loss functions
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#cross-entropy-loss">
      Cross Entropy Loss
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#categorical-cross-entropy-loss">
      Categorical cross entropy loss
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#other-classification-loss-functions">
      Other classification loss functions
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#continuous-response">
      Continuous response
     </a>
     <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#mean-squared-error">
        Mean squared error
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#mean-absolute-error">
        Mean absolute error
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#l1-and-l2-loss">
        L1 and L2 loss
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#regularization">
        Regularization
       </a>
@@ -370,12 +355,12 @@
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#confusion-matrix">
    Confusion matrix
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
      GRADED EVALUATION (15 mins)
     </a>
@@ -406,13 +391,12 @@
 </ul>
 <br>
 <br>
-<hr style="border:2px solid blue"> </hr></div>
-<div class="section" id="classification">
-<h1>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h1>
+<hr style="border:2px solid blue"> </hr><div class="section" id="classification">
+<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
 <p>In the last section, we gave an example taking of a test for determining status of disease.  We took the test and discovered a positive result which led to a probability that we are truly infected given the postivite test of 79%.  The odds are, we have the disease.  Are we sure enough that we will seek appropriate treatment or perhaps we want a second opinion?  Is there a second test?  Do we simply take two tests and combine the results?  When we build a computational model, we repeatedly ask this question and have to make a decision, do we continue in the current direction or go from whence we came. The consequences of making a wrong choice are often not symmetric.  Our overall goal is to simply be right, but understanding consequence discrepancies may suggest wrong answers are not all the same.  In this example we may choose to weigh a wrong answer differently in one direction than another.</p>
 <p>Restating this in terms of probability, for a binary decision, our goal is:</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\text{argmin } p(mistake) = \sum_{i=1}^k p(x_{k \notin j},C_k)$$ where j/k are class labels.\\### Rejection regions or decision boundaries\\In our decision, we may choose a region for inclusion in one class or another, for instance, we may decide the optimal boundary in our disease classification is at $p(disease|+test)&gt;75%$.  Note that the decision boundary should parition the space.  Written with a decision boundary, \\$$\text{argmin } p(mistake) = \int_{\mathbb{R_1}} p(x,C_2) dx + \int_{\mathbb{R_2}} p(x,C_1) dx\end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}\text{argmin } p(mistake) = \sum_{i=1}^k p(x_{k \notin j},C_k)$$ where j/k are class labels.\\#### Rejection regions or decision boundaries\\In our decision, we may choose a region for inclusion in one class or another, for instance, we may decide the optimal boundary in our disease classification is at $p(disease|+test)&gt;75%$.  Note that the decision boundary should parition the space.  Written with a decision boundary, \\$$\text{argmin } p(mistake) = \int_{\mathbb{R_1}} p(x,C_2) dx + \int_{\mathbb{R_2}} p(x,C_1) dx\end{aligned}\end{align} \]</div>
 <p>Returning to the coin toss experiment, after we perform the experiment many times, we can arrange the data and find the regions to the right/left that give the desired partions between ‘fair’ and ‘biased’ based on our tolerance for error.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -485,7 +469,7 @@
 <div class="math notranslate nohighlight">
 \[E[loss] = \sum_k \sum_j \int_{\mathbb{R_j}} L_{kj}p(x,C_k) dx\]</div>
 <div class="section" id="loss-functions">
-<h2>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h2>
+<h3>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h3>
 <p>Loss functions are functions created to match our goals with penalties to steer our algorithm to beneficial regions.  As an example, consider the follow loss function:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{matrix} &amp; \text{disease} &amp; \text{no disease} \\ \text{disease} &amp; 0 &amp; 100 \\\text{no disease} &amp; 1 &amp; 0 \end{matrix}\end{split}\]</div>
@@ -500,7 +484,7 @@
 \end{split}\]</div>
 </div>
 <div class="section" id="cross-entropy-loss">
-<h2>Cross Entropy Loss<a class="headerlink" href="#cross-entropy-loss" title="Permalink to this headline">¶</a></h2>
+<h3>Cross Entropy Loss<a class="headerlink" href="#cross-entropy-loss" title="Permalink to this headline">¶</a></h3>
 <p>Any loss function which is the negative log likelihood between the empirical distribution of the data and the probability distribution of the model is a cross entropy loss.</p>
 <p>Often, when one talks about cross entropy loss, the meaning is for binary classification.  In fact, cross entropy loss, also called log loss, is the go-to function for binary classification tasks.  It is the log likelihood for a Bernoulli trial.</p>
 <div class="math notranslate nohighlight">
@@ -543,13 +527,13 @@ Total cross entropy loss is: 0.8438820897043499
 <p>Note that this can easily be extended to the case of multiple categories.</p>
 </div>
 <div class="section" id="categorical-cross-entropy-loss">
-<h2>Categorical cross entropy loss<a class="headerlink" href="#categorical-cross-entropy-loss" title="Permalink to this headline">¶</a></h2>
+<h3>Categorical cross entropy loss<a class="headerlink" href="#categorical-cross-entropy-loss" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[\text{CE loss }= - \sum_{i=1}^I \sum_{k=1}^K \mathbb{1}_{y_i = k}log p(y_i = k | x_i,\theta)\]</div>
 <p>This looks completely different, but understanding the terms will quickly lead to a familiar setup.  The CE loss is a sum of the probabilities assigned to the predicted class.  The \(\mathbb{1}\) is an idicator function determining which class is the correct class while the \(p(y_i = k | x_i,\theta)\) is the likelihood of the correct class given the data.  In the case of two categories, this reduces to the cross entropy case above.</p>
 </div>
 <div class="section" id="other-classification-loss-functions">
-<h2>Other classification loss functions<a class="headerlink" href="#other-classification-loss-functions" title="Permalink to this headline">¶</a></h2>
+<h3>Other classification loss functions<a class="headerlink" href="#other-classification-loss-functions" title="Permalink to this headline">¶</a></h3>
 <p><strong>Focal loss</strong> is a modified loss attempting to highlight the loss from incorrectly classified samples vs those that are classified correctly, but perhaps with less than perfect probability.</p>
 <div class="math notranslate nohighlight">
 \[FL = - \sum_{i=1}^{C=2}(1-\hat{\theta}_i)^\gamma t_i log(\hat{\theta}_i)\]</div>
@@ -559,29 +543,29 @@ Total cross entropy loss is: 0.8438820897043499
 \[HL = \sum_{j \ne y_i} max(0,s_j-s_{y_i}+1)\]</div>
 </div>
 <div class="section" id="continuous-response">
-<h2>Continuous response<a class="headerlink" href="#continuous-response" title="Permalink to this headline">¶</a></h2>
+<h3>Continuous response<a class="headerlink" href="#continuous-response" title="Permalink to this headline">¶</a></h3>
 <p>In continuous responses, the goodness of fit measure is some function of distance.</p>
 <div class="section" id="mean-squared-error">
-<h3>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h3>
+<h4>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h4>
 <p>Mean squared error, MSE, is defined as</p>
 <div class="math notranslate nohighlight">
 \[MSE = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y_i})^2\]</div>
 <p>This has a number of nice features as a loss function including penalizing based on distance from the prediction and mathmatical properties such as that it is differentiable and there is always a single solution.  MSE is sensitive to outliers, ie it is not robust to outliers.</p>
 </div>
 <div class="section" id="mean-absolute-error">
-<h3>Mean absolute error<a class="headerlink" href="#mean-absolute-error" title="Permalink to this headline">¶</a></h3>
+<h4>Mean absolute error<a class="headerlink" href="#mean-absolute-error" title="Permalink to this headline">¶</a></h4>
 <p>Mean absolute error, MAE, is defined as</p>
 <div class="math notranslate nohighlight">
 \[MAE = \frac{1}{N} \sum_{i=1}^N |y_i - \hat{y_i}|\]</div>
 <p>Like MSE, MAE returns the average of the magnetude of errors, but needs computational tools to deal with the lack of a differential.  MAE is less sensitive to ouliers than MSE, however, there is no guarantee of a unique solution.</p>
 </div>
 <div class="section" id="l1-and-l2-loss">
-<h3>L1 and L2 loss<a class="headerlink" href="#l1-and-l2-loss" title="Permalink to this headline">¶</a></h3>
+<h4>L1 and L2 loss<a class="headerlink" href="#l1-and-l2-loss" title="Permalink to this headline">¶</a></h4>
 <p>L1 loss is sum of absolute differences, also called the method of Least Absolute Deviations (LAD).  \(L_1 = N \ast MAE\).</p>
 <p>L2 loss is <span class="math notranslate nohighlight">\(N \ast MSE\)</span> also called least squares error, or LSE.</p>
 </div>
 <div class="section" id="regularization">
-<h3>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h3>
+<h4>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h4>
 <p>Regularization is a technique to prevent overfitting throug addition of penatly term to the sum of the regression coefficents.  For instance:</p>
 <div class="math notranslate nohighlight">
 \[argmin LSE + \lambda \sum_{i=1}^k|w_i|\]</div>
@@ -591,7 +575,7 @@ Total cross entropy loss is: 0.8438820897043499
 </div>
 </div>
 <div class="section" id="confusion-matrix">
-<h1>Confusion matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this headline">¶</a></h1>
+<h2>Confusion matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this headline">¶</a></h2>
 <p>For binary classification problems, we have the so called confusion matrix.  For a class known to be A, did we predict A or B?  The result to that question can be summarized in the confusion matrix:</p>
 <table class="colwidths-auto table">
 <thead>
@@ -634,7 +618,7 @@ $<span class="math notranslate nohighlight">\(recall = \frac{TP}{TP+FN}\)</span>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr><div class="section" id="graded-evaluation-15-mins">
-<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
+<h3>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h3>
 <ol class="simple">
 <li><p>Cost functions are measures of fit.</p></li>
 </ol>
@@ -684,6 +668,7 @@ $<span class="math notranslate nohighlight">\([0.25,0.25,0.20,0.30],\)</span><sp
 <p>a. A,B,C,B</p>
 <p>b. D,B,D,A,D</p>
 <p>c. D,B,C,E</p>
+</div>
 </div>
 </div>
 
