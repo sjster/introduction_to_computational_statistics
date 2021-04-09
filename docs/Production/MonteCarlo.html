@@ -1,0 +1,1464 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Introduction to Monte Carlo Methods &#8212; Introduction to Computational Statistics with PyMC3</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo_large.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  Getting started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../About.html">
+   The What, Why and Whom…
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html">
+   Setting up Your Python Environment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Databricks.html">
+   Introduction to the Databricks Environment
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Bayesian Statistics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html">
+   Empirical modeling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#principals-of-probability">
+   Principals of Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#chance-regularities">
+   Chance regularities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#belief-and-probability">
+   Belief and probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#sample-space-outcomes-and-events">
+   Sample space, outcomes and events
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#addition-rules">
+   Addition rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#multiplication-rules">
+   Multiplication rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#conditional-independent-disjoint-exchangeable">
+   Conditional, Independent, disjoint, exchangeable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#factoring-joint-probabilities">
+   Factoring joint probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#random-variable">
+   Random variable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#random-sample-experiment-trial">
+   Random sample, experiment, trial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#data-generating-mechanism">
+   Data generating mechanism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html">
+   Empirical modeling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#principals-of-probability">
+   Principals of Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#chance-regularities">
+   Chance regularities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#belief-and-probability">
+   Belief and probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#sample-space-outcomes-and-events">
+   Sample space, outcomes and events
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#addition-rules">
+   Addition rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#multiplication-rules">
+   Multiplication rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#conditional-independent-disjoint-exchangeable">
+   Conditional, Independent, disjoint, exchangeable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#factoring-joint-probabilities">
+   Factoring joint probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#random-variable">
+   Random variable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#random-sample-experiment-trial">
+   Random sample, experiment, trial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#data-generating-mechanism">
+   Data generating mechanism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html">
+   Distributions, central tendency, and shape parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#probability-distributions">
+   Probability distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#discrete-random-variables">
+   Discrete random variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#continuous-random-variables">
+   Continuous random variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#moments-expectations-and-variances">
+   Moments, expectations and variances
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#joint-distributions">
+   Joint distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#marginal-distribution">
+   Marginal distribution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#conditional-distributions">
+   Conditional distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#independence">
+   Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#covariance">
+   Covariance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#correlation-correlation-coefficient">
+   Correlation (correlation coefficient)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture4-MoM-MLE-unGRADED.html">
+   Parameter Estimation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5a-Basics-of-Bayes-unGRADED.html">
+   Introduction to the Bayes Theorem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html">
+   Inference and Decisions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html#classification">
+   Classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html#confusion-matrix">
+   Confusion matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture6-priors-unGRADED.html">
+   Priors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro.html">
+   Bayesian vs. Frequentist Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Distributions.html">
+   Introduction to Common Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Sampling.html">
+   Sampling Algorithms
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Monte Carlo Methods
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../BayesianInference.html">
+   Topics in Model Performance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../MonteCarlo.html">
+   Introduction to Monte Carlo Methods
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  PyMC3 for Bayesian Modeling and Inference
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../PyMC3.html">
+   Introduction to PyMC3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Reparameterization.html">
+   Centered vs. Non-centered Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Covid_modeling.html">
+   Covid Modeling with PyMC3
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/MonteCarlo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/MonteCarlo.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/MonteCarlo.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-monte-carlo-simulation">
+   What is a Monte Carlo simulation?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-do-we-need-it">
+   Why do we need it?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#building-blocks">
+   Building blocks
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#markov-chains">
+     Markov Chains
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stationary-distributions">
+     Stationary distributions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ergodicity">
+     Ergodicity
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#why-does-this-work">
+   Why does this work?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#proposal-distribution">
+     Proposal distribution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-bayesian-inference-process">
+   The Bayesian Inference Process
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-metropolis-algorithm">
+   The Metropolis Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-statement">
+     Problem Statement
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outline-of-the-metropolis-algorithm">
+     Outline of the Metropolis algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-details">
+     The details
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#notes">
+       Notes
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#traceplot">
+     Traceplot
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#building-the-inferred-distribution">
+     Building the Inferred Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#representing-the-inferred-distribution">
+     Representing the Inferred Distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#notes-about-the-metropolis-algorithm">
+     Notes about the Metropolis Algorithm
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-code-for-walkthrough-of-the-metropolis-algorithm">
+   Python Code for Walkthrough of the Metropolis Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Problem Statement
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ungraded-evaluation-50-min">
+   UNGRADED EVALUATION (50 min)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#run-the-simulation-for-10-iterations-and-print-out-the-following-as-a-table-with-each-trial-being-a-row">
+     1. Run the simulation for 10 iterations and print out the following as a table, with each trial being a row
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
+     2. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-metropolis-hastings-algorithm">
+   The Metropolis-Hastings Algorithm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#overview">
+     Overview
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-do-we-need-a-correction-term">
+     Why do we need a correction term?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution">
+     What is the advantage of using a non-symmetric proposal distribution?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ungraded-evaluation-2-5-hours">
+   UNGRADED EVALUATION (2.5 hours)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm">
+     1. Write Python code to modify the Metropolis algorithm from above to make it a Metropolis-Hastings algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-the-example-of-power-outages-above">
+     2. Using the example of power outages above
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#graded-evaluation-30-mins">
+   GRADED EVALUATION (30 mins)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gibbs-sampling">
+   Gibbs Sampling
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-problem-setup">
+     The Problem Setup
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#conjugate-solution-for-parameter-mu-with-a-normal-prior">
+       Conjugate Solution for Parameter \(\mu\) with a Normal Prior
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#conjugate-solution-for-parameter-tau-with-a-gamma-prior">
+       Conjugate Solution for  Parameter \(\tau\) with a Gamma Prior
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outline-of-the-algorithm">
+     Outline of the Algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     The details
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-algorithm">
+       The Algorithm
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Building the Inferred Distribution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ungraded-evaluation-2-hours">
+   UNGRADED EVALUATION (2 hours)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling">
+     1. Use the Metropolis Python code as boilerplate code to perform Gibbs Sampling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-the-parameter-values-from-the-example-above">
+     2. Using the parameter values from the example above
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id4">
+     3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-the-joint-distribution-of-the-two-parameters">
+     4. Plot the joint distribution of the two parameters.
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
+   Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outline">
+     Outline
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#impact-of-t-in-hmc">
+     Impact of \(T\) in HMC
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties-of-mcmc">
+   Properties of MCMC
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#representativeness">
+     Representativeness
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accurate">
+     Accurate
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#efficiency">
+     Efficiency
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mean-center-the-data">
+       Mean-center the data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id5">
+   GRADED EVALUATION (30 mins)
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="introduction-to-monte-carlo-methods">
+<h1>Introduction to Monte Carlo Methods<a class="headerlink" href="#introduction-to-monte-carlo-methods" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://pubs.er.usgs.gov/publication/70204463">Beginning Bayesian Statistics</a></p>
+<p><a class="reference external" href="https://colindcarroll.com/2019/04/11/hamiltonian-monte-carlo-from-scratch/">Hamiltonian Monte Carlo in Python</a></p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ">Betancourt HMC - Best introduction to HMC</a></p>
+<p><a class="reference external" href="http://arxiv.org/abs/1111.4246">NUTS paper</a></p>
+<p><a class="reference external" href="https://colcarroll.github.io/hmc_tuning_talk/">HMC Tuning by Colin Caroll</a></p>
+</div>
+<div class="section" id="what-is-a-monte-carlo-simulation">
+<h2>What is a Monte Carlo simulation?<a class="headerlink" href="#what-is-a-monte-carlo-simulation" title="Permalink to this headline">¶</a></h2>
+<p>Monte Carlo simulations refer to any set of simulations that samples a lot of values from some distribution to estimate this distribution.</p>
+</div>
+<div class="section" id="why-do-we-need-it">
+<h2>Why do we need it?<a class="headerlink" href="#why-do-we-need-it" title="Permalink to this headline">¶</a></h2>
+<p>Earlier we saw the use of conjugate solutions to compute the posterior distribution directly. A lot of the times closed form solutions are not available, and we have to resort to discretization and quadrature rules to evaluate these posterior distributions. There are times when even this isn’t feasible. In these situations, we resort to sampling from the posterior to estimate the distribution.</p>
+<p>We look at three specific algorithms here:</p>
+<ol class="simple">
+<li><p>Metropolis</p></li>
+<li><p>Metropolis-Hastings</p></li>
+<li><p>Gibbs Sampling</p></li>
+</ol>
+<p>A fourth one, the Hamiltonian Monte Carlo algorithm based on Hamiltonian mechanics is briefly illustrated here.</p>
+</div>
+<div class="section" id="building-blocks">
+<h2>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="markov-chains">
+<h3>Markov Chains<a class="headerlink" href="#markov-chains" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://brilliant.org/wiki/markov-chains/">Intuitive explanation of Markov Chains</a></p>
+<ul class="simple">
+<li><p>A Markov chain is a stochastic system that transitions from one state to another based on a probability. For e.g. the position and velocity of a moving car could be the variables at times \(t_0, t_1..t_n\) at states given by \(S_0, S_1…S_n\). This is illustrated in the figure below.</p></li>
+<li><p>The probability of moving to a new state is independent of how one reached the current state, i.e. the probability of moving to a new state only depends on the current state and the transition probability to the new state. To rephrase, one transitions from state \(S_{t-1}\) to state \(S_{t}\) based upon the transition probability given by the conditional probability\(P(S_t | S_{t-1})\).</p></li>
+<li><p>We can also make observations at each state indicated by the observation nodes. In the example, the recordings using a radar (possibly noisy) at each state would be the observations.</p></li>
+<li><p>An absorbing state is one where the probability of staying at that state is 1, i.e. there is zero chance of leaving that state. A recurring state is one where there is a finite probability of returning to that state.</p></li>
+<li><p>If the state variables are discrete the model is called a Hidden Markov Model.</p></li>
+</ul>
+<p><img alt="Markov Model" src="../../_images/MM1.png" /></p>
+</div>
+<div class="section" id="stationary-distributions">
+<h3>Stationary distributions<a class="headerlink" href="#stationary-distributions" title="Permalink to this headline">¶</a></h3>
+<p><em>Reference</em> <a class="reference external" href="https://www.youtube.com/watch?v=aIdTGKjQWjA">Youtube</a></p>
+<p>Stationary distributions simply mean that the probability of the distribution at a time t+1 is the same as that at time t. Using the terminology from the above section, the transition probability is the same for all t. Ergodic distributions are therefore stationary.</p>
+</div>
+<div class="section" id="ergodicity">
+<h3>Ergodicity<a class="headerlink" href="#ergodicity" title="Permalink to this headline">¶</a></h3>
+<p>Ergodicity is a critical property for a Markov Chain which combine the properties of a state being recurrent and aperiodic. Recurrent implies that, in a transition, a given state will return to itself. An aperiodic state returns to itself in a number of steps 1,2,3…. <span class="math notranslate nohighlight">\(\infty\)</span>. The implications of ergodicity are</p>
+<ol class="simple">
+<li><p>If we sample a space long enough we will cover almost every point in that space (theoretically).</p></li>
+<li><p>If we obtain a statistic from a sequence such as the mean, this statistic should be the same if we recompute it using a different sequence drawn from the same set of events. The implication here is that there is only one distribution unlike a non-stationary distribution which has an infinite set of PDFs.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="why-does-this-work">
+<h2>Why does this work?<a class="headerlink" href="#why-does-this-work" title="Permalink to this headline">¶</a></h2>
+<p>Suppose there is a system with three states given by A,B and C and there is a person who can transition from A \(\longleftrightarrow\) B \(\longleftrightarrow\) C with transition probabilities given by \(p_{AB}\), \(p_{BC}\) for transitioning to the right and \(p_{BA}\), \(p_{CB}\) for transitioning to the left. <em>The gist of the MCMC process is that the ratio of the transition probabilities of the two states equals the relative probabilities of the two states in the distribution</em>.</p>
+<p>Let us consider state B and the transition to state C.</p>
+<ul class="simple">
+<li><p>The probability of moving to state C is given by the product of the probability of choosing C (since B can move to either A or C) and the probability of accepting the move to C given by \(min(\dfrac{P_C}{P_B},1)\).</p></li>
+<li><p>The last part of accepting the proposed move is the interesting part, we decide to move depending on the ratio of the probability densities \(P_C\) and \(P_B\). The transition probability from B to C can therefore be written as</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p_{BC} = 0.5 \cdot min(\dfrac{P_C}{P_B},1)\]</div>
+<ul class="simple">
+<li><p>The transition probability from C to B can be similarly written as</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ p_{CB} = 0.5 \cdot min(\dfrac{P_B}{P_C},1)\]</div>
+<ul class="simple">
+<li><p>If we take the ratio of these probabilities</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\dfrac{p_{BC}}{p_{CB}} = \dfrac{0.5 \cdot min(\dfrac{P_C}{P_B},1)}{0.5 \cdot min(\dfrac{P_B}{P_C},1)}\]</div>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(P_C\)</span> &gt; <span class="math notranslate nohighlight">\(P_B\)</span> we get</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\dfrac{p_{BC}}{p_{CB}} = \dfrac{P_C}{P_B}\]</div>
+<ul class="simple">
+<li><p>If \(P_B &gt; P_C\), we still obtain the same term as a result of the min() function</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\dfrac{p_{BC}}{p_{CB}} = \dfrac{P_C}{P_B}\]</div>
+<p>Hence, the ratio of the transition probabilities between states can be seen as the ratio of their probability densities. In other words, if we run this experiment long enough where our volunteer has agreed to move between the states based on the transition probabilities, the adjacent positions are visited a number of times that is proportional to their relative probability densities in the target distribution. We can extend this argument for all points to suggest that if we run the experiment long enough, we can build the target distribution.</p>
+<div class="section" id="proposal-distribution">
+<h3>Proposal distribution<a class="headerlink" href="#proposal-distribution" title="Permalink to this headline">¶</a></h3>
+<p>An easy to sample distribution such as a Gaussian distribution <span class="math notranslate nohighlight">\(q(x)\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[q(x_{i+1} | x_{i}) \sim N(\mu, \sigma)\]</div>
+</div>
+</div>
+<div class="section" id="the-bayesian-inference-process">
+<h2>The Bayesian Inference Process<a class="headerlink" href="#the-bayesian-inference-process" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Obtain the data and inspect it for a high-level understanding of the distribution of the data and the outliers</p></li>
+<li><p>Define a reasonable prior for the data based on (1) and your understanding of the problem</p></li>
+<li><p>Define a likelihood distribution for the data and obtain the likelihood of the data given this likelihood distribution</p></li>
+<li><p>Obtain the posterior distribution using (2) and (3) by applying the Bayes Theorem</p></li>
+</ol>
+</div>
+<div class="section" id="the-metropolis-algorithm">
+<h2>The Metropolis Algorithm<a class="headerlink" href="#the-metropolis-algorithm" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="problem-statement">
+<h3>Problem Statement<a class="headerlink" href="#problem-statement" title="Permalink to this headline">¶</a></h3>
+<p>We start off by modeling a discrete number of events using a Poisson distribution shown below.</p>
+<div class="math notranslate nohighlight">
+\[f(x) = e^{-\mu} \mu^x / x!\]</div>
+<p>The mean rate is represented by μ and x is positive integer that represents the number of events that can happen. If you recall from the discussion of the binomial distribution, that can also be used to model the probability of the number of successes out of ‘n’ trials. The Poisson distribution is a special case of this binomial distribution and is used when the trials far exceed the number of successes.</p>
+<p>If our observed data has a Poisson likelihood distribution, using a Gamma prior for \(\mu\) results in a Gamma posterior distribution.</p>
+</div>
+<div class="section" id="outline-of-the-metropolis-algorithm">
+<h3>Outline of the Metropolis algorithm<a class="headerlink" href="#outline-of-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
+<p><em>What do we want to compute?</em></p>
+<p>To estimate a distribution of a parameter <span class="math notranslate nohighlight">\(\mu\)</span></p>
+<p><em>What do we have available?</em></p>
+<p>Observed data</p>
+<p><em>How do we do it?</em></p>
+<ol class="simple">
+<li><p>Start with a parameter sample <span class="math notranslate nohighlight">\(\mu_{current}\)</span> that is drawn from a distribution</p></li>
+<li><p>Draw a second parameter sample <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span> from a proposal distribution</p></li>
+<li><p>Compute the likelihood of the data for both the parameters</p></li>
+<li><p>Compute the prior probability density of both the parameters</p></li>
+<li><p>Compute the posterior probability density of both parameters by multiplying the prior and the likelihood from (3) and (4)</p></li>
+<li><p>Select one parameter from the posterior probability density computed above using a rule and save the selected one as <span class="math notranslate nohighlight">\(\mu_{current}\)</span></p></li>
+<li><p>Repeat steps (2) to (7) till a large number of parameters have been drawn (usually around 5000, but this really depends on the problem)</p></li>
+<li><p>Compute the distribution of the parameter <span class="math notranslate nohighlight">\(\mu\)</span> by plotting a histogram of the saved sampled parameter <span class="math notranslate nohighlight">\(\mu_{current}\)</span> in step (6)</p></li>
+</ol>
+</div>
+<div class="section" id="the-details">
+<h3>The details<a class="headerlink" href="#the-details" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="notes">
+<h4>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>I am leaving the hyperparameters and data undefined to make it easier to track and follow the sampled parameter values in these equations.</p></li>
+<li><p>We are assuming that we have a single data point ‘x’ to keep this easier to understand. This implies that the number of data points given by ‘n’ = 1.</p></li>
+</ul>
+<hr style = "border:1px dotted salmon"></hr>
+<ol class="simple">
+<li><p>Propose a single plausible value for our parameter <span class="math notranslate nohighlight">\(\mu\)</span>. This is <span class="math notranslate nohighlight">\(\mu_{current}\)</span>, and it is also called the current value. Let us assume that this is 7.5 for now.</p></li>
+</ol>
+<hr style = "border:1px dotted salmon"></hr>
+<ol>
+<li><p>Compute the prior probability density of getting \(\mu = 7.5\). We stated earlier in our example that we have selected a Gamma prior distribution for our parameter <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[Gamma(\mu=7.5 |\alpha, \beta) = \beta^{\alpha} \mu^{\alpha - 1} e^{-\beta \mu} / \gamma(\alpha) = \beta^{\alpha} 7.5^{\alpha - 1} e^{-\beta 7.5} / \gamma(\alpha)\]</div>
+</li>
+<li><p>Compute the likelihood of the data ‘x’, given the parameter value of 7.5.  The likelihood distribution was a Poisson distribution in our example and is given by</p>
+<div class="math notranslate nohighlight">
+\[Poisson(x | \mu=7.5) = e^{-\mu} \mu^x / x! = e^{-7.5} 7.5^x / x!\]</div>
+</li>
+<li><p>Compute the posterior density from (2) and (3), we skip the denominator here since we are only going to make comparisons and the denominator is a constant.</p>
+<div class="math notranslate nohighlight">
+\[Posterior\; density \propto Prior \cdot Likelihood \]</div>
+<p>The Gamma distribution is parameterized by the shape parameter <span class="math notranslate nohighlight">\(\alpha\)</span> and the rate parameter <span class="math notranslate nohighlight">\(\beta\)</span>. If the prior distribution for the mean parameter <span class="math notranslate nohighlight">\(\mu\)</span> is given by a Gamma distribution parameterized by <span class="math notranslate nohighlight">\(\alpha_{prior}\)</span> and <span class="math notranslate nohighlight">\(\beta_{prior}\)</span> and given ‘n’ observations (In our example, n = 1)</p>
+<div class="math notranslate nohighlight">
+\[\alpha_{posterior} = \alpha_{prior} + \sum_{i=0}^n x_i\]</div>
+<div class="math notranslate nohighlight">
+\[\beta_{posterior} = \beta_{prior} + n\]</div>
+</li>
+</ol>
+<hr style = "border:1px dotted salmon"></hr>
+<ol class="simple">
+<li><p>Propose a second value for <span class="math notranslate nohighlight">\(\mu\)</span>, called <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>, which is drawn from a distribution called a proposal distribution centered on <span class="math notranslate nohighlight">\(\mu_{current}\)</span>. This value is called the proposed value. For the Metropolis algorithm, it has to be a symmetrical distribution. We will use a normal distribution for this example and set the mean of this proposal distribution to be the current value of <span class="math notranslate nohighlight">\(\mu\)</span> or <span class="math notranslate nohighlight">\(\mu_{current}\)</span>. The standard deviation of the proposal distribution is a hyperparameter called the tuning parameter. Let us assume that we draw a value of 8.5 for <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>.</p></li>
+<li><p>Compute the prior, likelihood and the posterior for this proposed value of <span class="math notranslate nohighlight">\(\mu\)</span> or <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span> as we did in step (2), (3) and (4).</p></li>
+</ol>
+<hr style = "border:1px dotted salmon"></hr>
+<ol>
+<li><p>Select one value from the current and the proposed value with the following two steps (this step is where the Metropolis algorithm differs from the Metropolis-Hastings algorithm)</p>
+<p>a. Compute the probability of moving to the proposed value as</p>
+<div class="math notranslate nohighlight">
+\[p_{move} = min( \dfrac{P(\mu_{proposed} | data)}{P(\mu_{current} | data)}, 1)\]</div>
+<p>Here <span class="math notranslate nohighlight">\(p_{move}\)</span> is the minimum of the values given by the ratio of the posterior probabilities of \(\mu_{proposed}\) and \(\mu_{current}\), and the number 1. This caps the probability <span class="math notranslate nohighlight">\(p_{move}\)</span> at 1 if the ratio happens to be greater than 1. <span class="math notranslate nohighlight">\(P_{move}\)</span> is also referred to as the transition kernel.</p>
+<p>b. Draw a sample from a uniform distribution U(0,1). If <span class="math notranslate nohighlight">\(p_{move}\)</span> from (a) above is greater than this number drawn from the uniform distribution, we accept the proposed value <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>. What this means is that if the posterior density of the proposed parameter value is greater than the posterior density of the current parameter value, then we move to the proposed value otherwise we probabilistically accept the proposed value based on the value of <span class="math notranslate nohighlight">\(p_{move}\)</span> and the randomly drawn value from the uniform distribution.</p>
+</li>
+<li><p>If we moved to the proposed value, save the current value, i.e. <span class="math notranslate nohighlight">\(\mu_{current}\)</span>, to an array and then update the current value with the proposed value. In the next iteration, the current value <span class="math notranslate nohighlight">\(\mu^{i+1}_{current}\)</span> will be this accepted proposed value <span class="math notranslate nohighlight">\(\mu^{i}_{proposed}\)</span>.</p></li>
+</ol>
+<hr style = "border:1px dotted salmon"></hr>
+<ol class="simple">
+<li><p>Repeat steps (2) to (8) thousands of times and plot the histogram of the accepted values, i.e. the array of current values <span class="math notranslate nohighlight">\(\mu_{current}\)</span>.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="traceplot">
+<h3>Traceplot<a class="headerlink" href="#traceplot" title="Permalink to this headline">¶</a></h3>
+<p>This is a plot of the sequence of accepted values from the proposed values, plotted over each draw. If a proposed value was not accepted, you see the same value repeated again. If you notice a straight line, this is an indication that several proposed values are being rejected. This is a sign that something is askew with the distribution or sampling process.</p>
+</div>
+<div class="section" id="building-the-inferred-distribution">
+<h3>Building the Inferred Distribution<a class="headerlink" href="#building-the-inferred-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Use the current values that we obtain at each step and build a frequency distribution (histogram) from it.</p>
+</div>
+<div class="section" id="representing-the-inferred-distribution">
+<h3>Representing the Inferred Distribution<a class="headerlink" href="#representing-the-inferred-distribution" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Compute the mean values of the saved parameters</p></li>
+<li><p>Compute the standard deviation and variance of the saved parameters</p></li>
+<li><p>Compute the minimum and maximum values of the saved parameters</p></li>
+<li><p>Compute the quantiles of the saved parameters</p></li>
+<li><p>If required, express it as the parameters of a canonical distribution if it is known that the inferred distribution will be of a certain form.</p></li>
+</ul>
+</div>
+<div class="section" id="notes-about-the-metropolis-algorithm">
+<h3>Notes about the Metropolis Algorithm<a class="headerlink" href="#notes-about-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>The proposal distribution has to be symmetric, this condition is relaxed in the Metropolis-Hastings algorithm. A normal distribution is commonly used as a proposal distribution in the Metropolis algorithm.</p></li>
+<li><p>The choice of a prior distribution influences the performance of this algorithm.</p></li>
+<li><p>The tuning parameter is a hyperparameter, i.e. the standard deviation of the proposal distribution is essential to tune this proposal distribution. This needs to be tuned such that the acceptance probability is a certain value.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="python-code-for-walkthrough-of-the-metropolis-algorithm">
+<h2>Python Code for Walkthrough of the Metropolis Algorithm<a class="headerlink" href="#python-code-for-walkthrough-of-the-metropolis-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>Using the example above, we are going to look at code to run the Metropolis algorithm for 1000 iterations. This will simulate the inference process. Around 5000 iterations will get you closer to the true posterior distribution.</p>
+<div class="section" id="id1">
+<h3>Problem Statement<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>This is a trivial problem and is only designed to help illustrate the workings of the Metropolis algorithm with a single data point.</p>
+<p>We observe about 9 power outages in a year in Charlottesville, VA and we know that the number of power outages per year can be modeled by a Poisson distribution with parameter \(\lambda\). The parameter \(\lambda\) is drawn from a Gamma prior distribution that has parameters <span class="math notranslate nohighlight">\(\alpha\)</span> = 7 and <span class="math notranslate nohighlight">\(\beta\)</span> = 1. If this is the only observation we have available, in a frequentist world, we would conclude that the rate parameter is 9, but in a Bayesian landscape we have some knowledge about this rate parameter based on what we may have observed in the past. This past knowledge gets incorporated into the prior and tempers our belief so we are not making an assumption based only on what we just saw. In a way, you can consider this a way of online learning since the posterior of the rate parameter from the past data can be incorporated as a prior in our current inference process, resulting in continuous refinement of our posterior based on new data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">factorial</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span> 
+
+<span class="c1"># Prior alpha = 7, beta = 1</span>
+<span class="c1"># Start with a value of lambda given by 8.0 and compute the prior probability density of observing this value</span>
+
+<span class="k">def</span> <span class="nf">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+     <span class="k">return</span><span class="p">(</span><span class="n">beta</span><span class="o">**</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">lam</span><span class="o">**</span><span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">beta</span><span class="o">*</span><span class="n">lam</span><span class="p">)</span> <span class="o">/</span> <span class="n">gamma</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">likelihood_density</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">lam</span><span class="p">):</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">lam</span><span class="o">**</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lam</span><span class="p">)</span><span class="o">/</span> <span class="n">factorial</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+
+<span class="c1"># Starting value of lambda</span>
+<span class="n">lambda_current</span> <span class="o">=</span> <span class="mf">8.0</span>
+<span class="c1"># Prior parameters alpha and beta</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">7.0</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="c1"># Observed data of 9 outages </span>
+<span class="n">data_val</span> <span class="o">=</span> <span class="mi">9</span>
+
+<span class="n">lambda_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+    
+    <span class="c1"># Current value </span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="n">lambda_current</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood_density</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_val</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">lambda_current</span><span class="p">)</span>
+    <span class="n">posterior_current</span> <span class="o">=</span> <span class="n">likelihood</span> <span class="o">*</span> <span class="n">prior</span> 
+    
+    <span class="c1"># Proposed value</span>
+    <span class="n">lambda_proposed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">lambda_current</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1"># scale is our tuning parameter</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_prob_density</span><span class="p">(</span><span class="n">lam</span><span class="o">=</span><span class="n">lambda_proposed</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+    <span class="n">likelihood</span> <span class="o">=</span> <span class="n">likelihood_density</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data_val</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="n">lambda_proposed</span><span class="p">)</span>
+    <span class="n">posterior_proposed</span> <span class="o">=</span> <span class="n">likelihood</span> <span class="o">*</span> <span class="n">prior</span>
+    
+    <span class="c1"># Compute the probability of move</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">posterior_proposed</span> <span class="o">/</span> <span class="n">posterior_current</span>
+    <span class="n">p_move</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">ratio</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">random_draw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">random_draw</span> <span class="o">&lt;</span> <span class="n">p_move</span><span class="p">):</span>
+        <span class="n">lambda_current</span> <span class="o">=</span> <span class="n">lambda_proposed</span>
+        
+    <span class="c1"># Store the current value</span>
+    <span class="n">lambda_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_current</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">lambda_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([ 11.,  66., 139., 248., 176., 137.,  93.,  75.,  45.,  10.]),
+ array([ 3.21653055,  4.2307926 ,  5.24505464,  6.25931668,  7.27357873,
+         8.28784077,  9.30210282, 10.31636486, 11.33062691, 12.34488895,
+        13.359151  ]),
+ &lt;a list of 10 Patch objects&gt;)
+</pre></div>
+</div>
+<img alt="../../_images/MonteCarlo_5_11.svg" src="../../_images/MonteCarlo_5_11.svg" /></div>
+</div>
+</div>
+</div>
+<div class="section" id="ungraded-evaluation-50-min">
+<h2>UNGRADED EVALUATION (50 min)<a class="headerlink" href="#ungraded-evaluation-50-min" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="run-the-simulation-for-10-iterations-and-print-out-the-following-as-a-table-with-each-trial-being-a-row">
+<h3>1. Run the simulation for 10 iterations and print out the following as a table, with each trial being a row<a class="headerlink" href="#run-the-simulation-for-10-iterations-and-print-out-the-following-as-a-table-with-each-trial-being-a-row" title="Permalink to this headline">¶</a></h3>
+<p>a. the current parameter value and its hyperparameters</p>
+<p>b. proposed parameter value and its hyperparameters</p>
+<p>c. the posterior probabilities of both</p>
+<p>d. the probability of move</p>
+<p>e. the drawn random value</p>
+<p>f. the decision as a binary value</p>
+</div>
+<div class="section" id="summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles">
+<h3>2. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#summarize-the-above-distribution-mean-variance-minimum-and-maximum-quartiles" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="the-metropolis-hastings-algorithm">
+<h2>The Metropolis-Hastings Algorithm<a class="headerlink" href="#the-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p>One of the limitations of the Metropolis algorithm was the requirement of a symmetric proposal distribution. The Metropolis-Hastings algorithm relaxes this requirement by providing a correction term if a non-symmetric proposal distribution is used. This correction is applied to <span class="math notranslate nohighlight">\(p_{move}\)</span> and is of the form</p>
+<p><span class="math notranslate nohighlight">\(p_{move} = min( \dfrac{P(\mu_{proposed} | data) \cdot g(\mu_{current} | \mu_{proposed})}{P(\mu_{current} | data) \cdot g(\mu_{proposed} | \mu_{current})}, 1)\)</span></p>
+<p>where the correction term is</p>
+<p><span class="math notranslate nohighlight">\(\dfrac{g(\mu_{current} | \mu_{proposed})}{g(\mu_{proposed} | \mu_{current})}\)</span></p>
+<p>The term <span class="math notranslate nohighlight">\(g(\mu_{current} | \mu_{proposed})\)</span> is the probability density of drawing <span class="math notranslate nohighlight">\(\mu_{current}\)</span> from a normal distribution centered around <span class="math notranslate nohighlight">\(\mu_{proposed}\)</span>. The standard deviation for this normal distribution is the tuning parameter. For a symmetric proposal distribution such as a normal distribution the correction term would be 1 since the probability density of drawing <span class="math notranslate nohighlight">\(\mu_{current}\)</span> from a Gaussian centered at <span class="math notranslate nohighlight">\(\mu_{proposal}\)</span> only depends on the distance between <span class="math notranslate nohighlight">\(\mu_{current}\)</span> and <span class="math notranslate nohighlight">\(\mu_{proposal}\)</span> (standard deviation is a hyperparameter that is fixed). Similarly, the probability density of drawing <span class="math notranslate nohighlight">\(\mu_{proposal}\)</span> from a Gaussian centered around <span class="math notranslate nohighlight">\(\mu_{current}\)</span> depends only on the distance between these two values, which is the same as before. Hence the numerator and the denominator are the same which results in the correction factor being 1.</p>
+</div>
+<div class="section" id="why-do-we-need-a-correction-term">
+<h3>Why do we need a correction term?<a class="headerlink" href="#why-do-we-need-a-correction-term" title="Permalink to this headline">¶</a></h3>
+<p>The correction term exists to account for the lack of symmetry in a non-symmetric proposal distribution. The Metropolis algorithm is therefore a specific case of the Metropolis-Hastings algorithm. When distributions other than a Gaussian is used as a proposed distribution, one can center <span class="math notranslate nohighlight">\(\mu_{current}\)</span> and  <span class="math notranslate nohighlight">\(\mu_{proposal}\)</span> on the mean, median or mode of the distribution. It is also possible to draw samples from a fixed distribution, this technique is called the Independent Metropolis-Hastings sampling algorithm.</p>
+</div>
+<div class="section" id="what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution">
+<h3>What is the advantage of using a non-symmetric proposal distribution?<a class="headerlink" href="#what-is-the-advantage-of-using-a-non-symmetric-proposal-distribution" title="Permalink to this headline">¶</a></h3>
+<p>If the parameter we are seeking is bounded in value, using a symmetric distribution can result in invalid draws. Also, since we are working in a Bayesian setting we want to take advantage of our prior knowledge of this parameter. If it is known that the parameter has a certain distribution, we should be able to incorporate this information into our sampling process.</p>
+</div>
+</div>
+<div class="section" id="ungraded-evaluation-2-5-hours">
+<h2>UNGRADED EVALUATION (2.5 hours)<a class="headerlink" href="#ungraded-evaluation-2-5-hours" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm">
+<h3>1. Write Python code to modify the Metropolis algorithm from above to make it a Metropolis-Hastings algorithm<a class="headerlink" href="#write-python-code-to-modify-the-metropolis-algorithm-from-above-to-make-it-a-metropolis-hastings-algorithm" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="using-the-example-of-power-outages-above">
+<h3>2. Using the example of power outages above<a class="headerlink" href="#using-the-example-of-power-outages-above" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p>Run a simulation for 1000 iterations and summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles</p></li>
+<li><p>Run the simulation for 10 iterations and print out the following as a table, with each trial being a row</p>
+<p>a. the current parameter value and its hyperparameters</p>
+<p>b. proposed parameter value and its hyperparameters</p>
+<p>c. the posterior probabilities of both</p>
+<p>d. the correction factor</p>
+<p>e. the probability of move</p>
+<p>f. the drawn random value</p>
+<p>g. the decision as a binary value</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="graded-evaluation-30-mins">
+<h2>GRADED EVALUATION (30 mins)<a class="headerlink" href="#graded-evaluation-30-mins" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>The ratio of the transition probabilities between states can be seen as the ratio of their probability densities</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>Not using a reasonable prior can result in convergence issues when performing MCMC sampling</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>Not using an appropriate proposal distribution during MCMC can result in inaccurate inferences about a parameter</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>The Metropolis-Hastings algorithm differs from the Metropolis algorithm in terms of the correction term that is added to the Metropolis step</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>The Metropolis algorithm is a specific case of the Metropolis-Hastings algorithm</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>Why does a correction term exist in the Metropolis-Hastings algorithm?</p>
+<p>a. To remove the errors introduced by the Metropolis algorithm</p>
+<p>b. To correct for the lack of symmetry in a non-symmetric proposal distribution</p>
+</li>
+<li><p>We use non-symmetric proposal distributions because</p>
+<p>a. They are more fun to use!</p>
+<p>b. To avoid invalid draws</p>
+</li>
+<li><p>In the Metropolis algorithm, what is used as the tuning parameter if a Normal distribution is used as a proposal distribution?</p>
+<p>a. Standard deviation</p>
+<p>b. Mean</p>
+</li>
+<li><p>Bayesian Inference can be seen as a type of online learning since</p>
+<p>a. The inferred posterior can be used as the prior when new data arrives</p>
+<p>b. The prior can be reused again for new data</p>
+</li>
+<li><p>If the traceplot displays a straight line, this is a sign that</p>
+<p>a. The newly proposed values are being rejected</p>
+<p>b. The sampling has converged</p>
+</li>
+</ol>
+</div>
+<div class="section" id="gibbs-sampling">
+<h2>Gibbs Sampling<a class="headerlink" href="#gibbs-sampling" title="Permalink to this headline">¶</a></h2>
+<p>In a Gibbs sampler, the proposal distribution matches the posterior conditional distribution and as a result the  proposals are always accepted (since there is no reason to reject unlike in the Metropolis algorithm where an arbitrary proposal distribution is used). This can be seen as a specific case of a Metropolis algorithm. One of the features of the Gibbs sampler is that it allows us to perform inference on more than one parameter at a time. This is done by drawing one parameter at a time conditional on the values of the other parameters. It iteratively works through the parameters using this process and continues till sufficient samples have been drawn for all parameters.</p>
+<p>Additionally, Gibbs Sampling can draw proposals from an asymmetric distribution. In the example below, we will be drawing from a Gamma distribution which is not symmetric. Not having a pre-determined proposal distribution is seen sometimes as an advantage. The disadvantage of this method, however, is that you are required to decompose the joint distribution into the conditional distributions in order to sample from them.  If the conjugate solutions are known, the Gibbs sampler can be faster than the Metropolis-Hastings algorithm.</p>
+<p>In the following example, we are going to to try the infer the parameters of a Normal distribution, i.e. the mean given by \(\mu\) and the precision given by \(\tau\). We use a Normal distribution here since we can use that to illustrate how Gibbs sampling can be used to estimate multiple parameters, i.e. \(\mu\) and \(\tau\), at the same time.</p>
+<div class="section" id="the-problem-setup">
+<h3>The Problem Setup<a class="headerlink" href="#the-problem-setup" title="Permalink to this headline">¶</a></h3>
+<p>We are going to use Gibbs sampling to estimate the parameters of a model that is used to represent some phenomenon. For the sake of this exercise, let us say that this is a Normal distribution and we have one data point as our observation.</p>
+<p>Since we are using a Normal distribution, parameterized as <span class="math notranslate nohighlight">\(N(\mu, \tau)\)</span> we will need the conjugate solution for computing our posterior from the priors. Here <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\tau\)</span> is the precision of the Normal distribution. A word on notation as we proceed, using <span class="math notranslate nohighlight">\(\tau\)</span> as an example - the draws are denoted by numbered subscripts such as <span class="math notranslate nohighlight">\(\tau_0\)</span>, <span class="math notranslate nohighlight">\(\tau_1\)</span> while the hyperparameters for the prior and posterior distributions are denoted as <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> and <span class="math notranslate nohighlight">\(\tau_{posterior}\)</span> respectively.</p>
+<div class="math notranslate nohighlight">
+\[\mu \sim N(\mu_{prior}, \tau_{prior})\]</div>
+<p>Select <span class="math notranslate nohighlight">\(\mu_{prior}\)</span> to be 12 and <span class="math notranslate nohighlight">\(\tau_{prior}\)</span> to be 0.0625 which corresponds to a <span class="math notranslate nohighlight">\(\sigma\)</span> of 4.</p>
+<div class="math notranslate nohighlight">
+\[\tau \sim Gamma(\alpha_{prior}, \beta_{prior})\]</div>
+<p>Select the shape parameter <span class="math notranslate nohighlight">\(\alpha_{prior}\)</span> to be 25 and the rate parameter <span class="math notranslate nohighlight">\(\beta_{prior}\)</span> to be 0.5.</p>
+<div class="section" id="conjugate-solution-for-parameter-mu-with-a-normal-prior">
+<h4>Conjugate Solution for Parameter \(\mu\) with a Normal Prior<a class="headerlink" href="#conjugate-solution-for-parameter-mu-with-a-normal-prior" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\mu_{posterior} = (\tau_{prior} \mu_{prior} + \tau_0 \sum_i x_i) / (\tau_{prior} + n \tau_0)\]</div>
+<div class="math notranslate nohighlight">
+\[\tau_{posterior} = \tau_{prior} + n * \tau_0\]</div>
+</div>
+<div class="section" id="conjugate-solution-for-parameter-tau-with-a-gamma-prior">
+<h4>Conjugate Solution for  Parameter \(\tau\) with a Gamma Prior<a class="headerlink" href="#conjugate-solution-for-parameter-tau-with-a-gamma-prior" title="Permalink to this headline">¶</a></h4>
+<div class="math notranslate nohighlight">
+\[\alpha_{posterior} = \alpha_{prior} + n/2\]</div>
+<div class="math notranslate nohighlight">
+\[\beta_{posterior} = \beta_{prior} + \sum_i (x_i - \mu_{1})^2 / 2\]</div>
+</div>
+</div>
+<div class="section" id="outline-of-the-algorithm">
+<h3>Outline of the Algorithm<a class="headerlink" href="#outline-of-the-algorithm" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li><p>Specify reasonable priors for the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>.</p></li>
+<li><p>Choose one parameter from the two parameters above to start with, and assign an initial value. Let us assume that we start with <span class="math notranslate nohighlight">\(\tau\)</span> here and select a value of <span class="math notranslate nohighlight">\(\tau_0\)</span> from the Gamma prior distribution.</p></li>
+<li><p>Start our first trial. We want to obtain a sample for <span class="math notranslate nohighlight">\(\mu\)</span> from the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> given the value of <span class="math notranslate nohighlight">\(\tau_0\)</span>. This is where we use our knowledge of the distribution and use a conjugate solution to obtain the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span>. Now we draw a sample <span class="math notranslate nohighlight">\(\mu_1\)</span> from this posterior distribution.</p></li>
+<li><p>We continue with trial 1 since we need to obtain a value for <span class="math notranslate nohighlight">\(\tau_1\)</span> conditional on the value of <span class="math notranslate nohighlight">\(\mu_1\)</span>. Similar to step (3), we use the conjugate solution to obtain a posterior distribution of <span class="math notranslate nohighlight">\(\tau\)</span> given a value of <span class="math notranslate nohighlight">\(\mu_1\)</span>. Draw a value of <span class="math notranslate nohighlight">\(\tau_1\)</span> from this distribution.</p></li>
+<li><p>We accept both values we have drawn in steps (3) and (4) and trial 1 is now complete. Note that unlike the Metropolis algorithm, we do not stochastically accept or reject the proposals, we accept all drawn values.</p></li>
+<li><p>Repeat steps (3) to (5) till we have a sufficient number of samples. This process of iteratively updating the parameters is loosely akin to coordinate ascent for optimization.</p></li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h3>The details<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p><strong>Please don’t confuse <span class="math notranslate nohighlight">\(\tau\)</span>, which is the parameter our Normal distribution, with <span class="math notranslate nohighlight">\(\tau_0\)</span> which is the hyperparameter of our mean <span class="math notranslate nohighlight">\(\mu\)</span>.</strong></p>
+<p>We have one data point that we are going to use to illustrate how Gibbs sampling works.  Obviously, in a real example we will have multiple data points in which case we will have to compute the likelihood and posterior given all those data values. We will walk through the first two trials of Gibbs Sampling.</p>
+<div class="section" id="the-algorithm">
+<h4>The Algorithm<a class="headerlink" href="#the-algorithm" title="Permalink to this headline">¶</a></h4>
+<hr style = "border:1px dotted salmon"></hr>
+<p>a. With the priors set up, draw a value for <span class="math notranslate nohighlight">\(\tau_0\)</span> from the Gamma prior distribution. Let us assume that this is 40.123.</p>
+<hr style = "border:1px dotted salmon"></hr>
+<p>b. Start trial 1. Calculate the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> (Normal distribution) using the conjugate solution shown below. Here ‘n’ is the number of samples which happens to be 1 for our example.</p>
+<div class="math notranslate nohighlight">
+\[\mu_{posterior} =(\tau_{prior} \mu_{prior} + \tau_0 \sum_i x_i) / (\tau_{prior} + n \tau_0)\]</div>
+<div class="math notranslate nohighlight">
+\[= (0.0625 * 12 + 40.123 * 10.2) / (0.0625 + 1 * 40.123) = 10.2028\]</div>
+<div class="math notranslate nohighlight">
+\[\tau_{posterior} = \tau_{prior} + n * \tau_0  = 0.0625 + 1 * 40.123 = 40.1855\]</div>
+<p>c. Draw a value for <span class="math notranslate nohighlight">\(\mu_1\)</span> from this computed posterior distribution for <span class="math notranslate nohighlight">\(\mu\)</span> from step (b). Let us assume that this value of <span class="math notranslate nohighlight">\(\mu_1\)</span> is <mark>10.5678</mark>.</p>
+<p>d. With the given value of <span class="math notranslate nohighlight">\(\mu_1\)</span>, we now compute the posterior distribution of <span class="math notranslate nohighlight">\(\tau\)</span> using a conjugate solution for the Gamma distribution.</p>
+<div class="math notranslate nohighlight">
+\[\alpha_{posterior} = \alpha_{prior} + n/2 = 25 + 1/2 = 25.5\]</div>
+<div class="math notranslate nohighlight">
+\[\beta_{posterior} = \beta_{prior} + \sum_i (x_i - \mu_{1})^2 / 2 = 0.5 + (10.2 - 10.5678)^2 / 2 = 0.5676\]</div>
+<p>e. Draw a value for <span class="math notranslate nohighlight">\(\tau_1\)</span> from this posterior distribution computed in step (d). Let us assume that this value is <mark>45.678</mark>. Trial 1 is now complete.</p>
+<hr style = "border:1px dotted salmon"></hr>
+<p>f. Trial 2 will be similar to trial 1 except that we substitute the values for <span class="math notranslate nohighlight">\(\tau_0\)</span> and <span class="math notranslate nohighlight">\(\mu_0\)</span> with the updates <span class="math notranslate nohighlight">\(\tau_1\)</span> and <span class="math notranslate nohighlight">\(\mu_1\)</span> we obtained at the end of steps (c) and (e).</p>
+<p>g. Update the posterior for <span class="math notranslate nohighlight">\(\mu\)</span></p>
+<div class="math notranslate nohighlight">
+\[\mu_{posterior} =(\tau_{prior} \mu_{prior} + \tau_1 \sum_i x_i) / (\tau_{prior} + n \tau_1) = (0.0625 * 12 + 45.678 * 10.2) / (0.0625 + 1 * 45.678) = 10.2025\]</div>
+<div class="math notranslate nohighlight">
+\[\tau_{posterior} = \tau_{prior} + n * \tau_1  = 0.0625 + 1 * 45.678 = 45.7405\]</div>
+<p>h. Draw a sample from this updated posterior as <span class="math notranslate nohighlight">\(\mu_2\)</span>. Let us assume that this is <mark>10.0266</mark></p>
+<p>i. Update the posterior for <span class="math notranslate nohighlight">\(\tau\)</span>. Note that the value of \(\alpha_{posterior}\) does not change.</p>
+<div class="math notranslate nohighlight">
+\[\alpha_{posterior} = \alpha_{prior} + n/2 = 25 + 1/2 = 25.5\]</div>
+<div class="math notranslate nohighlight">
+\[\beta_{posterior} = \beta_{prior} + \sum_i (x_i - \mu_{2})^2 / 2 = 0.5 + (10.2 - 10.0266)^2 / 2 = 0.5150\]</div>
+<p>j. Draw a sample from this posterior distribution as <span class="math notranslate nohighlight">\(\tau_2\)</span>. Trial 2 is now complete.</p>
+<p>k. By now you must have a sense of this process. If not,we simply repeat steps (f)
+to (j) till we have a sufficient number of samples.</p>
+<hr style = "border:1px dotted salmon"></hr>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Building the Inferred Distribution<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Use the current values that we obtain at each step for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span>, and build a frequency distribution (histogram) from it. We can also create a joint distribution as well using a two-dimensional histogram.</p>
+</div>
+</div>
+<div class="section" id="ungraded-evaluation-2-hours">
+<h2>UNGRADED EVALUATION (2 hours)<a class="headerlink" href="#ungraded-evaluation-2-hours" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling">
+<h3>1. Use the Metropolis Python code as boilerplate code to perform Gibbs Sampling<a class="headerlink" href="#use-the-metropolis-python-code-as-boilerplate-code-to-perform-gibbs-sampling" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="using-the-parameter-values-from-the-example-above">
+<h3>2. Using the parameter values from the example above<a class="headerlink" href="#using-the-parameter-values-from-the-example-above" title="Permalink to this headline">¶</a></h3>
+<ol>
+<li><p>Run a simulation for 1000 iterations.</p></li>
+<li><p>Run the simulation for 10 iterations annd print out the following as a table, each row representing a trial</p>
+<p>a. the posterior parameter values for both <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span> at each trial</p>
+<p>b. sampled parameter values <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\tau\)</span> at each trial</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h3>3. Summarize the above distribution - Mean, Variance, Minimum and Maximum, Quartiles<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="plot-the-joint-distribution-of-the-two-parameters">
+<h3>4. Plot the joint distribution of the two parameters.<a class="headerlink" href="#plot-the-joint-distribution-of-the-two-parameters" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="hamiltonian-monte-carlo-also-called-hybrid-monte-carlo">
+<h2>Hamiltonian Monte Carlo (also called Hybrid Monte Carlo)<a class="headerlink" href="#hamiltonian-monte-carlo-also-called-hybrid-monte-carlo" title="Permalink to this headline">¶</a></h2>
+<p>The best resource on the topic! -</p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ">Betancourt Youtube Video</a></p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=VnNdhsm0rJQ"><img alt="Betancourt Youtube Video" src="https://statmodeling.stat.columbia.edu/wp-content/uploads/2016/06/Screen-Shot-2016-06-10-at-5.29.51-PM.png" /></a></p>
+<p><a class="reference external" href="https://mc-stan.org/docs/2_21/reference-manual/hamiltonian-monte-carlo.html">Stan page on HMC</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Hamiltonian_Monte_Carlo">Wikipedia Reference</a></p>
+<p>We won’t go into a lot of detail of HMC here since this is quite conceptually involved.
+This is based on the solution of differential equations known as Hamilton’s equations for the motion of a particle in space. This relates the position of the particle \(x\), the momentum \(m\) and the Hamiltonian <span class="math notranslate nohighlight">\(H\)</span> through the following equations</p>
+<div class="math notranslate nohighlight">
+\[\dfrac{dx}{dt} = \dfrac{dH}{dm}\]</div>
+<div class="math notranslate nohighlight">
+\[\dfrac{dm}{dt} = - \dfrac{dH}{dx}\]</div>
+<p>These differential equations depend on the probability distributions we are trying to learn. We navigate these distributions by moving around them in a trajectory using steps that are defined by the position and momentum at that position. Like in many algorithms, the momentum term allows the particle to move up a posterior space, as opposed to always moving down. The steps that we take also depend on the curvature of the posterior. Navigating these trajectories can be a very expensive process and the goal is to minimize this computational process.</p>
+<p>HMC is based on the notion of conservation of energy. The Hamiltonian is intuitively the sum of the kinetic and potential energy of the particle, or in simple terms it measures the total energy of the system.</p>
+<div class="math notranslate nohighlight">
+\[H(x,m) = U(x) + KE(m)\]</div>
+<p>where \(U(x)\) is the potential energy of the system and \(KE(m)\) is the kinetic energy of the system. The potential energy is measured using the negative log density of the posterior distribution.  When the sampler trajectory is far away from the probability mass center, it has high potential energy but low kinetic energy. When the trajectory is closer to the center of the probability mass it will have high kinetic energy but low potential energy. The kinetic energy term (momentum) involves a mass matrix \(\Sigma\) that is also the covariance of the normal distribution from which we randomly draw a momentum value \(m\) in our Monte Carlo process. An outline of the steps involved in this algorithm is given below.</p>
+<div class="section" id="outline">
+<h3>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>We start from an initial position \(x_0\).</p></li>
+<li><p>At each step, we select a random value for momentum from a proposal distribution. This is usually a normal distribution such that</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[m \sim N(\mu, \Sigma)\]</div>
+<ul class="simple">
+<li><p>From the current position and using the sampled value for momentum, we run the particle for time <span class="math notranslate nohighlight">\(L \cdot \Delta t\)</span> using a leapfrog integrator which is a numerical integration scheme to march forward in time. The terms <span class="math notranslate nohighlight">\(\Delta t\)</span> refers to the time step taken for the integrator, and <span class="math notranslate nohighlight">\(L\)</span> refers to the total number of steps taken. <span class="math notranslate nohighlight">\(L\)</span> is a hyperparameter that needs to be tuned carefully. If we are at a spatial location indicated by step \(n\), we start from time 0 (integration time) and integrate till time \(t\) to get the following</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[x_n(0) \longrightarrow x_n(L \Delta t)\]</div>
+<div class="math notranslate nohighlight">
+\[m_n(0) \longrightarrow m_n(L \Delta t)\]</div>
+<ul class="simple">
+<li><p>The leapfrog integration introduces errors due to the fact that it is a numerical integration method and not an exact integral. This is corrected using a Metropolis-Hastings step that probabilistically accepts the new values of <span class="math notranslate nohighlight">\(x_{n+1}\)</span> as <span class="math notranslate nohighlight">\(x_n(L \cdot \Delta t)\)</span> or the original location <span class="math notranslate nohighlight">\(x_n(0)\)</span>. The acceptance probability used here is given below. Here \(p(x_n(L \cdot \Delta t))\) corresponds to the posterior probability density at the end of the integration scheme and \(p(x_n(0))\) coresponds to the posterior probability density at the beginning of the integration scheme. Also, \(q(m)\) is the probability density of the proposal distribution for the momentum.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ acceptance \; rate = \dfrac{p(x_n(L \cdot \Delta t))}{p(x_n(0))} \times \dfrac{q(m(L \cdot \Delta t))}{q(m(0))}\]</div>
+<ul class="simple">
+<li><p>Draw a random value \(u\) from a uniform distribution \(U[0,1]\). If \(r &gt; u\), move to the location \(x_n(L \cdot \Delta t)\) otherwise remain at location \(x_n(0)\).</p></li>
+<li><p>Record the new position \(x_{n+1}\). This is repeated for ‘n’ or a number of spatial steps.</p></li>
+</ul>
+</div>
+<div class="section" id="impact-of-t-in-hmc">
+<h3>Impact of \(T\) in HMC<a class="headerlink" href="#impact-of-t-in-hmc" title="Permalink to this headline">¶</a></h3>
+<p>Now \(T\) can be defined such that</p>
+<div class="math notranslate nohighlight">
+\[T = L \cdot \Delta t\]</div>
+<p>When there are divergences the sampling process that happens in regions of high curvature, we might have to resort to smaller values of \(\Delta t\).</p>
+<p>The use of larger than desirable values for \(T = L \cdot \Delta t\) results in the sampler making U-turns at locations of high curvature in the posterior space. This can be wasteful since the sampler then ends up wasting time retracing its steps. One way to mitigate this is through a preliminary run of tuning samples to heuristically select values of  \(T\) that work better.</p>
+<p>A No U-Turn sampler (NUTS) is an extension of the HMC where the number of steps of the integrator <span class="math notranslate nohighlight">\(L\)</span> and therefore \(T\) is automatically tuned. For regions of high curvature a smaller value of \(T\) is used so as to minimize U-turns whereas for flatter regions, a larger \(T\) is used to move faster. Therefore an adaptive \(T\) is used that is locally optimal as opposed to a single value of \(T\). Even though we don’t know what the posterior looks like (since this is what we are inferring and therefore we can’t evaluate its curvature), the NUTS algorithm has ways to estimate it.</p>
+<p>NUTS uses a scaling matrix that defines the shape of the sampling distribution through the covariance matrix so that the jumps are bounded in all directions. Poor choice of this scaling matrix can result in the sampling stopping or stalling. Fortunately, tools such as PyMC3 can automatically determine appropriate parameter values during the tuning phase.</p>
+</div>
+</div>
+<div class="section" id="properties-of-mcmc">
+<h2>Properties of MCMC<a class="headerlink" href="#properties-of-mcmc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="representativeness">
+<h3>Representativeness<a class="headerlink" href="#representativeness" title="Permalink to this headline">¶</a></h3>
+<p>The samples from the MCMC process should be representative of the posterior distribution, it should cover the distribution space thoroughly. The final state of the inferred distribution should be independent of the initial value.</p>
+<p>There are two ways to measure if your inferred distribution is representative of the true distribution:</p>
+<ol class="simple">
+<li><p>Visual inspection using a trace for convergence</p></li>
+<li><p>Numerical measures for convergence</p></li>
+</ol>
+<p>The trace is simply the plot of the sample value on the y-axis against the iteration number, when it is sampled, on the x-axis. The first ‘n’ samples are discarded because the sampling process is moving around in space trying to find the regions of representative posterior density. These ‘n’ samples are called the burn-in and the samples are usually discarded. The choice of ‘n’ depends on the distribution but usually around 500 is selected to be an adequate number of samples. As shown below, there is good overlap between the samples from the different chains as indicated by the trace and the density plots.</p>
+<p>Numerical measures include the Gelman-Rubin statistic (also called the potential scale reduction factor or the shrink factor). This measures the ratio of the variance of the samples among the chains to the variance within the chains. A number greater than 1 usually indicates a lack of convergence.</p>
+<p><img alt="Trace plot" src="https://srijithr.gitlab.io/image-20201207170920197.png" /></p>
+<center> Trace plot </center>
+</div>
+<div class="section" id="accurate">
+<h3>Accurate<a class="headerlink" href="#accurate" title="Permalink to this headline">¶</a></h3>
+<p>The samples should be sufficiently large such that the estimates are stable. For this reason, separate ‘chains’ of samples are run to ensure consistency of results. If the chains vary a lot, as seen by inspecting a histogram or a density plot of the samples, the samples are deemed to not be stable and this requires further investigation. Autocorrelation is a common issue where samples that are drawn are not completely independent of each other. An effective sample size is calculated that gives you the true number of samples that are useful for constructing a distribution.</p>
+<p>Another measure of accuracy is the Monte Carlo Standard Error (MCSE). If we draw 4 chains, chances are that the sample mean each time will differ from each other and the true mean. The MCSE is simply the standard error of this computed mean. The larger the sample size, the less the MCSE will be.</p>
+</div>
+<div class="section" id="efficiency">
+<h3>Efficiency<a class="headerlink" href="#efficiency" title="Permalink to this headline">¶</a></h3>
+<p>The samples spanning the distribution should be generated efficiently such that sharper regions are resolved appropriately. There is quite a bit of difference in runtimes between the least and the most efficient MCMC algorithms. For more complex models where the dimensionality of the parameters increase, vanilla Metropolis algorithms can be downright impractical.</p>
+<p>Run multiple chains in parallel as much as possible since each chain is an embarassingly parallel task. Knowledge of the problem at hand helps one to pick the right sampling algorithm, resulting in more efficient sampling.</p>
+<div class="section" id="mean-center-the-data">
+<h4>Mean-center the data<a class="headerlink" href="#mean-center-the-data" title="Permalink to this headline">¶</a></h4>
+<p>It is advantageous to mean-center the data before performing MCMC sampling. The example below of linear regression helps to illustrate this. The figure below is a 1-dimensional linear regression problem given by</p>
+<div class="math notranslate nohighlight">
+\[ y = \alpha x + \beta \]</div>
+<p>and the class of regression lines along with the associated uncertainty is reflected by the spread of these lines. Here \(\alpha\) is the slope of the line and \(\beta\) is the y-intercept. The lines pass around the mean of the x and y values of the data and rotate around this ‘pivot point’. For each line, as the slope increases, the y-intercept decreases and vice-versa. Hence there is a strong correlation between these coefficients.</p>
+<p><img alt="Regression lines" src="../../_images/family_regression1.png" /></p>
+<center> Family of Regression lines </center>
+<p>The figure beneath illustates this correlation between the coefficients of linear regression \(\alpha\) and \(\beta\). The distribution space represented there has a very narrow diagonal shape which is not ideal for sampling. If you think about the example of Gibbs sampling, you select one parameter \(\alpha\) and then search for the other parameter \(\beta\) by moving along the line parallel to the y axis located at that value of \(\alpha\). This has a limited range because of this narrow shape of the parameter space as indicated by the correlation plot. Convergence, as a result, can take a long time.</p>
+<p>When you mean-center the data, you subtract the mean of x from all the values which results in the x values being centered around zero. The pivot point (not exactly at the mean but close to it) is now almost over zero on the x axis which means that the y-intercept does not change much. This breaks the correlation between the two coordinates making it easier to sample.</p>
+<p><img alt="Inverse correlation" src="../../_images/inverse_correlation1.png" /></p>
+<center> Inverse correlation of the intercepts </center></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>GRADED EVALUATION (30 mins)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>In a Gibbs Sampler, the proposals are always accepted</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>A Gibbs Sampler is a specific case of a Metropolis algorithm</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>Gibbs sampler samples from one parameter at a time, cycling through one parameter at a time.</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>In Gibbs sampling, the proposal distribution is</p>
+<p>a. A Normal distribution</p>
+<p>b. The posterior conditional distribution</p>
+</li>
+<li><p>We visually inspect the trace to</p>
+<p>a. Check for convergence</p>
+<p>b. Determine the largest sampled value</p>
+</li>
+<li><p>We can use a histogram to look at the distribution of the posterior from Metropolis, Metropolis-Hastings or Gibbs sampling</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>HMC is based on the motion of a particle in space</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>In HMC, a numerical integration step is performed at each step to march forward and obtain the solution</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>The reason for a Metropolis-Hastings step when performing HMC is to</p>
+<p>a. Make HMC run faster</p>
+<p>b. Correct the errors from the numerical integration scheme</p>
+</li>
+<li><p>When using NUTS, the number of steps ‘L’ is automatically tuned</p></li>
+</ol>
+<p>a. True</p>
+<p>b. False</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sjster/statistical_computing_book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs/Production"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Srijith Rajamohan, Ph.D.<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

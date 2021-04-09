@@ -1,0 +1,3140 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Covid Forecast with PyMC3 &#8212; Introduction to Computational Statistics with PyMC3</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo_large.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  Getting started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../About.html">
+   The What, Why and Whom…
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html">
+   Setting up Your Python Environment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Databricks.html">
+   Introduction to the Databricks Environment
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Bayesian Statistics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html">
+   Empirical modeling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#principals-of-probability">
+   Principals of Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#chance-regularities">
+   Chance regularities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#belief-and-probability">
+   Belief and probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#sample-space-outcomes-and-events">
+   Sample space, outcomes and events
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#addition-rules">
+   Addition rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#multiplication-rules">
+   Multiplication rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#conditional-independent-disjoint-exchangeable">
+   Conditional, Independent, disjoint, exchangeable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#factoring-joint-probabilities">
+   Factoring joint probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#random-variable">
+   Random variable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#random-sample-experiment-trial">
+   Random sample, experiment, trial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html#data-generating-mechanism">
+   Data generating mechanism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html">
+   Empirical modeling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#principals-of-probability">
+   Principals of Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#chance-regularities">
+   Chance regularities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#belief-and-probability">
+   Belief and probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#sample-space-outcomes-and-events">
+   Sample space, outcomes and events
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#addition-rules">
+   Addition rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#multiplication-rules">
+   Multiplication rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#conditional-independent-disjoint-exchangeable">
+   Conditional, Independent, disjoint, exchangeable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#factoring-joint-probabilities">
+   Factoring joint probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#random-variable">
+   Random variable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#random-sample-experiment-trial">
+   Random sample, experiment, trial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#data-generating-mechanism">
+   Data generating mechanism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html">
+   Distributions, central tendency, and shape parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#probability-distributions">
+   Probability distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#discrete-random-variables">
+   Discrete random variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#continuous-random-variables">
+   Continuous random variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#moments-expectations-and-variances">
+   Moments, expectations and variances
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#joint-distributions">
+   Joint distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#marginal-distribution">
+   Marginal distribution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#conditional-distributions">
+   Conditional distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#independence">
+   Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#covariance">
+   Covariance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#correlation-correlation-coefficient">
+   Correlation (correlation coefficient)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture4-MoM-MLE-unGRADED.html">
+   Parameter Estimation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5a-Basics-of-Bayes-unGRADED.html">
+   Introduction to the Bayes Theorem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html">
+   Inference and Decisions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html#classification">
+   Classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html#confusion-matrix">
+   Confusion matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture6-priors-unGRADED.html">
+   Priors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro.html">
+   Bayesian vs. Frequentist Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Distributions.html">
+   Introduction to Common Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Sampling.html">
+   Sampling Algorithms
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Monte Carlo Methods
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../BayesianInference.html">
+   Topics in Model Performance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../MonteCarlo.html">
+   Introduction to Monte Carlo Methods
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  PyMC3 for Bayesian Modeling and Inference
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../PyMC3.html">
+   Introduction to PyMC3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Reparameterization.html">
+   Centered vs. Non-centered Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Covid_modeling.html">
+   Covid Modeling with PyMC3
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/Covid_forecast.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Covid_forecast.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Covid_forecast.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attribution">
+   Attribution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goal">
+   Goal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#obtaining-and-filtering-the-data">
+   Obtaining and Filtering the Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#modeling-covid-with-pymc3">
+   Modeling Covid with PyMC3
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#forecast-cases-into-the-future">
+   Forecast cases into the future
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-the-sir-model-function">
+   Test the SIR_model function
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="covid-forecast-with-pymc3">
+<h1>Covid Forecast with PyMC3<a class="headerlink" href="#covid-forecast-with-pymc3" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="attribution">
+<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
+<p>This is work done by the Priesemann Group for inferring the parameters for COVID-19 and performing predictions. Full attribution is given to the original authors and I have simply modified it to make it suitable for this course.</p>
+<p>The source code can be found <a class="reference external" href="https://github.com/Priesemann-Group/covid_bayesian_mcmc">here</a>. An overview of the methods can be found <a class="reference external" href="https://pad.gwdg.de/s/ByQgsSP88">here</a>.</p>
+</div>
+<div class="section" id="goal">
+<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Obtain the data that has the number of COVID-19 cases starting from January for each country.</p></li>
+<li><p>Select a country of choice to infer the COVID-19 parameters and extract the number of confirmed cases (You will need the total population of the country that you select).</p></li>
+<li><p>Use the SIR model as a disease model ([Notebook].(<a class="reference external" href="https://github.com/sjster/Epidemic/blob/master/Epidemic.ipynb">https://github.com/sjster/Epidemic/blob/master/Epidemic.ipynb</a>)). This is a set of non-linear differential equations that are used to model disease propagation.</p></li>
+<li><p>Setup a PyMC3 model to infer the SIR parameters from the number of confirmed cases (S,I, mu, lambda).</p>
+<p>a. Select appropriate priors for each variable.</p>
+<p>b. Use a Lognormal distribution for I_begin.</p>
+<p>c. λ is the fraction of people that are newly infected each day. Use a Lognormal distribution for this.</p>
+<p>d. μ is the fraction of people that recover each day. Use a Lognormal distribution.</p>
+<p>e. The prior of the error of observed cases can use a Half Cauchy distribution.</p>
+</li>
+<li><p>Predict cases into the future.</p>
+<p>a. Compare the predictions with the real observations and compute the error.</p>
+<p>b. Note how the error varies as you increase the number of days chosen for the forecast.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="obtaining-and-filtering-the-data">
+<h2>Obtaining and Filtering the Data<a class="headerlink" href="#obtaining-and-filtering-the-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+
+<span class="n">confirmed_cases_url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv&#39;</span>
+<span class="n">confirmed_cases</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">confirmed_cases_url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">deaths_url</span> <span class="o">=</span>  <span class="s1">&#39;https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv&#39;</span>
+<span class="n">deaths</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">deaths_url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">path_to_save</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">confirmed_cases</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Province/State</th>
+      <th>Country/Region</th>
+      <th>Lat</th>
+      <th>Long</th>
+      <th>1/22/20</th>
+      <th>1/23/20</th>
+      <th>1/24/20</th>
+      <th>1/25/20</th>
+      <th>1/26/20</th>
+      <th>1/27/20</th>
+      <th>...</th>
+      <th>9/10/20</th>
+      <th>9/11/20</th>
+      <th>9/12/20</th>
+      <th>9/13/20</th>
+      <th>9/14/20</th>
+      <th>9/15/20</th>
+      <th>9/16/20</th>
+      <th>9/17/20</th>
+      <th>9/18/20</th>
+      <th>9/19/20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>Afghanistan</td>
+      <td>33.939110</td>
+      <td>67.709953</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>38572</td>
+      <td>38606</td>
+      <td>38641</td>
+      <td>38716</td>
+      <td>38772</td>
+      <td>38815</td>
+      <td>38855</td>
+      <td>38872</td>
+      <td>38883</td>
+      <td>38919</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>Albania</td>
+      <td>41.153300</td>
+      <td>20.168300</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>10860</td>
+      <td>11021</td>
+      <td>11185</td>
+      <td>11353</td>
+      <td>11520</td>
+      <td>11672</td>
+      <td>11816</td>
+      <td>11948</td>
+      <td>12073</td>
+      <td>12226</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>Algeria</td>
+      <td>28.033900</td>
+      <td>1.659600</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>47488</td>
+      <td>47752</td>
+      <td>48007</td>
+      <td>48254</td>
+      <td>48496</td>
+      <td>48734</td>
+      <td>48966</td>
+      <td>49194</td>
+      <td>49413</td>
+      <td>49623</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>Andorra</td>
+      <td>42.506300</td>
+      <td>1.521800</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1301</td>
+      <td>1344</td>
+      <td>1344</td>
+      <td>1344</td>
+      <td>1438</td>
+      <td>1438</td>
+      <td>1483</td>
+      <td>1483</td>
+      <td>1564</td>
+      <td>1564</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>Angola</td>
+      <td>-11.202700</td>
+      <td>17.873900</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>3217</td>
+      <td>3279</td>
+      <td>3335</td>
+      <td>3388</td>
+      <td>3439</td>
+      <td>3569</td>
+      <td>3675</td>
+      <td>3789</td>
+      <td>3848</td>
+      <td>3901</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>261</th>
+      <td>NaN</td>
+      <td>West Bank and Gaza</td>
+      <td>31.952200</td>
+      <td>35.233200</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>28664</td>
+      <td>29256</td>
+      <td>29906</td>
+      <td>30574</td>
+      <td>31362</td>
+      <td>32250</td>
+      <td>33006</td>
+      <td>33843</td>
+      <td>34401</td>
+      <td>35003</td>
+    </tr>
+    <tr>
+      <th>262</th>
+      <td>NaN</td>
+      <td>Western Sahara</td>
+      <td>24.215500</td>
+      <td>-12.885800</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>263</th>
+      <td>NaN</td>
+      <td>Yemen</td>
+      <td>15.552727</td>
+      <td>48.516388</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>2003</td>
+      <td>2007</td>
+      <td>2009</td>
+      <td>2011</td>
+      <td>2013</td>
+      <td>2016</td>
+      <td>2019</td>
+      <td>2022</td>
+      <td>2024</td>
+      <td>2026</td>
+    </tr>
+    <tr>
+      <th>264</th>
+      <td>NaN</td>
+      <td>Zambia</td>
+      <td>-13.133897</td>
+      <td>27.849332</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>13214</td>
+      <td>13323</td>
+      <td>13466</td>
+      <td>13539</td>
+      <td>13720</td>
+      <td>13819</td>
+      <td>13887</td>
+      <td>13928</td>
+      <td>14022</td>
+      <td>14070</td>
+    </tr>
+    <tr>
+      <th>265</th>
+      <td>NaN</td>
+      <td>Zimbabwe</td>
+      <td>-19.015438</td>
+      <td>29.154857</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>7453</td>
+      <td>7479</td>
+      <td>7508</td>
+      <td>7526</td>
+      <td>7531</td>
+      <td>7576</td>
+      <td>7598</td>
+      <td>7633</td>
+      <td>7647</td>
+      <td>7672</td>
+    </tr>
+  </tbody>
+</table>
+<p>266 rows × 246 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">confirmed_cases</span><span class="p">[</span><span class="n">confirmed_cases</span><span class="p">[</span><span class="s1">&#39;Country/Region&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;China&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Province/State</th>
+      <th>Country/Region</th>
+      <th>Lat</th>
+      <th>Long</th>
+      <th>1/22/20</th>
+      <th>1/23/20</th>
+      <th>1/24/20</th>
+      <th>1/25/20</th>
+      <th>1/26/20</th>
+      <th>1/27/20</th>
+      <th>...</th>
+      <th>9/10/20</th>
+      <th>9/11/20</th>
+      <th>9/12/20</th>
+      <th>9/13/20</th>
+      <th>9/14/20</th>
+      <th>9/15/20</th>
+      <th>9/16/20</th>
+      <th>9/17/20</th>
+      <th>9/18/20</th>
+      <th>9/19/20</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>56</th>
+      <td>Anhui</td>
+      <td>China</td>
+      <td>31.8257</td>
+      <td>117.2264</td>
+      <td>1</td>
+      <td>9</td>
+      <td>15</td>
+      <td>39</td>
+      <td>60</td>
+      <td>70</td>
+      <td>...</td>
+      <td>991</td>
+      <td>991</td>
+      <td>991</td>
+      <td>991</td>
+      <td>991</td>
+      <td>991</td>
+      <td>991</td>
+      <td>991</td>
+      <td>991</td>
+      <td>991</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>Beijing</td>
+      <td>China</td>
+      <td>40.1824</td>
+      <td>116.4142</td>
+      <td>14</td>
+      <td>22</td>
+      <td>36</td>
+      <td>41</td>
+      <td>68</td>
+      <td>80</td>
+      <td>...</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>Chongqing</td>
+      <td>China</td>
+      <td>30.0572</td>
+      <td>107.8740</td>
+      <td>6</td>
+      <td>9</td>
+      <td>27</td>
+      <td>57</td>
+      <td>75</td>
+      <td>110</td>
+      <td>...</td>
+      <td>584</td>
+      <td>584</td>
+      <td>584</td>
+      <td>584</td>
+      <td>584</td>
+      <td>584</td>
+      <td>584</td>
+      <td>584</td>
+      <td>584</td>
+      <td>584</td>
+    </tr>
+    <tr>
+      <th>59</th>
+      <td>Fujian</td>
+      <td>China</td>
+      <td>26.0789</td>
+      <td>117.9874</td>
+      <td>1</td>
+      <td>5</td>
+      <td>10</td>
+      <td>18</td>
+      <td>35</td>
+      <td>59</td>
+      <td>...</td>
+      <td>387</td>
+      <td>388</td>
+      <td>388</td>
+      <td>390</td>
+      <td>390</td>
+      <td>392</td>
+      <td>392</td>
+      <td>393</td>
+      <td>394</td>
+      <td>395</td>
+    </tr>
+    <tr>
+      <th>60</th>
+      <td>Gansu</td>
+      <td>China</td>
+      <td>35.7518</td>
+      <td>104.2861</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>4</td>
+      <td>7</td>
+      <td>14</td>
+      <td>...</td>
+      <td>170</td>
+      <td>170</td>
+      <td>170</td>
+      <td>170</td>
+      <td>170</td>
+      <td>170</td>
+      <td>170</td>
+      <td>170</td>
+      <td>170</td>
+      <td>170</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>Guangdong</td>
+      <td>China</td>
+      <td>23.3417</td>
+      <td>113.4244</td>
+      <td>26</td>
+      <td>32</td>
+      <td>53</td>
+      <td>78</td>
+      <td>111</td>
+      <td>151</td>
+      <td>...</td>
+      <td>1774</td>
+      <td>1776</td>
+      <td>1777</td>
+      <td>1778</td>
+      <td>1782</td>
+      <td>1783</td>
+      <td>1784</td>
+      <td>1787</td>
+      <td>1793</td>
+      <td>1797</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>Guangxi</td>
+      <td>China</td>
+      <td>23.8298</td>
+      <td>108.7881</td>
+      <td>2</td>
+      <td>5</td>
+      <td>23</td>
+      <td>23</td>
+      <td>36</td>
+      <td>46</td>
+      <td>...</td>
+      <td>257</td>
+      <td>257</td>
+      <td>258</td>
+      <td>258</td>
+      <td>258</td>
+      <td>258</td>
+      <td>258</td>
+      <td>258</td>
+      <td>258</td>
+      <td>258</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>Guizhou</td>
+      <td>China</td>
+      <td>26.8154</td>
+      <td>106.8748</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>7</td>
+      <td>...</td>
+      <td>147</td>
+      <td>147</td>
+      <td>147</td>
+      <td>147</td>
+      <td>147</td>
+      <td>147</td>
+      <td>147</td>
+      <td>147</td>
+      <td>147</td>
+      <td>147</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>Hainan</td>
+      <td>China</td>
+      <td>19.1959</td>
+      <td>109.7453</td>
+      <td>4</td>
+      <td>5</td>
+      <td>8</td>
+      <td>19</td>
+      <td>22</td>
+      <td>33</td>
+      <td>...</td>
+      <td>171</td>
+      <td>171</td>
+      <td>171</td>
+      <td>171</td>
+      <td>171</td>
+      <td>171</td>
+      <td>171</td>
+      <td>171</td>
+      <td>171</td>
+      <td>171</td>
+    </tr>
+    <tr>
+      <th>65</th>
+      <td>Hebei</td>
+      <td>China</td>
+      <td>39.5490</td>
+      <td>116.1306</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>8</td>
+      <td>13</td>
+      <td>18</td>
+      <td>...</td>
+      <td>365</td>
+      <td>365</td>
+      <td>365</td>
+      <td>365</td>
+      <td>365</td>
+      <td>365</td>
+      <td>365</td>
+      <td>365</td>
+      <td>365</td>
+      <td>365</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>Heilongjiang</td>
+      <td>China</td>
+      <td>47.8620</td>
+      <td>127.7615</td>
+      <td>0</td>
+      <td>2</td>
+      <td>4</td>
+      <td>9</td>
+      <td>15</td>
+      <td>21</td>
+      <td>...</td>
+      <td>948</td>
+      <td>948</td>
+      <td>948</td>
+      <td>948</td>
+      <td>948</td>
+      <td>948</td>
+      <td>948</td>
+      <td>948</td>
+      <td>948</td>
+      <td>948</td>
+    </tr>
+    <tr>
+      <th>67</th>
+      <td>Henan</td>
+      <td>China</td>
+      <td>37.8957</td>
+      <td>114.9042</td>
+      <td>5</td>
+      <td>5</td>
+      <td>9</td>
+      <td>32</td>
+      <td>83</td>
+      <td>128</td>
+      <td>...</td>
+      <td>1276</td>
+      <td>1276</td>
+      <td>1277</td>
+      <td>1277</td>
+      <td>1277</td>
+      <td>1277</td>
+      <td>1278</td>
+      <td>1278</td>
+      <td>1278</td>
+      <td>1279</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>Hong Kong</td>
+      <td>China</td>
+      <td>22.3000</td>
+      <td>114.2000</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>5</td>
+      <td>8</td>
+      <td>8</td>
+      <td>...</td>
+      <td>4913</td>
+      <td>4925</td>
+      <td>4938</td>
+      <td>4957</td>
+      <td>4971</td>
+      <td>4975</td>
+      <td>4984</td>
+      <td>4993</td>
+      <td>4996</td>
+      <td>5009</td>
+    </tr>
+    <tr>
+      <th>69</th>
+      <td>Hubei</td>
+      <td>China</td>
+      <td>30.9756</td>
+      <td>112.2707</td>
+      <td>444</td>
+      <td>444</td>
+      <td>549</td>
+      <td>761</td>
+      <td>1058</td>
+      <td>1423</td>
+      <td>...</td>
+      <td>68139</td>
+      <td>68139</td>
+      <td>68139</td>
+      <td>68139</td>
+      <td>68139</td>
+      <td>68139</td>
+      <td>68139</td>
+      <td>68139</td>
+      <td>68139</td>
+      <td>68139</td>
+    </tr>
+    <tr>
+      <th>70</th>
+      <td>Hunan</td>
+      <td>China</td>
+      <td>27.6104</td>
+      <td>111.7088</td>
+      <td>4</td>
+      <td>9</td>
+      <td>24</td>
+      <td>43</td>
+      <td>69</td>
+      <td>100</td>
+      <td>...</td>
+      <td>1019</td>
+      <td>1019</td>
+      <td>1019</td>
+      <td>1019</td>
+      <td>1019</td>
+      <td>1019</td>
+      <td>1019</td>
+      <td>1019</td>
+      <td>1019</td>
+      <td>1019</td>
+    </tr>
+    <tr>
+      <th>71</th>
+      <td>Inner Mongolia</td>
+      <td>China</td>
+      <td>44.0935</td>
+      <td>113.9448</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>7</td>
+      <td>7</td>
+      <td>11</td>
+      <td>...</td>
+      <td>261</td>
+      <td>261</td>
+      <td>261</td>
+      <td>261</td>
+      <td>261</td>
+      <td>261</td>
+      <td>261</td>
+      <td>261</td>
+      <td>261</td>
+      <td>261</td>
+    </tr>
+    <tr>
+      <th>72</th>
+      <td>Jiangsu</td>
+      <td>China</td>
+      <td>32.9711</td>
+      <td>119.4550</td>
+      <td>1</td>
+      <td>5</td>
+      <td>9</td>
+      <td>18</td>
+      <td>33</td>
+      <td>47</td>
+      <td>...</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>Jiangxi</td>
+      <td>China</td>
+      <td>27.6140</td>
+      <td>115.7221</td>
+      <td>2</td>
+      <td>7</td>
+      <td>18</td>
+      <td>18</td>
+      <td>36</td>
+      <td>72</td>
+      <td>...</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+      <td>935</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>Jilin</td>
+      <td>China</td>
+      <td>43.6661</td>
+      <td>126.1923</td>
+      <td>0</td>
+      <td>1</td>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>6</td>
+      <td>...</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+      <td>157</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>Liaoning</td>
+      <td>China</td>
+      <td>41.2956</td>
+      <td>122.6085</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>17</td>
+      <td>21</td>
+      <td>27</td>
+      <td>...</td>
+      <td>264</td>
+      <td>264</td>
+      <td>264</td>
+      <td>264</td>
+      <td>264</td>
+      <td>264</td>
+      <td>264</td>
+      <td>264</td>
+      <td>265</td>
+      <td>265</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>Macau</td>
+      <td>China</td>
+      <td>22.1667</td>
+      <td>113.5500</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>2</td>
+      <td>5</td>
+      <td>6</td>
+      <td>...</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+      <td>46</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>Ningxia</td>
+      <td>China</td>
+      <td>37.2692</td>
+      <td>106.1655</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>7</td>
+      <td>...</td>
+      <td>75</td>
+      <td>75</td>
+      <td>75</td>
+      <td>75</td>
+      <td>75</td>
+      <td>75</td>
+      <td>75</td>
+      <td>75</td>
+      <td>75</td>
+      <td>75</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>Qinghai</td>
+      <td>China</td>
+      <td>35.7452</td>
+      <td>95.9956</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>6</td>
+      <td>...</td>
+      <td>18</td>
+      <td>18</td>
+      <td>18</td>
+      <td>18</td>
+      <td>18</td>
+      <td>18</td>
+      <td>18</td>
+      <td>18</td>
+      <td>18</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>Shaanxi</td>
+      <td>China</td>
+      <td>35.1917</td>
+      <td>108.8701</td>
+      <td>0</td>
+      <td>3</td>
+      <td>5</td>
+      <td>15</td>
+      <td>22</td>
+      <td>35</td>
+      <td>...</td>
+      <td>379</td>
+      <td>380</td>
+      <td>381</td>
+      <td>381</td>
+      <td>381</td>
+      <td>382</td>
+      <td>384</td>
+      <td>397</td>
+      <td>399</td>
+      <td>399</td>
+    </tr>
+    <tr>
+      <th>80</th>
+      <td>Shandong</td>
+      <td>China</td>
+      <td>36.3427</td>
+      <td>118.1498</td>
+      <td>2</td>
+      <td>6</td>
+      <td>15</td>
+      <td>27</td>
+      <td>46</td>
+      <td>75</td>
+      <td>...</td>
+      <td>831</td>
+      <td>831</td>
+      <td>831</td>
+      <td>831</td>
+      <td>831</td>
+      <td>831</td>
+      <td>831</td>
+      <td>831</td>
+      <td>831</td>
+      <td>831</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>Shanghai</td>
+      <td>China</td>
+      <td>31.2020</td>
+      <td>121.4491</td>
+      <td>9</td>
+      <td>16</td>
+      <td>20</td>
+      <td>33</td>
+      <td>40</td>
+      <td>53</td>
+      <td>...</td>
+      <td>937</td>
+      <td>939</td>
+      <td>942</td>
+      <td>947</td>
+      <td>948</td>
+      <td>950</td>
+      <td>954</td>
+      <td>966</td>
+      <td>968</td>
+      <td>972</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>Shanxi</td>
+      <td>China</td>
+      <td>37.5777</td>
+      <td>112.2922</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>6</td>
+      <td>9</td>
+      <td>13</td>
+      <td>...</td>
+      <td>203</td>
+      <td>203</td>
+      <td>203</td>
+      <td>203</td>
+      <td>203</td>
+      <td>203</td>
+      <td>203</td>
+      <td>203</td>
+      <td>203</td>
+      <td>203</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>Sichuan</td>
+      <td>China</td>
+      <td>30.6171</td>
+      <td>102.7103</td>
+      <td>5</td>
+      <td>8</td>
+      <td>15</td>
+      <td>28</td>
+      <td>44</td>
+      <td>69</td>
+      <td>...</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>665</td>
+      <td>666</td>
+      <td>670</td>
+      <td>670</td>
+      <td>670</td>
+      <td>672</td>
+      <td>672</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>Tianjin</td>
+      <td>China</td>
+      <td>39.3054</td>
+      <td>117.3230</td>
+      <td>4</td>
+      <td>4</td>
+      <td>8</td>
+      <td>10</td>
+      <td>14</td>
+      <td>23</td>
+      <td>...</td>
+      <td>233</td>
+      <td>233</td>
+      <td>234</td>
+      <td>234</td>
+      <td>234</td>
+      <td>234</td>
+      <td>234</td>
+      <td>237</td>
+      <td>237</td>
+      <td>237</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>Tibet</td>
+      <td>China</td>
+      <td>31.6927</td>
+      <td>88.0924</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>86</th>
+      <td>Xinjiang</td>
+      <td>China</td>
+      <td>41.1129</td>
+      <td>85.2401</td>
+      <td>0</td>
+      <td>2</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>5</td>
+      <td>...</td>
+      <td>902</td>
+      <td>902</td>
+      <td>902</td>
+      <td>902</td>
+      <td>902</td>
+      <td>902</td>
+      <td>902</td>
+      <td>902</td>
+      <td>902</td>
+      <td>902</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>Yunnan</td>
+      <td>China</td>
+      <td>24.9740</td>
+      <td>101.4870</td>
+      <td>1</td>
+      <td>2</td>
+      <td>5</td>
+      <td>11</td>
+      <td>16</td>
+      <td>26</td>
+      <td>...</td>
+      <td>201</td>
+      <td>201</td>
+      <td>201</td>
+      <td>203</td>
+      <td>204</td>
+      <td>205</td>
+      <td>206</td>
+      <td>206</td>
+      <td>206</td>
+      <td>206</td>
+    </tr>
+    <tr>
+      <th>88</th>
+      <td>Zhejiang</td>
+      <td>China</td>
+      <td>29.1832</td>
+      <td>120.0934</td>
+      <td>10</td>
+      <td>27</td>
+      <td>43</td>
+      <td>62</td>
+      <td>104</td>
+      <td>128</td>
+      <td>...</td>
+      <td>1278</td>
+      <td>1278</td>
+      <td>1280</td>
+      <td>1280</td>
+      <td>1281</td>
+      <td>1282</td>
+      <td>1282</td>
+      <td>1282</td>
+      <td>1282</td>
+      <td>1282</td>
+    </tr>
+  </tbody>
+</table>
+<p>33 rows × 246 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="k">as</span> <span class="nn">tt</span>
+<span class="kn">import</span> <span class="nn">theano</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">data_end</span>   <span class="o">=</span> <span class="s1">&#39;3/15/20&#39;</span> <span class="c1">#Take the data until yesterday</span>
+<span class="n">data_begin</span> <span class="o">=</span> <span class="s1">&#39;3/1/20&#39;</span>
+<span class="n">num_days_to_predict</span> <span class="o">=</span> <span class="mi">28</span>
+
+<span class="n">cases_country</span> <span class="o">=</span> <span class="n">confirmed_cases</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">confirmed_cases</span><span class="p">[</span><span class="s2">&quot;Country/Region&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Germany&quot;</span><span class="p">]</span>
+
+<span class="n">cases_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="n">confirmed_cases</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">confirmed_cases</span><span class="p">[</span><span class="s2">&quot;Country/Region&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Germany&quot;</span><span class="p">,</span> <span class="n">data_begin</span><span class="p">:</span><span class="n">data_end</span><span class="p">]</span>
+<span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">date_data_end</span> <span class="o">=</span> <span class="n">confirmed_cases</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">confirmed_cases</span><span class="p">[</span><span class="s2">&quot;Country/Region&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Germany&quot;</span><span class="p">,</span> <span class="n">data_begin</span><span class="p">:</span><span class="n">data_end</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="n">date_data_end</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">))</span>
+<span class="n">date_data_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">year</span><span class="o">+</span><span class="mi">2000</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+<span class="n">date_today</span> <span class="o">=</span> <span class="n">date_data_end</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cases yesterday (</span><span class="si">{}</span><span class="s1">): </span><span class="si">{}</span><span class="s1"> and day before yesterday: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date_data_end</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span> <span class="o">*</span><span class="n">cases_obs</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">num_days</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cases yesterday (2020-03-15): 5795 and day before yesterday: 4585
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="modeling-covid-with-pymc3">
+<h2>Modeling Covid with PyMC3<a class="headerlink" href="#modeling-covid-with-pymc3" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="k">as</span> <span class="nn">tt</span>
+<span class="kn">import</span> <span class="nn">theano</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">data_end</span>   <span class="o">=</span> <span class="s1">&#39;3/15/20&#39;</span> <span class="c1">#Take the data until yesterday</span>
+<span class="n">data_begin</span> <span class="o">=</span> <span class="s1">&#39;3/1/20&#39;</span>
+<span class="n">num_days_to_predict</span> <span class="o">=</span> <span class="mi">28</span>
+
+<span class="n">cases_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="n">confirmed_cases</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">confirmed_cases</span><span class="p">[</span><span class="s2">&quot;Country/Region&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Germany&quot;</span><span class="p">,</span> <span class="n">data_begin</span><span class="p">:</span><span class="n">data_end</span><span class="p">]</span>
+<span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">date_data_end</span> <span class="o">=</span> <span class="n">confirmed_cases</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">confirmed_cases</span><span class="p">[</span><span class="s2">&quot;Country/Region&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Germany&quot;</span><span class="p">,</span> <span class="n">data_begin</span><span class="p">:</span><span class="n">data_end</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span><span class="n">date_data_end</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">))</span>
+<span class="n">date_data_end</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="n">year</span><span class="o">+</span><span class="mi">2000</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+<span class="n">date_today</span> <span class="o">=</span> <span class="n">date_data_end</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cases yesterday (</span><span class="si">{}</span><span class="s1">): </span><span class="si">{}</span><span class="s1"> and day before yesterday: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date_data_end</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span> <span class="o">*</span><span class="n">cases_obs</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">num_days</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># ------------------------------------------------------------------------------ #</span>
+<span class="c1"># model setup and training</span>
+<span class="c1"># ------------------------------------------------------------------------------ #</span>
+
+<span class="k">def</span> <span class="nf">SIR_model</span><span class="p">(</span><span class="n">λ</span><span class="p">,</span> <span class="n">μ</span><span class="p">,</span> <span class="n">S_begin</span><span class="p">,</span> <span class="n">I_begin</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="n">new_I_0</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">I_begin</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">next_day</span><span class="p">(</span><span class="n">λ</span><span class="p">,</span> <span class="n">S_t</span><span class="p">,</span> <span class="n">I_t</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+        <span class="n">new_I_t</span> <span class="o">=</span> <span class="n">λ</span><span class="o">/</span><span class="n">N</span><span class="o">*</span><span class="n">I_t</span><span class="o">*</span><span class="n">S_t</span>              <span class="c1"># new_I_t is delta I_t or infected during the period</span>
+                                           <span class="c1"># t and t-1</span>
+        <span class="n">S_t</span> <span class="o">=</span> <span class="n">S_t</span> <span class="o">-</span> <span class="n">new_I_t</span>
+        <span class="n">I_t</span> <span class="o">=</span> <span class="n">I_t</span> <span class="o">+</span> <span class="n">new_I_t</span> <span class="o">-</span> <span class="n">μ</span> <span class="o">*</span> <span class="n">I_t</span>      <span class="c1"># I_t is the total infected at time t</span>
+        <span class="k">return</span> <span class="n">S_t</span><span class="p">,</span> <span class="n">I_t</span><span class="p">,</span> <span class="n">new_I_t</span>     
+    <span class="n">outputs</span> <span class="p">,</span> <span class="n">_</span>  <span class="o">=</span> <span class="n">theano</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="n">fn</span><span class="o">=</span><span class="n">next_day</span><span class="p">,</span> <span class="n">sequences</span><span class="o">=</span><span class="p">[</span><span class="n">λ</span><span class="p">],</span> 
+                               <span class="n">outputs_info</span><span class="o">=</span><span class="p">[</span><span class="n">S_begin</span><span class="p">,</span> <span class="n">I_begin</span><span class="p">,</span> <span class="n">new_I_0</span><span class="p">])</span>
+    <span class="n">S_all</span><span class="p">,</span> <span class="n">I_all</span><span class="p">,</span> <span class="n">new_I_all</span> <span class="o">=</span> <span class="n">outputs</span>
+    <span class="k">return</span> <span class="n">S_all</span><span class="p">,</span> <span class="n">I_all</span><span class="p">,</span> <span class="n">new_I_all</span>
+
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># true cases at begin of loaded data but we do not know the real number</span>
+    <span class="n">I_begin</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Lognormal</span><span class="p">(</span><span class="s2">&quot;I_begin&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+
+    <span class="c1"># fraction of people that are newly infected each day</span>
+    <span class="n">λ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Lognormal</span><span class="p">(</span><span class="s2">&quot;λ&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.4</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+    <span class="c1"># fraction of people that recover each day, recovery rate mu</span>
+    <span class="n">μ</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Lognormal</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="c1"># prior of the error of observed cases</span>
+    <span class="n">σ_obs</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfCauchy</span><span class="p">(</span><span class="s2">&quot;σ_obs&quot;</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">N_germany</span> <span class="o">=</span> <span class="mf">83.7e6</span>   <span class="c1"># Population of the country</span>
+
+    <span class="c1"># -------------------------------------------------------------------------- #</span>
+    <span class="c1"># training the model with loaded data</span>
+    <span class="c1"># -------------------------------------------------------------------------- #</span>
+
+    <span class="n">S_begin</span> <span class="o">=</span> <span class="n">N_germany</span> <span class="o">-</span> <span class="n">I_begin</span>  <span class="c1"># This is an estimate, we don&#39;t know the real I_begin</span>
+    
+    <span class="n">S_past</span><span class="p">,</span> <span class="n">I_past</span><span class="p">,</span> <span class="n">new_I_past</span> <span class="o">=</span> <span class="n">SIR_model</span><span class="p">(</span><span class="n">λ</span><span class="o">=</span><span class="n">λ</span> <span class="o">*</span> <span class="n">tt</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_days</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">μ</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> 
+                                               <span class="n">S_begin</span><span class="o">=</span><span class="n">S_begin</span><span class="p">,</span> <span class="n">I_begin</span><span class="o">=</span><span class="n">I_begin</span><span class="p">,</span>
+                                               <span class="n">N</span><span class="o">=</span><span class="n">N_germany</span><span class="p">)</span>
+    <span class="n">new_infections_obs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">)</span> <span class="c1"># delta cases per day or new infections per day</span>
+
+    <span class="c1"># Approximates Poisson</span>
+    <span class="c1"># calculate the likelihood of the model:</span>
+    <span class="c1"># observed cases are distributed following studentT around the model</span>
+
+    <span class="n">pm</span><span class="o">.</span><span class="n">StudentT</span><span class="p">(</span>
+        <span class="s2">&quot;obs&quot;</span><span class="p">,</span>
+        <span class="n">nu</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">mu</span><span class="o">=</span><span class="n">new_I_past</span><span class="p">,</span>                   <span class="c1"># distribution mean around what it should be based on SIR</span>
+        <span class="n">sigma</span><span class="o">=</span><span class="n">new_I_past</span> <span class="o">**</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">σ_obs</span><span class="p">,</span>
+        <span class="n">observed</span><span class="o">=</span><span class="n">new_infections_obs</span>
+        <span class="p">)</span>  
+    
+    <span class="n">S_past</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;S_past&#39;</span><span class="p">,</span> <span class="n">S_past</span><span class="p">)</span>
+    <span class="n">I_past</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;I_past&#39;</span><span class="p">,</span> <span class="n">I_past</span><span class="p">)</span>
+    <span class="n">new_I_past</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;new_I_past&#39;</span><span class="p">,</span> <span class="n">new_I_past</span><span class="p">)</span>
+
+    <span class="c1"># -------------------------------------------------------------------------- #</span>
+    <span class="c1"># prediction, start with no changes in policy</span>
+    <span class="c1"># -------------------------------------------------------------------------- #</span>
+    
+    <span class="c1"># delay in days between contracting the disease and being recorded</span>
+    <span class="n">delay</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Lognormal</span><span class="p">(</span><span class="s2">&quot;delay&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+    <span class="n">S_begin</span> <span class="o">=</span> <span class="n">S_past</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">I_begin</span> <span class="o">=</span> <span class="n">I_past</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">forecast_no_change</span> <span class="o">=</span> <span class="n">SIR_model</span><span class="p">(</span><span class="n">λ</span><span class="o">=</span><span class="n">λ</span><span class="o">*</span><span class="n">tt</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_days_to_predict</span><span class="p">),</span> <span class="n">μ</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> 
+                        <span class="n">S_begin</span><span class="o">=</span><span class="n">S_begin</span><span class="p">,</span> <span class="n">I_begin</span><span class="o">=</span><span class="n">I_begin</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N_germany</span><span class="p">)</span>
+    <span class="n">S_no_change</span><span class="p">,</span> <span class="n">I_no_change</span><span class="p">,</span> <span class="n">new_I_no_change</span> <span class="o">=</span> <span class="n">forecast_no_change</span>
+
+    <span class="c1">#saves the variables for later retrieval</span>
+    <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;S_no_change&#39;</span><span class="p">,</span> <span class="n">S_no_change</span><span class="p">)</span>
+    <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;I_no_change&#39;</span><span class="p">,</span> <span class="n">I_no_change</span><span class="p">)</span>
+    <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;new_I_no_change&#39;</span><span class="p">,</span> <span class="n">new_I_no_change</span><span class="p">)</span>
+
+    
+    <span class="c1"># -------------------------------------------------------------------------- #</span>
+    <span class="c1"># run model, pm trains and predicts when calling this</span>
+    <span class="c1"># -------------------------------------------------------------------------- #</span>
+
+    <span class="n">time_beg</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">draws</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">tune</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model run in </span><span class="si">{:.2f}</span><span class="s2"> s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">time_beg</span><span class="p">))</span>
+    
+<span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cases yesterday (2020-03-15): 5795 and day before yesterday: 4585
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+Auto-assigning NUTS sampler...
+INFO:pymc3:Auto-assigning NUTS sampler...
+Initializing NUTS using jitter+adapt_diag...
+INFO:pymc3:Initializing NUTS using jitter+adapt_diag...
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+Multiprocess sampling (2 chains in 4 jobs)
+INFO:pymc3:Multiprocess sampling (2 chains in 4 jobs)
+NUTS: [delay, σ_obs, μ, λ, I_begin]
+INFO:pymc3:NUTS: [delay, σ_obs, μ, λ, I_begin]
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+Sampling 2 chains, 0 divergences: 100%|██████████| 2600/2600 [00:31&lt;00:00, 82.59draws/s] 
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model run in 46.50 s
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/traceplot.py:164: SyntaxWarning: rcParams[&#39;plot.max_subplots&#39;] (40) is smaller than the number of variables to plot (131), generating only 40 plots
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/arviz/plots/backends/matplotlib/distplot.py:36: UserWarning: Argument backend_kwargs has not effect in matplotlib.plot_distSupplied value won&#39;t be used
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362e14070&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362e281c0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362e52430&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362e7f7c0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362d69e20&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bb297c0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bb52f40&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bb7bd30&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bbac310&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bbd86d0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bc68a60&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bc919a0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bcc7190&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bcf4550&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bd248e0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bd54fa0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bd7fb80&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bf263a0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36bf54760&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c105e50&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c131fa0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c166160&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c1965e0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c241970&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c26e4f0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c29dc10&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c2cf400&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c4037c0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c434e50&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c462a60&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c497280&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c4c6640&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c4f79d0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c525d30&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c558100&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c588490&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c5b7850&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c5e6f10&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c7d0d00&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c804310&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c8316d0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c864a60&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c8909a0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36cec0190&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36cef0550&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36d02c910&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36d059a30&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36d085bb0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36d0bc3d0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36d0eb790&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c757bb0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362d7b9d0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362c99970&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff3612ac250&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362cb0820&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff362cfeaf0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36cbecfd0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff361571e50&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff361578580&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36b9976a0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36cdf4d90&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36cd80c70&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36cd6c8b0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36cdb6bb0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36cc073d0&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36ca787c0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c9ed520&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c770610&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c72a370&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36c7b3520&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36ee3ab20&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36b816160&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff370363a30&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36f98ebb0&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36f8e5040&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36f919a60&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36f000790&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36ef5b790&gt;],
+       [&lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36ef6c460&gt;,
+        &lt;matplotlib.axes._subplots.AxesSubplot object at 0x7ff36ee98220&gt;]],
+      dtype=object)
+</pre></div>
+</div>
+<img alt="../../_images/Covid_forecast_6_51.png" src="../../_images/Covid_forecast_6_51.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;new_I_no_change&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+      <th>sd</th>
+      <th>hpd_3%</th>
+      <th>hpd_97%</th>
+      <th>mcse_mean</th>
+      <th>mcse_sd</th>
+      <th>ess_mean</th>
+      <th>ess_sd</th>
+      <th>ess_bulk</th>
+      <th>ess_tail</th>
+      <th>r_hat</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>new_I_no_change[0]</th>
+      <td>1561.915</td>
+      <td>279.505</td>
+      <td>1040.496</td>
+      <td>2053.534</td>
+      <td>9.882</td>
+      <td>6.990</td>
+      <td>800.0</td>
+      <td>800.0</td>
+      <td>712.0</td>
+      <td>741.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[1]</th>
+      <td>2040.278</td>
+      <td>419.970</td>
+      <td>1367.456</td>
+      <td>2870.443</td>
+      <td>15.820</td>
+      <td>11.191</td>
+      <td>705.0</td>
+      <td>705.0</td>
+      <td>634.0</td>
+      <td>741.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[2]</th>
+      <td>2667.928</td>
+      <td>628.514</td>
+      <td>1582.900</td>
+      <td>3788.289</td>
+      <td>24.985</td>
+      <td>17.675</td>
+      <td>633.0</td>
+      <td>633.0</td>
+      <td>583.0</td>
+      <td>681.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[3]</th>
+      <td>3492.348</td>
+      <td>934.973</td>
+      <td>1962.760</td>
+      <td>5193.396</td>
+      <td>38.626</td>
+      <td>27.326</td>
+      <td>586.0</td>
+      <td>586.0</td>
+      <td>533.0</td>
+      <td>667.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[4]</th>
+      <td>4576.417</td>
+      <td>1382.075</td>
+      <td>2263.840</td>
+      <td>6959.602</td>
+      <td>58.881</td>
+      <td>41.657</td>
+      <td>551.0</td>
+      <td>551.0</td>
+      <td>500.0</td>
+      <td>624.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[5]</th>
+      <td>6003.486</td>
+      <td>2030.888</td>
+      <td>2747.265</td>
+      <td>9494.872</td>
+      <td>88.043</td>
+      <td>62.290</td>
+      <td>532.0</td>
+      <td>532.0</td>
+      <td>479.0</td>
+      <td>533.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[6]</th>
+      <td>7884.163</td>
+      <td>2968.566</td>
+      <td>2889.497</td>
+      <td>12485.894</td>
+      <td>130.786</td>
+      <td>92.532</td>
+      <td>515.0</td>
+      <td>515.0</td>
+      <td>461.0</td>
+      <td>490.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[7]</th>
+      <td>10365.364</td>
+      <td>4319.321</td>
+      <td>3529.046</td>
+      <td>17064.774</td>
+      <td>192.659</td>
+      <td>136.310</td>
+      <td>503.0</td>
+      <td>503.0</td>
+      <td>452.0</td>
+      <td>473.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[8]</th>
+      <td>13642.394</td>
+      <td>6259.941</td>
+      <td>4201.565</td>
+      <td>23497.954</td>
+      <td>281.859</td>
+      <td>199.422</td>
+      <td>493.0</td>
+      <td>493.0</td>
+      <td>445.0</td>
+      <td>473.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[9]</th>
+      <td>17975.067</td>
+      <td>9041.649</td>
+      <td>5331.511</td>
+      <td>32407.127</td>
+      <td>409.993</td>
+      <td>290.083</td>
+      <td>486.0</td>
+      <td>486.0</td>
+      <td>440.0</td>
+      <td>467.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[10]</th>
+      <td>23709.150</td>
+      <td>13020.723</td>
+      <td>5893.153</td>
+      <td>43837.401</td>
+      <td>593.471</td>
+      <td>419.902</td>
+      <td>481.0</td>
+      <td>481.0</td>
+      <td>438.0</td>
+      <td>441.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[11]</th>
+      <td>31304.812</td>
+      <td>18701.028</td>
+      <td>7089.533</td>
+      <td>60085.731</td>
+      <td>855.410</td>
+      <td>605.236</td>
+      <td>478.0</td>
+      <td>478.0</td>
+      <td>436.0</td>
+      <td>441.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[12]</th>
+      <td>41374.166</td>
+      <td>26792.312</td>
+      <td>8984.824</td>
+      <td>82969.464</td>
+      <td>1228.267</td>
+      <td>869.049</td>
+      <td>476.0</td>
+      <td>476.0</td>
+      <td>433.0</td>
+      <td>411.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[13]</th>
+      <td>54730.347</td>
+      <td>38288.541</td>
+      <td>10046.699</td>
+      <td>113106.242</td>
+      <td>1761.207</td>
+      <td>1246.130</td>
+      <td>473.0</td>
+      <td>473.0</td>
+      <td>432.0</td>
+      <td>411.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[14]</th>
+      <td>72450.827</td>
+      <td>54569.815</td>
+      <td>13695.798</td>
+      <td>156090.190</td>
+      <td>2515.754</td>
+      <td>1780.010</td>
+      <td>471.0</td>
+      <td>471.0</td>
+      <td>430.0</td>
+      <td>411.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[15]</th>
+      <td>95957.300</td>
+      <td>77528.016</td>
+      <td>16673.357</td>
+      <td>212284.347</td>
+      <td>3579.930</td>
+      <td>2532.969</td>
+      <td>469.0</td>
+      <td>469.0</td>
+      <td>432.0</td>
+      <td>372.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[16]</th>
+      <td>127113.005</td>
+      <td>109707.135</td>
+      <td>11160.777</td>
+      <td>281465.695</td>
+      <td>5071.926</td>
+      <td>3588.631</td>
+      <td>468.0</td>
+      <td>468.0</td>
+      <td>431.0</td>
+      <td>372.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[17]</th>
+      <td>168334.386</td>
+      <td>154428.763</td>
+      <td>13045.747</td>
+      <td>382804.703</td>
+      <td>7147.073</td>
+      <td>5056.904</td>
+      <td>467.0</td>
+      <td>467.0</td>
+      <td>428.0</td>
+      <td>372.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[18]</th>
+      <td>222705.721</td>
+      <td>215833.838</td>
+      <td>15248.227</td>
+      <td>519668.992</td>
+      <td>10001.658</td>
+      <td>7076.674</td>
+      <td>466.0</td>
+      <td>466.0</td>
+      <td>426.0</td>
+      <td>372.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[19]</th>
+      <td>294070.020</td>
+      <td>298706.492</td>
+      <td>17821.390</td>
+      <td>706994.250</td>
+      <td>13868.623</td>
+      <td>9812.770</td>
+      <td>464.0</td>
+      <td>464.0</td>
+      <td>429.0</td>
+      <td>404.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[20]</th>
+      <td>387045.213</td>
+      <td>407862.780</td>
+      <td>24233.224</td>
+      <td>959729.126</td>
+      <td>18996.041</td>
+      <td>13440.737</td>
+      <td>461.0</td>
+      <td>461.0</td>
+      <td>429.0</td>
+      <td>404.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[21]</th>
+      <td>506884.255</td>
+      <td>546842.850</td>
+      <td>31019.862</td>
+      <td>1286635.809</td>
+      <td>25563.816</td>
+      <td>18087.882</td>
+      <td>458.0</td>
+      <td>458.0</td>
+      <td>430.0</td>
+      <td>429.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[22]</th>
+      <td>659077.828</td>
+      <td>715797.392</td>
+      <td>28437.228</td>
+      <td>1693255.606</td>
+      <td>33966.879</td>
+      <td>24034.002</td>
+      <td>444.0</td>
+      <td>444.0</td>
+      <td>433.0</td>
+      <td>429.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[23]</th>
+      <td>848628.112</td>
+      <td>909053.858</td>
+      <td>33223.117</td>
+      <td>2204533.346</td>
+      <td>44079.278</td>
+      <td>31190.156</td>
+      <td>425.0</td>
+      <td>425.0</td>
+      <td>432.0</td>
+      <td>417.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[24]</th>
+      <td>1079050.279</td>
+      <td>1113898.264</td>
+      <td>38808.961</td>
+      <td>2846710.917</td>
+      <td>55561.194</td>
+      <td>39316.242</td>
+      <td>402.0</td>
+      <td>402.0</td>
+      <td>435.0</td>
+      <td>417.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[25]</th>
+      <td>1351366.642</td>
+      <td>1312627.382</td>
+      <td>45326.465</td>
+      <td>3609444.490</td>
+      <td>67574.641</td>
+      <td>47819.471</td>
+      <td>377.0</td>
+      <td>377.0</td>
+      <td>434.0</td>
+      <td>417.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[26]</th>
+      <td>1663456.140</td>
+      <td>1487957.928</td>
+      <td>63579.516</td>
+      <td>4461959.540</td>
+      <td>78588.435</td>
+      <td>55615.692</td>
+      <td>358.0</td>
+      <td>358.0</td>
+      <td>435.0</td>
+      <td>417.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>new_I_no_change[27]</th>
+      <td>2009865.804</td>
+      <td>1627951.090</td>
+      <td>159423.806</td>
+      <td>5405791.787</td>
+      <td>87412.389</td>
+      <td>62260.146</td>
+      <td>347.0</td>
+      <td>342.0</td>
+      <td>419.0</td>
+      <td>424.0</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">future_days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cases_country</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;3/16/20&#39;</span><span class="p">:</span><span class="s1">&#39;4/12/20&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">future_days</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[  7272   9257  12327  15320  19848  22213  24873  29056  32986  37323
+  43938  50871  57695  62095  66885  71808  77872  84794  91159  96092
+ 100123 103374 107663 113296 118181 122171 124908 127854]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="forecast-cases-into-the-future">
+<h2>Forecast cases into the future<a class="headerlink" href="#forecast-cases-into-the-future" title="Permalink to this headline">¶</a></h2>
+<p>The number of days predicted depends on the variable ‘num_days_to_predict’ that is set. This uses the uncertainty from the MCMC simulation to give us estimates for the confidence intervals</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">days</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_days_to_predict</span><span class="p">)</span>
+<span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_no_change</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_no_change</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">95.0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_no_change</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Forecasted Daily Infections&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">future_days</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Forecast for Daily Infections&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_no_change</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Forecasted Daily Infections&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">future_days</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Forecast for Daily Infections in Log scale&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Forecast for Daily Infections in Log scale&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/Covid_forecast_10_11.png" src="../../_images/Covid_forecast_10_11.png" />
+<img alt="../../_images/Covid_forecast_10_21.png" src="../../_images/Covid_forecast_10_21.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">percentiles</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="s1">&#39;new_I_no_change&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([  1160.14543074,   1476.84401526,   1865.48773572,   2331.21012106,
+         2898.62402961,   3600.16826974,   4460.31784045,   5486.40922354,
+         6855.32586417,   8501.4302699 ,  10626.8386678 ,  13199.60509826,
+        16395.17344201,  20332.13997876,  25092.95447946,  31060.73176785,
+        38450.91984404,  47589.70816224,  58466.86848557,  71715.58845626,
+        88522.33979138, 109512.8134872 , 134994.74967149, 165943.21340717,
+       203840.50918581, 250152.30399711, 306615.28401775, 375265.76771525]), array([2.02198145e+03, 2.73362644e+03, 3.74591991e+03, 5.08318467e+03,
+       6.87155905e+03, 9.36023346e+03, 1.28970548e+04, 1.75940987e+04,
+       2.43520671e+04, 3.40224919e+04, 4.69385285e+04, 6.48948532e+04,
+       8.78307727e+04, 1.19781146e+05, 1.62691104e+05, 2.23043591e+05,
+       3.05647824e+05, 4.17640781e+05, 5.69029756e+05, 7.66705020e+05,
+       1.03380379e+06, 1.38617206e+06, 1.83807414e+06, 2.39759105e+06,
+       3.07476582e+06, 3.85665657e+06, 4.70437344e+06, 5.57435747e+06]))
+[   1539.87459821    1999.12856629    2585.97221696    3350.81740492
+    4357.00422827    5635.12572709    7311.44973992    9435.30952226
+   12206.98607013   15882.3904889    20713.44096956   26863.29059536
+   34871.62269726   45141.36883675   58368.5032532    75465.41997712
+   97512.83623173  126295.32917592  163512.52894545  211537.4405085
+  273133.73785035  351707.32523067  451643.60247501  580410.43277407
+  741503.85514122  943810.7244719  1193690.27095792 1499649.68114016]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cases_obs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([ 130,  159,  196,  262,  482,  670,  799, 1040, 1176, 1457, 1908,
+       2078, 3675, 4585, 5795])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([  29,   37,   66,  220,  188,  129,  241,  136,  281,  451,  170,
+       1597,  910, 1210])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="test-the-sir-model-function">
+<h2>Test the SIR_model function<a class="headerlink" href="#test-the-sir-model-function" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>Create the variables by assigning a datatype</p></li>
+<li><p>Assign a test value since theano performs lazy evaluation and therefore cannot be evaulauted uness you use
+a. .eval() method</p>
+<p>b. test_value to intiialize a variable and run it, values can be assigned from a numpy array by casting it with ‘.astype(THEANO_DATATYPE)’</p>
+</li>
+<li><p>Print the variable value using ‘theano.printing.Print’</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">theano</span> <span class="kn">import</span> <span class="n">tensor</span>
+<span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">compute_test_value</span> <span class="o">=</span> <span class="s1">&#39;warn&#39;</span>
+<span class="n">I_begin</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">dscalar</span><span class="p">(</span><span class="s1">&#39;I_begin&#39;</span><span class="p">)</span>
+<span class="n">I_begin</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">test_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">floatX</span><span class="p">)</span>
+<span class="n">S_begin</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">dscalar</span><span class="p">(</span><span class="s1">&#39;S_begin&#39;</span><span class="p">)</span>
+<span class="n">S_begin</span> <span class="o">=</span> <span class="n">N_germany</span> <span class="o">-</span> <span class="n">I_begin</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">S_begin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Elemwise{sub,no_inplace}.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">λ</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">dscalar</span><span class="p">(</span><span class="s1">&#39;λ&#39;</span><span class="p">)</span>
+<span class="n">λ</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">test_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">floatX</span><span class="p">)</span>
+<span class="n">μ</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">dscalar</span><span class="p">(</span><span class="s1">&#39;μ&#39;</span><span class="p">)</span>
+<span class="n">μ</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">test_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">floatX</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">S_past</span><span class="p">,</span> <span class="n">I_past</span><span class="p">,</span> <span class="n">new_I_past</span> <span class="o">=</span> <span class="n">SIR_model</span><span class="p">(</span><span class="n">λ</span><span class="o">=</span><span class="n">λ</span> <span class="o">*</span> <span class="n">tt</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_days</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">μ</span><span class="o">=</span><span class="n">μ</span><span class="p">,</span> <span class="n">S_begin</span><span class="o">=</span><span class="n">S_begin</span><span class="p">,</span> 
+                                       <span class="n">I_begin</span><span class="o">=</span><span class="n">I_begin</span><span class="p">,</span>
+                                       <span class="n">N</span><span class="o">=</span><span class="n">N_germany</span><span class="p">)</span>
+<span class="n">theano</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="s1">&#39;Value of S_past&#39;</span><span class="p">)(</span><span class="n">S_past</span><span class="p">)</span>
+<span class="n">theano</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="s1">&#39;Value of I_past&#39;</span><span class="p">)(</span><span class="n">I_past</span><span class="p">)</span>
+<span class="n">theano</span><span class="o">.</span><span class="n">printing</span><span class="o">.</span><span class="n">Print</span><span class="p">(</span><span class="s1">&#39;Value of new_I_past&#39;</span><span class="p">)(</span><span class="n">new_I_past</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Value of S_past __str__ = [83699999.59254201 83700009.24036074 83700030.11005007 83700075.2543446
+ 83700172.90829967 83700384.14869766 83700841.094289   83701829.53998952
+ 83703967.71325564 83708592.97981322 83718598.48085828 83740243.53420354
+ 83787072.74621125 83888407.3997477 ]
+Value of I_past __str__ = [1.05292113e+01 2.27762721e+01 4.92685091e+01 1.06575199e+02
+ 2.30538141e+02 4.98688329e+02 1.07873597e+03 2.33345865e+03
+ 5.04757622e+03 1.09184493e+04 2.36172255e+04 5.10828118e+04
+ 1.10477321e+05 2.38873797e+05]
+Value of new_I_past __str__ = [-4.46007644e+00 -9.64781872e+00 -2.08696893e+01 -4.51442945e+01
+ -9.76539551e+01 -2.11240398e+02 -4.56945591e+02 -9.88445701e+02
+ -2.13817327e+03 -4.62526656e+03 -1.00055010e+04 -2.16450533e+04
+ -4.68292120e+04 -1.01334654e+05]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/compstats_env/lib/python3.8/site-packages/theano/scan_module/scan_perform_ext.py:75: UserWarning: The file scan_perform.c is not available. This donot happen normally. You are probably in a strangesetup. This mean Theano can not use the cython code for scan. If youwant to remove this warning, use the Theano flag&#39;cxx=&#39; (set to an empty string) to disable all ccode generation.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Print{message=&#39;Value of new_I_past&#39;, attrs=(&#39;__str__&#39;,), global_fn=&lt;function _print_fn at 0x7ff3883a9820&gt;}.0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">I_begin</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">dscalar</span><span class="p">(</span><span class="s1">&#39;I_begin&#39;</span><span class="p">)</span>
+<span class="n">I_begin</span><span class="o">.</span><span class="n">eval</span><span class="p">({</span><span class="n">I_begin</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">[</span><span class="mi">0</span><span class="p">])})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(4.86753445)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the daily new infections computed using SIR (using the inferred parameter distribution)</span>
+<span class="c1"># against the true values. We have the true values since this is for the last &#39;n&#39; days that we fit.</span>
+
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">percentiles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_past</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_past</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">95.0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Fit (with 90% CI)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Daily new infections&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Days&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># The likelihood for new cases of daily infections is drawn from a Student-t distribution</span>
+<span class="c1"># The sigma is a (width) parameter that characterizes the distribution from which the </span>
+<span class="c1"># number of daily new cases are drawn.</span>
+<span class="c1"># Hence, error for this variable new_daily_cases is quantified as </span>
+<span class="c1"># sigma = the value sigma_obs * sqrt(I)</span>
+<span class="c1"># We plot the distribution of sigma_obs as a histogram</span>
+<span class="c1"># We plot sigma as a line plot over time to see how it evolves</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">σ_obs</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of MCMC samples&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Width $\sigma_</span><span class="si">{obs}</span><span class="s1">$ of Student T&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">)),</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Absolute difference between fit and data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">σ_obs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Error of the model&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Days from now&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff35f469370&gt;
+</pre></div>
+</div>
+<img alt="../../_images/Covid_forecast_19_11.png" src="../../_images/Covid_forecast_19_11.png" />
+<img alt="../../_images/Covid_forecast_19_21.png" src="../../_images/Covid_forecast_19_21.png" />
+<img alt="../../_images/Covid_forecast_19_31.png" src="../../_images/Covid_forecast_19_31.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="n">day_begin</span> <span class="o">=</span> <span class="n">date_data_end</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span> <span class="o">=</span> <span class="n">num_days</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.38</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">λ</span> <span class="o">-</span> <span class="n">trace</span><span class="o">.</span><span class="n">μ</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> 
+         <span class="n">label</span><span class="o">=</span><span class="s1">&#39;spread inferred from data</span><span class="se">\n</span><span class="s1">from </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">day_begin</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span> <span class="n">date_data_end</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Effective spread $\lambda - \mu$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of Monte-Carlo samples&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7ff35af90670&gt;
+</pre></div>
+</div>
+<img alt="../../_images/Covid_forecast_20_11.png" src="../../_images/Covid_forecast_20_11.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">legends_lang</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;english&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="c1"># bottom left</span>
+        <span class="s2">&quot;confirmed cases&quot;</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="s2">&quot;uncontrolled spreading&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;mild social distancing&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;strong social distancing&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;strong social distancing</span><span class="se">\n</span><span class="s2">starting at day -5&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;Days since intervention&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Total confirmed cases in Germany&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Start of intervention&quot;</span><span class="p">,</span>
+        <span class="c1"># bottom right</span>
+        <span class="s1">&#39;confirmed cases&#39;</span><span class="p">,[</span><span class="s1">&#39;strong social distancing:&#39;</span><span class="p">,</span>
+                           <span class="s1">&#39;  starting at day 0&#39;</span><span class="p">,</span> 
+                           <span class="s1">&#39;  starting at day 5&#39;</span><span class="p">,</span>
+                           <span class="s2">&quot;  starting at day -5&quot;</span><span class="p">],</span>
+        <span class="s1">&#39;Days since intervention&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Total confirmed cases in Germany&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Start of intervention&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">obs_cases_labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;new_I_no_change&#39;</span><span class="p">]</span>
+
+<span class="n">date_today_formatted</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">date_today</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">date_today</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">date_today</span><span class="o">.</span><span class="n">year</span><span class="p">)[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">cases_obs_to_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">confirmed_cases</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">confirmed_cases</span><span class="p">[</span><span class="s1">&#39;Country/Region&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;1/22/20&#39;</span><span class="p">:</span><span class="n">date_today_formatted</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cases_obs_to_plot_future</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">confirmed_cases</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">confirmed_cases</span><span class="p">[</span><span class="s1">&#39;Country/Region&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="n">date_today_formatted</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">return_obs_cases_future</span><span class="p">(</span><span class="n">trace</span><span class="p">):</span>
+  <span class="n">obs_cases_future</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+  <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">obs_cases_labels</span><span class="p">:</span>
+    <span class="n">obs_cases_future</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="n">label</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">new_I_past</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">trace</span><span class="o">.</span><span class="n">I_begin</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">obs_cases_future</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs_cases_future</span><span class="p">[</span><span class="n">label</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+  <span class="k">return</span> <span class="n">obs_cases_future</span>
+
+<span class="n">obs_cases_labels_local</span> <span class="o">=</span> <span class="n">obs_cases_labels</span><span class="p">[:]</span>
+<span class="n">obs_cases_labels_local</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">lang</span><span class="p">,</span> <span class="n">legends_list</span> <span class="ow">in</span> <span class="n">legends_lang</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">])</span>
+
+    <span class="c1"># bottom left</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tab:red&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:orange&quot;</span><span class="p">,</span> <span class="s2">&quot;tab:green&quot;</span><span class="p">,</span> <span class="s2">&quot;gray&quot;</span><span class="p">]</span>
+    <span class="n">dict_obsc_cases</span> <span class="o">=</span> <span class="n">return_obs_cases_future</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">cases_obs_to_plot</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">cases_obs_to_plot</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">legends_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> 
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cases_obs_to_plot_future</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">cases_obs_to_plot_future</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> 
+            <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">legend</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">obs_cases_labels_local</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">legends_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_days_to_predict</span><span class="p">)</span>
+        <span class="n">cases</span> <span class="o">=</span> <span class="n">dict_obsc_cases</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+        <span class="c1">#cases = np.concatenate([np.ones((1,cases.shape[1]))*cases_obs[-1], cases], axis=0)</span>
+
+        <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">cases</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">percentiles</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">cases</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">cases</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">97.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">legend</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">400_000</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">legends_list</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">legends_list</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="c1"># ax.locator_params(axis=&#39;y&#39;, nbins=4)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">21</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">locator_params</span><span class="p">(</span><span class="n">nbins</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+    <span class="n">func_format</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">num</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{:,.0f}</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;\,&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">func_format</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.29</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+        <span class="n">legends_list</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">20_000</span><span class="p">),</span>
+        <span class="n">xycoords</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+        <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span>
+        <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;axes fraction&quot;</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+        <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=-0.2&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="s2">&quot;black&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+        <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mi">15_000</span><span class="p">),</span>
+        <span class="n">xycoords</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+        <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.32</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">),</span>
+        <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;axes fraction&quot;</span><span class="p">,</span>
+        <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+        <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=-0.2&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># bottom right</span>
+
+    <span class="n">f_alone</span><span class="p">,</span> <span class="n">ax_alone</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">4.7</span><span class="p">,</span><span class="mf">3.4</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(((</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">fig</span><span class="p">),</span> <span class="p">(</span><span class="n">ax_alone</span><span class="p">,</span> <span class="n">f_alone</span><span class="p">))):</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tab:green&quot;</span><span class="p">,</span> <span class="s2">&quot;fuchsia&quot;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">]</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">cases_obs_to_plot</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">cases_obs_to_plot</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">legends_list</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> 
+                    <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cases_obs_to_plot_future</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">cases_obs_to_plot_future</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> 
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">cases_obs</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">dict_obsc_cases</span> <span class="o">=</span> <span class="n">return_obs_cases_future</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">legends_list</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">legend</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">obs_cases_labels</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="n">colors</span><span class="p">,</span> <span class="n">legends_list</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num_days_to_predict</span><span class="p">)</span>
+            <span class="n">cases</span> <span class="o">=</span> <span class="n">dict_obsc_cases</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+            <span class="c1">#cases = np.concatenate(</span>
+            <span class="c1">#    [np.ones((1, cases.shape[1])) * cases_obs[-1], cases], axis=0</span>
+            <span class="c1">#)</span>
+            <span class="n">median</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">cases</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">percentiles</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">cases</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">cases</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mf">97.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">median</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">legend</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">percentiles</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">400_000</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;linear&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">legends_list</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">legends_list</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">locator_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">21</span><span class="p">])</span>
+        <span class="n">func_format</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">num</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{:,.0f}</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;\,&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="n">func_format</span><span class="p">))</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="n">legends_list</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">20_000</span><span class="p">),</span>
+            <span class="n">xycoords</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">),</span>
+            <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;axes fraction&quot;</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+            <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=-0.15&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mi">40_000</span><span class="p">),</span>
+            <span class="n">xycoords</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">),</span>
+            <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;axes fraction&quot;</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+            <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=-0.2&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="mi">15_000</span><span class="p">),</span>
+            <span class="n">xycoords</span><span class="o">=</span><span class="s2">&quot;data&quot;</span><span class="p">,</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.32</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">),</span>
+            <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;axes fraction&quot;</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+            <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=-0.2&quot;</span><span class="p">,</span> <span class="n">fc</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.29</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+        <span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;effective m: </span><span class="si">{:.3f}</span><span class="s1"> +- </span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">λ</span> <span class="o">-</span> <span class="n">trace</span><span class="o">.</span><span class="n">μ</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">trace</span><span class="o">.</span><span class="n">λ</span> <span class="o">-</span> <span class="n">trace</span><span class="o">.</span><span class="n">μ</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>effective m: 1.298 +- 0.041
+</pre></div>
+</div>
+<img alt="../../_images/Covid_forecast_21_11.png" src="../../_images/Covid_forecast_21_11.png" />
+<img alt="../../_images/Covid_forecast_21_21.png" src="../../_images/Covid_forecast_21_21.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sjster/statistical_computing_book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs/Production"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Srijith Rajamohan, Ph.D.<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

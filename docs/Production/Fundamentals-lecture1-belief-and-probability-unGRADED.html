@@ -1,0 +1,1008 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Empirical modeling &#8212; Introduction to Computational Statistics with PyMC3</title>
+    
+  <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Empirical modeling" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html" />
+    <link rel="prev" title="Introduction to the Databricks Environment" href="../Databricks.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../../index.html">
+  
+  <img src="../../_static/logo_large.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  Getting started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../About.html">
+   The What, Why and Whom…
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html">
+   Setting up Your Python Environment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Databricks.html">
+   Introduction to the Databricks Environment
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Bayesian Statistics
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Empirical modeling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#principals-of-probability">
+   Principals of Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#chance-regularities">
+   Chance regularities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#belief-and-probability">
+   Belief and probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#sample-space-outcomes-and-events">
+   Sample space, outcomes and events
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#addition-rules">
+   Addition rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#multiplication-rules">
+   Multiplication rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#conditional-independent-disjoint-exchangeable">
+   Conditional, Independent, disjoint, exchangeable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#factoring-joint-probabilities">
+   Factoring joint probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#random-variable">
+   Random variable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#random-sample-experiment-trial">
+   Random sample, experiment, trial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="#data-generating-mechanism">
+   Data generating mechanism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html">
+   Empirical modeling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#principals-of-probability">
+   Principals of Probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#chance-regularities">
+   Chance regularities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#belief-and-probability">
+   Belief and probability
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#sample-space-outcomes-and-events">
+   Sample space, outcomes and events
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#addition-rules">
+   Addition rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#multiplication-rules">
+   Multiplication rules
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#conditional-independent-disjoint-exchangeable">
+   Conditional, Independent, disjoint, exchangeable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#factoring-joint-probabilities">
+   Factoring joint probabilities
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#random-variable">
+   Random variable
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#random-sample-experiment-trial">
+   Random sample, experiment, trial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html#data-generating-mechanism">
+   Data generating mechanism
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html">
+   Distributions, central tendency, and shape parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#probability-distributions">
+   Probability distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#discrete-random-variables">
+   Discrete random variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#continuous-random-variables">
+   Continuous random variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#moments-expectations-and-variances">
+   Moments, expectations and variances
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#joint-distributions">
+   Joint distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#marginal-distribution">
+   Marginal distribution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#conditional-distributions">
+   Conditional distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#independence">
+   Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#covariance">
+   Covariance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture3-intro-distributions-unGRADED.html#correlation-correlation-coefficient">
+   Correlation (correlation coefficient)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture4-MoM-MLE-unGRADED.html">
+   Parameter Estimation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5a-Basics-of-Bayes-unGRADED.html">
+   Introduction to the Bayes Theorem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html">
+   Inference and Decisions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html#classification">
+   Classification
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture5b-inference-decisions-unGRADED.html#confusion-matrix">
+   Confusion matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Fundamentals-lecture6-priors-unGRADED.html">
+   Priors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Intro.html">
+   Bayesian vs. Frequentist Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Distributions.html">
+   Introduction to Common Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Sampling.html">
+   Sampling Algorithms
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Monte Carlo Methods
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../BayesianInference.html">
+   Topics in Model Performance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../MonteCarlo.html">
+   Introduction to Monte Carlo Methods
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  PyMC3 for Bayesian Modeling and Inference
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../PyMC3.html">
+   Introduction to PyMC3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Reparameterization.html">
+   Centered vs. Non-centered Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Covid_modeling.html">
+   Covid Modeling with PyMC3
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/Fundamentals-lecture1-belief-and-probability-unGRADED.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Fundamentals-lecture1-belief-and-probability-unGRADED.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Fundamentals-lecture1-belief-and-probability-unGRADED.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Empirical modeling
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#principals-of-probability">
+   Principals of Probability
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#chance-regularities">
+   Chance regularities
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#belief-and-probability">
+   Belief and probability
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sample-space-outcomes-and-events">
+   Sample space, outcomes and events
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#probability-space-and-probability">
+     Probability Space and Probability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#addition-rules">
+   Addition rules
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiplication-rules">
+   Multiplication rules
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conditional-independent-disjoint-exchangeable">
+   Conditional, Independent, disjoint, exchangeable
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#factoring-joint-probabilities">
+   Factoring joint probabilities
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-variable">
+   Random variable
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-sample-experiment-trial">
+   Random sample, experiment, trial
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-generating-mechanism">
+   Data generating mechanism
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
+     GRADED EVALUATION (15 mins)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="empirical-modeling">
+<h1>Empirical modeling<a class="headerlink" href="#empirical-modeling" title="Permalink to this headline">¶</a></h1>
+<p>Our goal is to learn from data through construction of statistical models.  Explicit in this is statistics which demands understanding and adherance to rules of probability.  In this section, we will lay out the basic foundations of probability and give examples to assist in our understanding.  Our general flow will be to understand the rules of probability and how to manipulate them, move to probability distributions and descriptive statistics, touch on likelihood and Bayes, and end with a discussion on inference.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="principals-of-probability">
+<h1>Principals of Probability<a class="headerlink" href="#principals-of-probability" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we will lay out the principals guiding our models – probability and statistics.</p>
+<p>Outline of discussion:</p>
+<ul class="simple">
+<li><p>Stochastic processes – chance regularities</p></li>
+<li><p>Beleif and probability</p></li>
+<li><p>Rules of probabillity</p></li>
+<li><p>Factoring joing probabilities</p></li>
+</ul>
+<p>General references:</p>
+<ul class="simple">
+<li><p>Statistical Inference (9780534243128): Casella, George, Berger, Roger L.</p></li>
+<li><p>Probability Theory and Statistical Inference: Empirical Modeling with Observational Data (9781107185142): Spanos, A.</p></li>
+<li><p>Bayesian Models: A Statistical Primer for Ecologists (9780691159287): Hobbs, N. Thompson, Hooten, Mevin B.</p></li>
+<li><p>A First Course in Bayesian Statistical Methods (0387922997): Hoff, Peter D.</p></li>
+</ul>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="chance-regularities">
+<h1>Chance regularities<a class="headerlink" href="#chance-regularities" title="Permalink to this headline">¶</a></h1>
+<p>The processes we are interested in are non-deterministic (exhibits chance) where patterns reveal themselves (show regularities) after collection lots of data.  Arguably, modeern statistics started with quantifying betting odds in dice games such as the sum of spots (for example, see <a class="reference external" href="http://jse.amstat.org/v11n2/feldman.html">Feldman and Morgan</a> for a discussion of HOG).  To illustrate this, consider a game of dice where we throw 2 dice and sum the dots.  Let’s simulate this in python and look at the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## simulate 500 rolls of 2 dice using random sampling with replacement</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">13457</span><span class="p">)</span>
+<span class="n">total_rolls</span> <span class="o">=</span> <span class="mi">1000</span> 
+<span class="n">numbers</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">total_rolls</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">evens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">,</span> <span class="n">numbers</span><span class="p">))</span>
+<span class="n">odds</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">evens</span><span class="p">]</span>
+
+<span class="n">dice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">rolls</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">dice</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">total_rolls</span><span class="p">)</span>
+<span class="n">rolls1</span> <span class="o">=</span> <span class="p">[</span><span class="n">rolls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">evens</span><span class="p">]</span>
+<span class="n">rolls2</span> <span class="o">=</span> <span class="p">[</span><span class="n">rolls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">odds</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;die1&#39;</span> <span class="p">:</span> <span class="n">rolls1</span><span class="p">,</span>
+                   <span class="s1">&#39;die2&#39;</span> <span class="p">:</span> <span class="n">rolls2</span><span class="p">})</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;dots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">## look at the first 10 dice throws</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>die1</th>
+      <th>die2</th>
+      <th>dots</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6</td>
+      <td>2</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6</td>
+      <td>4</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5</td>
+      <td>3</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>5</td>
+      <td>8</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>2</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1</td>
+      <td>6</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>6</td>
+      <td>5</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>2</td>
+      <td>4</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>6</td>
+      <td>6</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view the first 50 throws</span>
+<span class="n">tplot</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;dots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_4_0.png" src="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_4_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># summarize the dot counts</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;dots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7     92
+6     79
+8     73
+9     47
+5     46
+10    40
+4     35
+3     32
+11    27
+12    15
+2     14
+Name: dots, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot the frequencies as counts</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;dots&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_6_0.png" src="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_6_0.png" />
+</div>
+</div>
+<p>In this simulated game, we notice:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* we are not able to predice with certainty the next throw  
+* some combinations occur with higher frequency  
+* the shape of the tabulated data is roughly triangular  
+</pre></div>
+</div>
+</div>
+<div class="section" id="belief-and-probability">
+<h1>Belief and probability<a class="headerlink" href="#belief-and-probability" title="Permalink to this headline">¶</a></h1>
+<p>So, from this and maybe experience, we see that 7’s occur more frequently than 12’s, 5’s and 9’s about the same, etc, so we have a beleif.  How do we go from a ‘hunch’ to a quantified understanding of the game?  The answer is statistics and probability.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="sample-space-outcomes-and-events">
+<h1>Sample space, outcomes and events<a class="headerlink" href="#sample-space-outcomes-and-events" title="Permalink to this headline">¶</a></h1>
+<p>To get at an understanding of probability, we need some definitions.</p>
+<ol class="simple">
+<li><p>outcomes – mutually exclusive and exhaustive list of possible results in a model</p></li>
+<li><p>events – sets containing zero or more outcomes, we define events we are interested in</p></li>
+<li><p>sample space – set of all possible outcomes (must be collectively exhaustive and mutually exclusive).</p></li>
+</ol>
+<p>Consider the dice game.</p>
+<p>Outcomes: 2,3,4,5,6,7,8,9,10,11,12<br />
+Events: up to us, what game we play, could be evens vs odds for instance<br />
+Sample space: 2,3,4,5,6,7,8,9,10,11,12</p>
+<p>Throwing 3 coins, counting the heads, evens wins</p>
+<p>Outcomes: 0,1,2,3<br />
+Events: {0,2}, {1,3}<br />
+Sample space: 0,1,2,3</p>
+<p>To conform with the set theory behind this, the event space (\(\mathcal{F}\)) must conform to a series of conditions:</p>
+<ol class="simple">
+<li><p>the event space contains the sample space \(S \in \mathcal{F}\)</p></li>
+<li><p>the event space is closed under compliments, ie if \(E \in \mathcal{F}, E^c \in \mathcal{F}\)</p></li>
+<li><p>the event space is closed under countable unions, \(E_i \in \mathcal{F}\) for i=1,2,…, then \((\bigcup_{i=1}^{\infty}E_i) \in \mathcal{F}\)</p></li>
+</ol>
+<p>For completeness, we would need to include the empty set and the sample space to both event lists if we had wanted to enumerate the events in the event space.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr><div class="section" id="probability-space-and-probability">
+<h2>Probability Space and Probability<a class="headerlink" href="#probability-space-and-probability" title="Permalink to this headline">¶</a></h2>
+<p>Armed with some definitions of outcomes and events, we are finally ready to talk about probability.</p>
+<p>A probability space is a combination of a sample space, event space, and probability function.  The probability function is a real-valued function mapping events to the interval [0,1].  The probability function adheres to the Axioms of Probability (Kolmogorov Axioms).  These are summarized as:</p>
+<ol>
+<li><p>the probability of an event is a real number on the interval [0,1]</p>
+<div class="math notranslate nohighlight">
+\[0 \le P(E) \le 1\]</div>
+ <br>
+</li>
+<li><p>the probability of at least one event occuring is 1</p>
+<div class="math notranslate nohighlight">
+\[P(S) = 1$$ where S is the sample space  
+    &lt;br&gt;
+3. countable mutually exclusive sets of events satisfy the following  
+    
+    $$P(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^\infty P(E_i)\]</div>
+</li>
+</ol>
+<br>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+</div>
+<div class="section" id="addition-rules">
+<h1>Addition rules<a class="headerlink" href="#addition-rules" title="Permalink to this headline">¶</a></h1>
+<p>Addition rules deal with unions (\(\cup\)) of events.  These can be thought of OR probabilities.</p>
+<p>(\(\bigcup\) - non-repeating superset, \(\bigcap\) - common elements)</p>
+<div class="math notranslate nohighlight">
+\[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>or when A and B are mutually exclusive
+</pre></div>
+</div>
+<div class="math notranslate nohighlight">
+\[P(A \cup B) = P(A) + P(B)\]</div>
+<p>In the figure below, A represents a case where events in the two shaded regions are mutually exclusive, ie there are no overlapping areas.  In B, the overlapping area is the intersection (\(\cap\)) of the two areas.
+<img alt="Figure 1" src="docs/Production/sets.jpg" /></p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="multiplication-rules">
+<h1>Multiplication rules<a class="headerlink" href="#multiplication-rules" title="Permalink to this headline">¶</a></h1>
+<p>Multiplication rules deal with intersections (\(\cup\)) of events.  These can be thought of AND probabilities.</p>
+<p>(<span class="math notranslate nohighlight">\(\cup\)</span> - non-repeating superset, <span class="math notranslate nohighlight">\(\cap\)</span> - common elements)</p>
+<p>Dependent<br />
+$<span class="math notranslate nohighlight">\(P(A \cap B) = P(A) \ast P(B|A)\)</span>$</p>
+<p>Independent<br />
+$<span class="math notranslate nohighlight">\(P(A \cap B) = P(A) \ast P(B)\)</span>$</p>
+<p>Mutually exclusive<br />
+$<span class="math notranslate nohighlight">\(P(A \cap B) = 0\)</span>$</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="conditional-independent-disjoint-exchangeable">
+<h1>Conditional, Independent, disjoint, exchangeable<a class="headerlink" href="#conditional-independent-disjoint-exchangeable" title="Permalink to this headline">¶</a></h1>
+<p>Conditional<br />
+$<span class="math notranslate nohighlight">\(P(A|B) = \frac{P(A,B)}{P(B)}\)</span>$</p>
+<p>Independent<br />
+$<span class="math notranslate nohighlight">\(P(A,B) = P(A) \ast P(B)\)</span>$</p>
+<p>Disjoint<br />
+$<span class="math notranslate nohighlight">\(P(A,B) = 0\)</span>$</p>
+<p>Exhangeable<br />
+$<span class="math notranslate nohighlight">\(P(A then B) = P(B then A)\)</span>$</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="factoring-joint-probabilities">
+<h1>Factoring joint probabilities<a class="headerlink" href="#factoring-joint-probabilities" title="Permalink to this headline">¶</a></h1>
+<p>Given a joint probability, we often need to simplify to get to some tractable or known distribution.  We can do this via the rules given above and the chain rule.</p>
+<div class="math notranslate nohighlight">
+\[P(A,B) = P(A|B) \ast P(B)\]</div>
+<div class="math notranslate nohighlight">
+\[P(A,B,C) = P(A|B,C) \ast P(B,C) = P(A|B,C) \ast P(B|C) \ast P(C)\]</div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="random-variable">
+<h1>Random variable<a class="headerlink" href="#random-variable" title="Permalink to this headline">¶</a></h1>
+<p>Random variables are (often) real-valued functions mapping outcomes to a measureable space.  In set notation, this looks like:</p>
+<div class="math notranslate nohighlight">
+\[X: \Omega \to \mathbb{R}\]</div>
+<p>This mapping defines the probability giving by X in a measureable set as:</p>
+<div class="math notranslate nohighlight">
+\[P(X \in S) = P({x \in \Omega | X(x) \in S})\]</div>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="random-sample-experiment-trial">
+<h1>Random sample, experiment, trial<a class="headerlink" href="#random-sample-experiment-trial" title="Permalink to this headline">¶</a></h1>
+<p>Random sample = unbiased realization of outcomes<br />
+Random experiment = an activity with an observable result<br />
+Trial = 1 or more experiments</p>
+<p>In the figure and table below, we are plotting and tabulating the results from the roll of two dice.  We did not define the experiment up front, but will do so now for clarity.</p>
+<p>Experiment = throw 2 dice 500 times<br />
+Trial = in this case, there was a single trial of the experiment<br />
+Random sample = we have 500 realizations of two dice being thrown</p>
+<p>Note, due to how random numbers are generated and used to get the die rolls, we sampled with replacement into a long 1000 long list.  We then pulled the list into two sequences with every other 1 being die1 vs die2.  We could have done this in a for loop rolling both dice in each iteration.  Based on how randon numbers are generated, this would have resulted in the same sequence of die rolls.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## look at the first 10 dice throws</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   die1  die2  dots
+0     6     2     8
+1     6     4    10
+2     1     6     7
+3     5     3     8
+4     3     5     8
+5     5     2     7
+6     1     6     7
+7     6     5    11
+8     2     4     6
+9     6     6    12
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># view the first 50 throws</span>
+<span class="n">tplot</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;dots&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_18_0.png" src="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_18_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="data-generating-mechanism">
+<h1>Data generating mechanism<a class="headerlink" href="#data-generating-mechanism" title="Permalink to this headline">¶</a></h1>
+<p>This is the actual process we are trying to model.  In the case of the dice, it was the throwing and counting of dots where we are lookign to learn (and use) a statistical model of outcome probabilities.  In a count toss experiment, it is the binary outcome of heads or tails.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr><div class="section" id="graded-evaluation-15-mins">
+<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
+<ol>
+<li><p>You repeatedly roll a die (some large number of times, say 1M) and come up with the following probability of roll results for spots 1-6 in order: {0.14,0.10,0.20,0.14,0.14,0.28). The probability of rolling a 3 is greater than that of rolling a 4.</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>The die in the previous question is fair.</p>
+<p>a. True</p>
+<p>b. False</p>
+</li>
+<li><p>You toss a both a fair coin and a fair die simultaneously. The sample space is</p>
+<p>a. {(HT),(1,2,3,4,5,6)}</p>
+<p>b. {(H,1),(H,2),(H,3),(H,4),(H,5),(H,6),(T,1),(T,2),(T,3),(T,4),(T,5),(T,6)}</p>
+</li>
+<li><p>In this game of tossing a coin and die, the die comes up 6.  What is the probability of the coin landing heads?</p>
+<p>a. 0.5</p>
+<p>b. 0.8</p>
+</li>
+<li><p>You do the above game twice, in the first trial, it came up (H,6).  What is the probability that event will occur in the second go (0.00%)?</p></li>
+</ol>
+<p>a. 0.69</p>
+<p>b. 0.08</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sjster/statistical_computing_book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs/Production"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="../Databricks.html" title="previous page">Introduction to the Databricks Environment</a>
+    <a class='right-next' id="next-link" href="Fundamentals-lecture2-manipulating-probability-unGRADED.html" title="next page">Empirical modeling</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Srijith Rajamohan, Ph.D.<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
