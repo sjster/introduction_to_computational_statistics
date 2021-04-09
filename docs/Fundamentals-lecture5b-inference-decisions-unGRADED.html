@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inference and Decisions &#8212; Introduction to Computational Statistics with PyMC3</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo_large.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  Getting started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="About.html">
+   The What, Why and Whom…
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Setting up Your Python Environment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Databricks.html">
+   Introduction to the Databricks Environment
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Bayesian Statistics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Production/Intro.html">
+   Bayesian vs. Frequentist Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Production/Distributions.html">
+   Introduction to Common Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Production/Sampling.html">
+   Sampling Algorithms
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Monte Carlo Methods
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="BayesianInference.html">
+   Topics in Model Performance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="MonteCarlo.html">
+   Introduction to Monte Carlo Methods
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  PyMC3 for Bayesian Modeling and Inference
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="PyMC3.html">
+   Introduction to PyMC3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reparameterization.html">
+   Centered vs. Non-centered Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Covid_modeling.html">
+   Covid Modeling with PyMC3
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/docs/Fundamentals-lecture5b-inference-decisions-unGRADED.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Fundamentals-lecture5b-inference-decisions-unGRADED.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Fundamentals-lecture5b-inference-decisions-unGRADED.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Inference and Decisions
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classification">
+   Classification
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loss-functions">
+     Loss functions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cross-entropy-loss">
+     Cross Entropy Loss
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#categorical-cross-entropy-loss">
+     Categorical cross entropy loss
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-classification-loss-functions">
+     Other classification loss functions
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#continuous-response">
+     Continuous response
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mean-squared-error">
+       Mean squared error
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#mean-absolute-error">
+       Mean absolute error
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l1-and-l2-loss">
+       L1 and L2 loss
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#regularization">
+       Regularization
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#confusion-matrix">
+   Confusion matrix
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
+     GRADED EVALUATION (15 mins)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="inference-and-decisions">
+<h1>Inference and Decisions<a class="headerlink" href="#inference-and-decisions" title="Permalink to this headline">¶</a></h1>
+<p>We have been talking about probability and have some tools under our belt for manipulating distributions and estimating parameters.  How do we turn this into a decision?  Here we will discuss some measures that might help inform that decision.</p>
+<p>General references:</p>
+<ul class="simple">
+<li><p>Statistical Inference (9780534243128): Casella, George, Berger, Roger L.</p></li>
+<li><p>Probability Theory and Statistical Inference: Empirical Modeling with Observational Data (9781107185142): Spanos, A.</p></li>
+<li><p>Bayesian Models: A Statistical Primer for Ecologists (9780691159287): Hobbs, N. Thompson, Hooten, Mevin B.</p></li>
+<li><p>A First Course in Bayesian Statistical Methods (0387922997): Hoff, Peter D.</p></li>
+</ul>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="classification">
+<h1>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h1>
+<p>In the last section, we gave an example taking of a test for determining status of disease.  We took the test and discovered a positive result which led to a probability that we are truly infected given the postivite test of 79%.  The odds are, we have the disease.  Are we sure enough that we will seek appropriate treatment or perhaps we want a second opinion?  Is there a second test?  Do we simply take two tests and combine the results?  When we build a computational model, we repeatedly ask this question and have to make a decision, do we continue in the current direction or go from whence we came. The consequences of making a wrong choice are often not symmetric.  Our overall goal is to simply be right, but understanding consequence discrepancies may suggest wrong answers are not all the same.  In this example we may choose to weigh a wrong answer differently in one direction than another.</p>
+<p>Restating this in terms of probability, for a binary decision, our goal is:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\text{argmin } p(mistake) = \sum_{i=1}^k p(x_{k \notin j},C_k)$$ where j/k are class labels.\\### Rejection regions or decision boundaries\\In our decision, we may choose a region for inclusion in one class or another, for instance, we may decide the optimal boundary in our disease classification is at $p(disease|+test)&gt;75%$.  Note that the decision boundary should parition the space.  Written with a decision boundary, \\$$\text{argmin } p(mistake) = \int_{\mathbb{R_1}} p(x,C_2) dx + \int_{\mathbb{R_2}} p(x,C_1) dx\end{aligned}\end{align} \]</div>
+<p>Returning to the coin toss experiment, after we perform the experiment many times, we can arrange the data and find the regions to the right/left that give the desired partions between ‘fair’ and ‘biased’ based on our tolerance for error.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># define an experiment as flipping Ncoins</span>
+<span class="c1"># we will repeat the experiment Ntrials times</span>
+<span class="c1"># for each experiment, we record the fraction of heads(1&#39;s) observed</span>
+
+<span class="k">def</span> <span class="nf">do_one_trial</span><span class="p">(</span><span class="n">pheads</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Ncoins</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">coin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#H=1, T=0</span>
+    <span class="n">total_flips</span> <span class="o">=</span> <span class="mi">1000</span> 
+    <span class="n">toss_results</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">coin</span><span class="p">,</span><span class="n">k</span><span class="o">=</span><span class="n">Ncoins</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="n">pheads</span><span class="p">,</span><span class="mi">1</span><span class="o">-</span><span class="n">pheads</span><span class="p">])</span>
+    <span class="n">fraction_successes</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">toss_results</span><span class="p">)</span><span class="o">/</span><span class="n">Ncoins</span><span class="p">)</span> <span class="c1"># success = head</span>
+    <span class="k">return</span> <span class="n">fraction_successes</span>
+
+<span class="k">def</span> <span class="nf">do_many_trials</span><span class="p">(</span><span class="n">pheads</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Ntrials</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">Ncoins</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+    <span class="n">resultarr</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Ntrials</span><span class="p">):</span>
+        <span class="n">resultarr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">do_one_trial</span><span class="p">(</span><span class="n">pheads</span><span class="o">=</span><span class="n">pheads</span><span class="p">,</span> <span class="n">Ncoins</span><span class="o">=</span><span class="n">Ncoins</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">resultarr</span>
+
+<span class="c1"># looking to get the bounds of the rejection region for plotting</span>
+<span class="k">def</span> <span class="nf">get_thresh_2tail</span><span class="p">(</span><span class="n">trial_data</span><span class="p">,</span> <span class="n">significance</span><span class="o">=.</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">sorted_results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">trial_data</span><span class="p">))</span>
+    <span class="n">twotailedsig</span> <span class="o">=</span> <span class="n">significance</span><span class="o">/</span><span class="mf">2.</span>
+    <span class="c1"># sum from left to right to find left most bound</span>
+    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sorted_results</span><span class="p">:</span>
+        <span class="n">integral</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sorted_results</span><span class="p">[</span><span class="n">sorted_results</span><span class="o">&lt;</span><span class="n">val</span><span class="p">]))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">sorted_results</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">integral</span> <span class="o">&gt;</span> <span class="n">twotailedsig</span><span class="p">:</span>
+            <span class="n">lowerbound</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="k">break</span>
+    <span class="c1"># sum from right to left to find right most bound</span>
+    <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">sorted_results</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">integral</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sorted_results</span><span class="p">[</span><span class="n">sorted_results</span><span class="o">&gt;</span><span class="n">val</span><span class="p">]))</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">sorted_results</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">integral</span> <span class="o">&gt;</span> <span class="n">twotailedsig</span><span class="p">:</span>
+            <span class="n">upperbound</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span>
+
+<span class="n">coin_experiment_data</span> <span class="o">=</span> <span class="n">do_many_trials</span><span class="p">(</span><span class="n">pheads</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">Ntrials</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">Ncoins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span> <span class="o">=</span> <span class="n">get_thresh_2tail</span><span class="p">(</span><span class="n">coin_experiment_data</span><span class="p">,</span> <span class="n">significance</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># plot data with rejection regions</span>
+<span class="n">hist</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">coin_experiment_data</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">hist</span><span class="p">,[</span><span class="mf">0.</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">hist</span><span class="p">,</span> <span class="n">drawstyle</span><span class="o">=</span><span class="s1">&#39;steps-post&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Fraction of Heads&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">upperbound</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;bounds are:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">([</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bounds are:
+[0.35, 0.6]
+</pre></div>
+</div>
+<img alt="../_images/Fundamentals-lecture5b-inference-decisions-unGRADED_2_1.png" src="../_images/Fundamentals-lecture5b-inference-decisions-unGRADED_2_1.png" />
+</div>
+</div>
+<p>Knowing we are going to make mistakes, we introduce the idea of a loss function.  Loss functions (also called cost functions or as a positive, a utility functions), is a function that we create that captures the goal of minimizing errors but allows for differences in magnetude for consequences of the mistakes.  The goal is now to minimize the average loss:</p>
+<div class="math notranslate nohighlight">
+\[E[loss] = \sum_k \sum_j \int_{\mathbb{R_j}} L_{kj}p(x,C_k) dx\]</div>
+<div class="section" id="loss-functions">
+<h2>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h2>
+<p>Loss functions are functions created to match our goals with penalties to steer our algorithm to beneficial regions.  As an example, consider the follow loss function:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{matrix} &amp; \text{disease} &amp; \text{no disease} \\ \text{disease} &amp; 0 &amp; 100 \\\text{no disease} &amp; 1 &amp; 0 \end{matrix}\end{split}\]</div>
+<p>Here we are assigning zero loss for correct responses, 1 loss for cases where we predict “no disease” but the true state is “disease” and finally, 100 loss for cases of incorrectly predicting “disease”.  The loss function here is implicitly penalizing false positives more than false negatives (see Confusion Matrix at end).</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L(\theta,a) = 
+\begin{cases}
+    0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
+    1, \text{for predict no disease, actual disease} \\
+    100, \text{for predict disease, actual no disease} \\
+\end{cases}
+\end{split}\]</div>
+</div>
+<div class="section" id="cross-entropy-loss">
+<h2>Cross Entropy Loss<a class="headerlink" href="#cross-entropy-loss" title="Permalink to this headline">¶</a></h2>
+<p>Any loss function which is the negative log likelihood between the empirical distribution of the data and the probability distribution of the model is a cross entropy loss.</p>
+<p>Often, when one talks about cross entropy loss, the meaning is for binary classification.  In fact, cross entropy loss, also called log loss, is the go-to function for binary classification tasks.  It is the log likelihood for a Bernoulli trial.</p>
+<div class="math notranslate nohighlight">
+\[-y_i ln(\hat{\theta}_i) - (1-y_i) ln (1-\hat{\theta}_i)\]</div>
+<p>Cross entropy loss is nice in that it penalizes heavily for very wrong results.  In this case, the true labels are the \(y_i\)’s while our predictions are the associated probabilities (\(\hat{\theta}_i\)’s). Note, there is no ‘reward’ in cross entropy loss, the best you can do is 0 when the output is correct.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.05</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mf">0.15</span><span class="p">,</span><span class="mf">0.85</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mf">0.75</span><span class="p">,</span><span class="mf">0.25</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mf">0.04</span><span class="p">,</span><span class="mf">0.96</span><span class="p">]])</span> <span class="c1">#predictions are A,B,B,A</span>
+<span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
+                   <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span> <span class="c1">#correct classes are A,A,B,B</span>
+
+<span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-10</span> <span class="c1"># avoid log of zero</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">,</span> <span class="mf">1.</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">predictions</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">targets</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">predictions</span><span class="o">+</span><span class="mf">1e-7</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Penalties for each prediction&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ce_loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">N</span>
+<span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Total cross entropy loss is: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ce_loss</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Penalties for each prediction
+[[-0.05129319 -0.        ]
+ [-1.89711932 -0.        ]
+ [-0.         -1.38629396]
+ [-0.         -0.04082189]]
+Total cross entropy loss is: 0.8438820897043499
+</pre></div>
+</div>
+</div>
+</div>
+<p>Note that this can easily be extended to the case of multiple categories.</p>
+</div>
+<div class="section" id="categorical-cross-entropy-loss">
+<h2>Categorical cross entropy loss<a class="headerlink" href="#categorical-cross-entropy-loss" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\text{CE loss }= - \sum_{i=1}^I \sum_{k=1}^K \mathbb{1}_{y_i = k}log p(y_i = k | x_i,\theta)\]</div>
+<p>This looks completely different, but understanding the terms will quickly lead to a familiar setup.  The CE loss is a sum of the probabilities assigned to the predicted class.  The \(\mathbb{1}\) is an idicator function determining which class is the correct class while the \(p(y_i = k | x_i,\theta)\) is the likelihood of the correct class given the data.  In the case of two categories, this reduces to the cross entropy case above.</p>
+</div>
+<div class="section" id="other-classification-loss-functions">
+<h2>Other classification loss functions<a class="headerlink" href="#other-classification-loss-functions" title="Permalink to this headline">¶</a></h2>
+<p><strong>Focal loss</strong> is a modified loss attempting to highlight the loss from incorrectly classified samples vs those that are classified correctly, but perhaps with less than perfect probability.</p>
+<div class="math notranslate nohighlight">
+\[FL = - \sum_{i=1}^{C=2}(1-\hat{\theta}_i)^\gamma t_i log(\hat{\theta}_i)\]</div>
+<p>where \((1-\hat{\theta}_i)^\gamma\) modulates the loss.  As the probability of the assignment goes towards 1 for correct responses, the contribution to the loss goes to 0 more quickly.</p>
+<p><strong>Hinge loss</strong> is a maximum margin classifier.  Basically, this loss aims to make the classification more of a sure event.  The score of a correct assignment should exceed the sum of scores of incorrect assignments by some margin.</p>
+<div class="math notranslate nohighlight">
+\[HL = \sum_{j \ne y_i} max(0,s_j-s_{y_i}+1)\]</div>
+</div>
+<div class="section" id="continuous-response">
+<h2>Continuous response<a class="headerlink" href="#continuous-response" title="Permalink to this headline">¶</a></h2>
+<p>In continuous responses, the goodness of fit measure is some function of distance.</p>
+<div class="section" id="mean-squared-error">
+<h3>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h3>
+<p>Mean squared error, MSE, is defined as</p>
+<div class="math notranslate nohighlight">
+\[MSE = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y_i})^2\]</div>
+<p>This has a number of nice features as a loss function including penalizing based on distance from the prediction and mathmatical properties such as that it is differentiable and there is always a single solution.  MSE is sensitive to outliers, ie it is not robust to outliers.</p>
+</div>
+<div class="section" id="mean-absolute-error">
+<h3>Mean absolute error<a class="headerlink" href="#mean-absolute-error" title="Permalink to this headline">¶</a></h3>
+<p>Mean absolute error, MAE, is defined as</p>
+<div class="math notranslate nohighlight">
+\[MAE = \frac{1}{N} \sum_{i=1}^N |y_i - \hat{y_i}|\]</div>
+<p>Like MSE, MAE returns the average of the magnetude of errors, but needs computational tools to deal with the lack of a differential.  MAE is less sensitive to ouliers than MSE, however, there is no guarantee of a unique solution.</p>
+</div>
+<div class="section" id="l1-and-l2-loss">
+<h3>L1 and L2 loss<a class="headerlink" href="#l1-and-l2-loss" title="Permalink to this headline">¶</a></h3>
+<p>L1 loss is sum of absolute differences, also called the method of Least Absolute Deviations (LAD).  \(L_1 = N \ast MAE\).</p>
+<p>L2 loss is <span class="math notranslate nohighlight">\(N \ast MSE\)</span> also called least squares error, or LSE.</p>
+</div>
+<div class="section" id="regularization">
+<h3>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h3>
+<p>Regularization is a technique to prevent overfitting throug addition of penatly term to the sum of the regression coefficents.  For instance:</p>
+<div class="math notranslate nohighlight">
+\[argmin LSE + \lambda \sum_{i=1}^k|w_i|\]</div>
+<p>where the \(w_i\) are the weights being learned.</p>
+<p>The above woulld be an L1 regularization on least squares (LASSO).  There are other variations including L2 regularization (ridge regression) where the penalty is on the squared weights, elastic net (both L1 and L2 regularization), etc.</p>
+</div>
+</div>
+</div>
+<div class="section" id="confusion-matrix">
+<h1>Confusion matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this headline">¶</a></h1>
+<p>For binary classification problems, we have the so called confusion matrix.  For a class known to be A, did we predict A or B?  The result to that question can be summarized in the confusion matrix:</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>Positive Class</p></th>
+<th class="head"><p>Negative Class</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Positive Prediction</p></td>
+<td><p>True Positive (TP)</p></td>
+<td><p>False Positive (FP) <strong>Type I error</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>Negative Prediction</p></td>
+<td><p>False Negative (FN) <strong>Type II error</strong></p></td>
+<td><p>True Negative (TN)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The various cells give rise to the 4 possible cases: TP,FP,FN,TN.  Associated with these cases are marginal rates:</p>
+<p>True Positive Rate (TPR): TP/(TP+FN)  – <strong>Sensitivity</strong><br />
+False Positive Rate (FPR): FP/(FP+TN)<br />
+True Negative Rate (TNR): TN/(TN+FP)  – <strong>Specificity</strong><br />
+False Negative Rate (FNR): FN/(FN+TP)</p>
+<p>As an aside, we can map these to Bayes’ Rule where</p>
+<p>P(A) = Probability of Positive Class (PC)<br />
+P(not A) = Probability of Negative Class (NC)<br />
+P(B) = Probability of Positive Prediction (PP)<br />
+P(not B) = Probability of Negative Prediction (NP)</p>
+<div class="math notranslate nohighlight">
+\[P(A|B) = \frac{P(B|A)*P(A)}{P(B)} = \frac{TPR*PC}{TPR*PC + FPR*NC}\]</div>
+<p>Precision also called the Positive Predictive Value.<br />
+$<span class="math notranslate nohighlight">\(precision = PPV = \frac{TP}{TP+FP} = \frac{TPR*PC}{PP}\)</span>$</p>
+<p>Recall is also known as the sensitivity.<br />
+$<span class="math notranslate nohighlight">\(recall = \frac{TP}{TP+FN}\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[F_1 score = \frac{precision*recall}{precision+recall}\]</div>
+<p>Type 1 error = false positive</p>
+<p>Type 2 error = false negative</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr><div class="section" id="graded-evaluation-15-mins">
+<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Cost functions are measures of fit.</p></li>
+</ol>
+<p>a. true</p>
+<p>b. false</p>
+<div class="math notranslate nohighlight">
+\[\]</div>
+<ol class="simple">
+<li><p>Cost functions are only useful in categorical decision settings.</p></li>
+</ol>
+<p>a. false</p>
+<p>b. true</p>
+<div class="math notranslate nohighlight">
+\[\]</div>
+<ol class="simple">
+<li><p>The following is a valid example of a cost function:</p></li>
+</ol>
+<p>a.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L(\theta,a) = 
+\begin{cases}
+    0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
+    1, \text{for predict no disease, actual no disease} \\
+    100, \text{for predict disease, actual no disease} \\
+\end{cases}
+\end{split}\]</div>
+<p>b.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}L(\theta,a) = 
+\begin{cases}
+    0, \text{for {(predict disease, actual disease),(predict no disease, actual no disease)}} \\
+    1, \text{for predict no disease, actual disease} \\
+    100, \text{for predict disease, actual no disease} \\
+\end{cases}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\]</div>
+<ol class="simple">
+<li><p>In a recent study, you created a cost function for classification of 4 classes.  Following training, you obtained the following resuls.  What are the predictions for the samples in terms of thier class?</p></li>
+</ol>
+<p>predictions = np.array([
+$<span class="math notranslate nohighlight">\([0.25,0.25,0.20,0.30],\)</span><span class="math notranslate nohighlight">\(
+                        \)</span><span class="math notranslate nohighlight">\([0.25,0.30,0.20,0.25],\)</span><span class="math notranslate nohighlight">\(
+                        \)</span><span class="math notranslate nohighlight">\([0.10,0.25,0.25,0.40],\)</span><span class="math notranslate nohighlight">\(
+                        \)</span><span class="math notranslate nohighlight">\([0.45,0.10,0.20,0.25],\)</span><span class="math notranslate nohighlight">\(
+                        \)</span><span class="math notranslate nohighlight">\([0.01,0.01,0.01,0.96]])\)</span>$</p>
+<p>a. A,B,C,B</p>
+<p>b. D,B,D,A,D</p>
+<p>c. D,B,C,E</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sjster/statistical_computing_book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Srijith Rajamohan, Ph.D.<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

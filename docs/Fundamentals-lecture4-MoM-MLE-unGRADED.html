@@ -1,0 +1,522 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parameter Estimation &#8212; Introduction to Computational Statistics with PyMC3</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo_large.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Introduction to Computational Statistics with PyMC3</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <p class="caption collapsible-parent">
+ <span class="caption-text">
+  Getting started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="About.html">
+   The What, Why and Whom…
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Setting up Your Python Environment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Databricks.html">
+   Introduction to the Databricks Environment
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Bayesian Statistics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Production/Intro.html">
+   Bayesian vs. Frequentist Statistics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Production/Distributions.html">
+   Introduction to Common Distributions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Production/Sampling.html">
+   Sampling Algorithms
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Introduction to Monte Carlo Methods
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="BayesianInference.html">
+   Topics in Model Performance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="MonteCarlo.html">
+   Introduction to Monte Carlo Methods
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  PyMC3 for Bayesian Modeling and Inference
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="PyMC3.html">
+   Introduction to PyMC3
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reparameterization.html">
+   Centered vs. Non-centered Parameterization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Covid_modeling.html">
+   Covid Modeling with PyMC3
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/docs/Fundamentals-lecture4-MoM-MLE-unGRADED.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Fundamentals-lecture4-MoM-MLE-unGRADED.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Fundamentals-lecture4-MoM-MLE-unGRADED.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties-of-estimators">
+   Properties of estimators
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#consistency">
+     Consistency
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bias">
+     Bias
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#efficency">
+   Efficency
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mean-squared-error">
+     Mean squared error
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#method-of-moments">
+   Method of moments
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-estimation">
+   Maximum Likelihood Estimation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-a-posteriori-estimate">
+   Maximum a posteriori estimate
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
+   GRADED EVALUATION (15 mins)
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="parameter-estimation">
+<h1>Parameter Estimation<a class="headerlink" href="#parameter-estimation" title="Permalink to this headline">¶</a></h1>
+<p>Given a representative sample of data from some population, we may need to estimate the parameters for a distribution characterizing the population.  We discus properties of estimators and the following estimation methods below:</p>
+<ol class="simple">
+<li><p>Method of Moments.</p></li>
+<li><p>Maximum Likelihood Estimation (MLE).</p></li>
+<li><p>Maximum a posteriori probability estimate (MAP).</p></li>
+</ol>
+<p>General references:</p>
+<ul class="simple">
+<li><p>Pattern Recognition and Machine Learning (9780387310732) Bishop, Christopher M.</p></li>
+<li><p>Statistical Inference (9780534243128): Casella, George, Berger, Roger L.</p></li>
+<li><p>Probability Theory and Statistical Inference: Empirical Modeling with Observational Data (9781107185142): Spanos, A.</p></li>
+<li><p>Bayesian Models: A Statistical Primer for Ecologists (9780691159287): Hobbs, N. Thompson, Hooten, Mevin B.</p></li>
+<li><p>A First Course in Bayesian Statistical Methods (0387922997): Hoff, Peter D.</p></li>
+</ul>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr><div class="section" id="properties-of-estimators">
+<h2>Properties of estimators<a class="headerlink" href="#properties-of-estimators" title="Permalink to this headline">¶</a></h2>
+<p>What makes a good estimator?  We likely want an estimator that points to the parameter we are estimating and does not vary much around that value.  Usually, there is a tradeoff between these two desires. A few definitions:</p>
+<div class="section" id="consistency">
+<h3>Consistency<a class="headerlink" href="#consistency" title="Permalink to this headline">¶</a></h3>
+<p>Consistency is</p>
+<div class="math notranslate nohighlight">
+\[P(|\theta_n-\theta |&gt;0) \to 0 \text{ as } n \to \infty\]</div>
+<p>In words, this is stating that as the sample gets large, the estimator converges in probability to \(\theta\).</p>
+</div>
+<div class="section" id="bias">
+<h3>Bias<a class="headerlink" href="#bias" title="Permalink to this headline">¶</a></h3>
+<p>\(\theta_n\) is unbiased if</p>
+<div class="math notranslate nohighlight">
+\[E(\theta_n)=\theta\]</div>
+<p>basically, the estimator is unbiased if it is centered on the true.</p>
+</div>
+</div>
+<div class="section" id="efficency">
+<h2>Efficency<a class="headerlink" href="#efficency" title="Permalink to this headline">¶</a></h2>
+<p>An estimator that has the lowest possible variance among all unbiased estimators is considered efficent.</p>
+<div class="section" id="mean-squared-error">
+<h3>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h3>
+<p>Combining the variance and bias, we get a measure of the quality of the estimator called mean squared error (MSE):</p>
+<div class="math notranslate nohighlight">
+\[MSE = variance + bias^2\]</div>
+<p>MSE is a measure of the trade off between accuracy (spread) and precision (location).</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+</div>
+<div class="section" id="method-of-moments">
+<h2>Method of moments<a class="headerlink" href="#method-of-moments" title="Permalink to this headline">¶</a></h2>
+<p>The method of moments amounts to matching population moments to sample moments.  Basically, we are using the finite approximation given by:</p>
+<div class="math notranslate nohighlight">
+\[E[f] = \int f(x)^r p(x) dx \approx \frac{1}{N} \sum f(x)^r p(x)\]</div>
+<p>where \(f(x)=x\) and \(r=1\), this amounts to</p>
+<div class="math notranslate nohighlight">
+\[\mu \approx \bar{x}\]</div>
+<p>It is up to us to chose which moment to use, however, the number of moments required will be equal to the number of parameters we are looking to estimate.  As an example, suppose we are looking to estimate the probability of success for a coin toss experiment given by the Bernoulli distribution.  We know:</p>
+<p>\(X_i \sim Bern(\theta)\), where we have coded x = 1 for heads:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P_X(x;\theta) = 
+\begin{cases}
+    \theta, \text{for x = 1} \\
+    1 - \theta, \text{ for x = 0} \\
+\end{cases}
+\end{split}\]</div>
+<p>Alternatively, we can write this as:</p>
+<div class="math notranslate nohighlight">
+\[f(x;\theta) = \theta^x(1-\theta)^{(1-x)}\]</div>
+<p>For this experiment, let us assume we are collecting N=20 tosses of the dime and end up with data: {1,1,0,1,1,1,1,0,1,0,1,0,1,1,0,0,1,1,1,0} (13 heads).</p>
+<p>We are looking to estimate both the mean and variance.</p>
+<p>For the population:</p>
+<div class="math notranslate nohighlight">
+\[E[X] = \sum_x x f(x) = \sum_x x [\theta^x(1-\theta)^{(1-x)}] = 0\ast(1-\theta) + 1\ast\theta = \theta\]</div>
+<div class="math notranslate nohighlight">
+\[Var(X) = \theta(1-\theta)\]</div>
+<p>From this, we see we only need to estimate one parameter as the variance is a function of the mean.</p>
+<p>So, we can match the first sample moment to the population moment to get our estimate:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \frac{1}{N} \sum_N x_i = \frac{13}{20}\]</div>
+<p>from which the variance can also be computed.</p>
+<p>Method of Moment estimators can be show to be consitent, but not necessarily efficent and can give estimates that are outside the parameter space.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="maximum-likelihood-estimation">
+<h2>Maximum Likelihood Estimation<a class="headerlink" href="#maximum-likelihood-estimation" title="Permalink to this headline">¶</a></h2>
+<p>Another approach to parameter estimation follows from an assumption that our data results from  independent and identically distributed observations from a population.  Our goal is to find a <span class="math notranslate nohighlight">\(\theta\)</span> that maximizes the likelihood of us observing our data.</p>
+<p>The likelihood function is defined as the joint probability of observing the data:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}(\theta|x_1 ... x_n) = \prod_{i=1}^n f(x_i | \theta)\]</div>
+<p>Our job is then to solve:</p>
+<p>\(\frac{d}{d\theta}\mathcal{L}(\theta|{x})=0\) make sure it is a max and not on the boundary.</p>
+<p>If we return to the coin toss example with 13 heads in 20 tosses, we start by setting up the likelihood function and differentiating wrt \(\theta\).</p>
+<p>\(\mathcal{L}(\theta|x_1 … x_n) = \prod_{i=1}^n \theta^x(1-\theta)^{(1-x)}\)</p>
+<p>Note, it is often necessary to convert the likelihood to log likelihood to  avoid computational difficulties arising from having lots of data.</p>
+<p>\(ln \mathcal{L}(\theta|x_1 … x_n) = (\sum_{i=1}^n x_i) ln \theta + (\sum_{i=1}^n (1-x_i)) ln (1-\theta)\)</p>
+<p>differentiating wrt to \(\theta\) and setting to zero, we get</p>
+<p>\((\sum_{i=1}^n x_i)\frac{1}{\hat{\theta}} -(\sum_{i=1}^n (1-x_i))\frac{1}{1-\hat{\theta}}\) = 0</p>
+<p>solving for \(\hat{\theta}\), we end up with</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \frac{1}{n}\sum_{i=1}^n x_i = \bar{x}\]</div>
+<p>Which matches the previous result of \(\frac{13}{20}\).</p>
+<p>MLE can be shown to be a consistent estimator, but may be biased.  Operationally, it can be computationally expensive to calculate, but offers a useful fact that any function of the parameters is also a function of the MLE, ie invariant to transformations.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr>
+</div>
+<div class="section" id="maximum-a-posteriori-estimate">
+<h2>Maximum a posteriori estimate<a class="headerlink" href="#maximum-a-posteriori-estimate" title="Permalink to this headline">¶</a></h2>
+<p>We will discuss MAP estimates in more detail when talking through priors, for now, we can leave this as the MAP estimate is an augmented MLE using prior, or additional information.  The procedure is the same as in finding the MLE, however, we add additional information via:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta}_{MAP} = arg max_{\theta} \mathcal{L}(\theta|x_1 ... x_n) \ast \pi (\theta)\]</div>
+<p>\(\pi (\theta)\) is our prior or additional information.</p>
+<br>
+<br>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="graded-evaluation-15-mins">
+<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>For a variable \(X_i \overset{iid} \sim N(\mu,\sigma^2), i=1\dots n\), find the MLE for \((\mu ,\sigma^2)\)</p></li>
+</ol>
+<p>\(\text{     }(\hat{ \mu },\hat{ \sigma^2 })\)=</p>
+<p>a. \(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n} \)</p>
+<p>b. \(\overline{X}, \frac{\sum(X_i-\overline{X})^2}{n-1} \)</p>
+<div class="math notranslate nohighlight">
+\[\]</div>
+<ol class="simple">
+<li><p>Does the MLE of the last question agree with the MoM estimator?</p></li>
+</ol>
+<p>a. Yes</p>
+<p>b. No</p>
+<div class="math notranslate nohighlight">
+\[\]</div>
+<ol class="simple">
+<li><p>The MLE estimator is invariant to transformation.  If you want an estimate for \(\mu^2\) and have the estimate for \(\mu\), you can simply take the estimate \(\hat{\mu}^2\) .</p></li>
+</ol>
+<p>a. False</p>
+<p>b. True</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sjster/statistical_computing_book",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Srijith Rajamohan, Ph.D.<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>
