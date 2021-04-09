@@ -7,7 +7,7 @@
     - file: docs/Databricks.ipynb
 - part: Introduction to Bayesian Statistics
   chapters:
-    - file: docs/Production/Fundamentals-lecture1-belief-and-probability-unGRADED
+    - file: docs/Production/Fundamentals-lecture1-belief-and-probability-unGRADED.ipynb
     - file: docs/Production/Fundamentals-lecture2-manipulating-probability-unGRADED.ipynb
     - file: docs/Production/Fundamentals-lecture3-intro-distributions-unGRADED.ipynb
     - file: docs/Production/Fundamentals-lecture4-MoM-MLE-unGRADED.ipynb
