@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Covid Modeling with PyMC3 - Problem Statement &#8212; Introduction to Computational Statistics with PyMC3</title>
+    <title>Setting up Your Python Environment &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -55,8 +55,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Covid Modeling with PyMC3" href="Covid_modeling.html" />
-    <link rel="prev" title="Centered vs. Non-centered Parameterization" href="Reparameterization.html" />
+    <link rel="next" title="Introduction to the Databricks Environment" href="Databricks.html" />
+    <link rel="prev" title="The What, Why and Whom…" href="About.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -91,14 +91,14 @@
   Getting started
  </span>
 </p>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="About.html">
    The What, Why and Whom…
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="getting_started.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Setting up Your Python Environment
   </a>
  </li>
@@ -187,7 +187,7 @@
   PyMC3 for Bayesian Modeling and Inference
  </span>
 </p>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="PyMC3.html">
    Introduction to PyMC3
@@ -198,8 +198,8 @@
    Centered vs. Non-centered Parameterization
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Covid_modeling_problem.html">
    Covid Modeling with PyMC3 - Problem Statement
   </a>
  </li>
@@ -246,11 +246,14 @@
 
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/docs/Production/Covid_modeling_problem.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+        <a class="dropdown-buttons"
+            href="../../_sources/docs/Production/getting_started.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/getting_started.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -273,18 +276,13 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Covid_modeling_problem.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/getting_started.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Covid_modeling_problem.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
         
         <button type="button" class="btn btn-secondary topbarbtn"
             onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
@@ -305,23 +303,35 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#attribution">
-   Attribution
+  <a class="reference internal nav-link" href="#databricks-community-edition">
+   Databricks Community Edition
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#goal">
-   Goal
+  <a class="reference internal nav-link" href="#binder">
+   Binder
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#classes-to-perform-the-modeling">
-   Classes to perform the modeling
+  <a class="reference internal nav-link" href="#anaconda">
+   Anaconda
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example">
-     Example
+    <a class="reference internal nav-link" href="#installing-anaconda">
+     Installing Anaconda
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jupyter-notebooks">
+   Jupyter Notebooks
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#starting-the-jupyter-notebook">
+     Starting the Jupyter Notebook
     </a>
    </li>
   </ul>
@@ -338,80 +348,83 @@
         
               <div>
                 
-  <div class="section" id="covid-modeling-with-pymc3-problem-statement">
-<h1>Covid Modeling with PyMC3 - Problem Statement<a class="headerlink" href="#covid-modeling-with-pymc3-problem-statement" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="attribution">
-<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
-<p>This work is based on the work done by the Priesemann Group for inferring the parameters for COVID-19 and performing predictions. An overview of the methods can be found <a class="reference external" href="https://pad.gwdg.de/s/ByQgsSP88">here</a>.</p>
-</div>
-<div class="section" id="goal">
-<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
-<ol>
-<li><p>Obtain the data that has the number of COVID-19 cases starting from January for each country.</p></li>
-<li><p>Select a country of choice to infer the COVID-19 parameters and extract the number of confirmed cases (You will need the total population of the country that you select).</p></li>
-<li><p>Use the SIR model as a disease model ([Notebook].(<a class="reference external" href="https://github.com/sjster/Epidemic/blob/master/Epidemic.ipynb">https://github.com/sjster/Epidemic/blob/master/Epidemic.ipynb</a>)). This is a set of non-linear differential equations that are used to model disease propagation.</p></li>
-<li><p>Setup a PyMC3 model to infer the SIR parameters from the number of confirmed cases (S,I, mu, lambda).</p>
-<p>a. Select appropriate priors for each variable.</p>
-<p>b. Use a Lognormal distribution for I_begin.</p>
-<p>c. λ is the fraction of people that are newly infected each day. Use a Lognormal distribution for this.</p>
-<p>d. μ is the fraction of people that recover each day. Use a Lognormal distribution.</p>
-<p>e. The prior of the error of observed cases can use a Half Cauchy distribution.</p>
-</li>
-<li><p>Predict cases into the future.</p>
-<p>a. Compare the predictions with the real observations and compute the error.</p>
-<p>b. Note how the error varies as you increase the number of days chosen for the forecast.</p>
-</li>
-</ol>
-<p>Use appropriate metadata stores for experiment management. I have used the shelve module in Python but experiment with MLflow.</p>
-</div>
-<div class="section" id="classes-to-perform-the-modeling">
-<h2>Classes to perform the modeling<a class="headerlink" href="#classes-to-perform-the-modeling" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p>COVID_data is the class for data ingestion</p>
+  <div class="section" id="setting-up-your-python-environment">
+<span id="getting-started"></span><h1>Setting up Your Python Environment<a class="headerlink" href="#setting-up-your-python-environment" title="Permalink to this headline">¶</a></h1>
+<p>There are a few ways you can set up your Python environment for the notebooks that are going to be used for the courses here.</p>
+<p><strong>The notebooks can be downloaded from each course page by clicking the tab on the top right corner and selecting ‘.ipynb’.</strong></p>
+<div class="section" id="databricks-community-edition">
+<h2>Databricks Community Edition<a class="headerlink" href="#databricks-community-edition" title="Permalink to this headline">¶</a></h2>
+<p>Databricks offers a <a class="reference external" href="https://community.cloud.databricks.com/login.html">Community Edition</a> of their Data Science ecosystem for running experiments in notebooks. You can sign up for a free account and start running the notebooks for the course. The advantages of using Databricks over other Data Science ecosystems:</p>
 <ul class="simple">
-<li><p>Pass a country and the population of the country to initialize this class</p></li>
-<li><p>Set the dates to obtain case information</p></li>
+<li><p>Integration with MLflow for experiment management</p></li>
+<li><p>Integration with Git for version control of your notebooks</p></li>
+<li><p>Integration with your AWS, GCP and Azure accounts if you so desire</p></li>
+<li><p>Easy to setup a cluster for scaling your Data Science workflows</p></li>
+<li><p>Collaborate and comment on notebooks with your team</p></li>
+<li><p>Easily publish your notebooks for public consumption</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">covid_obj</span> <span class="o">=</span> <span class="n">COVID_data</span><span class="p">(</span><span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="n">Population</span><span class="o">=</span><span class="mf">328.2e6</span><span class="p">)</span>
- <span class="n">covid_obj</span><span class="o">.</span><span class="n">get_dates</span><span class="p">(</span><span class="n">data_begin</span><span class="o">=</span><span class="s1">&#39;2/1/20&#39;</span><span class="p">,</span> <span class="n">data_end</span><span class="o">=</span><span class="s1">&#39;9/28/20&#39;</span><span class="p">)</span>
-</pre></div>
 </div>
-</li>
-<li><p>SIR_model and SIR_model_sunode are the two classes that help to model and solve the set of ODEs that is the SIR model for disease modeling. Use the ‘sunode’ model since this is much faster.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sir_model</span> <span class="o">=</span> <span class="n">SIR_model_sunode</span><span class="p">(</span><span class="n">covid_obj</span><span class="p">)</span>
-</pre></div>
+<div class="section" id="binder">
+<h2>Binder<a class="headerlink" href="#binder" title="Permalink to this headline">¶</a></h2>
+<p>Once you are on a course page that has a Jupyter Notebook, click on the tab located at the top right corner of the page and select ‘Binder’. This deploys the notebook onto a cloud environment. Binder automatically pulls the Docker image and creates a working Python environment for you without any user intervention. This is the easiest way to get started using the notebooks. However, any changes made in the notebooks will not be persistent. If persistence is desired, it is recommended to use the Databricks Community Edition.</p>
 </div>
-</li>
-<li><p>Set the likelihood and prior distribution information in a dictionary</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">likelihood</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;distribution&#39;</span><span class="p">:</span> <span class="s1">&#39;lognormal&#39;</span><span class="p">,</span> 
-          <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="n">prior</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lam&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> 
-     <span class="s1">&#39;mu&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> 
-     <span class="s1">&#39;lambda_std&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-     <span class="s1">&#39;mu_std&#39;</span><span class="p">:</span> <span class="mf">0.2</span> <span class="p">}</span>
-</pre></div>
+<div class="section" id="anaconda">
+<h2>Anaconda<a class="headerlink" href="#anaconda" title="Permalink to this headline">¶</a></h2>
+<p>The preferred Python distribution is
+<a class="reference external" href="https://www.anaconda.com/what-is-anaconda/">Anaconda</a>. Anaconda is a cross-platform distribution that has a fairly comprehensive set of packages. Anaconda comes with a  package management system called <code class="docutils literal notranslate"><span class="pre">conda</span></code> to organize
+your environment.</p>
+<div class="section" id="installing-anaconda">
+<h3>Installing Anaconda<a class="headerlink" href="#installing-anaconda" title="Permalink to this headline">¶</a></h3>
+<p>To install Anaconda, <a class="reference external" href="https://www.anaconda.com/download/">download</a> the
+binary and follow the instructions.</p>
+<p>You can use the <code class="docutils literal notranslate"><span class="pre">conda</span></code> command to create and manage your environments. Please refer <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html">here</a> for a comprehensive list of commands for <code class="docutils literal notranslate"><span class="pre">conda</span></code>. For a quick reference of the essentials please visit <a class="reference external" href="https://srijithr.gitlab.io/post/conda_env/">here</a>.</p>
 </div>
-</li>
-<li><p>Run the model by passing the number of samples, the number of tuning samples along with the likelihood and the prior</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig1</span> <span class="o">=</span> <span class="n">sir_model</span><span class="o">.</span><span class="n">run_SIR_model</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">=</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">)</span>
-
-</pre></div>
 </div>
+<div class="section" id="jupyter-notebooks">
+<h2>Jupyter Notebooks<a class="headerlink" href="#jupyter-notebooks" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://jupyter.org/">Jupyter</a> notebooks offer an integrated and intuitive enviroment for rapid prototyping, teaching and presenting Data Science and Scientific Computing applications written in Python, R and Julia (although there is growing suport for additional languages such as C++).</p>
+<p>It uses a <em>browser-based</em> interface with the following capabilities (not comprehensive)</p>
+<ul class="simple">
+<li><p>The ability to write and execute Python commands.</p></li>
+<li><p>Formatted output in the browser, including tables, figures,
+animation, etc.</p></li>
+<li><p>The option to mix in formatted text and mathematical expressions.</p></li>
+</ul>
+<p><code class="xref std std-numref docutils literal notranslate"><span class="pre">Figure</span> <span class="pre">%s</span></code> shows the execution of some code (borrowed from
+<a class="reference external" href="http://matplotlib.org/examples/pylab_examples/hexbin_demo.html">here</a>)
+in a Jupyter notebook</p>
+<div class="figure align-default" id="jp-demo">
+<a class="reference internal image-reference" href="../../_images/jp_demo.png"><img alt="../../_images/jp_demo.png" src="../../_images/jp_demo.png" style="width: 403.0px; height: 476.0px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">A Jupyter notebook viewed in the browser</span><a class="headerlink" href="#jp-demo" title="Permalink to this image">¶</a></p>
+</div>
+<div class="section" id="starting-the-jupyter-notebook">
+<h3>Starting the Jupyter Notebook<a class="headerlink" href="#starting-the-jupyter-notebook" title="Permalink to this headline">¶</a></h3>
+<p>Once you have installed Anaconda, you can start the Jupyter notebook.</p>
+<p>Either</p>
+<ul class="simple">
+<li><p>search for Jupyter in your applications menu, or</p></li>
+<li><p>open up a terminal and type <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code></p>
+<ul>
+<li><p>Windows users should substitute “Anaconda command prompt” for “terminal” in the previous line.</p></li>
+</ul>
 </li>
 </ul>
-<div class="section" id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">covid_obj</span> <span class="o">=</span> <span class="n">COVID_data</span><span class="p">(</span><span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="n">Population</span><span class="o">=</span><span class="mf">328.2e6</span><span class="p">)</span>
-<span class="n">covid_obj</span><span class="o">.</span><span class="n">get_dates</span><span class="p">(</span><span class="n">data_begin</span><span class="o">=</span><span class="s1">&#39;2/1/20&#39;</span><span class="p">,</span> <span class="n">data_end</span><span class="o">=</span><span class="s1">&#39;9/28/20&#39;</span><span class="p">)</span>
-<span class="n">sir_model</span> <span class="o">=</span> <span class="n">SIR_model_sunode</span><span class="p">(</span><span class="n">covid_obj</span><span class="p">)</span>
-<span class="n">likelihood</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;distribution&#39;</span><span class="p">:</span> <span class="s1">&#39;lognormal&#39;</span><span class="p">,</span> 
-              <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="n">prior</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lam&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> 
-         <span class="s1">&#39;mu&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> 
-         <span class="s1">&#39;lambda_std&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-         <span class="s1">&#39;mu_std&#39;</span><span class="p">:</span> <span class="mf">0.2</span> <span class="p">}</span>
-<span class="n">fig1</span> <span class="o">=</span> <span class="n">sir_model</span><span class="o">.</span><span class="n">run_SIR_model</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">=</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">)</span>
-</pre></div>
+<p>If you use the second option, you will see something like this</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../../_images/starting_nb.png"><img alt="../../_images/starting_nb.png" src="../../_images/starting_nb.png" style="width: 369.5px; height: 217.5px;" /></a>
+</div>
+<p>The output tells us the notebook is running at <code class="docutils literal notranslate"><span class="pre">http://localhost:8888/</span></code></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">localhost</span></code> is the name of the local machine</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">8888</span></code> refers to <a class="reference external" href="https://en.wikipedia.org/wiki/Port_%28computer_networking%29">port number</a>
+8888 on your computer</p></li>
+</ul>
+<p>Thus, the Jupyter kernel is listening for Python commands on port 8888 of our
+local machine.</p>
+<p>Hopefully, your default browser has also opened up with a web page that
+looks something like this</p>
+<div class="figure align-default">
+<a class="reference internal image-reference" href="../../_images/nb.png"><img alt="../../_images/nb.png" src="../../_images/nb.png" style="width: 472.0px; height: 464.5px;" /></a>
 </div>
 </div>
 </div>
@@ -442,8 +455,8 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Reparameterization.html" title="previous page">Centered vs. Non-centered Parameterization</a>
-    <a class='right-next' id="next-link" href="Covid_modeling.html" title="next page">Covid Modeling with PyMC3</a>
+    <a class='left-prev' id="prev-link" href="About.html" title="previous page">The What, Why and Whom…</a>
+    <a class='right-next' id="next-link" href="Databricks.html" title="next page">Introduction to the Databricks Environment</a>
 
         </div>
         

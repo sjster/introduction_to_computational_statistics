@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Covid Modeling with PyMC3 - Problem Statement &#8212; Introduction to Computational Statistics with PyMC3</title>
+    <title>The What, Why and Whom… &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link rel="stylesheet" href="../../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -55,8 +55,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Covid Modeling with PyMC3" href="Covid_modeling.html" />
-    <link rel="prev" title="Centered vs. Non-centered Parameterization" href="Reparameterization.html" />
+    <link rel="next" title="Setting up Your Python Environment" href="getting_started.html" />
+    <link rel="prev" title="Computational Statistics for Bayesian Inference with PyMC3" href="../index.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -91,9 +91,9 @@
   Getting started
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1">
-  <a class="reference internal" href="About.html">
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    The What, Why and Whom…
   </a>
  </li>
@@ -187,7 +187,7 @@
   PyMC3 for Bayesian Modeling and Inference
  </span>
 </p>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="PyMC3.html">
    Introduction to PyMC3
@@ -198,8 +198,8 @@
    Centered vs. Non-centered Parameterization
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Covid_modeling_problem.html">
    Covid Modeling with PyMC3 - Problem Statement
   </a>
  </li>
@@ -248,7 +248,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/docs/Production/Covid_modeling_problem.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/docs/Production/About.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -273,7 +273,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/Covid_modeling_problem.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sjster/statistical_computing_book/master?urlpath=tree/mini_book/docs/Production/About.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../../_static/images/logo_binder.svg"
@@ -281,7 +281,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/Covid_modeling_problem.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/sjster/statistical_computing_book/blob/master/mini_book/docs/Production/About.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -305,23 +305,35 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#attribution">
-   Attribution
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#goal">
-   Goal
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#classes-to-perform-the-modeling">
-   Classes to perform the modeling
+  <a class="reference internal nav-link" href="#why-inference">
+   Why Inference?
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#example">
-     Example
+    <a class="reference internal nav-link" href="#descriptive-statistics">
+     Descriptive Statistics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inferential-statistics">
+     Inferential Statistics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-is-inference-different-from-prediction">
+   How is Inference different from Prediction?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prediction">
+     Prediction
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inference">
+     Inference
     </a>
    </li>
   </ul>
@@ -338,81 +350,54 @@
         
               <div>
                 
-  <div class="section" id="covid-modeling-with-pymc3-problem-statement">
-<h1>Covid Modeling with PyMC3 - Problem Statement<a class="headerlink" href="#covid-modeling-with-pymc3-problem-statement" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="attribution">
-<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
-<p>This work is based on the work done by the Priesemann Group for inferring the parameters for COVID-19 and performing predictions. An overview of the methods can be found <a class="reference external" href="https://pad.gwdg.de/s/ByQgsSP88">here</a>.</p>
-</div>
-<div class="section" id="goal">
-<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
-<ol>
-<li><p>Obtain the data that has the number of COVID-19 cases starting from January for each country.</p></li>
-<li><p>Select a country of choice to infer the COVID-19 parameters and extract the number of confirmed cases (You will need the total population of the country that you select).</p></li>
-<li><p>Use the SIR model as a disease model ([Notebook].(<a class="reference external" href="https://github.com/sjster/Epidemic/blob/master/Epidemic.ipynb">https://github.com/sjster/Epidemic/blob/master/Epidemic.ipynb</a>)). This is a set of non-linear differential equations that are used to model disease propagation.</p></li>
-<li><p>Setup a PyMC3 model to infer the SIR parameters from the number of confirmed cases (S,I, mu, lambda).</p>
-<p>a. Select appropriate priors for each variable.</p>
-<p>b. Use a Lognormal distribution for I_begin.</p>
-<p>c. λ is the fraction of people that are newly infected each day. Use a Lognormal distribution for this.</p>
-<p>d. μ is the fraction of people that recover each day. Use a Lognormal distribution.</p>
-<p>e. The prior of the error of observed cases can use a Half Cauchy distribution.</p>
-</li>
-<li><p>Predict cases into the future.</p>
-<p>a. Compare the predictions with the real observations and compute the error.</p>
-<p>b. Note how the error varies as you increase the number of days chosen for the forecast.</p>
-</li>
-</ol>
-<p>Use appropriate metadata stores for experiment management. I have used the shelve module in Python but experiment with MLflow.</p>
-</div>
-<div class="section" id="classes-to-perform-the-modeling">
-<h2>Classes to perform the modeling<a class="headerlink" href="#classes-to-perform-the-modeling" title="Permalink to this headline">¶</a></h2>
-<ul>
-<li><p>COVID_data is the class for data ingestion</p>
+  <div class="section" id="the-what-why-and-whom">
+<h1>The What, Why and Whom…<a class="headerlink" href="#the-what-why-and-whom" title="Permalink to this headline">¶</a></h1>
+<p>As mentioned on the front page, the purpose of this series of courses is to teach the basics of Bayesian statistics for the purpose of performing inference. This is <strong>not</strong> intended to be a comprehensive course that teaches the basics of statistics and probability nor does it cover Frequentist statistical techniques based on the Null Hypothesis Significance Testing (NHST). What it does cover is:</p>
 <ul class="simple">
-<li><p>Pass a country and the population of the country to initialize this class</p></li>
-<li><p>Set the dates to obtain case information</p></li>
+<li><p>The basics of Bayesian probability</p></li>
+<li><p>Understanding Bayesian inference and how it works</p></li>
+<li><p>The bare-minimum set of tools and a body of knowledge required to perform Bayesian inference in Python, i.e. the PyData stack of NumPy, Pandas, Scipy, Matplotlib, Seaborn and <a class="reference external" href="http://Plot.ly">Plot.ly</a></p></li>
+<li><p>A scalable Python-based framework for performing Bayesian inference, i.e. PyMC3</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">covid_obj</span> <span class="o">=</span> <span class="n">COVID_data</span><span class="p">(</span><span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="n">Population</span><span class="o">=</span><span class="mf">328.2e6</span><span class="p">)</span>
- <span class="n">covid_obj</span><span class="o">.</span><span class="n">get_dates</span><span class="p">(</span><span class="n">data_begin</span><span class="o">=</span><span class="s1">&#39;2/1/20&#39;</span><span class="p">,</span> <span class="n">data_end</span><span class="o">=</span><span class="s1">&#39;9/28/20&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>SIR_model and SIR_model_sunode are the two classes that help to model and solve the set of ODEs that is the SIR model for disease modeling. Use the ‘sunode’ model since this is much faster.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sir_model</span> <span class="o">=</span> <span class="n">SIR_model_sunode</span><span class="p">(</span><span class="n">covid_obj</span><span class="p">)</span>
-</pre></div>
-</div>
-</li>
-<li><p>Set the likelihood and prior distribution information in a dictionary</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">likelihood</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;distribution&#39;</span><span class="p">:</span> <span class="s1">&#39;lognormal&#39;</span><span class="p">,</span> 
-          <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="n">prior</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lam&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> 
-     <span class="s1">&#39;mu&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> 
-     <span class="s1">&#39;lambda_std&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-     <span class="s1">&#39;mu_std&#39;</span><span class="p">:</span> <span class="mf">0.2</span> <span class="p">}</span>
-</pre></div>
-</div>
-</li>
-<li><p>Run the model by passing the number of samples, the number of tuning samples along with the likelihood and the prior</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig1</span> <span class="o">=</span> <span class="n">sir_model</span><span class="o">.</span><span class="n">run_SIR_model</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">=</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">)</span>
-
-</pre></div>
-</div>
-</li>
+<p>With this goal in mind, the content is divided into the following three main sections (courses).</p>
+<ul class="simple">
+<li><p>Introduction to Bayesian Statistics</p></li>
+<li><p>Introduction to Monte Carlo Methods</p></li>
+<li><p>PyMC3 for Bayesian Modeling and Inference</p></li>
 </ul>
-<div class="section" id="example">
-<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">covid_obj</span> <span class="o">=</span> <span class="n">COVID_data</span><span class="p">(</span><span class="s1">&#39;US&#39;</span><span class="p">,</span> <span class="n">Population</span><span class="o">=</span><span class="mf">328.2e6</span><span class="p">)</span>
-<span class="n">covid_obj</span><span class="o">.</span><span class="n">get_dates</span><span class="p">(</span><span class="n">data_begin</span><span class="o">=</span><span class="s1">&#39;2/1/20&#39;</span><span class="p">,</span> <span class="n">data_end</span><span class="o">=</span><span class="s1">&#39;9/28/20&#39;</span><span class="p">)</span>
-<span class="n">sir_model</span> <span class="o">=</span> <span class="n">SIR_model_sunode</span><span class="p">(</span><span class="n">covid_obj</span><span class="p">)</span>
-<span class="n">likelihood</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;distribution&#39;</span><span class="p">:</span> <span class="s1">&#39;lognormal&#39;</span><span class="p">,</span> 
-              <span class="s1">&#39;sigma&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
-<span class="n">prior</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;lam&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> 
-         <span class="s1">&#39;mu&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> 
-         <span class="s1">&#39;lambda_std&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-         <span class="s1">&#39;mu_std&#39;</span><span class="p">:</span> <span class="mf">0.2</span> <span class="p">}</span>
-<span class="n">fig1</span> <span class="o">=</span> <span class="n">sir_model</span><span class="o">.</span><span class="n">run_SIR_model</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">n_tune</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">likelihood</span><span class="o">=</span><span class="n">likelihood</span><span class="p">,</span> <span class="n">prior</span><span class="o">=</span><span class="n">prior</span><span class="p">)</span>
-</pre></div>
+<div class="section" id="why-inference">
+<h2>Why Inference?<a class="headerlink" href="#why-inference" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of the set of courses is to focus on <strong>Inferential Statistics</strong> as opposed to <strong>Descriptive Statistics</strong>.</p>
+<p>All the samples in the group that we are interested in learning about make up a <strong>population</strong>. Populations can be described by <strong>parameters</strong> such as the mean and variance since they represent all of the data. Often, we do not have access to all the data in our population and have to sample from the population. The metrics of mean and variance computed from these samples are not called parameters but <strong>statistics</strong> of the data.</p>
+<div class="section" id="descriptive-statistics">
+<h3>Descriptive Statistics<a class="headerlink" href="#descriptive-statistics" title="Permalink to this headline">¶</a></h3>
+<p>This is used to summarize the data so that we have a quantitative way to understand data. This allows to understand and vizualize data qualititatively. We can draw conclusions about the nature of the data. Descriptive statistics is applied to a <strong>population</strong> and hence can provide measures such as the mean and variance of the data. They do not allow us to make predictions about data that we have not analyzed.</p>
 </div>
+<div class="section" id="inferential-statistics">
+<h3>Inferential Statistics<a class="headerlink" href="#inferential-statistics" title="Permalink to this headline">¶</a></h3>
+<p>Inferential Statistics allow us to make generalizations about the population from the samples. This process of sampling introduces errors as this is never a perfect representation of the underlying data. The statistics thus computed are supposed to be an estimate of the true population parameters. It allows you to form a distribution of the population from the sampled data by accounting for the errors in the smpling, thereby allowing you to make predictions about data that is not yet seen or sampled.</p>
+</div>
+</div>
+<div class="section" id="how-is-inference-different-from-prediction">
+<h2>How is Inference different from Prediction?<a class="headerlink" href="#how-is-inference-different-from-prediction" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://statistics.laerd.com/statistical-guides/descriptive-inferential-statistics.php">Reference</a></p>
+<div class="section" id="prediction">
+<h3>Prediction<a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h3>
+<p>If you happen to come from a background in Machine Learning, you are probably used to making predictions. This is exactly what it sounds like, you use a model to make predictions on unseen data. The predictive process involves the following steps</p>
+<ul class="simple">
+<li><p>Create the model</p></li>
+<li><p>Select the best model using performance metrics such as accuracy, F1 scores on out-of-sample data\</p></li>
+<li><p>Make predictions on new data</p></li>
+</ul>
+</div>
+<div class="section" id="inference">
+<h3>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">¶</a></h3>
+<p>In Inference, you are trying to model a distribution and understand the process that generates the data. This involves the following steps</p>
+<ul class="simple">
+<li><p>Create the model, usually involves some prior understanding of the data generation process</p></li>
+<li><p>Select the model using goodness-of-fit measures such as such as residual analysis, deviance, AIC scores etc.</p></li>
+<li><p>Perform inference by generating distributions that describe the data, or the data generation process.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -442,8 +427,8 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Reparameterization.html" title="previous page">Centered vs. Non-centered Parameterization</a>
-    <a class='right-next' id="next-link" href="Covid_modeling.html" title="next page">Covid Modeling with PyMC3</a>
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">Computational Statistics for Bayesian Inference with PyMC3</a>
+    <a class='right-next' id="next-link" href="getting_started.html" title="next page">Setting up Your Python Environment</a>
 
         </div>
         
