@@ -426,7 +426,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#graded-evaluation-15-min">
-   GRADED EVALUATION (15 min)
+   Graded Evaluation (15 min)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -760,14 +760,31 @@
      Rhat
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#centered-vs-non-centered-parameterization">
+   Centered vs. Non-centered Parameterization
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#centered-vs-non-centered-parameterization">
-     Centered vs. Non-centered Parameterization
+    <a class="reference internal nav-link" href="#centered-model">
+     Centered Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#non-centered-model">
+     Non-centered Model
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#convergence">
      Convergence
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forest-plot">
+     Forest Plot
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -784,6 +801,18 @@
     <a class="reference internal nav-link" href="#divergence">
      Divergence
     </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pairplot">
+     Pairplot
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#parallel-coordinates">
+       Parallel Coordinates
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#a-note-on-why-we-compute-the-log-of-the-posterior">
@@ -1482,9 +1511,9 @@ The acceptance probability does not match the target. It is 0.882730362833375, b
 <div class="section" id="hpd-and-credible-interval">
 <h4>HPD and Credible Interval<a class="headerlink" href="#hpd-and-credible-interval" title="Permalink to this headline">¶</a></h4>
 <p>For example, if we plot the posterior of a beta distribution with some parameters, the credible interval for the Highest Posterior Density (HPD) is the <strong>shortest</strong> interval that has the given probability indicated by the HPD. This interval is also called the HPD interval. As the name indicates, this involves regions of the highest posterior probability density. For unimodal distributions, this includes the mode.</p>
-<p><img alt="HPD" src="../_images/HPDI_11.png" /></p>
+<p><img alt="HPD" src="https://courseraimages.s3-us-west-2.amazonaws.com/HPDI_1.png" /></p>
 <center>x% HPD interval</center>
-<p><img alt="HPD" src="../_images/HPDI_21.png" /></p>
+<p><img alt="HPD" src="https://courseraimages.s3-us-west-2.amazonaws.com/HPDI_2.png" /></p>
 <center>x% HPD interval</center>
 </div>
 <div class="section" id="hdi">
@@ -1495,7 +1524,7 @@ The acceptance probability does not match the target. It is 0.882730362833375, b
 <div class="section" id="rope">
 <h4>ROPE<a class="headerlink" href="#rope" title="Permalink to this headline">¶</a></h4>
 <p>What is the probability of getting a value given by x? We can’t really calculate this exactly but we can compute this probability within a range given by x + <span class="math notranslate nohighlight">\(\Delta\)</span>x, x - <span class="math notranslate nohighlight">\(\Delta\)</span>x.</p>
-<p><img alt="HPD" src="../_images/HPD1.png" /></p>
+<p><img alt="HPD" src="https://courseraimages.s3-us-west-2.amazonaws.com/HPD.png" /></p>
 <center><i>Probability of getting values less than x, and a range of values around x</i></center>
 <p>Sometimes, instead of looking at the probability that x = 0.16666, we look at the probability that it falls within the range 0.12 and 0.20. This range is called the Region of Practical Equivalence or ROPE. This implies that, based on our subjective opinion, getting a value between 0.12 and 0.20 is practically equivalent to getting a 0.16666. Hence, we can assume that the dice is fair given any value within this range. ROPE allows us to make decisions about an event from an inferred posterior distribution. After computing the posterior, the ROPE given by 0.12 and 0.20 can either overlap with the HPD (of getting a 3)</p>
 <ul class="simple">
@@ -1573,7 +1602,7 @@ The acceptance probability does not match the target. It is 0.882730362833375, b
 </div>
 </div>
 <div class="section" id="graded-evaluation-15-min">
-<h2>GRADED EVALUATION (15 min)<a class="headerlink" href="#graded-evaluation-15-min" title="Permalink to this headline">¶</a></h2>
+<h2>Graded Evaluation (15 min)<a class="headerlink" href="#graded-evaluation-15-min" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>HDI and HPD are the same</p>
 <p>a. True</p>
@@ -4742,49 +4771,176 @@ Day 139, the probability of rate being lambda_1 is 0.000000 and lambda_2 is 1.00
 <a class="reference external" href="https://arxiv.org/pdf/1903.08008.pdf">Improved Rhat</a>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">az.rhat(trace,</span> <span class="pre">method='split')</span></code></p>
 </div>
-<div class="section" id="centered-vs-non-centered-parameterization">
-<h3>Centered vs. Non-centered Parameterization<a class="headerlink" href="#centered-vs-non-centered-parameterization" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://twiecki.io/blog/2017/02/08/bayesian-hierchical-non-centered/">T Wiecki on Reparametrization</a></p>
-<p>When there is insufficient data in a hierarchical model, the variables being inferred ends up having correlation effects, thereby making it difficult to sample. One obvious solution is to obtain more data, but when this isn’t possible we resort to reparameterization by creating a non-centered model from the centered model.</p>
-<p>This is a centered parameterization for <span class="math notranslate nohighlight">\(\beta\)</span> since it is centered around <span class="math notranslate nohighlight">\(\mu\)</span></p>
-<div class="math notranslate nohighlight">
-\[\beta \sim Normal(\mu, \sigma)\]</div>
-<p>And we try to fit the two parameters for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> directly here.</p>
-<p>However, the following is a non-centered parameterization since it is scaled from a unit Normal and shifted</p>
-<div class="math notranslate nohighlight">
-\[\beta_{unit} \sim Normal(0,1)\]</div>
-<div class="math notranslate nohighlight">
-\[\beta = \mu + \sigma \beta_{unit}\]</div>
-<p>This works because we are effectively reducing the dependence of \(\mu\) and \(\sigma\), or making them less correlated, making them easier to sample in a non-centered model. The effect is a joint posterior space that is more rounded.</p>
 </div>
-<div class="section" id="convergence">
-<h3>Convergence<a class="headerlink" href="#convergence" title="Permalink to this headline">¶</a></h3>
-<p>Using the example of the centered (cm) and non-centered models (ncm) we can differentiate between models that exhibit good convergence behavior and those that do not.</p>
+<div class="section" id="centered-vs-non-centered-parameterization">
+<h2>Centered vs. Non-centered Parameterization<a class="headerlink" href="#centered-vs-non-centered-parameterization" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://twiecki.io/blog/2017/02/08/bayesian-hierchical-non-centered/">T Wiecki on Reparametrization</a></p>
+<p>When there is insufficient data in a hierarchical model, the variables being inferred end up having correlation effects, thereby making it difficult to sample. One obvious solution is to obtain more data, but when this isn’t possible we resort to reparameterization by creating a non-centered model from the centered model.</p>
+<div class="section" id="centered-model">
+<h3>Centered Model<a class="headerlink" href="#centered-model" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[ \mu \sim Normal (0,1)\]</div>
+<div class="math notranslate nohighlight">
+\[ \sigma \sim HalfNormal(1)\]</div>
+<div class="math notranslate nohighlight">
+\[y_i \sim Normal(\mu, \sigma)\]</div>
+<p>And we try to fit the two parameters for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> directly here.</p>
+</div>
+<div class="section" id="non-centered-model">
+<h3>Non-centered Model<a class="headerlink" href="#non-centered-model" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[ \mu \sim Normal (0,1)\]</div>
+<div class="math notranslate nohighlight">
+\[ \sigma \sim HalfNormal(1)\]</div>
+<div class="math notranslate nohighlight">
+\[y_{i\_unit} \sim Normal(0,1)\]</div>
+<div class="math notranslate nohighlight">
+\[y = \mu + \sigma y_{i\_unit}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting centered model, direct fit&quot;</span><span class="p">)</span>
-<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">centered_model</span><span class="p">:</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">trace_cm</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">halfcauchy</span><span class="p">,</span> <span class="n">halfnorm</span>
+
+
+<span class="k">def</span> <span class="nf">centered_model</span><span class="p">():</span>
+
+    <span class="c1"># generate data</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">halfnorm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+
+    <span class="c1"># set up model</span>
+    <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
+
+        <span class="n">mu_</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">sigma_</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">mu_</span><span class="p">,</span> <span class="n">sigma_</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+
+        <span class="c1"># sample and save samples</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">mu_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">][:]</span>
+        <span class="n">sigma_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">][:]</span>
+        <span class="n">y_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">[:]</span>
+        
+    <span class="n">sc</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;true $\mu$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;true $y$&quot;</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu_samples</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\mu$ samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;y samples&quot;</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sc</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;true $\sigma$&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;true y&quot;</span><span class="p">)</span>
     
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting non-centered model, shifted and scaled model&quot;</span><span class="p">)</span>
-<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">non_centered_model</span><span class="p">:</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">b_standard</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s1">&#39;b_standard&#39;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sd</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-    <span class="n">b</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">b_standard</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>
-    <span class="n">trace_ncm</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span> <span class="n">random_seed</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sigma_samples</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sc</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\sigma$ samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;y samples&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+    
+
+    
+<span class="k">def</span> <span class="nf">noncentered_model</span><span class="p">():</span>
+
+    <span class="c1"># generate data</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">halfnorm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+
+    <span class="c1"># set up model</span>
+    <span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">():</span>
+
+        <span class="n">mu_</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">sigma_</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">yt_</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">&quot;yt&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">mu_</span> <span class="o">+</span> <span class="n">yt_</span> <span class="o">*</span> <span class="n">sigma_</span><span class="p">)</span>
+        <span class="c1"># y_ = pm.Normal(&quot;y&quot;, mu_, sigma_, shape=n)</span>
+
+        <span class="c1"># sample and save samples</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">chains</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">mu_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">][:]</span>
+        <span class="n">sigma_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">][:]</span>
+        <span class="n">yt_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s2">&quot;yt&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">[:]</span>
+        <span class="n">y_samples</span> <span class="o">=</span> <span class="n">trace</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">[:]</span>
+
+    <span class="c1"># plot 2-D figures</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">yt_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu_samples</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;salmon&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\mu$ samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;ncm - y unit Normal samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu_samples</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\mu$ samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;ncm - y samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">yt_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sigma_samples</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;salmon&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sc</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;ncm - y unit Normal samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\sigma$ samples&quot;</span><span class="p">)</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sigma_samples</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="n">sc</span><span class="p">,</span> <span class="n">sc</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sc</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;ncm - y samples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$\sigma$ samples&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+
+
+<span class="n">trace_cm</span> <span class="o">=</span> <span class="n">centered_model</span><span class="p">()</span>
+<span class="n">trace_ncm</span> <span class="o">=</span> <span class="n">noncentered_model</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting centered model, direct fit
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/pymc3/sampling.py:465: FutureWarning: In an upcoming release, pm.sample will return an `arviz.InferenceData` object instead of a `MultiTrace` by default. You can pass return_inferencedata=True or return_inferencedata=False to be safe and silence this warning.
+  warnings.warn(
+Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
-Multiprocess sampling (4 chains in 4 jobs)
-NUTS: [b, a]
+Multiprocess sampling (3 chains in 4 jobs)
+NUTS: [y, sigma, mu]
 </pre></div>
 </div>
 <div class="output text_html">
@@ -4801,27 +4957,27 @@ NUTS: [b, a]
             background: #F44336;
         }
     </style>
-  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [12000/12000 00:13<00:00 Sampling 4 chains, 217 divergences]
+  <progress value='33000' class='' max='33000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [33000/33000 00:08<00:00 Sampling 3 chains, 7,311 divergences]
 </div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 25 seconds.
-There were 36 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.6988342615548193, but should be close to 0.8. Try to increase the number of tuning steps.
-There were 125 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.6098936743574452, but should be close to 0.8. Try to increase the number of tuning steps.
-There were 34 divergences after tuning. Increase `target_accept` or reparameterize.
-The acceptance probability does not match the target. It is 0.682236486313318, but should be close to 0.8. Try to increase the number of tuning steps.
-There were 22 divergences after tuning. Increase `target_accept` or reparameterize.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 3 chains for 1_000 tune and 10_000 draw iterations (3_000 + 30_000 draws total) took 16 seconds.
+There were 2027 divergences after tuning. Increase `target_accept` or reparameterize.
+The acceptance probability does not match the target. It is 0.6613714331625662, but should be close to 0.8. Try to increase the number of tuning steps.
+There were 1543 divergences after tuning. Increase `target_accept` or reparameterize.
+The acceptance probability does not match the target. It is 0.7064652733253344, but should be close to 0.8. Try to increase the number of tuning steps.
+There were 3741 divergences after tuning. Increase `target_accept` or reparameterize.
+The acceptance probability does not match the target. It is 0.5066897639865938, but should be close to 0.8. Try to increase the number of tuning steps.
+The rhat statistic is larger than 1.05 for some parameters. This indicates slight problems during sampling.
 The estimated number of effective samples is smaller than 200 for some parameters.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Starting non-centered model, shifted and scaled model
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Auto-assigning NUTS sampler...
+<img alt="../_images/PyMC3_132_31.png" src="../_images/PyMC3_132_31.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/pymc3/sampling.py:465: FutureWarning: In an upcoming release, pm.sample will return an `arviz.InferenceData` object instead of a `MultiTrace` by default. You can pass return_inferencedata=True or return_inferencedata=False to be safe and silence this warning.
+  warnings.warn(
+Auto-assigning NUTS sampler...
 Initializing NUTS using jitter+adapt_diag...
-Multiprocess sampling (4 chains in 4 jobs)
-NUTS: [b_standard, a]
+Multiprocess sampling (3 chains in 4 jobs)
+NUTS: [yt, sigma, mu]
 </pre></div>
 </div>
 <div class="output text_html">
@@ -4838,21 +4994,38 @@ NUTS: [b_standard, a]
             background: #F44336;
         }
     </style>
-  <progress value='12000' class='' max='12000' style='width:300px; height:20px; vertical-align: middle;'></progress>
-  100.00% [12000/12000 00:02<00:00 Sampling 4 chains, 38 divergences]
+  <progress value='33000' class='' max='33000' style='width:300px; height:20px; vertical-align: middle;'></progress>
+  100.00% [33000/33000 00:07<00:00 Sampling 3 chains, 157 divergences]
 </div>
-</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 4 chains for 1_000 tune and 2_000 draw iterations (4_000 + 8_000 draws total) took 14 seconds.
-There were 18 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 5 divergences after tuning. Increase `target_accept` or reparameterize.
-There were 6 divergences after tuning. Increase `target_accept` or reparameterize.
+</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling 3 chains for 1_000 tune and 10_000 draw iterations (3_000 + 30_000 draws total) took 14 seconds.
 There were 9 divergences after tuning. Increase `target_accept` or reparameterize.
+There were 69 divergences after tuning. Increase `target_accept` or reparameterize.
+There were 79 divergences after tuning. Increase `target_accept` or reparameterize.
 </pre></div>
 </div>
+<img alt="../_images/PyMC3_132_71.png" src="../_images/PyMC3_132_71.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------ Centered model ------------&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">],</span> <span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span><span class="n">c</span><span class="o">=</span><span class="s1">&#39;teal&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">],</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/PyMC3_133_01.png" src="../_images/PyMC3_133_01.png" />
+</div>
+</div>
+</div>
+<div class="section" id="convergence">
+<h3>Convergence<a class="headerlink" href="#convergence" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------ Centered model ------------&quot;</span><span class="p">)</span>
 
 <span class="c1"># The bars indicate the location of the divergences in the sampling process</span>
 <span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
@@ -4864,9 +5037,9 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------ Centered model ------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
@@ -4903,92 +5076,50 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
   </thead>
   <tbody>
     <tr>
-      <th>b[0]</th>
-      <td>-0.012</td>
-      <td>5.304</td>
-      <td>-10.073</td>
-      <td>10.726</td>
-      <td>0.064</td>
-      <td>0.087</td>
-      <td>6892.0</td>
-      <td>1853.0</td>
-      <td>3282.0</td>
-      <td>2846.0</td>
-      <td>1.02</td>
-    </tr>
-    <tr>
-      <th>b[1]</th>
-      <td>0.123</td>
-      <td>4.987</td>
-      <td>-10.263</td>
-      <td>10.010</td>
-      <td>0.074</td>
-      <td>0.084</td>
-      <td>4567.0</td>
-      <td>1759.0</td>
-      <td>2123.0</td>
-      <td>3038.0</td>
+      <th>mu</th>
+      <td>-0.095</td>
+      <td>0.970</td>
+      <td>-1.865</td>
+      <td>1.820</td>
+      <td>0.042</td>
+      <td>0.030</td>
+      <td>535.0</td>
+      <td>535.0</td>
+      <td>578.0</td>
+      <td>554.0</td>
       <td>1.01</td>
     </tr>
     <tr>
-      <th>b[2]</th>
-      <td>0.026</td>
-      <td>5.052</td>
-      <td>-10.010</td>
-      <td>10.319</td>
-      <td>0.067</td>
-      <td>0.085</td>
-      <td>5767.0</td>
-      <td>1778.0</td>
-      <td>3263.0</td>
-      <td>3477.0</td>
-      <td>1.02</td>
-    </tr>
-    <tr>
-      <th>b[3]</th>
-      <td>0.243</td>
-      <td>5.019</td>
-      <td>-10.463</td>
-      <td>9.974</td>
-      <td>0.070</td>
-      <td>0.086</td>
-      <td>5148.0</td>
-      <td>1689.0</td>
-      <td>2851.0</td>
-      <td>3018.0</td>
-      <td>1.03</td>
-    </tr>
-    <tr>
-      <th>b[4]</th>
-      <td>-0.307</td>
-      <td>5.151</td>
-      <td>-9.922</td>
-      <td>9.991</td>
-      <td>0.139</td>
-      <td>0.098</td>
-      <td>1373.0</td>
-      <td>1373.0</td>
-      <td>285.0</td>
-      <td>3124.0</td>
+      <th>y[0]</th>
+      <td>-0.109</td>
+      <td>1.406</td>
+      <td>-2.795</td>
+      <td>2.447</td>
+      <td>0.046</td>
+      <td>0.033</td>
+      <td>931.0</td>
+      <td>931.0</td>
+      <td>804.0</td>
+      <td>782.0</td>
       <td>1.01</td>
     </tr>
     <tr>
-      <th>a</th>
-      <td>4.230</td>
-      <td>2.832</td>
-      <td>0.780</td>
-      <td>9.369</td>
-      <td>0.284</td>
-      <td>0.202</td>
-      <td>99.0</td>
-      <td>99.0</td>
+      <th>sigma</th>
+      <td>0.791</td>
+      <td>0.586</td>
+      <td>0.095</td>
+      <td>1.861</td>
+      <td>0.050</td>
+      <td>0.036</td>
+      <td>135.0</td>
+      <td>135.0</td>
       <td>50.0</td>
-      <td>31.0</td>
-      <td>1.07</td>
+      <td>9.0</td>
+      <td>1.06</td>
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_133_3.png" src="../_images/PyMC3_133_3.png" />
+</div></div><img alt="../_images/PyMC3_135_31.png" src="../_images/PyMC3_135_31.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -5005,9 +5136,9 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>------------ Non-centered model ------------
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
@@ -5044,177 +5175,81 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
   </thead>
   <tbody>
     <tr>
-      <th>b_standard[0]</th>
-      <td>0.004</td>
-      <td>1.016</td>
-      <td>-1.783</td>
-      <td>1.988</td>
-      <td>0.013</td>
-      <td>0.013</td>
-      <td>5907.0</td>
-      <td>3257.0</td>
-      <td>5970.0</td>
-      <td>5082.0</td>
+      <th>mu</th>
+      <td>-0.001</td>
+      <td>1.005</td>
+      <td>-1.902</td>
+      <td>1.851</td>
+      <td>0.007</td>
+      <td>0.006</td>
+      <td>21283.0</td>
+      <td>14008.0</td>
+      <td>21272.0</td>
+      <td>17802.0</td>
       <td>1.0</td>
     </tr>
     <tr>
-      <th>b_standard[1]</th>
-      <td>0.001</td>
-      <td>1.003</td>
-      <td>-1.871</td>
-      <td>1.884</td>
-      <td>0.013</td>
-      <td>0.012</td>
-      <td>6390.0</td>
-      <td>3786.0</td>
-      <td>6388.0</td>
-      <td>5278.0</td>
+      <th>yt[0]</th>
+      <td>0.008</td>
+      <td>1.009</td>
+      <td>-1.851</td>
+      <td>1.901</td>
+      <td>0.008</td>
+      <td>0.006</td>
+      <td>17563.0</td>
+      <td>14233.0</td>
+      <td>17563.0</td>
+      <td>17653.0</td>
       <td>1.0</td>
     </tr>
     <tr>
-      <th>b_standard[2]</th>
-      <td>0.009</td>
-      <td>1.007</td>
-      <td>-1.845</td>
-      <td>1.883</td>
-      <td>0.013</td>
-      <td>0.012</td>
-      <td>6168.0</td>
-      <td>3397.0</td>
-      <td>6167.0</td>
-      <td>4935.0</td>
+      <th>sigma</th>
+      <td>0.812</td>
+      <td>0.604</td>
+      <td>0.000</td>
+      <td>1.903</td>
+      <td>0.005</td>
+      <td>0.003</td>
+      <td>16672.0</td>
+      <td>16672.0</td>
+      <td>12311.0</td>
+      <td>9148.0</td>
       <td>1.0</td>
     </tr>
     <tr>
-      <th>b_standard[3]</th>
-      <td>-0.019</td>
-      <td>1.024</td>
-      <td>-1.857</td>
-      <td>1.959</td>
+      <th>y[0]</th>
       <td>0.014</td>
-      <td>0.013</td>
-      <td>5043.0</td>
-      <td>3271.0</td>
-      <td>5036.0</td>
-      <td>4594.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>b_standard[4]</th>
-      <td>0.020</td>
-      <td>0.996</td>
-      <td>-1.917</td>
-      <td>1.868</td>
-      <td>0.013</td>
+      <td>1.429</td>
+      <td>-2.635</td>
+      <td>2.732</td>
       <td>0.011</td>
-      <td>5942.0</td>
-      <td>4024.0</td>
-      <td>5942.0</td>
-      <td>5492.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>a</th>
-      <td>3.948</td>
-      <td>3.037</td>
-      <td>0.002</td>
-      <td>9.454</td>
-      <td>0.047</td>
-      <td>0.033</td>
-      <td>4169.0</td>
-      <td>4169.0</td>
-      <td>3073.0</td>
-      <td>2847.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>b[0]</th>
-      <td>-0.046</td>
-      <td>5.042</td>
-      <td>-9.827</td>
-      <td>10.256</td>
-      <td>0.068</td>
-      <td>0.052</td>
-      <td>5537.0</td>
-      <td>4699.0</td>
-      <td>5831.0</td>
-      <td>5200.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>b[1]</th>
-      <td>-0.022</td>
-      <td>4.904</td>
-      <td>-10.394</td>
-      <td>9.635</td>
-      <td>0.066</td>
-      <td>0.051</td>
-      <td>5583.0</td>
-      <td>4714.0</td>
-      <td>5967.0</td>
-      <td>5250.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>b[2]</th>
-      <td>0.060</td>
-      <td>5.170</td>
-      <td>-11.314</td>
-      <td>9.836</td>
-      <td>0.071</td>
-      <td>0.056</td>
-      <td>5233.0</td>
-      <td>4231.0</td>
-      <td>5519.0</td>
-      <td>5098.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>b[3]</th>
-      <td>-0.053</td>
-      <td>5.011</td>
-      <td>-10.598</td>
-      <td>10.132</td>
-      <td>0.072</td>
-      <td>0.052</td>
-      <td>4909.0</td>
-      <td>4719.0</td>
-      <td>4966.0</td>
-      <td>5087.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>b[4]</th>
-      <td>0.084</td>
-      <td>4.938</td>
-      <td>-10.555</td>
-      <td>9.201</td>
-      <td>0.067</td>
-      <td>0.049</td>
-      <td>5514.0</td>
-      <td>5175.0</td>
-      <td>5695.0</td>
-      <td>5296.0</td>
+      <td>0.008</td>
+      <td>18363.0</td>
+      <td>16850.0</td>
+      <td>18828.0</td>
+      <td>17084.0</td>
       <td>1.0</td>
     </tr>
   </tbody>
 </table>
-</div></div><img alt="../_images/PyMC3_134_3.png" src="../_images/PyMC3_134_3.png" />
+</div></div><img alt="../_images/PyMC3_136_31.png" src="../_images/PyMC3_136_31.png" />
 </div>
 </div>
 <ol class="simple">
-<li><p>The KDE has more agreement for the non-centered model(ncm) compared to the centered model (cm) for the different chains.</p></li>
-<li><p>There are more divergences for cm compared to the ncm as can be seen from the vertical bars in the trace plot.</p></li>
-<li><p>In general, ncm mixes better than cm - ncm looks like evenly mixed while cm looks patchy in certain regions.</p></li>
-<li><p>It is possible to see flat lines in the trace, a flat indicates that the same sample value is being used because all new proposed samples are being rejected, in other words the sampler is samping slowly and not getting to a different space in the manifold. The only fix here is to sample for longer periods of time, however we are assuming we can get more unbiased samples if we let it run for longer.</p></li>
+<li><p>The posterior densities have more agreement for the non-centered model(ncm) compared to the centered model (cm), for the different chains.</p></li>
+<li><p>There are more divergences for centered model compared to the non-centered model as can be seen from the vertical bars in the trace plot.</p></li>
+<li><p>In general, the non-centered model mixes better than the centered model - non-centered model looks fairly evenly mixed while centered model looks patchy in certain regions.</p></li>
+<li><p>It is possible to see flat lines in the trace for a centered model, a flat line indicates that the same sample value is being used because all new proposed samples are being rejected, in other words the sampler is sampling slowly and not getting to a different space in the manifold. The only fix here is to sample for longer periods of time, however we are assuming that we can get more unbiased samples if we let it run longer.</p></li>
 </ol>
+</div>
+<div class="section" id="forest-plot">
+<h3>Forest Plot<a class="headerlink" href="#forest-plot" title="Permalink to this headline">¶</a></h3>
+<p>We plot the densities of both the cm and the ncm models, notice the differences in effective sample sizes for the centered model (very low).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We plot the densities of both the cm and the ncm models, notice the differences in effective sample sizes for</span>
-<span class="c1"># the cm (very low)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mf">18.5</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">)</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_forest</span><span class="p">([</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">trace_ncm</span><span class="p">],</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> 
+<span class="n">az</span><span class="o">.</span><span class="n">plot_forest</span><span class="p">([</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">trace_ncm</span><span class="p">],</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span> 
                <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;ridgeplot&#39;</span><span class="p">,</span>
                <span class="n">model_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Centered&#39;</span><span class="p">,</span><span class="s1">&#39;Non-centered&#39;</span><span class="p">],</span>
                <span class="n">combined</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
@@ -5232,7 +5267,7 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
@@ -5240,153 +5275,152 @@ There were 9 divergences after tuning. Increase `target_accept` or reparameteriz
        &lt;AxesSubplot:title={&#39;center&#39;:&#39;r_hat&#39;}&gt;], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_136_2.png" src="../_images/PyMC3_136_2.png" />
+<img alt="../_images/PyMC3_138_21.png" src="../_images/PyMC3_138_21.png" />
 </div>
 </div>
 </div>
 <div class="section" id="autocorrelation-and-effective-sample-sizes">
 <h3>Autocorrelation and effective sample sizes<a class="headerlink" href="#autocorrelation-and-effective-sample-sizes" title="Permalink to this headline">¶</a></h3>
 <p>Ideally, we would like to have zero correlation in the samples that are drawn. Correlated samples violate our condition of independence and can give us biased posterior estimates of our posterior distribution.
-Thinning or pruning refers to the process of dropping every nth sample from a chain. This is to minimize the number of correlated samples that might be drawn, especially if the proposal distribution is narrow. The autocorrelation plot computes the correlation of a sequence with itself but shifted by n, for each n on the x axis the corresponding value of autocorrelation is plotted on the y axis.</p>
+Thinning or pruning refers to the process of dropping every nth sample from a chain. This is to minimize the number of correlated samples that might be drawn, especially if the proposal distribution is narrow. The autocorrelation plot computes the correlation of a sequence with itself but shifted by n; for each n on the x axis the corresponding value of autocorrelation is plotted on the y axis.</p>
 <p><code class="docutils literal notranslate"><span class="pre">az.plot_autocorr(trace,</span> <span class="pre">var_names=[&quot;a&quot;,</span> <span class="pre">&quot;b&quot;])</span></code></p>
-<p>Techniques like Metropolis-Hastings are susceptible to having auto-correlated samples. We plot the autcorrelation here for the cm and the ncm models. The cm models have samples that have a high degree of autocorrelation while the ncm models does not.</p>
+<p>Techniques like Metropolis-Hastings are susceptible to having auto-correlated samples. We plot the autocorrelation here for the cm and the ncm models. The cm models have samples that have a high degree of autocorrelation while the ncm models does not.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_autocorr</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sigma&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sigma - centered model&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Sigma - non-centered model&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n0&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n1&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n2&#39;}&gt;,
-        &lt;AxesSubplot:title={&#39;center&#39;:&#39;a\n3&#39;}&gt;]], dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Sigma - non-centered model&#39;)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_138_21.png" src="../_images/PyMC3_138_21.png" />
+<img alt="../_images/PyMC3_140_21.png" src="../_images/PyMC3_140_21.png" />
 </div>
 </div>
-<p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed during when a summary of the trace is printed out, however it can also be explicitly computed using</p>
-<p><code class="docutils literal notranslate"><span class="pre">az.efective_n(trace_s)</span></code></p>
+<p>Since a chain with autocorrelation has fewer samples that are independent, we can calculate the number of effective samples called the effective sample size. This is listed when a summary of the trace is printed out, however it can also be explicitly computed using</p>
+<p><code class="docutils literal notranslate"><span class="pre">az.effective_n(trace_s)</span></code></p>
 <p>PyMC3 will throw a warning if the number of effective samples is less than 200 (200 is heuristically determined to provide a good approximation for the mean of a distribution). Unless you want to sample from the tails of a distribution (rare events), 1000 to 2000 samples should provide a good approximation for a distribution.</p>
 </div>
 <div class="section" id="monte-carlo-error">
 <h3>Monte Carlo error<a class="headerlink" href="#monte-carlo-error" title="Permalink to this headline">¶</a></h3>
-<p>The Monte Carlo error is a measure of the error of our sampler which stems from the fact that not all samples that we have drawn are independent. This error is defined by dividing a trace into n blocks. We then compute the mean of these blocks and calculate the error as the standard deviation of these means over the square root of the number of blocks.</p>
+<p>The Monte Carlo error is a measure of the error of our sampler which stems from the fact that not all samples that we have drawn are independent. This error is defined by dividing a trace into ‘n’ blocks. We then compute the mean of these blocks and calculate the error as the standard deviation of these means over the square root of the number of blocks.</p>
 <p><span class="math notranslate nohighlight">\(mc_{error} = \sigma(\mu(block_i)) / \sqrt(n)\)</span></p>
 </div>
 <div class="section" id="divergence">
 <h3>Divergence<a class="headerlink" href="#divergence" title="Permalink to this headline">¶</a></h3>
-<p>Divergences happen in regions of high curvature or high gradientt in the manifold. When PyMC3 detects a divergence it abandons that chain and as a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.</p>
+<p>Divergences happen in regions of high curvature or high gradient in the manifold. When PyMC3 detects a divergence it abandons that chain, and as a result the samples that are reported to have been diverging are close to the space of high curvature but not necessarily right on it.</p>
 <p>In some cases, PyMC3 can indicate falsely that some samples are divergences, this is due to the heuristics used to identify divergences. Concentration of samples in a region is an indication that these are not divergences.</p>
-<p>We visualize this for the cm and ncm models with pairplots of the variables. You can see how the cm models have difficulty sampling at the edge of the funnel shaped two-dimensional manifold formed by the pairplot. This is a result of the sharp discontinuity where the sampler is having difficulty sampling.</p>
+<p>We visualize this for the cm and ncm models with pairplots of the variables. You can see how the cm models have difficulty sampling at the edge of the funnel shaped two-dimensional manifold formed by the pairplot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the divergences</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences in cm model, </span><span class="si">%d</span><span class="s2"> and </span><span class="si">%lf</span><span class="s2"> percent &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences </span><span class="si">%d</span><span class="s2"> and percent </span><span class="si">%lf</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of divergences in ncm model, </span><span class="si">%d</span><span class="s2"> and </span><span class="si">%lf</span><span class="s2"> percent &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">trace_ncm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
 <span class="n">divergent</span> <span class="o">=</span> <span class="n">trace_cm</span><span class="p">[</span><span class="s1">&#39;diverging&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of divergences 483 and percent 24.150000 
-Number of divergences 126 and percent 6.300000 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of divergences in cm model, 7311 and 73.110000 percent 
+Number of divergences in ncm model, 157 and 1.570000 percent 
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="pairplot">
+<h3>Pairplot<a class="headerlink" href="#pairplot" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Centered model&quot;</span><span class="p">)</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Centered model
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:ylabel=&#39;b\n0&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;,
-        &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;],
-       [&lt;AxesSubplot:ylabel=&#39;b\n1&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;,
-        &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;],
-       [&lt;AxesSubplot:ylabel=&#39;b\n2&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;,
-        &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;],
-       [&lt;AxesSubplot:ylabel=&#39;b\n3&#39;&gt;, &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;,
-        &lt;AxesSubplot:&gt;, &lt;AxesSubplot:&gt;],
-       [&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n4&#39;&gt;,
-        &lt;AxesSubplot:xlabel=&#39;b\n0&#39;&gt;, &lt;AxesSubplot:xlabel=&#39;b\n1&#39;&gt;,
-        &lt;AxesSubplot:xlabel=&#39;b\n2&#39;&gt;, &lt;AxesSubplot:xlabel=&#39;b\n3&#39;&gt;]],
-      dtype=object)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:ylabel=&#39;sigma&#39;&gt;, &lt;AxesSubplot:&gt;],
+       [&lt;AxesSubplot:xlabel=&#39;mu&#39;, ylabel=&#39;y\n0&#39;&gt;,
+        &lt;AxesSubplot:xlabel=&#39;sigma&#39;&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_142_2.png" src="../_images/PyMC3_142_2.png" />
-<img alt="../_images/PyMC3_142_3.png" src="../_images/PyMC3_142_3.png" />
+<img alt="../_images/PyMC3_144_31.png" src="../_images/PyMC3_144_31.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;b_dim_0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]},</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;b_dim_0&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]},</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Non-centered model&quot;</span><span class="p">)</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_pair</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span> <span class="s1">&#39;sigma&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">divergences</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
-  warnings.warn(
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Non-centered model
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;a&#39;, ylabel=&#39;b\n0&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[&lt;AxesSubplot:ylabel=&#39;sigma&#39;&gt;, &lt;AxesSubplot:&gt;],
+       [&lt;AxesSubplot:xlabel=&#39;mu&#39;, ylabel=&#39;y\n0&#39;&gt;,
+        &lt;AxesSubplot:xlabel=&#39;sigma&#39;&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_143_2.png" src="../_images/PyMC3_143_2.png" />
-<img alt="../_images/PyMC3_143_3.png" src="../_images/PyMC3_143_3.png" />
+<img alt="../_images/PyMC3_145_31.png" src="../_images/PyMC3_145_31.png" />
 </div>
 </div>
-<p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of diffculty sampling and hence divergences. This behavior can be observed in cm around 0 while ncm has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. The three ways to avoid the problem of divergences, two of which are changing the parameters passed to PyMC3 and one involves changing how we formulate the problem</p>
+<div class="section" id="parallel-coordinates">
+<h4>Parallel Coordinates<a class="headerlink" href="#parallel-coordinates" title="Permalink to this headline">¶</a></h4>
+<p>You can also have a parallel coordinates plot of the variables to look at the multidimensional data instead of pairplots. If we notice tight-knit lines around a region, that is an indication of difficulty sampling and hence divergences. This behavior can be observed in the centered model around 0 while the non-centered model has a sparser cluster of lines around 0. Sparser clusters can be an indication of false positives where divergences are reported. Apart from reformulating the problem, there are two ways to avoid the problem of divergences.</p>
 <ol class="simple">
 <li><p>Increase the tuning samples</p></li>
 <li><p>Increase ‘target_accept’</p></li>
 </ol>
+<p>The parallel coordinates below show a much denser set of lines for the divergences for the centered model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;CM model&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;NCM model&#39;</span><span class="p">)</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_parallel</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">shadend</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">colord</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">textsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">az</span><span class="o">.</span><span class="n">plot_parallel</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">shadend</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">colord</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">textsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_parallel</span><span class="p">(</span><span class="n">trace_cm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">shadend</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">colord</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">textsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">az</span><span class="o">.</span><span class="n">plot_parallel</span><span class="p">(</span><span class="n">trace_ncm</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mu&#39;</span><span class="p">,</span><span class="s1">&#39;sigma&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span> <span class="n">shadend</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">colord</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">textsize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
-/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3/lib/python3.8/site-packages/arviz/data/io_pymc3.py:85: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
+/Users/srijith.rajamohan/opt/anaconda3/envs/pymc3nightly_env/lib/python3.9/site-packages/arviz/data/io_pymc3.py:87: FutureWarning: Using `from_pymc3` without the model will be deprecated in a future release. Not using the model will return less accurate and less useful results. Make sure you use the model argument or call from_pymc3 within a model context.
   warnings.warn(
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:title={&#39;center&#39;:&#39;NCM model&#39;}&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_145_2.png" src="../_images/PyMC3_145_2.png" />
+<img alt="../_images/PyMC3_147_21.png" src="../_images/PyMC3_147_21.png" />
+</div>
 </div>
 </div>
 </div>
@@ -5454,7 +5488,7 @@ There were 26 divergences after tuning. Increase `target_accept` or reparameteri
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;0.98&#39;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_148_4.png" src="../_images/PyMC3_148_4.png" />
+<img alt="../_images/PyMC3_150_41.png" src="../_images/PyMC3_150_41.png" />
 </div>
 </div>
 <div class="section" id="diagnostics">
@@ -6164,7 +6198,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fbd6516b340&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_157_1.png" src="../_images/PyMC3_157_1.png" />
+<img alt="../_images/PyMC3_159_11.png" src="../_images/PyMC3_159_11.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -6179,7 +6213,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_158_1.png" src="../_images/PyMC3_158_1.png" />
+<img alt="../_images/PyMC3_160_11.png" src="../_images/PyMC3_160_11.png" />
 </div>
 </div>
 <p>The energy and the energy transition should be as close as possible if the energy transition is smaller or narrower than the marginal energy, it implies that the sampler did not sample the space appropriately and that the results obtained are probably biased.</p>
@@ -6193,7 +6227,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_160_11.png" src="../_images/PyMC3_160_11.png" />
+<img alt="../_images/PyMC3_162_11.png" src="../_images/PyMC3_162_11.png" />
 </div>
 </div>
 </div>
@@ -6210,7 +6244,7 @@ Best step size determined from tuning  [0.11613223 0.11613223 0.11613223 ... 0.1
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_162_11.png" src="../_images/PyMC3_162_11.png" />
+<img alt="../_images/PyMC3_164_11.png" src="../_images/PyMC3_164_11.png" />
 </div>
 </div>
 </div>
@@ -6537,7 +6571,7 @@ NUTS: [β, α]
         &lt;AxesSubplot:title={&#39;center&#39;:&#39;α\n1&#39;}&gt;]], dtype=object)
 </pre></div>
 </div>
-<img alt="../_images/PyMC3_170_4.png" src="../_images/PyMC3_170_4.png" />
+<img alt="../_images/PyMC3_172_41.png" src="../_images/PyMC3_172_41.png" />
 </div>
 </div>
 </div>

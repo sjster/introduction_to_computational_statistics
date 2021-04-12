@@ -1513,9 +1513,9 @@ The acceptance probability does not match the target. It is 0.882730362833375, b
 <div class="section" id="hpd-and-credible-interval">
 <h4>HPD and Credible Interval<a class="headerlink" href="#hpd-and-credible-interval" title="Permalink to this headline">¶</a></h4>
 <p>For example, if we plot the posterior of a beta distribution with some parameters, the credible interval for the Highest Posterior Density (HPD) is the <strong>shortest</strong> interval that has the given probability indicated by the HPD. This interval is also called the HPD interval. As the name indicates, this involves regions of the highest posterior probability density. For unimodal distributions, this includes the mode.</p>
-<p><img alt="HPD" src="../../_images/HPDI_1.png" /></p>
+<p><img alt="HPD" src="https://courseraimages.s3-us-west-2.amazonaws.com/HPDI_1.png" /></p>
 <center>x% HPD interval</center>
-<p><img alt="HPD" src="../../_images/HPDI_2.png" /></p>
+<p><img alt="HPD" src="https://courseraimages.s3-us-west-2.amazonaws.com/HPDI_2.png" /></p>
 <center>x% HPD interval</center>
 </div>
 <div class="section" id="hdi">
@@ -1526,7 +1526,7 @@ The acceptance probability does not match the target. It is 0.882730362833375, b
 <div class="section" id="rope">
 <h4>ROPE<a class="headerlink" href="#rope" title="Permalink to this headline">¶</a></h4>
 <p>What is the probability of getting a value given by x? We can’t really calculate this exactly but we can compute this probability within a range given by x + <span class="math notranslate nohighlight">\(\Delta\)</span>x, x - <span class="math notranslate nohighlight">\(\Delta\)</span>x.</p>
-<p><img alt="HPD" src="../../_images/HPD.png" /></p>
+<p><img alt="HPD" src="https://courseraimages.s3-us-west-2.amazonaws.com/HPD.png" /></p>
 <center><i>Probability of getting values less than x, and a range of values around x</i></center>
 <p>Sometimes, instead of looking at the probability that x = 0.16666, we look at the probability that it falls within the range 0.12 and 0.20. This range is called the Region of Practical Equivalence or ROPE. This implies that, based on our subjective opinion, getting a value between 0.12 and 0.20 is practically equivalent to getting a 0.16666. Hence, we can assume that the dice is fair given any value within this range. ROPE allows us to make decisions about an event from an inferred posterior distribution. After computing the posterior, the ROPE given by 0.12 and 0.20 can either overlap with the HPD (of getting a 3)</p>
 <ul class="simple">
