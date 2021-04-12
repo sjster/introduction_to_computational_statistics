@@ -655,7 +655,7 @@
 <li><p>An absorbing state is one where the probability of staying at that state is 1, i.e. there is zero chance of leaving that state. A recurring state is one where there is a finite probability of returning to that state.</p></li>
 <li><p>If the state variables are discrete the model is called a Hidden Markov Model.</p></li>
 </ul>
-<p><img alt="Markov Model" src="../../_images/MM1.png" /></p>
+<p><img alt="Markov Model" src="https://courseraimages.s3-us-west-2.amazonaws.com/MM.png" /></p>
 </div>
 <div class="section" id="stationary-distributions">
 <h3>Stationary distributions<a class="headerlink" href="#stationary-distributions" title="Permalink to this headline">¶</a></h3>
@@ -1192,11 +1192,11 @@ This is based on the solution of differential equations known as Hamilton’s eq
 <div class="math notranslate nohighlight">
 \[ y = \alpha x + \beta \]</div>
 <p>and the class of regression lines along with the associated uncertainty is reflected by the spread of these lines. Here \(\alpha\) is the slope of the line and \(\beta\) is the y-intercept. The lines pass around the mean of the x and y values of the data and rotate around this ‘pivot point’. For each line, as the slope increases, the y-intercept decreases and vice-versa. Hence there is a strong correlation between these coefficients.</p>
-<p><img alt="Regression lines" src="../../_images/family_regression1.png" /></p>
+<p><img alt="Regression lines" src="https://courseraimages.s3-us-west-2.amazonaws.com/family_regression.png" /></p>
 <center> Family of Regression lines </center>
 <p>The figure beneath illustates this correlation between the coefficients of linear regression \(\alpha\) and \(\beta\). The distribution space represented there has a very narrow diagonal shape which is not ideal for sampling. If you think about the example of Gibbs sampling, you select one parameter \(\alpha\) and then search for the other parameter \(\beta\) by moving along the line parallel to the y axis located at that value of \(\alpha\). This has a limited range because of this narrow shape of the parameter space as indicated by the correlation plot. Convergence, as a result, can take a long time.</p>
 <p>When you mean-center the data, you subtract the mean of x from all the values which results in the x values being centered around zero. The pivot point (not exactly at the mean but close to it) is now almost over zero on the x axis which means that the y-intercept does not change much. This breaks the correlation between the two coordinates making it easier to sample.</p>
-<p><img alt="Inverse correlation" src="../../_images/inverse_correlation1.png" /></p>
+<p><img alt="Inverse correlation" src="https://courseraimages.s3-us-west-2.amazonaws.com/inverse_correlation.png" /></p>
 <center> Inverse correlation of the intercepts </center></div>
 </div>
 </div>
