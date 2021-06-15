@@ -1,30 +1,30 @@
-# - file: README
-- file: docs/index
-- part:  Getting started
+format: jb-book
+root: docs/index
+parts:
+- caption: Getting started
   chapters:
-    - file: docs/Production/About.ipynb
-    - file: docs/Production/getting_started
-    - file: docs/Production/Databricks.ipynb
-- part: Introduction to Bayesian Statistics
+  - file: docs/Production/About.ipynb
+  - file: docs/Production/getting_started
+  - file: docs/Production/Databricks.ipynb
+- caption: Introduction to Bayesian Statistics
   chapters:
-    - file: docs/Production/Fundamentals-lecture1-belief-and-probability-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-lecture2-manipulating-probability-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-lecture3-intro-distributions-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-lecture4-MoM-MLE-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-lecture5a-Basics-of-Bayes-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-lecture5b-inference-decisions-unGRADED.ipynb
-    - file: docs/Production/Fundamentals-lecture6-priors-unGRADED.ipynb
-    - file: docs/Production/Intro.ipynb
-    - file: docs/Production/Distributions.ipynb
-    - file: docs/Production/Sampling.ipynb
-- part: Introduction to Monte Carlo Methods 
+  - file: docs/Production/Fundamentals-lecture1-belief-and-probability-unGRADED.ipynb
+  - file: docs/Production/Fundamentals-lecture2-manipulating-probability-unGRADED.ipynb
+  - file: docs/Production/Fundamentals-lecture3-intro-distributions-unGRADED.ipynb
+  - file: docs/Production/Fundamentals-lecture4-MoM-MLE-unGRADED.ipynb
+  - file: docs/Production/Fundamentals-lecture5a-Basics-of-Bayes-unGRADED.ipynb
+  - file: docs/Production/Fundamentals-lecture5b-inference-decisions-unGRADED.ipynb
+  - file: docs/Production/Fundamentals-lecture6-priors-unGRADED.ipynb
+  - file: docs/Production/Intro.ipynb
+  - file: docs/Production/Distributions.ipynb
+  - file: docs/Production/Sampling.ipynb
+- caption: Introduction to Monte Carlo Methods
   chapters:
-    - file: docs/Production/BayesianInference.ipynb
-    - file: docs/Production/MonteCarlo.ipynb
-- part: PyMC3 for Bayesian Modeling and Inference
+  - file: docs/Production/BayesianInference.ipynb
+  - file: docs/Production/MonteCarlo.ipynb
+- caption: PyMC3 for Bayesian Modeling and Inference
   chapters:
-    - file: docs/Production/PyMC3.ipynb
-    - file: docs/Production/Reparameterization.ipynb
-    - file: docs/Production/Covid_modeling_problem.ipynb
-    - file: docs/Production/Covid_modeling.ipynb
-
+  - file: docs/Production/PyMC3.ipynb
+  - file: docs/Production/Reparameterization.ipynb
+  - file: docs/Production/Covid_modeling_problem.ipynb
+  - file: docs/Production/Covid_modeling.ipynb
