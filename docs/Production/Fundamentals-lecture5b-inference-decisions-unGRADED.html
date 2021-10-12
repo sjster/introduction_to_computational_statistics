@@ -398,10 +398,10 @@
 <br>
 <hr style="border:2px solid blue"> </hr><div class="section" id="classification">
 <h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
-<p>In the last section, we gave an example taking of a test for determining status of disease.  We took the test and discovered a positive result which led to a probability that we are truly infected given the postivite test of 79%.  The odds are, we have the disease.  Are we sure enough that we will seek appropriate treatment or perhaps we want a second opinion?  Is there a second test?  Do we simply take two tests and combine the results?  When we build a computational model, we repeatedly ask this question and have to make a decision, do we continue in the current direction or go from whence we came. The consequences of making a wrong choice are often not symmetric.  Our overall goal is to simply be right, but understanding consequence discrepancies may suggest wrong answers are not all the same.  In this example we may choose to weigh a wrong answer differently in one direction than another.</p>
+<p>In the last section, we gave an example of taking a test for determining the status of a disease.  We took the test and discovered a positive result which led to a probability that we are truly infected given the positive test of 79%.  The odds are, we have the disease.  Are we sure enough that we will seek appropriate treatment or perhaps we want a second opinion?  Is there a second test?  Do we simply take two tests and combine the results?  When we build a computational model, we repeatedly ask this question and have to make a decision, do we continue in the current direction or go from whence we came. The consequences of making a wrong choice are often not symmetric.  Our overall goal is to simply be right, but understanding consequence discrepancies may suggest wrong answers are not all the same.  In this example we may choose to weigh a wrong answer differently in one direction than another.</p>
 <p>Restating this in terms of probability, for a binary decision, our goal is:</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\text{argmin } p(mistake) = \sum_{i=1}^k p(x_{k \notin j},C_k)$$ where j/k are class labels.\\#### Rejection regions or decision boundaries\\In our decision, we may choose a region for inclusion in one class or another, for instance, we may decide the optimal boundary in our disease classification is at $p(disease|+test)&gt;75%$.  Note that the decision boundary should parition the space.  Written with a decision boundary, \\$$\text{argmin } p(mistake) = \int_{\mathbb{R_1}} p(x,C_2) dx + \int_{\mathbb{R_2}} p(x,C_1) dx\end{aligned}\end{align} \]</div>
+\[ \begin{align}\begin{aligned}\text{argmin } p(mistake) = \sum_{i=1}^k p(x_{k \notin j},C_k)$$ where j/k are class labels.\\#### Rejection regions or decision boundaries\\In our decision, we may choose a region for inclusion in one class or another, for instance, we may decide the optimal boundary in our disease classification is at $p(disease|+test)&gt;75%$.  Note that the decision boundary should partition the space.  Written with a decision boundary, \\$$\text{argmin } p(mistake) = \int_{\mathbb{R_1}} p(x,C_2) dx + \int_{\mathbb{R_2}} p(x,C_1) dx\end{aligned}\end{align} \]</div>
 <p>Returning to the coin toss experiment, after we perform the experiment many times, we can arrange the data and find the regions to the right/left that give the desired partions between ‘fair’ and ‘biased’ based on our tolerance for error.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -463,14 +463,26 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bounds are:
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class='ansiout'>bounds are:
 [0.35, 0.6]
-</pre></div>
-</div>
-<img alt="../../_images/Fundamentals-lecture5b-inference-decisions-unGRADED_2_1.png" src="../../_images/Fundamentals-lecture5b-inference-decisions-unGRADED_2_1.png" />
+</div></div><img alt="../../_images/Fundamentals-lecture5b-inference-decisions-unGRADED_2_1.png" src="../../_images/Fundamentals-lecture5b-inference-decisions-unGRADED_2_1.png" />
 </div>
 </div>
-<p>Knowing we are going to make mistakes, we introduce the idea of a loss function.  Loss functions (also called cost functions or as a positive, a utility functions), is a function that we create that captures the goal of minimizing errors but allows for differences in magnetude for consequences of the mistakes.  The goal is now to minimize the average loss:</p>
+<p>Knowing we are going to make mistakes, we introduce the idea of a loss function.  Loss functions (also called cost functions or as a positive, a utility functions), is a function that we create that captures the goal of minimizing errors, but allows for differences in magnitude for consequences of the mistakes. The goal is now to minimize the average loss:</p>
 <div class="math notranslate nohighlight">
 \[E[loss] = \sum_k \sum_j \int_{\mathbb{R_j}} L_{kj}p(x,C_k) dx\]</div>
 <div class="section" id="loss-functions">
@@ -519,15 +531,27 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Penalties for each prediction
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class='ansiout'>Penalties for each prediction
 [[-0.05129319 -0.        ]
  [-1.89711932 -0.        ]
  [-0.         -1.38629396]
  [-0.         -0.04082189]]
 Total cross entropy loss is: 0.8438820897043499
-</pre></div>
-</div>
-</div>
+</div></div></div>
 </div>
 <p>Note that this can easily be extended to the case of multiple categories.</p>
 </div>
@@ -535,7 +559,7 @@ Total cross entropy loss is: 0.8438820897043499
 <h3>Categorical cross entropy loss<a class="headerlink" href="#categorical-cross-entropy-loss" title="Permalink to this headline">¶</a></h3>
 <div class="math notranslate nohighlight">
 \[\text{CE loss }= - \sum_{i=1}^I \sum_{k=1}^K \mathbb{1}_{y_i = k}log p(y_i = k | x_i,\theta)\]</div>
-<p>This looks completely different, but understanding the terms will quickly lead to a familiar setup.  The CE loss is a sum of the probabilities assigned to the predicted class.  The \(\mathbb{1}\) is an idicator function determining which class is the correct class while the \(p(y_i = k | x_i,\theta)\) is the likelihood of the correct class given the data.  In the case of two categories, this reduces to the cross entropy case above.</p>
+<p>This looks completely different, but understanding the terms will quickly lead to a familiar setup.  The CE loss is a sum of the probabilities assigned to the predicted class.  The \(\mathbb{1}\) is an indicator function determining which class is the correct class while the \(p(y_i = k | x_i,\theta)\) is the likelihood of the correct class given the data.  In the case of two categories, this reduces to the cross entropy case above.</p>
 </div>
 <div class="section" id="other-classification-loss-functions">
 <h3>Other classification loss functions<a class="headerlink" href="#other-classification-loss-functions" title="Permalink to this headline">¶</a></h3>
@@ -555,14 +579,14 @@ Total cross entropy loss is: 0.8438820897043499
 <p>Mean squared error, MSE, is defined as</p>
 <div class="math notranslate nohighlight">
 \[MSE = \frac{1}{N} \sum_{i=1}^N (y_i - \hat{y_i})^2\]</div>
-<p>This has a number of nice features as a loss function including penalizing based on distance from the prediction and mathmatical properties such as that it is differentiable and there is always a single solution.  MSE is sensitive to outliers, ie it is not robust to outliers.</p>
+<p>This has a number of nice features as a loss function including penalizing based on distance from the prediction and mathematical properties such as that it is differentiable and there is always a single solution.  MSE is sensitive to outliers, ie it is not robust to outliers.</p>
 </div>
 <div class="section" id="mean-absolute-error">
 <h4>Mean absolute error<a class="headerlink" href="#mean-absolute-error" title="Permalink to this headline">¶</a></h4>
 <p>Mean absolute error, MAE, is defined as</p>
 <div class="math notranslate nohighlight">
 \[MAE = \frac{1}{N} \sum_{i=1}^N |y_i - \hat{y_i}|\]</div>
-<p>Like MSE, MAE returns the average of the magnetude of errors, but needs computational tools to deal with the lack of a differential.  MAE is less sensitive to ouliers than MSE, however, there is no guarantee of a unique solution.</p>
+<p>Like MSE, MAE returns the average of the magnitude of errors, but needs computational tools to deal with the lack of a differential.  MAE is less sensitive to outliers than MSE, however, there is no guarantee of a unique solution.</p>
 </div>
 <div class="section" id="l1-and-l2-loss">
 <h4>L1 and L2 loss<a class="headerlink" href="#l1-and-l2-loss" title="Permalink to this headline">¶</a></h4>
@@ -571,7 +595,7 @@ Total cross entropy loss is: 0.8438820897043499
 </div>
 <div class="section" id="regularization">
 <h4>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">¶</a></h4>
-<p>Regularization is a technique to prevent overfitting throug addition of penatly term to the sum of the regression coefficents.  For instance:</p>
+<p>Regularization is a technique to prevent overfitting through the addition of a penalty term to the sum of the regression coefficents.  For instance:</p>
 <div class="math notranslate nohighlight">
 \[argmin LSE + \lambda \sum_{i=1}^k|w_i|\]</div>
 <p>where the \(w_i\) are the weights being learned.</p>
@@ -581,7 +605,7 @@ Total cross entropy loss is: 0.8438820897043499
 </div>
 <div class="section" id="confusion-matrix">
 <h2>Confusion matrix<a class="headerlink" href="#confusion-matrix" title="Permalink to this headline">¶</a></h2>
-<p>For binary classification problems, we have the so called confusion matrix.  For a class known to be A, did we predict A or B?  The result to that question can be summarized in the confusion matrix:</p>
+<p>For binary classification problems, we have the confusion matrix. For a class known to be A, did we predict A or B? The result to that question can be summarized in the confusion matrix:</p>
 <table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p></p></th>
@@ -612,9 +636,9 @@ P(B) = Probability of Positive Prediction (PP)<br />
 P(not B) = Probability of Negative Prediction (NP)</p>
 <div class="math notranslate nohighlight">
 \[P(A|B) = \frac{P(B|A)*P(A)}{P(B)} = \frac{TPR*PC}{TPR*PC + FPR*NC}\]</div>
-<p>Precision also called the Positive Predictive Value.<br />
+<p>Precision is also called the Positive Predictive Value.<br />
 $<span class="math notranslate nohighlight">\(precision = PPV = \frac{TP}{TP+FP} = \frac{TPR*PC}{PP}\)</span>$</p>
-<p>Recall is also known as the sensitivity.<br />
+<p>Recall is also known as sensitivity.<br />
 $<span class="math notranslate nohighlight">\(recall = \frac{TP}{TP+FN}\)</span>$</p>
 <div class="math notranslate nohighlight">
 \[F_1 score = \frac{precision*recall}{precision+recall}\]</div>
