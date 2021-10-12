@@ -373,7 +373,7 @@
 <br>
 <hr style="border:2px solid blue"> </hr><div class="section" id="bayes-rule">
 <h2>Bayes’ Rule<a class="headerlink" href="#bayes-rule" title="Permalink to this headline">¶</a></h2>
-<p>Starting from the rules of probability giving in the first section, we see that we can go from joint probabities to conditional via:</p>
+<p>Starting from the rules of probability giving in the first section, we see that we can go from joint probabilities to conditional via:</p>
 <div class="math notranslate nohighlight">
 \[P(A,B) = P(A|B) P(B)\]</div>
 <p>There is no reason we can’t do the same but reversing the conditioning:</p>
@@ -383,7 +383,7 @@
 <div class="math notranslate nohighlight">
 \[P(A|B) = \frac{P(B|A)P(A)}{P(B)}\]</div>
 <p>This is known as Bayes’ Rule.</p>
-<p>Note that any combination of discrete and continous random variables can also be studies, for instance, assuming X is a discrete randcom variable and Y is a continuous random variable, and being verbose using probabilities for X and densities for Y, we would write this as:</p>
+<p>Note that any combination of discrete and continous random variables can also be studied, for instance, assuming X is a discrete randcom variable and Y is a continuous random variable, and being verbose using probabilities for X and densities for Y, we would write this as:</p>
 <div class="math notranslate nohighlight">
 \[P(X=x|Y=y)=\frac{f_{Y|X=x}(y)P(X=x)}{f_Y(y)}\]</div>
 <br>
@@ -396,8 +396,8 @@
 <p>What information do we know?
 $<span class="math notranslate nohighlight">\(P(disease) = 0.05; P(\overline{disease}) = 0.95\)</span>$</p>
 <p>Note: \(\overline{disease}\) means, compliment or NOT disease.</p>
-<p>We then receive the results, the test comes back positive.  Are we in fact infected?  This question turns out to be less straight forward.  The reason this takes a bit more thought is the testing has error that needs to be accounted for.  The way to approach this question is through Bayes’ Rule.</p>
-<p>What we want is the probabity we have disease given a positive test result:</p>
+<p>We then receive the results, the test comes back positive.  Are we in fact infected?  This question turns out to be less straightforward.  The reason this takes a bit more thought is the testing has error that needs to be accounted for.  The way to approach this question is through Bayes’ Rule.</p>
+<p>What we want is the probability we have the disease given a positive test result:</p>
 <div class="math notranslate nohighlight">
 \[P(disease|+ test)\]</div>
 <p>Bayes’ Rule then gives this as:</p>
@@ -425,7 +425,7 @@ $<span class="math notranslate nohighlight">\(P(disease) = 0.05; P(\overline{dis
 \[P(A|B) = \frac{P(B|A)P(A)}{P(B)}\]</div>
 <div class="section" id="posterior">
 <h3>Posterior<a class="headerlink" href="#posterior" title="Permalink to this headline">¶</a></h3>
-<p>The \(P(A|B)\) on the left hand side is termed the posterior.  It is the probabillity or likelihood of A, given B is true.  As we will see, in Bayesian analysis, we are often looking for the posterior to represent the distribution of the parameter given data.</p>
+<p>The \(P(A|B)\) on the left hand side is termed the posterior.  It is the probability or likelihood of A, given B is true.  As we will see, in Bayesian analysis, we are often looking for the posterior to represent the distribution of the parameter given data.</p>
 </div>
 <div class="section" id="likelihood">
 <h3>Likelihood<a class="headerlink" href="#likelihood" title="Permalink to this headline">¶</a></h3>
@@ -434,12 +434,12 @@ $<span class="math notranslate nohighlight">\(P(disease) = 0.05; P(\overline{dis
 <div class="section" id="priors">
 <h3>Priors<a class="headerlink" href="#priors" title="Permalink to this headline">¶</a></h3>
 <p>\(P(A)\) is called the prior.  In the above example, this reflected our prior knowledge.  Before collecting (new) data, we had some notion of our probability of having disease.  It can represent a belief, it can be informed, or vague.</p>
-<p>Above, we used a probabillity, the probabillity of diseased based on the population was set to 5%.  We could have changed the prior to use a distributions, perhaps we had data of surrounding counties and knew the average was 5% with a defined variance.  Priors can also be used to induce a known distribution in the posterior.</p>
+<p>Above, we used a probability, the probability of disease based on the population was set to 5%.  We could have changed the prior to use a distribution, perhaps we had data of surrounding counties and knew the average was 5% with a defined variance.  Priors can also be used to induce a known distribution in the posterior.</p>
 </div>
 <div class="section" id="marginal">
 <h3>Marginal<a class="headerlink" href="#marginal" title="Permalink to this headline">¶</a></h3>
 <p>The denominator, \(P(B)\), is the marginal probability of B.  This is a constant and in many analysis may be dropped.</p>
-<p>Using these terms, Bayes’ Rule can be writen:</p>
+<p>Using these terms, Bayes’ Rule can be written:</p>
 <div class="math notranslate nohighlight">
 \[posterior = \frac{likelihood \ast prior}{marginal}\]</div>
 <br>
