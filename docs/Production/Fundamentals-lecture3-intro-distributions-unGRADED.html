@@ -119,7 +119,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="Fundamentals-lecture1-belief-and-probability-unGRADED.html">
-   Probability
+   Empirical modeling
   </a>
  </li>
  <li class="toctree-l1">
@@ -307,79 +307,84 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Distributions, central tendency, and shape parameters
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#probability-distributions">
    Probability distributions
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#discrete-random-variables">
    Discrete random variables
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#continuous-random-variables">
    Continuous random variables
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#moments-expectations-and-variances">
    Moments, expectations and variances
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#expectation">
      Expectation
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#variance-skewness-kurtosis">
      Variance, skewness, kurtosis
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#properties-of-mean-and-variance">
      Properties of mean and variance
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#other-measures">
      Other measures
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#joint-distributions">
    Joint distributions
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#marginal-distribution">
    Marginal distribution
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#conditional-distributions">
    Conditional distributions
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#independence">
    Independence
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#covariance">
    Covariance
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#correlation-correlation-coefficient">
    Correlation (correlation coefficient)
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
      GRADED EVALUATION (15 mins)
     </a>
@@ -399,7 +404,7 @@
                 
   <div class="section" id="distributions-central-tendency-and-shape-parameters">
 <h1>Distributions, central tendency, and shape parameters<a class="headerlink" href="#distributions-central-tendency-and-shape-parameters" title="Permalink to this headline">¶</a></h1>
-<p>In the last video, we discussed sample spaces, events and probability spaces.  We looked at rules for addition and multiplication of probabilities which follow directly from the Axioms of Probability (Kologomorov Axioms).  Here we will continue and extend that discussion to probability distributions and descriptions of those distributions.</p>
+<p>In the last video, we discussed sample spaces, events and probability spaces.  We looked at rules for addition and multiplication of probabilities which follow directly from the Axioms of Probability (Kolmogorov Axioms).  Here we will continue and extend that discussion to probability distributions and descriptions of those distributions.</p>
 <p>Our topics include:</p>
 <ol class="simple">
 <li><p>probability distributions (discrete vs continuous, pmf vs pdf).</p></li>
@@ -416,8 +421,9 @@
 </ul>
 <br>
 <br>
-<hr style="border:2px solid blue"> </hr><div class="section" id="probability-distributions">
-<h2>Probability distributions<a class="headerlink" href="#probability-distributions" title="Permalink to this headline">¶</a></h2>
+<hr style="border:2px solid blue"> </hr></div>
+<div class="section" id="probability-distributions">
+<h1>Probability distributions<a class="headerlink" href="#probability-distributions" title="Permalink to this headline">¶</a></h1>
 <p>As a reminder, last time we had introduced the concept of a probability space as a combination of a sample space, event space, and probability function.  The probability function is a real-valued function mapping events to the interval [0,1].  The probability function adheres to the Axioms of Probability (Kolmogorov Axioms).  These are summarized as:</p>
 <ol>
 <li><p>the probability of an event is a real number on the interval [0,1]</p>
@@ -425,7 +431,7 @@
 \[0 \le P(E) \le 1\]</div>
  <br>
 </li>
-<li><p>the probability of at least one event occuring is 1</p>
+<li><p>the probability of at least one event occurring is 1</p>
 <div class="math notranslate nohighlight">
 \[P(S) = 1\text{, where S is the sample space}\]</div>
  <br>
@@ -435,10 +441,10 @@
 \[P(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^\infty P(E_i)\]</div>
 </li>
 </ol>
-<p>In addition to the probability space, we talked about random variables being (often) real-valued functions mapping outcomes (really events) to a measureable space.  In set notation, this looks like:</p>
+<p>In addition to the probability space, we talked about random variables being (often) real-valued functions mapping outcomes (really events) to a measurable space.  In set notation, this looks like:</p>
 <div class="math notranslate nohighlight">
 \[X: \Omega \to \mathbb{R}\]</div>
-<p>Combining the mapping of events with the association of the probability function, we have what we need to study random processes.  This mapping defines the probability given by X in a measureable set as:</p>
+<p>Combining the mapping of events with the association of the probability function, we have what we need to study random processes.  This mapping defines the probability given by X in a measurable set as:</p>
 <div class="math notranslate nohighlight">
 \[P(X \in S) = P({x \in \Omega | X(x) \in S})\]</div>
 <p>For example, consider the case of tossing two fair coins where we are interested in the events being {(HH),(TT)} or not.  Our sample space is:</p>
@@ -469,10 +475,9 @@
 <p>For <span class="math notranslate nohighlight">\(\theta\)</span> = [0,1].  Distributions are associated with parameters.  As defined above, we see \(\theta\) as the <strong>parameter</strong> associated with the Bernoulli distribution is the probability of success.</p>
 <br>
 <br>
-<hr style="border:2px solid blue"> </hr>
-</div>
+<hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="discrete-random-variables">
-<h2>Discrete random variables<a class="headerlink" href="#discrete-random-variables" title="Permalink to this headline">¶</a></h2>
+<h1>Discrete random variables<a class="headerlink" href="#discrete-random-variables" title="Permalink to this headline">¶</a></h1>
 <p>As above, discrete random variables are characterized by countable outcome spaces.  Discrete random variables are associated with a <strong>probability mass function (pmf)</strong> whose range is a countable subset of <span class="math notranslate nohighlight">\(\mathbb{R}\)</span> with probability values in the range [0,1].  Properties of the pmf include:</p>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(f_x(x) \ge 0\)</span>, for all <span class="math notranslate nohighlight">\(x \in \mathbb{R}_X\)</span>.</p></li>
@@ -492,7 +497,7 @@
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="continuous-random-variables">
-<h2>Continuous random variables<a class="headerlink" href="#continuous-random-variables" title="Permalink to this headline">¶</a></h2>
+<h1>Continuous random variables<a class="headerlink" href="#continuous-random-variables" title="Permalink to this headline">¶</a></h1>
 <p>In the discrete case, random variables are characterized by countable outcome spaces where the random variable maps events to discrete values on \(\mathbb{R}\).  How do we deal with outcome spaces that are continuous?  We use intervals.</p>
 <p>Continuous random variables are associated with a <strong>probability density function (pdf)</strong> whose range is an uncountable subset of \(\mathbb{R}\) with probability values in the range [0,\(\infty\)].  Properties of the pdf include:</p>
 <ol class="simple">
@@ -507,7 +512,7 @@
 \[X \sim Norm(\mu,\sigma^2) \text{, where}\]</div>
 <div class="math notranslate nohighlight">
 \[f_x(x,\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}, (x,\mu,\sigma^2) \in (\mathbb{R},\mathbb{R},\mathbb{R}_+)\]</div>
-<p>A plot of the pdf is show below. Where we are setting \(\mu = 0\) and \(\sigma^2=1\).  Note, the <strong>parameters</strong> of the distribution as given are \(\mu\) and \(\sigma^2\).  The parameters of the normal distribution describe the shape: \(\mu\) gives the center of mass while \(\sigma^2\) gives and indication of spread.</p>
+<p>A plot of the pdf is show below. Where we are setting \(\mu = 0\) and \(\sigma^2=1\).  Note, the <strong>parameters</strong> of the distribution as given are \(\mu\) and \(\sigma^2\).  The parameters of the normal distribution describe the shape: \(\mu\) gives the center of mass while \(\sigma^2\) gives an indication of spread.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr><div class="cell docutils container">
@@ -532,10 +537,10 @@
 </div>
 </div>
 <div class="section" id="moments-expectations-and-variances">
-<h2>Moments, expectations and variances<a class="headerlink" href="#moments-expectations-and-variances" title="Permalink to this headline">¶</a></h2>
+<h1>Moments, expectations and variances<a class="headerlink" href="#moments-expectations-and-variances" title="Permalink to this headline">¶</a></h1>
 <p>Distributions are recognizable by characteristics such as range, location and shape.  Computing moments such as expectation, variance, skewness and kurtosis can be used to estimate the parameters that define a distribution.</p>
 <div class="section" id="expectation">
-<h3>Expectation<a class="headerlink" href="#expectation" title="Permalink to this headline">¶</a></h3>
+<h2>Expectation<a class="headerlink" href="#expectation" title="Permalink to this headline">¶</a></h2>
 <p>The expectation of a function is the average value of the function under a probability distribution.  In the case of discrete distributions, this is computed as the weighted average where the weights are dictated by the probability at the value of x (where p(x) is the pmf/pdf):</p>
 <div class="math notranslate nohighlight">
 \[E[f] = \sum_x f(x)^r p(x)\]</div>
@@ -549,8 +554,8 @@
 <p>Thus, for the Bernoulli distribution, the mean is equal to the parameter for success, \(E[x]_{Bern} = \theta\).</p>
 </div>
 <div class="section" id="variance-skewness-kurtosis">
-<h3>Variance, skewness, kurtosis<a class="headerlink" href="#variance-skewness-kurtosis" title="Permalink to this headline">¶</a></h3>
-<p>While the mean of the distribution, also the first raw moment, is given by the first power of \(x^1\), other interesting moments arrise when we take powers of \(X-E[X]\).</p>
+<h2>Variance, skewness, kurtosis<a class="headerlink" href="#variance-skewness-kurtosis" title="Permalink to this headline">¶</a></h2>
+<p>While the mean of the distribution, also the first raw moment, is given by the first power of \(x^1\), other interesting moments arise when we take powers of \(X-E[X]\).</p>
 <p>Variance, measures spread of the distribution:<br />
 $<span class="math notranslate nohighlight">\(Var(X) = E[(X-E[X])^2] = \int (X-E[X])^2 p(x) dx\text{ in the continuous case}\)</span>$</p>
 <p>Skewness, measures symmetry:<br />
@@ -559,7 +564,7 @@ $<span class="math notranslate nohighlight">\(\alpha_3 = \frac{E(X-E[X])^3}{(\sq
 $<span class="math notranslate nohighlight">\(\alpha_4 = \frac{E(X-E[X])^4}{(\sqrt{Var(X)})^4}\)</span>$</p>
 </div>
 <div class="section" id="properties-of-mean-and-variance">
-<h3>Properties of mean and variance<a class="headerlink" href="#properties-of-mean-and-variance" title="Permalink to this headline">¶</a></h3>
+<h2>Properties of mean and variance<a class="headerlink" href="#properties-of-mean-and-variance" title="Permalink to this headline">¶</a></h2>
 <p>Expectation is a linear operator.  As such, we can easily prove the following useful properties:</p>
 <ol class="simple">
 <li><p>\(E[c] = c\), where c is a constant.</p></li>
@@ -574,7 +579,7 @@ $<span class="math notranslate nohighlight">\(\alpha_4 = \frac{E(X-E[X])^4}{(\sq
 <p>Standard deviation is \(\sqrt{Var(X)}\).  This is a useful quantity as it is on the same scale as X.</p>
 </div>
 <div class="section" id="other-measures">
-<h3>Other measures<a class="headerlink" href="#other-measures" title="Permalink to this headline">¶</a></h3>
+<h2>Other measures<a class="headerlink" href="#other-measures" title="Permalink to this headline">¶</a></h2>
 <p>Mode – most frequent value.
 \(\frac{df(x)}{dx}=0\) needs to be max.</p>
 <p>Median – middle value, place where probability is equal to right/left.
@@ -587,7 +592,7 @@ $<span class="math notranslate nohighlight">\(\alpha_4 = \frac{E(X-E[X])^4}{(\sq
 <hr style="border:2px solid blue"> </hr></div>
 </div>
 <div class="section" id="joint-distributions">
-<h2>Joint distributions<a class="headerlink" href="#joint-distributions" title="Permalink to this headline">¶</a></h2>
+<h1>Joint distributions<a class="headerlink" href="#joint-distributions" title="Permalink to this headline">¶</a></h1>
 <p>In many cases, we will be working on distributions of more than one variable.  These are termed joint distributions.  These joint distributions can be of mixed type, eg Bernoulli and normal, normal and Cauchy, etc.  These can be thought of in the normal way:</p>
 <div class="math notranslate nohighlight">
 \[P_{XY}(x,y) = P(X=x,Y=y)\]</div>
@@ -600,14 +605,14 @@ $<span class="math notranslate nohighlight">\(\alpha_4 = \frac{E(X-E[X])^4}{(\sq
 <hr style="border:2px solid blue"> </hr>
 </div>
 <div class="section" id="marginal-distribution">
-<h2>Marginal distribution<a class="headerlink" href="#marginal-distribution" title="Permalink to this headline">¶</a></h2>
+<h1>Marginal distribution<a class="headerlink" href="#marginal-distribution" title="Permalink to this headline">¶</a></h1>
 <p>In cases where we have a joint distribution, we will sometimes need to find the marginal distribution.  The marginial distribution for a case where we have a joint distribution of X and Y is:</p>
 <p>\(P_X(x) = \sum_{all y_i} P_{XY}(x,y_i)\) and simularly for the marginal in Y.  The extension to a continuous case or mixed case is an obvious use of an integral.</p>
 <p>Intuitively, we are integrating (or averaging) out the effect of R.V. Y to get at the marginal distribution of X.</p>
 </div>
 <div class="section" id="conditional-distributions">
-<h2>Conditional distributions<a class="headerlink" href="#conditional-distributions" title="Permalink to this headline">¶</a></h2>
-<p>Remember our rules of probabillity …</p>
+<h1>Conditional distributions<a class="headerlink" href="#conditional-distributions" title="Permalink to this headline">¶</a></h1>
+<p>Remember our rules of probability …</p>
 <div class="math notranslate nohighlight">
 \[P_{XY}(x_i|y_j) = \frac{P_{XY}(x_i,y_j)}{P_Y(y_i)}\]</div>
 <p>The conditional expectation is given by</p>
@@ -618,25 +623,25 @@ $<span class="math notranslate nohighlight">\(\alpha_4 = \frac{E(X-E[X])^4}{(\sq
 \[E[g(Y)|x] = \int_{-\infty}^{\infty} g(y)f(y|x)dy\]</div>
 </div>
 <div class="section" id="independence">
-<h2>Independence<a class="headerlink" href="#independence" title="Permalink to this headline">¶</a></h2>
+<h1>Independence<a class="headerlink" href="#independence" title="Permalink to this headline">¶</a></h1>
 <p>It can be shown that if X and Y are independent, there exists some functions g(x) and h(y) such that:</p>
 <div class="math notranslate nohighlight">
 \[f(x,y) = g(x)h(y)\text{ for all (x,y)}\]</div>
 <p>How do we use this?  In the discrete case, if we can find a pair (x,y) that violate the product rule, the random variables are dependent.</p>
 </div>
 <div class="section" id="covariance">
-<h2>Covariance<a class="headerlink" href="#covariance" title="Permalink to this headline">¶</a></h2>
+<h1>Covariance<a class="headerlink" href="#covariance" title="Permalink to this headline">¶</a></h1>
 <div class="math notranslate nohighlight">
 \[cov[x,y] = E[(x-E[x])(y-E[y])] = E_{x,y}[xy]-E_x[x]E_y[y]\]</div>
 </div>
 <div class="section" id="correlation-correlation-coefficient">
-<h2>Correlation (correlation coefficient)<a class="headerlink" href="#correlation-correlation-coefficient" title="Permalink to this headline">¶</a></h2>
-<p>The correlation coefficient gives an indication of how much or little X,Y vary together.  If X,Y are independent, \(cov(X,Y)= corr(X,Y) = 0\).  The correlary is not necessarily true.
+<h1>Correlation (correlation coefficient)<a class="headerlink" href="#correlation-correlation-coefficient" title="Permalink to this headline">¶</a></h1>
+<p>The correlation coefficient gives an indication of how much or little X,Y vary together.  If X,Y are independent, \(cov(X,Y)= corr(X,Y) = 0\).  The corollary is not necessarily true.
 $<span class="math notranslate nohighlight">\(\rho_{XY} = \frac{Cov(X,Y)}{\sigma_x\sigma_y}\)</span>$</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr><div class="section" id="graded-evaluation-15-mins">
-<h3>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h3>
+<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
 <ol class="simple">
 <li><p>Are X and Y independent?</p></li>
 </ol>
@@ -661,7 +666,6 @@ b. is a function of y</p>
 b. Can’t tell</p>
 </li>
 </ol>
-</div>
 </div>
 </div>
 

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Probability &#8212; Introduction to Computational Statistics with PyMC3</title>
+    <title>Empirical modeling &#8212; Introduction to Computational Statistics with PyMC3</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet" />
   <link href="../../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -119,7 +119,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Probability
+   Empirical modeling
   </a>
  </li>
  <li class="toctree-l1">
@@ -307,37 +307,37 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#empirical-modeling">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
    Empirical modeling
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#principles-of-probability">
-   Principles of Probability
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#principals-of-probability">
+   Principals of Probability
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#chance-regularities">
    Chance regularities
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#belief-and-probability">
    Belief and probability
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#sample-space-outcomes-and-events">
    Sample space, outcomes and events
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#probability-space-and-probability">
      Probability Space and Probability
     </a>
    </li>
-   <li class="toc-h3 nav-item toc-entry">
+   <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#graded-evaluation-15-mins">
      GRADED EVALUATION (15 mins)
     </a>
@@ -355,22 +355,20 @@
         
               <div>
                 
-  <div class="section" id="probability">
-<h1>Probability<a class="headerlink" href="#probability" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="empirical-modeling">
-<h2>Empirical modeling<a class="headerlink" href="#empirical-modeling" title="Permalink to this headline">¶</a></h2>
-<p>Our goal is to learn from data through the construction of statistical models.  Explicit in this is statistics, which demands understanding and adherance to the rules of probability. In this section, we will lay out the basic foundations of probability and give examples to assist in our understanding. Our general flow will be to understand the rules of probability and how to manipulate them, move to probability distributions and descriptive statistics, touch on likelihood and the Bayes theorem, and end with a discussion on inference.</p>
+  <div class="section" id="empirical-modeling">
+<h1>Empirical modeling<a class="headerlink" href="#empirical-modeling" title="Permalink to this headline">¶</a></h1>
+<p>Our goal is to learn from data through construction of statistical models.  Explicit in this is statistics which demands understanding and adherence to rules of probability.  In this section, we will lay out the basic foundations of probability and give examples to assist in our understanding.  Our general flow will be to understand the rules of probability and how to manipulate them, move to probability distributions and descriptive statistics, touch on likelihood and Bayes, and end with a discussion on inference.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
-<div class="section" id="principles-of-probability">
-<h2>Principles of Probability<a class="headerlink" href="#principles-of-probability" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="principals-of-probability">
+<h1>Principals of Probability<a class="headerlink" href="#principals-of-probability" title="Permalink to this headline">¶</a></h1>
 <p>In this section, we will lay out the principles guiding our models – probability and statistics.</p>
 <p>Outline of discussion:</p>
 <ul class="simple">
 <li><p>Stochastic processes – chance regularities</p></li>
 <li><p>Belief and probability</p></li>
-<li><p>Rules of probabillity</p></li>
+<li><p>Rules of probability</p></li>
 <li><p>Factoring joint probabilities</p></li>
 </ul>
 <p>General references:</p>
@@ -384,8 +382,8 @@
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="chance-regularities">
-<h2>Chance regularities<a class="headerlink" href="#chance-regularities" title="Permalink to this headline">¶</a></h2>
-<p>The processes we are interested in are non-deterministic (exhibits chance) where patterns reveal themselves (show regularities) after collecting lots of data.  Arguably, modeern statistics started with quantifying betting odds in dice games such as the sum of spots (for example, see <a class="reference external" href="http://jse.amstat.org/v11n2/feldman.html">Feldman and Morgan</a> for a discussion of HOG).  To illustrate this, consider a game of dice where we throw 2 dice and sum the dots.  Let’s simulate this in python and look at the data.</p>
+<h1>Chance regularities<a class="headerlink" href="#chance-regularities" title="Permalink to this headline">¶</a></h1>
+<p>The processes we are interested in are non-deterministic (exhibits chance) where patterns reveal themselves (show regularities) after collection lots of data.  Arguably, modern statistics started with quantifying betting odds in dice games such as the sum of spots (for example, see <a class="reference external" href="http://jse.amstat.org/v11n2/feldman.html">Feldman and Morgan</a> for a discussion of HOG).  To illustrate this, consider a game of dice where we throw 2 dice and sum the dots.  Let’s simulate this in python and look at the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## simulate 500 rolls of 2 dice using random sampling with replacement</span>
@@ -508,7 +506,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_5_0.png" src="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_5_0.png" />
+<img alt="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_4_0.png" src="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_4_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -519,7 +517,21 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7     92
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class='ansiout'>7     92
 6     79
 8     73
 9     47
@@ -530,10 +542,7 @@
 11    27
 12    15
 2     14
-Name: dots, dtype: int64
-</pre></div>
-</div>
-</div>
+Name: dots, dtype: int64</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -543,25 +552,25 @@ Name: dots, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_7_0.png" src="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_7_0.png" />
+<img alt="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_6_0.png" src="../../_images/Fundamentals-lecture1-belief-and-probability-unGRADED_6_0.png" />
 </div>
 </div>
 <p>In this simulated game, we notice:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* we are not able to predict with certainty the next throw  
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>* we are not able to predice with certainty the next throw  
 * some combinations occur with higher frequency  
-* the shape of the tabulated data is roughly triangular  
+* the shape of the tabulated data is roughly triangular
 </pre></div>
 </div>
 </div>
 <div class="section" id="belief-and-probability">
-<h2>Belief and probability<a class="headerlink" href="#belief-and-probability" title="Permalink to this headline">¶</a></h2>
-<p>So, from this and maybe experience, we see that 7’s occur more frequently than 12’s, 5’s and 9’s about the same, etc., so we have a belief.  How do we go from a ‘hunch’ to a quantified understanding of the game?  The answer is statistics and probability.</p>
+<h1>Belief and probability<a class="headerlink" href="#belief-and-probability" title="Permalink to this headline">¶</a></h1>
+<p>So, from this and maybe experience, we see that 7’s occur more frequently than 12’s, 5’s and 9’s about the same, etc, so we have a beleif.  How do we go from a ‘hunch’ to a quantified understanding of the game?  The answer is statistics and probability.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="sample-space-outcomes-and-events">
-<h2>Sample space, outcomes and events<a class="headerlink" href="#sample-space-outcomes-and-events" title="Permalink to this headline">¶</a></h2>
-<p>To get at an understanding of probability, we need some definitions.</p>
+<h1>Sample space, outcomes and events<a class="headerlink" href="#sample-space-outcomes-and-events" title="Permalink to this headline">¶</a></h1>
+<p>To get an understanding of probability, we need some definitions.</p>
 <ol class="simple">
 <li><p>outcomes – mutually exclusive and exhaustive list of possible results in a model</p></li>
 <li><p>events – sets containing zero or more outcomes, we define events we are interested in</p></li>
@@ -585,7 +594,7 @@ Sample space: 0,1,2,3</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr><div class="section" id="probability-space-and-probability">
-<h3>Probability Space and Probability<a class="headerlink" href="#probability-space-and-probability" title="Permalink to this headline">¶</a></h3>
+<h2>Probability Space and Probability<a class="headerlink" href="#probability-space-and-probability" title="Permalink to this headline">¶</a></h2>
 <p>Armed with some definitions of outcomes and events, we are finally ready to talk about probability.</p>
 <p>A probability space is a combination of a sample space, event space, and probability function.  The probability function is a real-valued function mapping events to the interval [0,1].  The probability function adheres to the Axioms of Probability (Kolmogorov Axioms).  These are summarized as:</p>
 <ol>
@@ -594,21 +603,21 @@ Sample space: 0,1,2,3</p>
 \[0 \le P(E) \le 1\]</div>
  <br>
 </li>
-<li><p>the probability of at least one event occuring is 1</p>
+<li><p>the probability of at least one event occurring is 1</p>
 <div class="math notranslate nohighlight">
-\[P(S) = 1\]</div>
-<p>where S is the sample space<br />
-<br></p>
-</li>
-<li><p>countable mutually exclusive sets of events satisfy the following</p>
-<div class="math notranslate nohighlight">
-\[P(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^\infty P(E_i)\]</div>
+\[P(S) = 1$$ where S is the sample space  
+    &lt;br&gt;
+3. countable mutually exclusive sets of events satisfy the following  
+    
+    $$P(\bigcup_{i=1}^\infty E_i) = \sum_{i=1}^\infty P(E_i)\]</div>
 </li>
 </ol>
 <br>
+<br>
+<br>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="graded-evaluation-15-mins">
-<h3>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h3>
+<h2>GRADED EVALUATION (15 mins)<a class="headerlink" href="#graded-evaluation-15-mins" title="Permalink to this headline">¶</a></h2>
 <ol>
 <li><p>You repeatedly roll a die (some large number of times, say 1M) and come up with the following probability of roll results for spots 1-6 in order: {0.14,0.10,0.20,0.14,0.14,0.28). The probability of rolling a 3 is greater than that of rolling a 4.</p>
 <p>a. True</p>
@@ -618,7 +627,7 @@ Sample space: 0,1,2,3</p>
 <p>a. True</p>
 <p>b. False</p>
 </li>
-<li><p>You toss- both a fair coin and a fair die simultaneously. The sample space is</p>
+<li><p>You toss a both a fair coin and a fair die simultaneously. The sample space is</p>
 <p>a. {(HT),(1,2,3,4,5,6)}</p>
 <p>b. {(H,1),(H,2),(H,3),(H,4),(H,5),(H,6),(T,1),(T,2),(T,3),(T,4),(T,5),(T,6)}</p>
 </li>
@@ -633,7 +642,6 @@ Sample space: 0,1,2,3</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
-</div>
 </div>
 
     <script type="text/x-thebe-config">
