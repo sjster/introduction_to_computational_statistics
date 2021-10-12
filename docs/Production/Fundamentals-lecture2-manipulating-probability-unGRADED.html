@@ -364,7 +364,7 @@
 <h1>Probability - II<a class="headerlink" href="#probability-ii" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="addition-rules">
 <h2>Addition rules<a class="headerlink" href="#addition-rules" title="Permalink to this headline">¶</a></h2>
-<p>Addition rules deal with unions (\(\cup\)) of events.  These can be thought of OR probabilities.</p>
+<p>Addition rules deal with unions (\(\cup\)) of events.  These can be thought of as OR probabilities.</p>
 <p>(\(\bigcup\) - non-repeating superset, \(\bigcap\) - common elements)</p>
 <div class="math notranslate nohighlight">
 \[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</div>
@@ -380,7 +380,7 @@
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="multiplication-rules">
 <h2>Multiplication rules<a class="headerlink" href="#multiplication-rules" title="Permalink to this headline">¶</a></h2>
-<p>Multiplication rules deal with intersections (\(\cup\)) of events.  These can be thought of AND probabilities.</p>
+<p>Multiplication rules deal with intersections (\(\cup\)) of events.  These can be thought of as AND probabilities.</p>
 <p>(<span class="math notranslate nohighlight">\(\cup\)</span> - non-repeating superset, <span class="math notranslate nohighlight">\(\cap\)</span> - common elements)</p>
 <p>Dependent<br />
 $<span class="math notranslate nohighlight">\(P(A \cap B) = P(A) \ast P(B|A)\)</span>$</p>
@@ -416,10 +416,10 @@ $<span class="math notranslate nohighlight">\(P(A then B) = P(B then A)\)</span>
 <hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="random-variable">
 <h2>Random variable<a class="headerlink" href="#random-variable" title="Permalink to this headline">¶</a></h2>
-<p>Random variables are (often) real-valued functions mapping outcomes to a measureable space.  In set notation, this looks like:</p>
+<p>Random variables are (often) real-valued functions mapping outcomes to a measurable space.  In set notation, this looks like:</p>
 <div class="math notranslate nohighlight">
 \[X: \Omega \to \mathbb{R}\]</div>
-<p>This mapping defines the probability giving by X in a measureable set as:</p>
+<p>This mapping defines the probability giving by X in a measurable set as:</p>
 <div class="math notranslate nohighlight">
 \[P(X \in S) = P({x \in \Omega | X(x) \in S})\]</div>
 <br>
@@ -434,7 +434,7 @@ Trial = 1 or more experiments</p>
 <p>Experiment = throw 2 dice 500 times<br />
 Trial = in this case, there was a single trial of the experiment<br />
 Random sample = we have 500 realizations of two dice being thrown</p>
-<p>Note, due to how random numbers are generated and used to get the die rolls, we sampled with replacement into a long 1000 long list.  We then pulled the list into two sequences with every other 1 being die1 vs die2.  We could have done this in a for loop rolling both dice in each iteration.  Based on how randon numbers are generated, this would have resulted in the same sequence of die rolls.</p>
+<p>Note, due to how random numbers are generated and are used to get the die rolls, we sampled with replacement into a long 1000 long list.  We then pulled the list into two sequences with every other 1 being die1 vs die2.  We could have done this in a for loop rolling both dice in each iteration.  Based on how randon numbers are generated, this would have resulted in the same sequence of die rolls.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr><div class="cell docutils container">
@@ -445,7 +445,21 @@ Random sample = we have 500 realizations of two dice being thrown</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   die1  die2  dots
+<div class="output text_html"><style scoped>
+  .ansiout {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Source Code Pro", "Menlo", monospace;;
+    font-size: 13px;
+    color: #555;
+    margin-left: 4px;
+    line-height: 19px;
+  }
+</style>
+<div class='ansiout'>   die1  die2  dots
 0     6     2     8
 1     6     4    10
 2     1     6     7
@@ -456,9 +470,7 @@ Random sample = we have 500 realizations of two dice being thrown</p>
 7     6     5    11
 8     2     4     6
 9     6     6    12
-</pre></div>
-</div>
-</div>
+</div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -474,7 +486,7 @@ Random sample = we have 500 realizations of two dice being thrown</p>
 </div>
 <div class="section" id="data-generating-mechanism">
 <h2>Data generating mechanism<a class="headerlink" href="#data-generating-mechanism" title="Permalink to this headline">¶</a></h2>
-<p>This is the actual process we are trying to model.  In the case of the dice, it was the throwing and counting of dots where we are lookign to learn (and use) a statistical model of outcome probabilities.  In a count toss experiment, it is the binary outcome of heads or tails.</p>
+<p>This is the actual process we are trying to model.  In the case of the dice, it was the throwing and counting of dots where we are looking to learn (and use) a statistical model of outcome probabilities.  In a count toss experiment, it is the binary outcome of heads or tails.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr><div class="section" id="graded-evaluation-15-mins">
