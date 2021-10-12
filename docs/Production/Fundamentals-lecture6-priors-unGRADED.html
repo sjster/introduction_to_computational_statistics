@@ -340,8 +340,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#senstivity-analysis-of-priors">
-   Senstivity analysis of priors
+  <a class="reference internal nav-link" href="#sensitivity-analysis-of-priors">
+   Sensitivity analysis of priors
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -396,27 +396,27 @@
 <br>
 <hr style="border:2px solid blue"> </hr><div class="section" id="prior-likelihood">
 <h2>Prior * Likelihood<a class="headerlink" href="#prior-likelihood" title="Permalink to this headline">¶</a></h2>
-<p>In learning about Bayes’ Rule, we saw how our prior information about the occurance of an event is updated through the conditional probability of an event.  We are now considering the case where both the conditional probability of data|parameters and the prior are distributions (including possibly the uniform).</p>
+<p>In learning about Bayes’ Rule, we saw how our prior information about the occurrence of an event is updated through the conditional probability of an event.  We are now considering the case where both the conditional probability of data|parameters and the prior are distributions (including possibly the uniform).</p>
 <p>As related to Bayes’ Rule, the prior is the unconditional probability of the parameters before (new) data.  Priors can come from a number of sources including</p>
 <ul class="simple">
 <li><p>past experiments or experience</p></li>
 <li><p>some sort of desire for balance or weighting in a decision</p></li>
 <li><p>non-informative, but objective</p></li>
-<li><p>mathmatical convenience</p></li>
+<li><p>mathematical convenience</p></li>
 </ul>
 <p>Choice of the prior is as much about what is currently known about the parameters as it is about the goal of the analysis.  This makes the choice of prior subjective and often contested.  How do we choose priors?  Two broad categories could include:</p>
 <ul class="simple">
 <li><p>noninformative</p></li>
 <li><p>informative</p></li>
 </ul>
-<p>The priors can also be <strong>proper</strong>, ie conform to the rules of probability and integrate to 1, or <strong>improper</strong>.  As an example, consider the uniform distribution as a prior to the mean in a normal distribution, we want to apply equal weights to all possiblle values of \(\mu\).  However, \(\mu \in [-\infty,\infty]\) and our uniform prior must span the same range. Jeffrey’s prior is another example of an (often) improper prior discussed below.</p>
+<p>The priors can also be <strong>proper</strong>, ie conform to the rules of probability and integrate to 1, or <strong>improper</strong>.  As an example, consider the uniform distribution as a prior to the mean in a normal distribution, we want to apply equal weights to all possible values of \(\mu\).  However, \(\mu \in [-\infty,\infty]\) and our uniform prior must span the same range. Jeffrey’s prior is another example of an (often) improper prior discussed below.</p>
 <p>The form of the prior is also a choice.  Convenient choices of priors can lead to closed form solutions for the posterior.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr>
 <div class="section" id="conjugate-priors">
 <h3>Conjugate priors<a class="headerlink" href="#conjugate-priors" title="Permalink to this headline">¶</a></h3>
-<p>Conjugate priors are priors that induce a known distribution in the posterior.  When computing the posterior probability, if we have a justifiable reason for using pairing the likelihood which a conjugate prior, we will find the posterior probabality is a known distribution.  For example, consider</p>
+<p>Conjugate priors are priors that induce a known distribution in the posterior.  When computing the posterior probability, if we have a justifiable reason for using pairing the likelihood with a conjugate prior, we will find the posterior probability is a known distribution.  For example, consider</p>
 <div class="math notranslate nohighlight">
 \[X \sim Bern(\theta)\]</div>
 <p>The likelihood takes the form:</p>
@@ -450,7 +450,7 @@ Multivariate normal (known \(\Sigma\)) - inverse-Wishart</p>
 </div>
 <div class="section" id="jeffrey-s-non-informative-prior">
 <h3>Jeffrey’s non-informative prior<a class="headerlink" href="#jeffrey-s-non-informative-prior" title="Permalink to this headline">¶</a></h3>
-<p>The Jeffrey’s prior is a non-informative prior that is derived from the Fisher information.  This prior is non-informative in that we do not specify prior information, but it is informative in that we use the data to information to shape the prior.  Specifically, the Fisher’s information tells us how much information about <span class="math notranslate nohighlight">\(\theta\)</span> is included in the data.  Formally, the Jeffrey’s prior is derived by:</p>
+<p>The Jeffrey’s prior is a non-informative prior that is derived from the Fisher information.  This prior is non-informative in that we do not specify prior information, but it is informative in that we use the data to information to shape the prior.  Specifically, Fisher’s information tells us how much information about <span class="math notranslate nohighlight">\(\theta\)</span> is included in the data.  Formally, the Jeffrey’s prior is derived by:</p>
 <p>\(p(\theta) \propto \sqrt{I_n(\theta)}\), where</p>
 <div class="math notranslate nohighlight">
 \[I_n(\theta) = E_{\theta}\big\{\big(\frac{\partial ln f(\theta)}{\partial \theta}\big)\big\} = -E_{\theta}\big\{\big(\frac{\partial^2 ln L(\theta)}{\partial \theta^2}\big)\big\}\]</div>
@@ -467,7 +467,7 @@ Multivariate normal (known \(\Sigma\)) - inverse-Wishart</p>
 </div>
 <div class="section" id="informative-priors">
 <h3>Informative priors<a class="headerlink" href="#informative-priors" title="Permalink to this headline">¶</a></h3>
-<p>Informative priors are explicitly chosen to represent current knowledge or belief about the parameters of interest.  When choosing informative priors, one can also choose the form of the prior.  As an example, suppose we are back at tossing coins.  We were given a new coin from a friend and were told it would generate heads with P(heads) = 0.75.  We conduct a new experiment to characterize the distribution of <span class="math notranslate nohighlight">\(\theta\)</span>.  We will see that a computationally convenient distribution on the prior is a beta(a,b) when dealing with Bernoulli trials.  What do we choose for paramters the beta distribution?  To incorporate the information we have, we might choose a beta having a mean close to 0.75 to represent the information given to us.  We also have the ability to choose the precision/scale.  We can tune that to represent some amount of disbelief in the un-fairness of the coin.  Looking at the plots below, we could use the beta(6.9,3) or beta(16,6) distribution as examples.  These were chosen empirically through plotting and calculating the mean and modes.</p>
+<p>Informative priors are explicitly chosen to represent current knowledge or belief about the parameters of interest.  When choosing informative priors, one can also choose the form of the prior.  As an example, suppose we are back at tossing coins.  We were given a new coin from a friend and were told it would generate heads with P(heads) = 0.75.  We conduct a new experiment to characterize the distribution of <span class="math notranslate nohighlight">\(\theta\)</span>.  We will see that a computationally convenient distribution on the prior is a beta(a,b) when dealing with Bernoulli trials.  What do we choose for the parameters of the beta distribution?  To incorporate the information we have, we might choose a beta having a mean close to 0.75 to represent the information given to us.  We also have the ability to choose the precision/scale.  We can tune that to represent some amount of disbelief in the unfairness of the coin.  Looking at the plots below, we could use the beta(6.9,3) or beta(16,6) distribution as examples.  These were chosen empirically through plotting and calculating the mean and modes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
@@ -512,8 +512,8 @@ Multivariate normal (known \(\Sigma\)) - inverse-Wishart</p>
 <hr style="border:2px solid blue"> </hr>
 </div>
 </div>
-<div class="section" id="senstivity-analysis-of-priors">
-<h2>Senstivity analysis of priors<a class="headerlink" href="#senstivity-analysis-of-priors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sensitivity-analysis-of-priors">
+<h2>Sensitivity analysis of priors<a class="headerlink" href="#sensitivity-analysis-of-priors" title="Permalink to this headline">¶</a></h2>
 <p>The general approach to using priors in models is to start with some justification for a prior, run the analysis, then come up with competing priors and reexamine the conclusions under the alternative priors.  The results of the final model and the analysis of the sensitivity of the analysis to the choice of prior are written up as a package.</p>
 <p>For a discussion of steps and methods to use in a sensitivity analysis, see:
 Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, Aki Vehtari, and Donald Rubin.</p>
@@ -529,13 +529,13 @@ Bayesian Data Analysis by Andrew Gelman, John Carlin, Hal Stern, David Dunson, A
 <hr style="border:2px solid blue"> </hr>
 <div class="section" id="example-binomial-beta">
 <h3>Example binomial-beta<a class="headerlink" href="#example-binomial-beta" title="Permalink to this headline">¶</a></h3>
-<p>Let us first consider the coin toss experiment above, as a reminder, we are given a presumable unfair coin with p(heads)=0.75.  Let us collect new data and analyze the posterior.  First, we are going to collect a series of tosses, so the likelihood is best given by a binomial distribution.  Examining the likelihood from the perspective of the parameter, \(\theta\), we note both that the functional form of the likelihood appears to be that of a beta and the support of a beta, [0,1], vs the valid values of \(\theta\) match.</p>
+<p>Let us first consider the coin toss experiment above, as a reminder, we are given a presumably unfair coin with p(heads)=0.75.  Let us collect new data and analyze the posterior.  First, we are going to collect a series of tosses, so the likelihood is best given by a binomial distribution.  Examining the likelihood from the perspective of the parameter, \(\theta\), we note both that the functional form of the likelihood appears to be that of a beta and the support of a beta, [0,1], vs the valid values of \(\theta\) match.</p>
 <div class="math notranslate nohighlight">
 \[p(\theta|x) \propto f(x|\theta) \ast p(\theta) \propto \prod_i \big [ \theta^{x_i} (1-\theta)^{n-x_i} \big ] \ast \big [\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\theta^{\alpha-1}(1-\theta)^{\beta-1} \big ]\]</div>
 <p>Simplifying a bit, we get:</p>
 <div class="math notranslate nohighlight">
 \[p(\theta|x) \propto \theta^{\alpha+n\bar{x}-1} (1-\theta)^{\beta+n-n\bar{x}-1}\]</div>
-<p>Following along the discussion above, we note that the things we have that are tunable (hyperparameters), are \(\alpha\) and \(\beta\).  Here, we are using the value of \(\theta\), but to what extent do we believe the friend who gave us the coin and the tip?  Let us simulate three scenarios: a) we don’t believe the friend at all, b) we give some credience to the friend and c) we are strong in our trust.  We will represent these scenarios using beta(1,1), beta(6.9,3),beta(16,6).  Note that we know what the final distribution is, it is a beta(\(\alpha+n\bar{x}\), \(\beta+n-n\bar{x}\)).  We could simply compute the mean, variance etc.  Instead, let’s visuallize the outcomes.  Assume first, we tossed 10 coins and observed 7 heads.</p>
+<p>Following along the discussion above, we note that the things we have that are tunable (hyperparameters), are \(\alpha\) and \(\beta\).  Here, we are using the value of \(\theta\), but to what extent do we believe the friend who gave us the coin and the tip?  Let us simulate three scenarios: a) we don’t believe the friend at all, b) we give some credience to the friend and c) we are strong in our trust.  We will represent these scenarios using beta(1,1), beta(6.9,3),beta(16,6).  Note that we know what the final distribution is, it is a beta(\(\alpha+n\bar{x}\), \(\beta+n-n\bar{x}\)).  We could simply compute the mean, variance etc.  Instead, let’s visualize the outcomes.  Assume first, we tossed 10 coins and observed 7 heads.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### assume the coin is as advertized, could have drew from rbinom(p=0.75)</span>
