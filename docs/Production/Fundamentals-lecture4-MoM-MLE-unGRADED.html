@@ -325,8 +325,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#efficency">
-   Efficency
+  <a class="reference internal nav-link" href="#efficiency">
+   Efficiency
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -403,9 +403,9 @@
 <p>basically, the estimator is unbiased if it is centered on the true.</p>
 </div>
 </div>
-<div class="section" id="efficency">
-<h2>Efficency<a class="headerlink" href="#efficency" title="Permalink to this headline">¶</a></h2>
-<p>An estimator that has the lowest possible variance among all unbiased estimators is considered efficent.</p>
+<div class="section" id="efficiency">
+<h2>Efficiency<a class="headerlink" href="#efficiency" title="Permalink to this headline">¶</a></h2>
+<p>An estimator that has the lowest possible variance among all unbiased estimators is considered efficient.</p>
 <div class="section" id="mean-squared-error">
 <h3>Mean squared error<a class="headerlink" href="#mean-squared-error" title="Permalink to this headline">¶</a></h3>
 <p>Combining the variance and bias, we get a measure of the quality of the estimator called mean squared error (MSE):</p>
@@ -424,7 +424,7 @@
 <p>where \(f(x)=x\) and \(r=1\), this amounts to</p>
 <div class="math notranslate nohighlight">
 \[\mu \approx \bar{x}\]</div>
-<p>It is up to us to chose which moment to use, however, the number of moments required will be equal to the number of parameters we are looking to estimate.  As an example, suppose we are looking to estimate the probability of success for a coin toss experiment given by the Bernoulli distribution.  We know:</p>
+<p>It is up to us to choose which moment to use, however, the number of moments required will be equal to the number of parameters we are looking to estimate.  As an example, suppose we are looking to estimate the probability of success for a coin toss experiment given by the Bernoulli distribution.  We know:</p>
 <p>\(X_i \sim Bern(\theta)\), where we have coded x = 1 for heads:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}P_X(x;\theta) = 
@@ -448,7 +448,7 @@
 <div class="math notranslate nohighlight">
 \[\hat{\theta} = \frac{1}{N} \sum_N x_i = \frac{13}{20}\]</div>
 <p>from which the variance can also be computed.</p>
-<p>Method of Moment estimators can be show to be consitent, but not necessarily efficent and can give estimates that are outside the parameter space.</p>
+<p>Method of Moment estimators can be show to be consistent, but not necessarily efficient and can give estimates that are outside the parameter space.</p>
 <br>
 <br>
 <hr style="border:2px solid blue"> </hr></div>
@@ -473,8 +473,7 @@
 <p>MLE can be shown to be a consistent estimator, but may be biased.  Operationally, it can be computationally expensive to calculate, but offers a useful fact that any function of the parameters is also a function of the MLE, ie invariant to transformations.</p>
 <br>
 <br>
-<hr style="border:2px solid blue"> </hr>
-</div>
+<hr style="border:2px solid blue"> </hr></div>
 <div class="section" id="maximum-a-posteriori-estimate">
 <h2>Maximum a posteriori estimate<a class="headerlink" href="#maximum-a-posteriori-estimate" title="Permalink to this headline">¶</a></h2>
 <p>We will discuss MAP estimates in more detail when talking through priors, for now, we can leave this as the MAP estimate is an augmented MLE using prior, or additional information.  The procedure is the same as in finding the MLE, however, we add additional information via:</p>
